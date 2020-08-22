@@ -1,8 +1,12 @@
-# NAME
-![sample](images/M_pixel.gif)
+![sample](docs/images/M_pixel.gif)
 ## M_pixel - low level pixel graphics library
-
+# UNDER CONSTRUCTION
+# UNDER CONSTRUCTION
+# UNDER CONSTRUCTION
 ![under construction](docs/images/no.gif)
+# UNDER CONSTRUCTION
+# UNDER CONSTRUCTION
+# UNDER CONSTRUCTION
 
 ## DESCRIPTION
 This is a library that creates pixel images with a base
