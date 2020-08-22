@@ -1,0 +1,237 @@
+name = "M_pixel"
+version = "0.1.0"
+#license = "Public Domain"
+author = "John S. Urban"
+maintainer = "urbanjost@comcast.net"
+copyright = "2020 John Urban"
+
+#[[test]]
+#   name="runTests"
+#   source-dir="test"
+#   main="test_suite_M_pixel.f90"
+
+#[[executable]]
+#   name="slices"
+#   source-dir="app/slices"
+#   main="slices.f90"
+
+#[[test]]
+#   source-dir="test/gif/mandelbrot"
+#   name="gif"
+#   main="mandelbrot.f90"
+[[test]]
+   source-dir="test/roman"
+   name="roman"
+   main="roman.f90"
+#[[test]]
+#   source-dir="test/no"
+#   name="no"
+#   main="circle_animated.f90"
+[[test]]
+   source-dir="test/demos/arc"
+   name="arc"
+   main="arc.f90"
+[[test]]
+   source-dir="test/demos/centertext"
+   name="centertext"
+   main="centertext.f90"
+[[test]]
+   source-dir="test/demos/circle"
+   name="circle"
+   main="circle.f90"
+[[test]]
+   source-dir="test/demos/circleprecision"
+   name="circleprecision"
+   main="circleprecision.f90"
+#[[test]]
+#   source-dir="test/demos/clear"
+#   name="clear"
+#   main="clear.f90"
+#[[test]]
+#   source-dir="test/demos/closepoly"
+#   name="closepoly"
+#   main="closepoly.f90"
+[[test]]
+   source-dir="test/demos/color"
+   name="color"
+   main="color.f90"
+[[test]]
+   source-dir="test/demos/draw2"
+   name="draw2"
+   main="draw2.f90"
+[[test]]
+   source-dir="test/demos/drawchar"
+   name="drawchar"
+   main="drawchar.f90"
+[[test]]
+   source-dir="test/demos/drawstr"
+   name="drawstr"
+   main="drawstr.f90"
+[[test]]
+   source-dir="test/demos/font"
+   name="font"
+   main="font.f90"
+#[[test]]
+#   source-dir="test/demos/getdisplaysize"
+#   name="getdisplaysize"
+#   main="getdisplaysize.f90"
+[[test]]
+   source-dir="test/demos/getgp2"
+   name="getgp2"
+   main="getgp2.f90"
+#[[test]]
+#   source-dir="test/demos/getviewport"
+#   name="getviewport"
+#   main="getviewport.f90"
+[[test]]
+   source-dir="test/demos/hershey"
+   name="hershey"
+   main="hershey.f90"
+#[[test]]
+#   source-dir="test/demos/justfy"
+#   name="justfy"
+#   main="justfy.f90"
+#[[test]]
+#   source-dir="test/demos/line"
+#   name="line"
+#   main="line.f90"
+[[test]]
+   source-dir="test/demos/linewidth"
+   name="linewidth"
+   main="linewidth.f90"
+[[test]]
+   source-dir="test/demos/makepoly"
+   name="makepoly"
+   main="makepoly.f90"
+[[test]]
+   source-dir="test/demos/mapcolor"
+   name="mapcolor"
+   main="mapcolor.f90"
+[[test]]
+   source-dir="test/demos/move2"
+   name="move2"
+   main="move2.f90"
+[[test]]
+   source-dir="test/demos/M_pixel"
+   name="M_pixel"
+   main="M_pixel.f90"
+#[[test]]
+#   source-dir="test/demos/ortho2"
+#   name="ortho2"
+#   main="ortho2.f90"
+#[[test]]
+#   source-dir="test/demos/page"
+#   name="page"
+#   main="page.f90"
+[[test]]
+   source-dir="test/demos/point2"
+   name="point2"
+   main="point2.f90"
+[[test]]
+   source-dir="test/demos/poly2"
+   name="poly2"
+   main="poly2.f90"
+#[[test]]
+#   source-dir="test/demos/polyline2"
+#   name="polyline2"
+#   main="polyline2.f90"
+[[test]]
+   source-dir="test/demos/prefsize"
+   name="prefsize"
+   main="prefsize.f90"
+[[test]]
+   source-dir="test/demos/print_ascii"
+   name="print_ascii"
+   main="print_ascii.f90"
+[[test]]
+   source-dir="test/demos/print_ppm"
+   name="print_ppm"
+   main="print_ppm.f90"
+[[test]]
+   source-dir="test/demos/rdraw2"
+   name="rdraw2"
+   main="rdraw2.f90"
+[[test]]
+   source-dir="test/demos/rect"
+   name="rect"
+   main="rect.f90"
+[[test]]
+   source-dir="test/demos/rmove2"
+   name="rmove2"
+   main="rmove2.f90"
+[[test]]
+   source-dir="test/demos/state"
+   name="state"
+   main="state.f90"
+[[test]]
+   source-dir="test/demos/strlength"
+   name="strlength"
+   main="strlength.f90"
+[[test]]
+   source-dir="test/demos/textang"
+   name="textang"
+   main="textang.f90"
+[[test]]
+   source-dir="test/demos/textsize"
+   name="textsize"
+   main="textsize.f90"
+[[test]]
+   source-dir="test/demos/vexit"
+   name="vexit"
+   main="vexit.f90"
+#[[test]]
+#   source-dir="test/demos/viewport"
+#   name="viewport"
+#   main="viewport.f90"
+[[test]]
+   source-dir="test/demos/vinit"
+   name="vinit"
+   main="vinit.f90"
+#[[test]]
+#   source-dir="test/demos/xcentertext"
+#   name="xcentertext"
+#   main="xcentertext.f90"
+#[[test]]
+#   source-dir="test/demos/ycentertext"
+#   name="ycentertext"
+#   main="ycentertext.f90"
+[[test]]
+   source-dir="test/demos/readgif"
+   name="readgif"
+   main="readgif.f90"
+[[test]]
+   source-dir="test/demos/write_animated_gif"
+   name="write_animated_gif"
+   main="write_animated_gif.f90"
+#[[test]]
+#   source-dir="test/demos/write_animated_gif.3m_writegif_animated"
+#   name="write_animated_gif.3m_writegif_animated"
+#   main="write_animated_gif.3m_writegif_animated.f90"
+[[test]]
+   source-dir="test/demos/writegif"
+   name="writegif"
+   main="writegif.f90"
+[[test]]
+   source-dir="test/demos/closest_color_name"
+   name="closest_color_name"
+   main="closest_color_name.f90"
+[[test]]
+   source-dir="test/demos/color_name2rgb"
+   name="color_name2rgb"
+   main="color_name2rgb.f90"
+[[test]]
+   source-dir="test/demos/hue"
+   name="hue"
+   main="hue.f90"
+[[test]]
+   source-dir="test/demos/d2r"
+   name="d2r"
+   main="d2r.f90"
+[[test]]
+   source-dir="test/demos/polar_to_cartesian"
+   name="test/demos/polar_to_cartesian"
+   main="polar_to_cartesian.f90"
+#[[test]]
+#   source-dir="test/gif"
+#   name="gif"
+#   main="circle_illusion.f90"
