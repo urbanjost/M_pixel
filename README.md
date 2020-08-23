@@ -2,9 +2,10 @@
 ## M_pixel - low level pixel graphics library
 
 ## DESCRIPTION
-This is a library that creates pixel images with a base
-vector-oriented graphics library that emulates a subset
-of the M_draw vector graphics library.
+This is a library that creates pixel images with a base vector-oriented
+graphics library that emulates a subset of the M_draw vector graphics
+library. It is supplemented with additional modules that read and write
+GIF files, including animated GIFs.
 
 ## BUILDING THE MODULES
      git clone https://github.com/urbanjost/M_pixel.git
@@ -14,14 +15,6 @@ of the M_draw vector graphics library.
 
 This will compile the Fortran and basic example programs that exercise
 the routines.
-
-While you are there, you might want to generate a text version of the
-documentation as well:
-
-    # show all manpages as text
-    env MANWIDTH=80 MANPATH=../man man --regex '.*' |col -b|tee man.txt
-
-## NOTES
 
 ## USER DOCUMENTATION
    - an [index](https://urbanjost.github.io/M_pixel/man3.html) to
@@ -33,9 +26,8 @@ documentation as well:
 
 ## ADDITIONAL DIRECTORY DESCRIPTIONS
 There are 
-    * manpages in the man/man3 directory 
-    * HTML documentation in the docs/ directory.
-    * demo programs in the test/ directory
+   - manpages in the man/man3 directory 
+   - demo programs in the test/ directory
 
 ## UNIT TESTS
 There are no automated unit tests per-se. Running the example programs
@@ -43,7 +35,8 @@ and demo programs ensures the library is functioning.
 
 ## FUTURE
 There are a collection of higher-level routines that need added, as well
-as more font support.
+as more font support, and antialiasing and basic pixel operations (the
+library currently primarily provides two-dimensional vector-like commands).
 
 An example program using this low-level library to generate higher-level
 graphics:
