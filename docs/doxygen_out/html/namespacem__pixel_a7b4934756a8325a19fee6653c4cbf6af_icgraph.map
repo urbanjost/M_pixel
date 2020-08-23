@@ -1,0 +1,7 @@
+<map id="m_pixel::lower" name="m_pixel::lower">
+<area shape="rect" id="node2" href="$namespacem__pixel.html#aa76d2ac385f3ad0bc2b555cc14b7d53f" title="m_pixel::hue" alt="" coords="212,56,319,83"/>
+<area shape="rect" id="node5" href="$namespacem__pixel.html#aee26ac45961d4093d2e472fcb6e1887d" title="m_pixel::color_name2rgb" alt="" coords="172,107,359,133"/>
+<area shape="rect" id="node3" href="$namespacem__pixel.html#a854b4980c2694d7c33b2830a225eeca0" title="m_pixel::hlsrgb" alt="" coords="451,5,573,32"/>
+<area shape="rect" id="node4" href="$namespacem__pixel.html#a6eda5641d5c42b51d9488bd7ea743744" title="m_pixel::hvsrgb" alt="" coords="449,56,575,83"/>
+<area shape="rect" id="node6" href="$namespacem__pixel.html#a8555eecec7e18106e8167e137cfe8424" title="m_pixel::closest_color_name" alt="" coords="407,107,617,133"/>
+</map>

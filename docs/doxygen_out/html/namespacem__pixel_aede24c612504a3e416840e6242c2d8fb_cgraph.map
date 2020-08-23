@@ -1,0 +1,10 @@
+<map id="m_pixel::ppm_endcap_circle" name="m_pixel::ppm_endcap_circle">
+<area shape="rect" id="node2" href="$namespacem__pixel.html#a312c40bfbd03b2bbe6f85bc5efca6ce3" title="m_pixel::cosd" alt="" coords="249,13,361,39"/>
+<area shape="rect" id="node4" href="$namespacem__pixel.html#aedaf33a27e9899da22c2497aff2af903" title="m_pixel::ppm_solid_fill" alt="" coords="219,122,391,149"/>
+<area shape="rect" id="node9" href="$namespacem__pixel.html#a3ef23ce0230c47b30cb627ebd439daae" title="m_pixel::sind" alt="" coords="250,63,359,90"/>
+<area shape="rect" id="node3" href="$namespacem__pixel.html#a18d90bca3489d1280c4326e51b5cb7b3" title="m_pixel::anyscalar\l_to_double" alt="" coords="468,5,613,47"/>
+<area shape="rect" id="node5" href="$namespacem__pixel.html#a4924b3a5033acb74a4f4df60a4ba21eb" title="m_pixel::ppm_yintercept" alt="" coords="449,71,633,98"/>
+<area shape="rect" id="node6" href="$namespacem__pixel.html#a4396c3ff36a080fbbfa859348203d0c7" title="m_pixel::sort_shell\l_integers_hl" alt="" coords="468,123,613,164"/>
+<area shape="rect" id="node8" href="$namespacem__pixel.html#a6f75bc951acd07267e0841ca5985d8b7" title="m_pixel::ppm_draw_fill_line" alt="" coords="439,189,643,215"/>
+<area shape="rect" id="node7" href="$namespacem__pixel.html#a063f74c3dd2f7f086dc47ec68abc22c9" title="m_pixel::swapcoord" alt="" coords="691,130,843,157"/>
+</map>

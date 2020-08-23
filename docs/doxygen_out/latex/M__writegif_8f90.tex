@@ -1,0 +1,69 @@
+\hypertarget{M__writegif_8f90}{}\section{/home/urbanjs/venus/\+V600/github/\+M\+\_\+pixel/src/\+M\+\_\+writegif.f90 File Reference}
+\label{M__writegif_8f90}\index{/home/urbanjs/venus/\+V600/github/\+M\+\_\+pixel/src/\+M\+\_\+writegif.\+f90@{/home/urbanjs/venus/\+V600/github/\+M\+\_\+pixel/src/\+M\+\_\+writegif.\+f90}}
+\subsection*{Modules}
+\begin{DoxyCompactItemize}
+\item 
+module \mbox{\hyperlink{namespacem__writegif}{m\+\_\+writegif}}
+\end{DoxyCompactItemize}
+\subsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+character(len=2) function \mbox{\hyperlink{namespacem__writegif_a79ebbfd4c7df8520a82c75c3a62f0c96}{m\+\_\+writegif\+::char2}} (ival)
+\item 
+subroutine, private \mbox{\hyperlink{namespacem__writegif_a48c5ca5487be9dbe565c0d4f8aa02d0d}{m\+\_\+writegif\+::flushbuffer}} (F\+\_\+unit)
+\item 
+subroutine, private \mbox{\hyperlink{namespacem__writegif_a13c09be69495f4ba21ecb7c134216a17}{m\+\_\+writegif\+::giflzw}} (F\+\_\+unit, Pixel)
+\item 
+subroutine, private \mbox{\hyperlink{namespacem__writegif_aed61b15f90188ddf39b71aa0c73a82a8}{m\+\_\+writegif\+::inittable}} ()
+\item 
+subroutine \mbox{\hyperlink{namespacem__writegif_adb045213dd61508ad7dc7e5640fde67d}{m\+\_\+writegif\+::open\+\_\+for\+\_\+write}} (Fname, Funit)
+\item 
+subroutine, private \mbox{\hyperlink{namespacem__writegif_a27e0ec2c6e05428641179bf35762adb7}{m\+\_\+writegif\+::slicewrite}} (F\+\_\+unit, code)
+\item 
+subroutine, public \mbox{\hyperlink{namespacem__writegif_a02be37849028b2f9484cff1b4285375d}{m\+\_\+writegif\+::writegif}} (File\+Name, Pixel, Color\+Map, Transparent)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+integer, parameter, private \mbox{\hyperlink{namespacem__writegif_accdaeeac4357a3dc3dead0ba36e7efd4}{m\+\_\+writegif\+::bufend}} =260
+\item 
+character(len=bufend), private \mbox{\hyperlink{namespacem__writegif_aa50fc715675e43931ce58f557bf8eb02}{m\+\_\+writegif\+::buf}}
+\item 
+integer, private \mbox{\hyperlink{namespacem__writegif_a51ee343cdcbf2cd11f1b3740651077eb}{m\+\_\+writegif\+::ibuf}}
+\item 
+integer, parameter, private \mbox{\hyperlink{namespacem__writegif_ac55f9abf33971ad396b2ae59b288b0bb}{m\+\_\+writegif\+::maxcode}} = 4095
+\item 
+integer, parameter, private \mbox{\hyperlink{namespacem__writegif_a39141257b89b2cea89b4db4e0a372ffa}{m\+\_\+writegif\+::nocode}} = maxcode+1
+\item 
+character(len=1), dimension(0\+:maxcode+1), private \mbox{\hyperlink{namespacem__writegif_a43cdcf79f632247eaebb73fc3a7ff25f}{m\+\_\+writegif\+::endbyte}}
+\item 
+integer, dimension(0\+:maxcode), private \mbox{\hyperlink{namespacem__writegif_aea2ce887598c0e5d80adb90558230c32}{m\+\_\+writegif\+::follow}}
+\item 
+integer, dimension(0\+:maxcode), private \mbox{\hyperlink{namespacem__writegif_a592346fdf478d7727c143cd25ece2a96}{m\+\_\+writegif\+::next}}
+\item 
+integer, private \mbox{\hyperlink{namespacem__writegif_aac26e9673fe5e79908a6ff576a298986}{m\+\_\+writegif\+::ncod}}
+\item 
+integer, private \mbox{\hyperlink{namespacem__writegif_a634657dd81148fd56f39232d7ceda8b5}{m\+\_\+writegif\+::curmaxcode}}
+\item 
+integer, private \mbox{\hyperlink{namespacem__writegif_a4f0ce85ba2c32d98d9c88801be25cd1f}{m\+\_\+writegif\+::eoi}}
+\item 
+integer, private \mbox{\hyperlink{namespacem__writegif_a4dc9a91a4e7fde14eff0bab58278e61b}{m\+\_\+writegif\+::cc}}
+\item 
+integer, private \mbox{\hyperlink{namespacem__writegif_a34d3a64b1381a281909da380d922d770}{m\+\_\+writegif\+::p}}
+\item 
+integer, private \mbox{\hyperlink{namespacem__writegif_a29211b5bf371e3be08c3047bc80d3e91}{m\+\_\+writegif\+::k}}
+\item 
+integer, private \mbox{\hyperlink{namespacem__writegif_a5e1b83b3bc6e486c730832371c48f6e0}{m\+\_\+writegif\+::child}}
+\item 
+integer, private \mbox{\hyperlink{namespacem__writegif_ae052e1663af721294a611d19b300a8ef}{m\+\_\+writegif\+::maxbase}}
+\item 
+integer, private \mbox{\hyperlink{namespacem__writegif_aaf7927ca24ee3d409138c18d7d254433}{m\+\_\+writegif\+::skip}}
+\item 
+integer, private \mbox{\hyperlink{namespacem__writegif_ad3e590b43489ea5d2c357953adaca817}{m\+\_\+writegif\+::slen}}
+\item 
+integer, private \mbox{\hyperlink{namespacem__writegif_add860aadf7250b3b589b697cc90fcccf}{m\+\_\+writegif\+::blen}}
+\item 
+integer, private \mbox{\hyperlink{namespacem__writegif_a2a80a14e30c6ed2b0003d46a93480531}{m\+\_\+writegif\+::accum}}
+\item 
+integer, private \mbox{\hyperlink{namespacem__writegif_a91b7b1d0dd2ced615d855f3440716415}{m\+\_\+writegif\+::nout}}
+\end{DoxyCompactItemize}

@@ -1,0 +1,7 @@
+<map id="m_pixel::move2" name="m_pixel::move2">
+<area shape="rect" id="node2" href="$namespacem__pixel.html#a5435aa0d9d6048a62c09d7d90665b958" title="m_pixel::rect" alt="" coords="198,5,305,32"/>
+<area shape="rect" id="node3" href="$namespacem__pixel.html#a0678be124889fb633475a6724ddb6640" title="m_pixel::polyline2" alt="" coords="180,56,323,83"/>
+<area shape="rect" id="node4" href="$namespacem__pixel.html#ab881b9c2adff081a086cd83a1f1341fb" title="m_pixel::arc" alt="" coords="200,107,303,133"/>
+<area shape="rect" id="node5" href="$namespacem__pixel.html#a6fa0c2d531d1ac74840aa2f0e2b050e0" title="m_pixel::drawstr" alt="" coords="186,157,317,184"/>
+<area shape="rect" id="node6" href="$namespacem__pixel.html#a58406ffd6c2a9fdf2ea7772198b54255" title="m_pixel::drawchar" alt="" coords="371,157,513,184"/>
+</map>

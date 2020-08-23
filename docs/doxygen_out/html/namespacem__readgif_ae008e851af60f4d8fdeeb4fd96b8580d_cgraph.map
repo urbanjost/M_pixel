@@ -1,0 +1,7 @@
+<map id="m_readgif::open_gif" name="m_readgif::open_gif">
+<area shape="rect" id="node2" href="$namespacem__readgif.html#a38594ce718f97f844771250edcd5e496" title="m_readgif::bcint2b" alt="" coords="230,5,374,32"/>
+<area shape="rect" id="node3" href="$namespacem__readgif.html#a7109d632cddcb8d66729d25bbed5c33c" title="m_readgif::get_lun" alt="" coords="230,56,374,83"/>
+<area shape="rect" id="node4" href="$namespacem__readgif.html#ae01d3edbe9e15bf4dd33070581e26fee" title="m_readgif::io_error" alt="" coords="229,107,375,133"/>
+<area shape="rect" id="node5" href="$namespacem__readgif.html#a272a4dbcc1419d3d103db4c50b757805" title="m_readgif::read_buf" alt="" coords="447,183,600,209"/>
+<area shape="rect" id="node6" href="$namespacem__readgif.html#aabaf13dcb1e665b2524049e5661ca4b6" title="m_readgif::read_colormap" alt="" coords="205,208,399,235"/>
+</map>

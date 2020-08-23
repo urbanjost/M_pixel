@@ -8,7 +8,8 @@
 .ad l
 ." -----------------------------------------------------------------
 .SH NAME
-\fBHUE(3f) \fP- [M_pixel] converts a color's components from one color model to another. (LICENSE:PD)
+\fBHUE(3f) \fP- [M_pixel] converts a color's components from one color model to another
+\fB(LICENSE:PD)
 \fB
 .SH SYNOPSIS
 .nf
@@ -17,8 +18,8 @@ subroutine \fBhue\fP(modei,clr1i,clr2i,clr3i,modeo,clr1o,clr2o,clr3o,status)
 .PP
 .nf
 .fam C
-    character(len=*),intent(in) :: modei  ! name of color model of input values
-    character(len=*),intent(in) :: modeo  ! name of color model of output values
+    character(len=*),intent(in) :: modei
+    character(len=*),intent(in) :: modeo
     real,intent(in)             :: clr1i,clr2i,clr3i
     real,intent(out)            :: clr1o,clr2o,clr3o
     integer,intent(out)         :: status
@@ -28,51 +29,34 @@ subroutine \fBhue\fP(modei,clr1i,clr2i,clr3i,modeo,clr1o,clr2o,clr3o,status)
 .fam T
 .fi
 .SH DESCRIPTION
-Basic color models \.\.\.
+Basic color models:
 .PP
 .nf
 .fam C
-                valid values for modei and modeo as well as the corresponding
-                          meanings for clr1*, clr2*, and clr3* are:
+    +----------------------------------------------------------+
+    | valid values for modei and modeo as well as the          |
+    | corresponding meanings for clr1*, clr2*, and clr3* are:  |
+    +----------------------------------------------------------+
+    |model| clr1         |         clr2      |         clr3    |
+    |-----+--------------+-------------------+-----------------|
+    |hls  |hue           |lightness          |saturation       |
+    |-----+--------------+-------------------+-----------------|
+    |hsl  |hue           |saturation         |lightness        |
+    |-----+--------------+-------------------+-----------------|
+    |hvs  |hue           |value              |saturation       |
+    |-----+--------------+-------------------+-----------------|
+    |hsv  |hue           |saturation         |value            |
+    |-----+--------------+-------------------+-----------------|
+    |rgb  |red           |green              |blue             |
+    |-----+--------------+-------------------+-----------------|
+    |cmy  |cyan          |magenta            |yellow           |
+    |-----+--------------+-------------------+-----------------|
+    |yiq  |gray scale)   |orange-blue        |purple-green     |
+    |     |              |chrominance        |chrominance      |
+    +----------------------------------------------------------+
+
 .fam T
 .fi
-+---------------------------------------------------------------------+
-.RS
-.TP
-.B |model| clr1
-|         clr2         |         clr3          |
-|-----+----------------+----------------------+-----------------------|
-.TP
-.B |hls
-|hue             |lightness             |saturation             |
-|-----+----------------+----------------------+-----------------------|
-.TP
-.B |hsl
-|hue             |saturation            |lightness              |
-|-----+----------------+----------------------+-----------------------|
-.TP
-.B |hvs
-|hue             |value                 |saturation             |
-|-----+----------------+----------------------+-----------------------|
-.TP
-.B |hsv
-|hue             |saturation            |value                  |
-|-----+----------------+----------------------+-----------------------|
-.TP
-.B |rgb
-|red             |green                 |blue                   |
-|-----+----------------+----------------------+-----------------------|
-.TP
-.B |cmy
-|cyan            |magenta               |yellow                 |
-|-----+----------------+----------------------+-----------------------|
-.TP
-.B |yiq
-|gray scale)     |orange-blue           |purple-green           |
-.TP
-.B |
-|                |chrominance           |chrominance            |
-+---------------------------------------------------------------------+
 .IP \(bu 3
 lightness, value, saturation, red, green, blue, cyan, magenta, and
 yellow range from 0 to 100,
@@ -91,14 +75,14 @@ The STATUS variable can signal the following conditions:
 .PP
 .nf
 .fam C
-              -1   modei = modeo, so no substantial conversion was done,
-               1   one of the input color values was outside the allowable range,
-               2   modei was invalid
-               3   modeo was invalid
+     -1   modei = modeo, so no substantial conversion was done,
+      1   one of the input color values was outside the allowable range,
+      2   modei was invalid
+      3   modeo was invalid
 
 .fam T
 .fi
-.SS   EXAMPLE
+.SH EXAMPLE
 Sample program
 .PP
 .nf
@@ -154,6 +138,7 @@ Sample program
 
 .fam T
 .fi
+.RS
 Results:
 .PP
 .nf

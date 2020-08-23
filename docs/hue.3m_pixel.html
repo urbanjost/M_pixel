@@ -53,17 +53,19 @@ a.existingWikiWord[title]{ //border: 1px dashed #BBB; }
 
 </A>
 <BLOCKQUOTE>
-<B>HUE(3f) </B>- [M_pixel] converts a color&#146;s components from one color model to another. (LICENSE:PD)
-<B>
+<B>HUE(3f) </B>- [M_pixel] converts a color&#146;s components from one color model to another
+<B>(LICENSE:PD)
+</B><B>
 </B></BLOCKQUOTE>
 <A name=contents></A><H3>CONTENTS</H3></A>
 <BLOCKQUOTE>
 <A HREF=#1>Synopsis</A><BR>
 <A HREF=#2>Description</A><BR>
-<A HREF=#3>Author</A><BR>
-<A HREF=#4>License</A><BR>
+<A HREF=#3>Example</A><BR>
+<A HREF=#4>Author</A><BR>
+<A HREF=#5>License</A><BR>
 </BLOCKQUOTE>
-<A name=5>
+<A name=6>
 
      <H3>SYNOPSIS</H3>
 
@@ -72,8 +74,8 @@ a.existingWikiWord[title]{ //border: 1px dashed #BBB; }
 <PRE>
 subroutine <B>hue</B>(modei,clr1i,clr2i,clr3i,modeo,clr1o,clr2o,clr3o,status)
 <P>
-    character(len=*),intent(in) :: modei  ! name of color model of input values
-    character(len=*),intent(in) :: modeo  ! name of color model of output values
+    character(len=*),intent(in) :: modei
+    character(len=*),intent(in) :: modeo
     real,intent(in)             :: clr1i,clr2i,clr3i
     real,intent(out)            :: clr1o,clr2o,clr3o
     integer,intent(out)         :: status
@@ -86,62 +88,33 @@ subroutine <B>hue</B>(modei,clr1i,clr2i,clr3i,modeo,clr1o,clr2o,clr3o,status)
 
 </A>
 <BLOCKQUOTE>
-Basic color models &#46;&#46;&#46;
+Basic color models:
 <P>
 <PRE>
-                valid values for modei and modeo as well as the corresponding
-                          meanings for clr1*, clr2*, and clr3* are:
+    +----------------------------------------------------------+
+    | valid values for modei and modeo as well as the          |
+    | corresponding meanings for clr1*, clr2*, and clr3* are:  |
+    +----------------------------------------------------------+
+    |model| clr1         |         clr2      |         clr3    |
+    |-----+--------------+-------------------+-----------------|
+    |hls  |hue           |lightness          |saturation       |
+    |-----+--------------+-------------------+-----------------|
+    |hsl  |hue           |saturation         |lightness        |
+    |-----+--------------+-------------------+-----------------|
+    |hvs  |hue           |value              |saturation       |
+    |-----+--------------+-------------------+-----------------|
+    |hsv  |hue           |saturation         |value            |
+    |-----+--------------+-------------------+-----------------|
+    |rgb  |red           |green              |blue             |
+    |-----+--------------+-------------------+-----------------|
+    |cmy  |cyan          |magenta            |yellow           |
+    |-----+--------------+-------------------+-----------------|
+    |yiq  |gray scale)   |orange-blue        |purple-green     |
+    |     |              |chrominance        |chrominance      |
+    +----------------------------------------------------------+
+<P>
 </PRE>
-+---------------------------------------------------------------------+
-<BLOCKQUOTE>
-<TABLE cellpadding=3><!-- tsb:                 valid values for modei and modeo as well as the corresponding
- -->
-<TR></TR><TR></TR>
-<TR valign=top><TD colspan=2>
-<B>|model| clr1</B> </TD></TR><TR valign=top><TD width=6%>&nbsp;</TD><TD>
-|         clr2         |         clr3          |
-|-----+----------------+----------------------+-----------------------|
-</TD></TR>
-<TR valign=top><TD width=6% nowrap>
-<B>|hls</B> </TD><TD valign=bottom>
-|hue             |lightness             |saturation             |
-|-----+----------------+----------------------+-----------------------|
-</TD></TR>
-<TR valign=top><TD width=6% nowrap>
-<B>|hsl</B> </TD><TD valign=bottom>
-|hue             |saturation            |lightness              |
-|-----+----------------+----------------------+-----------------------|
-</TD></TR>
-<TR valign=top><TD width=6% nowrap>
-<B>|hvs</B> </TD><TD valign=bottom>
-|hue             |value                 |saturation             |
-|-----+----------------+----------------------+-----------------------|
-</TD></TR>
-<TR valign=top><TD width=6% nowrap>
-<B>|hsv</B> </TD><TD valign=bottom>
-|hue             |saturation            |value                  |
-|-----+----------------+----------------------+-----------------------|
-</TD></TR>
-<TR valign=top><TD width=6% nowrap>
-<B>|rgb</B> </TD><TD valign=bottom>
-|red             |green                 |blue                   |
-|-----+----------------+----------------------+-----------------------|
-</TD></TR>
-<TR valign=top><TD width=6% nowrap>
-<B>|cmy</B> </TD><TD valign=bottom>
-|cyan            |magenta               |yellow                 |
-|-----+----------------+----------------------+-----------------------|
-</TD></TR>
-<TR valign=top><TD width=6% nowrap>
-<B>|yiq</B> </TD><TD valign=bottom>
-|gray scale)     |orange-blue           |purple-green           |
-</TD></TR>
-<TR valign=top><TD width=6% nowrap>
-<B>|</B> </TD><TD valign=bottom>
-|                |chrominance           |chrominance            |
-+---------------------------------------------------------------------+
-</TD></TR>
-<TR></TR></TABLE><TABLE cellpadding=3>
+<TABLE cellpadding=3>
 <TR valign=top><TD width=3%>
 o
 </TD><TD>
@@ -175,17 +148,17 @@ q ranges from <B>-52</B> to 52
 <TR></TR></TABLE>The STATUS variable can signal the following conditions:
 <P>
 <PRE>
-              -1   modei = modeo, so no substantial conversion was done,
-               1   one of the input color values was outside the allowable range,
-               2   modei was invalid
-               3   modeo was invalid
+     -1   modei = modeo, so no substantial conversion was done,
+      1   one of the input color values was outside the allowable range,
+      2   modei was invalid
+      3   modeo was invalid
 <P>
 </PRE>
 </BLOCKQUOTE>
-</BLOCKQUOTE>
-<A name=>
+<A name=3>
 
-    <H4>&nbsp; &nbsp; EXAMPLE</H4>
+     <H3>EXAMPLE</H3>
+
 </A>
 <BLOCKQUOTE>
 Sample program
@@ -241,6 +214,7 @@ Sample program
     end program demo_hue
 <P>
 </PRE>
+<BLOCKQUOTE>
 Results:
 <P>
 <PRE>
@@ -355,7 +329,8 @@ Results:
 <P>
 </PRE>
 </BLOCKQUOTE>
-<A name=3>
+</BLOCKQUOTE>
+<A name=4>
 
      <H3>AUTHOR</H3>
 
@@ -363,7 +338,7 @@ Results:
 <BLOCKQUOTE>
 John S. Urban
 </BLOCKQUOTE>
-<A name=4>
+<A name=5>
 
      <H3>LICENSE</H3>
 
@@ -372,7 +347,7 @@ John S. Urban
 Public Domain
 </BLOCKQUOTE>
 <P><HR>
-<TABLE width=100%><TR> <TD width=33%><I></I></TD> <TD width=33% align=center>hue (3m_pixel)</TD> <TD align=right width=33%><I>August 22, 2020</I></TD> </TR></TABLE><FONT SIZE=-1>Generated by <A HREF="http://www.squarebox.co.uk/download/manServer.shtml">manServer 1.08</A> from 9ab8bd1a-b39f-4d94-a253-bbcf7bc7aa6b using man macros.</FONT>
+<TABLE width=100%><TR> <TD width=33%><I></I></TD> <TD width=33% align=center>hue (3m_pixel)</TD> <TD align=right width=33%><I>August 22, 2020</I></TD> </TR></TABLE><FONT SIZE=-1>Generated by <A HREF="http://www.squarebox.co.uk/download/manServer.shtml">manServer 1.08</A> from 8531c4e2-a04b-440a-952b-9b54b6a7db27 using man macros.</FONT>
 <br><br><center><img src="images/hue.gif"></center>
 </div>
 </div>

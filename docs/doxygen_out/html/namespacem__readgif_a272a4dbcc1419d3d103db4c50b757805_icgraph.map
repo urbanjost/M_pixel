@@ -1,0 +1,10 @@
+<map id="m_readgif::read_buf" name="m_readgif::read_buf">
+<area shape="rect" id="node2" href="$namespacem__readgif.html#a775e2da2a9f54ec308e87a339a393ed6" title="m_readgif::readgif" alt="" coords="1139,169,1281,196"/>
+<area shape="rect" id="node3" href="$namespacem__readgif.html#a93c5f69ee5054ba2c10ed17b8ab53f6b" title="m_readgif::do_extension" alt="" coords="448,43,631,69"/>
+<area shape="rect" id="node4" href="$namespacem__readgif.html#ace6e51d0293107696bd1482348414a43" title="m_readgif::get_data\l_block" alt="" coords="227,119,380,161"/>
+<area shape="rect" id="node7" href="$namespacem__readgif.html#a4af978d944dbefb3ddeb81cd8c54d0f9" title="m_readgif::read_image" alt="" coords="917,169,1091,196"/>
+<area shape="rect" id="node8" href="$namespacem__readgif.html#ae008e851af60f4d8fdeeb4fd96b8580d" title="m_readgif::open_gif" alt="" coords="463,245,615,272"/>
+<area shape="rect" id="node9" href="$namespacem__readgif.html#aabaf13dcb1e665b2524049e5661ca4b6" title="m_readgif::read_colormap" alt="" coords="207,296,400,323"/>
+<area shape="rect" id="node5" href="$namespacem__readgif.html#a027fedbf7ba68763483988c1aa6d2cea" title="m_readgif::get_code" alt="" coords="462,93,617,120"/>
+<area shape="rect" id="node6" href="$namespacem__readgif.html#a314e657d0662360266bac5702a657ef1" title="m_readgif::lzw_read_byte" alt="" coords="679,144,869,171"/>
+</map>
