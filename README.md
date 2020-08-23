@@ -24,7 +24,7 @@ documentation as well:
 ## NOTES
 
 ## USER DOCUMENTATION
-   - a simple [index](https://urbanjost.github.io/M_pixel/) to
+   - an [index](https://urbanjost.github.io/M_pixel/man3.html) to
      the individual manpages in HTML form
 
    - A single page that uses javascript to combine all the HTML
@@ -33,9 +33,9 @@ documentation as well:
 
 ## ADDITIONAL DIRECTORY DESCRIPTIONS
 There are 
-    - manpages in the man/man3 directory 
-    - HTML documentation in the docs/ directory.
-    - demo programs in the test/ directory
+    * manpages in the man/man3 directory 
+    * HTML documentation in the docs/ directory.
+    * demo programs in the test/ directory
 
 ## UNIT TESTS
 There are no automated unit tests per-se. Running the example programs
@@ -43,7 +43,7 @@ and demo programs ensures the library is functioning.
 
 ## FUTURE
    There are higher-level routines based on this library not yet available
-   on github. Ultimately the hope is to release this as an fpm package
+   on github. Ultimately the plan is to release this as an fpm package
    as described at [https://fortran-lang.org](https://fortran-lang.org)
    and then to release the higher-level routines as separate distributions
    on top of this.
@@ -51,4 +51,4 @@ and demo programs ensures the library is functioning.
    An example program already using this low-level library
    to generate higher-level graphics:
 
-      ![sample](images/M_slices.3.gif)
+![M-slices](images/M_slices.3.gif)
