@@ -42,13 +42,10 @@ There are no automated unit tests per-se. Running the example programs
 and demo programs ensures the library is functioning.
 
 ## FUTURE
-   There are higher-level routines based on this library not yet available
-   on github. Ultimately the plan is to release this as an fpm package
-   as described at [https://fortran-lang.org](https://fortran-lang.org)
-   and then to release the higher-level routines as separate distributions
-   on top of this.
+There are a collection of higher-level routines that need added, as well
+as more font support.
 
-   An example program already using this low-level library
-   to generate higher-level graphics:
+An example program using this low-level library to generate higher-level
+graphics:
 
-![M-slices](images/M_slices.3.gif)
+![M-slices](docs/images/M_slices.3.gif)
