@@ -8,7 +8,7 @@
 .ad l
 ." -----------------------------------------------------------------
 .SH NAME
-\fBtextang(3f) \fP- [M_pixel] set text angle
+\fBtextang(3f) \fP- [M_pixel:TEXT] set text angle
 \fB(LICENSE:PD)
 \fB
 .SH SYNOPSIS

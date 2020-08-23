@@ -8,7 +8,7 @@
 .ad l
 ." -----------------------------------------------------------------
 .SH NAME
-\fBarc(3f) \fP- [M_pixel] draw an arc using current line width and color
+\fBarc(3f) \fP- [M_pixel:ARCS] draw an arc using current line width and color
 \fB(LICENSE:PD)
 \fB
 .SH SYNOPSIS

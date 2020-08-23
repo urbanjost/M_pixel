@@ -8,7 +8,7 @@
 .ad l
 ." -----------------------------------------------------------------
 .SH NAME
-\fBdrawstr(3f) \fP- [M_pixel] Draw the text string at the current position
+\fBdrawstr(3f) \fP- [M_pixel:TEXT] Draw the text string at the current position
 \fB(LICENSE:PD)
 \fB
 .SH SYNOPSIS

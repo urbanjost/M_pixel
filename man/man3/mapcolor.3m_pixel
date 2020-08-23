@@ -8,7 +8,7 @@
 .ad l
 ." -----------------------------------------------------------------
 .SH NAME
-\fBmapcolor(3f) \fP- [M_pixel] set a color index using RGB values
+\fBmapcolor(3f) \fP- [M_pixel:COLOR] set a color index using RGB values
 \fB(LICENSE:PD)
 \fB
 .SH SYNOPSIS

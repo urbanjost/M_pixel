@@ -8,7 +8,7 @@
 .ad l
 ." -----------------------------------------------------------------
 .SH NAME
-\fBdrawchar(3f) \fP- [M_pixel] Draw a character at the current position
+\fBdrawchar(3f) \fP- [M_pixel:TEXT] Draw a character at the current position
 \fB(LICENSE:PD)
 \fB
 .SH SYNOPSIS

@@ -8,7 +8,7 @@
 .ad l
 ." -----------------------------------------------------------------
 .SH NAME
-\fBjustfy(3f) \fP- [M_pixel] return lengths used to justify a string when calling hershey
+\fBjustfy(3f) \fP- [M_pixel:TEXT] return lengths used to justify a string when calling hershey
 \fB(LICENSE:PD)
 \fB
 .SH SYNOPSIS

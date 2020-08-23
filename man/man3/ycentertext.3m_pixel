@@ -8,7 +8,7 @@
 .ad l
 ." -----------------------------------------------------------------
 .SH NAME
-\fBycentertext(3f) \fP- [M_pixel] set text centering mode on for \fBdrawstr\fP(3f) and \fBdrawc\fP(3f) in Y direction
+\fBycentertext(3f) \fP- [M_pixel:TEXT] set text centering mode on for \fBdrawstr\fP(3f) and \fBdrawc\fP(3f) in Y direction
 \fB(LICENSE:PD)
 \fB
 .SH SYNOPSIS

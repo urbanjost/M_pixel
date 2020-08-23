@@ -16,11 +16,11 @@ NULL=
 #   ../test/demos/xcentertext/xcentertext.f90 
 #   ../test/demos/ycentertext/ycentertext.f90 
 #   ../test/demos/write_animated_gif/write_animated_gif.f90 
+#   ../test/gif/mandelbrot/mandelbrot.f90 
 #   ../test_suite_M_pixel.f90 
 #
 PROGFILES = \
-   ../test/gif/mandelbrot.f90 \
-   ../test/gif/circle_illusion.f90 \
+   ../test/gif/circle_illusion/circle_illusion.f90 \
    ../test/roman/roman.f90 \
    ../test/no/circle_animated.f90 \
    ../test/demos/arc/arc.f90 \

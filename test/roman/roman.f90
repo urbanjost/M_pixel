@@ -23,6 +23,7 @@ implicit none
    call ortho2(-100.0,100.0,-100.0,100.0)
 
    do iframe=1,nframes
+      write(*,*)'frame',iframe
       pixel(iframe,:,:) = 0      !clear entire image:
 
       call color(3)
@@ -34,7 +35,8 @@ implicit none
      !call hershey( x, y,  height, itext,  theta, ntext )
       write(string,'("\",i4,"\")')1000+iframe
       call hershey( 0.0, 0.0, 45.0,    string, 0.0,   -1 )
-
+      write(*,*)'P_pixel',size(P_pixel),ubound(P_pixel),lbound(P_pixel)
+      write(*,*)'pixel',iframe,size(pixel),ubound(pixel),lbound(pixel)
       pixel(iframe,:,:)=P_pixel(:,:)
    end do
 

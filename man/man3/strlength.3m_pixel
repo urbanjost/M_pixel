@@ -8,7 +8,7 @@
 .ad l
 ." -----------------------------------------------------------------
 .SH NAME
-\fBstrlength(3f) \fP- [M_pixel] return length of string
+\fBstrlength(3f) \fP- [M_pixel:TEXT] return length of string
 \fB(LICENSE:PD)
 \fB
 .SH SYNOPSIS

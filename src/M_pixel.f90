@@ -2157,7 +2157,7 @@ end subroutine draw_line_single
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
 ! NAME
-!    hershey(3f) - [M_pixel] draw text string as Hershey software vector fonts
+!    hershey(3f) - [M_pixel:TEXT] draw text string as Hershey software vector fonts
 !    (LICENSE:PD
 ! 
 ! SYNOPSIS
@@ -2385,6 +2385,10 @@ subroutine hershey(x,y,height,itext,theta,ntext)
       if(ntext.lt.0)then                                   !  plot a single special centered symbol
        if(ntext.lt.-1)call hstylus(xi,yi,idown)
        ia=ichar(itext(1:1))+1
+       if(ia.gt.size(isstar))then
+          write(*,*)'*hershey* character of out range for centered characters=',ia,itext(1:1)
+          ia=size(isstar)
+       endif
        is=isstar(ia)
        ib=30
           INFINITE: do
@@ -2511,7 +2515,7 @@ real,intent(in)    :: xi,yi
 integer,intent(in) :: ipen
 real               :: P_x_tmp,P_y_tmp
 
-   integer,parameter  :: idown=2, iup=3
+   integer,parameter  :: idown=2 !, iup=3
 
    if(ipen.eq.idown)then
       P_X_tmp=P_X
@@ -2786,7 +2790,7 @@ END SUBROUTINE CHRCOD
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
 ! NAME
-!    strlength(3f) - [M_pixel] return length of string
+!    strlength(3f) - [M_pixel:TEXT] return length of string
 !    (LICENSE:PD)
 ! 
 ! SYNOPSIS
@@ -2895,7 +2899,7 @@ end function strlength
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
 ! NAME
-!    justfy(3f) - [M_pixel] return lengths used to justify a string when calling hershey
+!    justfy(3f) - [M_pixel:TEXT] return lengths used to justify a string when calling hershey
 !    (LICENSE:PD)
 ! 
 ! SYNOPSIS
@@ -3125,7 +3129,7 @@ end subroutine if_init
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
 ! NAME
-!    arc(3f) - [M_pixel] draw an arc using current line width and color
+!    arc(3f) - [M_pixel:ARCS] draw an arc using current line width and color
 !    (LICENSE:PD)
 ! 
 ! SYNOPSIS
@@ -3213,7 +3217,7 @@ end subroutine arc
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
 ! NAME
-!    circle(3f) - [M_pixel] draw a circle using current line width and color
+!    circle(3f) - [M_pixel:ARCS] draw a circle using current line width and color
 !    (LICENSE:PD)
 ! 
 ! SYNOPSIS
@@ -3258,7 +3262,7 @@ end subroutine arc
 !    !! render the pixel map
 !    call writegif('circle.3m_pixel.gif',P_pixel,P_colormap)
 !    !! display the graphic assuming display(1) is available
-!    call execute_command_line('display circle.3.ppm')
+!    call execute_command_line('display circle.3m_pixel.gif')
 !    !! exit graphics mode
 !    call vexit()
 !    end program demo_circle
@@ -3365,7 +3369,7 @@ end subroutine linewidth
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
 ! NAME
-!    color(3f) - [M_pixel] set current color index
+!    color(3f) - [M_pixel:COLOR] set current color index
 !    (LICENSE:PD)
 ! 
 ! SYNOPSIS
@@ -3443,7 +3447,7 @@ end subroutine color
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
 ! NAME
-!     mapcolor(3f) - [M_pixel] set a color index using RGB values
+!     mapcolor(3f) - [M_pixel:COLOR] set a color index using RGB values
 !     (LICENSE:PD)
 ! 
 ! SYNOPSIS
@@ -3641,7 +3645,7 @@ end subroutine mapcolor
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
 ! NAME
-!     circleprecision(3f) - [M_pixel] set number of line segments used to approximate a circle
+!     circleprecision(3f) - [M_pixel:ARCS] set number of line segments used to approximate a circle
 !     (LICENSE:PD)
 ! 
 ! SYNOPSIS
@@ -4544,7 +4548,7 @@ end subroutine vinit
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
 ! NAME
-!    makepoly(3f) - [M_pixel] opens polygon constructed by a series of move-draws and closed by closepoly                  |
+!    makepoly(3f) - [M_pixel:POLYGONS] opens polygon constructed by a series of move-draws and closed by closepoly                  |
 !    (LICENSE:PD)
 ! 
 ! SYNOPSIS
@@ -4687,7 +4691,7 @@ end subroutine makepoly
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
 ! NAME
-!    closepoly(3f) - [M_pixel] Terminates a polygon opened by makepoly(3f)
+!    closepoly(3f) - [M_pixel:POLYGONS] Terminates a polygon opened by makepoly(3f)
 !    (LICENSE:PD)
 ! 
 ! SYNOPSIS
@@ -4966,7 +4970,7 @@ end subroutine print_ascii
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
 ! NAME
-!    textsize(3f) - [M_pixel] set text size in world units
+!    textsize(3f) - [M_pixel:TEXT] set text size in world units
 !    (LICENSE:PD)
 ! 
 ! SYNOPSIS
@@ -5036,7 +5040,7 @@ end subroutine textsize
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
 ! NAME
-!    ycentertext(3f) - [M_pixel] set text centering mode on for drawstr(3f) and drawc(3f) in Y direction
+!    ycentertext(3f) - [M_pixel:TEXT] set text centering mode on for drawstr(3f) and drawc(3f) in Y direction
 !    (LICENSE:PD)
 ! 
 ! SYNOPSIS
@@ -5067,7 +5071,7 @@ end subroutine ycentertext
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
 ! NAME
-!    xcentertext(3f) - [M_pixel] set text centering mode on for drawstr(3f) and drawc(3f) in X direction
+!    xcentertext(3f) - [M_pixel:TEXT] set text centering mode on for drawstr(3f) and drawc(3f) in X direction
 !    (LICENSE:PD)
 ! 
 ! SYNOPSIS
@@ -5102,7 +5106,7 @@ end subroutine xcentertext
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
 ! NAME
-!    centertext(3f) - [M_pixel] set text centering mode for drawstr(3f) and drawc(3f)
+!    centertext(3f) - [M_pixel:TEXT] set text centering mode for drawstr(3f) and drawc(3f)
 !    (LICENSE:PD)
 ! 
 ! SYNOPSIS
@@ -5185,7 +5189,7 @@ end subroutine centertext
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
 ! NAME
-!    textang(3f) - [M_pixel] set text angle
+!    textang(3f) - [M_pixel:TEXT] set text angle
 !    (LICENSE:PD)
 ! 
 ! SYNOPSIS
@@ -5254,7 +5258,7 @@ end subroutine textang
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
 ! NAME
-!    font(3f) - [M_pixel] select font style by name
+!    font(3f) - [M_pixel:TEXT] select font style by name
 !    (LICENSE:PD)
 ! 
 ! SYNOPSIS:
@@ -5351,7 +5355,7 @@ end subroutine font
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
 ! NAME
-!    drawchar(3f) - [M_pixel]  Draw a character at the current position
+!    drawchar(3f) - [M_pixel:TEXT]  Draw a character at the current position
 !    (LICENSE:PD)
 ! 
 ! SYNOPSIS
@@ -5419,7 +5423,7 @@ end subroutine drawchar
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
 ! NAME
-!    drawstr(3f) - [M_pixel]  Draw the text string at the current position
+!    drawstr(3f) - [M_pixel:TEXT]  Draw the text string at the current position
 !    (LICENSE:PD)
 ! 
 ! SYNOPSIS
@@ -5803,7 +5807,7 @@ end subroutine state
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
 ! NAME
-!    poly2(3f) - [M_pixel] construct a polygon from an array of points
+!    poly2(3f) - [M_pixel:POLYGONS] construct a polygon from an array of points
 !    (LICENSE:PD)
 ! 
 ! SYNOPSIS
@@ -7768,12 +7772,14 @@ end function lower
 !    real    :: x,y
 !    real    :: r,i
 !    integer :: ios
-!    INFINITE: do
-!       read(*,*,iostat=ios) x, y
-!       if(ios.ne.0)exit INFINITE
+! 
+!    !!INFINITE: do
+!    !!   write(*,advance='no')'Enter radius and inclination(in radians):'
+!    !!   read(*,*,iostat=ios) r, i
+!    !!   if(ios.ne.0)exit INFINITE
 !       call polar_to_cartesian(r,i,x,y)
 !       write(*,*)'x=',x,' y=',y,'radius=',r,'inclination=',i
-!    enddo INFINITE
+!    !!enddo INFINITE
 !    end program demo_polar_to_cartesian
 ! AUTHOR
 !    John S. Urban

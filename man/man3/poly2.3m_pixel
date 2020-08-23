@@ -8,7 +8,7 @@
 .ad l
 ." -----------------------------------------------------------------
 .SH NAME
-\fBpoly2(3f) \fP- [M_pixel] construct a polygon from an array of points
+\fBpoly2(3f) \fP- [M_pixel:POLYGONS] construct a polygon from an array of points
 \fB(LICENSE:PD)
 \fB
 .SH SYNOPSIS

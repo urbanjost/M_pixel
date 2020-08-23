@@ -8,7 +8,7 @@
 .ad l
 ." -----------------------------------------------------------------
 .SH NAME
-\fBfont(3f) \fP- [M_pixel] select font style by name
+\fBfont(3f) \fP- [M_pixel:TEXT] select font style by name
 \fB(LICENSE:PD)
 \fB
 .RE

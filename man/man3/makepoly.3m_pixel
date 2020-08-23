@@ -8,7 +8,7 @@
 .ad l
 ." -----------------------------------------------------------------
 .SH NAME
-\fBmakepoly(3f) \fP- [M_pixel] opens polygon constructed by a series of move-draws and closed by closepoly |
+\fBmakepoly(3f) \fP- [M_pixel:POLYGONS] opens polygon constructed by a series of move-draws and closed by closepoly |
 \fB(LICENSE:PD)
 \fB
 .SH SYNOPSIS

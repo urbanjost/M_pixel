@@ -8,7 +8,7 @@
 .ad l
 ." -----------------------------------------------------------------
 .SH NAME
-\fBtextsize(3f) \fP- [M_pixel] set text size in world units
+\fBtextsize(3f) \fP- [M_pixel:TEXT] set text size in world units
 \fB(LICENSE:PD)
 \fB
 .SH SYNOPSIS

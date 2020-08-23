@@ -11,7 +11,7 @@
 ## DESCRIPTION
 This is a library that creates pixel images with a base
 vector-oriented graphics library that emulates a subset
-of the VOGLE vector graphics library.
+of the M_draw vector graphics library.
 
 ## BUILDING THE MODULES
      git clone https://github.com/urbanjost/M_pixel.git

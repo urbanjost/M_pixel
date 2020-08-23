@@ -8,7 +8,7 @@
 .ad l
 ." -----------------------------------------------------------------
 .SH NAME
-\fBcircleprecision(3f) \fP- [M_pixel] set number of line segments used to approximate a circle
+\fBcircleprecision(3f) \fP- [M_pixel:ARCS] set number of line segments used to approximate a circle
 \fB(LICENSE:PD)
 \fB
 .SH SYNOPSIS

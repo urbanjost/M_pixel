@@ -8,7 +8,7 @@
 .ad l
 ." -----------------------------------------------------------------
 .SH NAME
-\fBhershey(3f) \fP- [M_pixel] draw text string as Hershey software vector fonts
+\fBhershey(3f) \fP- [M_pixel:TEXT] draw text string as Hershey software vector fonts
 \fB(LICENSE:PD
 \fB
 .SH SYNOPSIS

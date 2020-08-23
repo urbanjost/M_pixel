@@ -8,7 +8,7 @@
 .ad l
 ." -----------------------------------------------------------------
 .SH NAME
-\fBcolor(3f) \fP- [M_pixel] set current color index
+\fBcolor(3f) \fP- [M_pixel:COLOR] set current color index
 \fB(LICENSE:PD)
 \fB
 .SH SYNOPSIS
