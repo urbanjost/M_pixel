@@ -1,7 +1,7 @@
            program demo_color
            use M_pixel
-           use M_pixel,  only : i2s
            use M_writegif, only : writegif
+           implicit none
            real    :: b=0.5
            real    :: y1,y2,ym,x1,x2
            real    :: width=50.0/8.0,width2
@@ -29,7 +29,7 @@
                  call closepoly()
                  call color(i+1)
                  call move2((x1+x2)/2.0,ym)
-                 call drawstr((i2s(i)))     ! convert number to string and draw it
+                 call drawstr(i)     ! convert number to string and draw it
                  call circle((x1+x2)/2.0, ym, (x2-x1)/2.10)
                  x1=x1+width
               enddo

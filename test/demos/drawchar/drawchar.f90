@@ -1,8 +1,10 @@
           program demo_drawchar
           use M_pixel
           use M_writegif_animated, only : write_animated_gif
+          implicit none
           integer,parameter :: isize=600
-          integer  :: movie(32:124,0:isize-1,0:isize-1)
+          integer           :: movie(32:124,0:isize-1,0:isize-1)
+          integer           :: i
           !! set up environment
           call prefsize(isize,isize)
           call vinit()

@@ -3,6 +3,7 @@
             use M_pixel, only: move2, draw2, vexit, color
             use M_pixel, only : P_pixel,P_colormap
             use M_writegif, only : writegif
+            implicit none
                ! make first file with one size
                call prefsize(60*2,40*2)
                call vinit()

@@ -4,6 +4,8 @@
             use M_pixel, only: linewidth
             use M_pixel, only: P_pixel, P_colormap
             use M_writegif, only : writegif
+            implicit none
+            integer :: i
             call prefsize(500,500)
             call vinit()
             call ortho2(-110.0,110.0,-110.0,110.0)

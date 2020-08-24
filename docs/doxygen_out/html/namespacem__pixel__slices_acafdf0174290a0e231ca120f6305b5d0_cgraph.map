@@ -1,0 +1,25 @@
+<map id="m_pixel_slices::dl_draw" name="m_pixel_slices::dl_draw">
+<area shape="rect" id="node2" href="$namespacem__pixel__slices.html#aa70737b5f5945b2f513163ee5c40942d" title="m_pixel_slices::dl_plot" alt="" coords="231,115,401,141"/>
+<area shape="rect" id="node3" href="$namespacem__pixel__slices.html#a141b4da9ce5a0d633cc488f656c0320d" title="m_pixel_slices::dl_trs" alt="" coords="449,5,612,32"/>
+<area shape="rect" id="node4" href="$namespacem__pixel__slices.html#aa0de53a25754eab8fff1732aa2f93eba" title="m_pixel_slices::dl\l_inbox" alt="" coords="660,78,799,119"/>
+<area shape="rect" id="node5" href="$namespacem__pixel__slices.html#af0a3aeaa17e192568cb6a69a3b3eeab6" title="m_pixel_slices::dl\l_clipit" alt="" coords="461,107,600,149"/>
+<area shape="rect" id="node6" href="$namespacem__pixel.html#a12012e819bb14b27d2b49732aa2e4e55" title="m_pixel::draw2" alt="" coords="469,173,592,200"/>
+<area shape="rect" id="node24" href="$namespacem__pixel.html#ab5d4dc474ff84dc0f3f35f4a395979e0" title="m_pixel::move2" alt="" coords="467,224,594,251"/>
+<area shape="rect" id="node7" href="$namespacem__pixel.html#a491951b89e60d0d40d67f22d987da894" title="m_pixel::line" alt="" coords="676,173,783,200"/>
+<area shape="rect" id="node8" href="$namespacem__pixel.html#a42791c7e58158616dae7c36ec5806717" title="m_pixel::draw_line\l_single" alt="" coords="884,65,1029,106"/>
+<area shape="rect" id="node14" href="$namespacem__pixel.html#a1629b7134d0ea4b0f301ca23df764b8e" title="m_pixel::ppm_draw_thick_line" alt="" coords="847,173,1067,200"/>
+<area shape="rect" id="node23" href="$namespacem__pixel.html#a9d4aea8ae2eb15317b83fa03a11371b2" title="m_pixel::world2viewport" alt="" coords="865,224,1048,251"/>
+<area shape="rect" id="node9" href="$namespacem__pixel.html#a6c23c2779e54da4ac7505cfb816cc2b1" title="m_pixel::if_init" alt="" coords="1138,21,1257,48"/>
+<area shape="rect" id="node13" href="$namespacem__pixel.html#a063f74c3dd2f7f086dc47ec68abc22c9" title="m_pixel::swapcoord" alt="" coords="1800,185,1952,212"/>
+<area shape="rect" id="node10" href="$namespacem__pixel.html#ac03ca8f23fdadb60599b6ea4dc87a6d9" title="m_pixel::vinit" alt="" coords="1359,21,1469,48"/>
+<area shape="rect" id="node11" href="$namespacem__pixel.html#a84c841de62fc0addddeff305c4ede9d4" title="m_pixel::mapping" alt="" coords="1581,21,1719,48"/>
+<area shape="rect" id="node12" href="$namespacem__pixel.html#a630b892544962a88d91b1ab983dc5649" title="m_pixel::invert_4x4" alt="" coords="1801,21,1951,48"/>
+<area shape="rect" id="node15" href="$namespacem__pixel.html#aede24c612504a3e416840e6242c2d8fb" title="m_pixel::ppm_endcap\l_circle" alt="" coords="1115,166,1280,207"/>
+<area shape="rect" id="node18" href="$namespacem__pixel.html#aedaf33a27e9899da22c2497aff2af903" title="m_pixel::ppm_solid_fill" alt="" coords="1328,232,1500,259"/>
+<area shape="rect" id="node16" href="$namespacem__pixel.html#a312c40bfbd03b2bbe6f85bc5efca6ce3" title="m_pixel::cosd" alt="" coords="1358,127,1470,153"/>
+<area shape="rect" id="node22" href="$namespacem__pixel.html#a3ef23ce0230c47b30cb627ebd439daae" title="m_pixel::sind" alt="" coords="1359,177,1469,204"/>
+<area shape="rect" id="node17" href="$namespacem__pixel.html#a18d90bca3489d1280c4326e51b5cb7b3" title="m_pixel::anyscalar\l_to_double" alt="" coords="1577,123,1723,165"/>
+<area shape="rect" id="node19" href="$namespacem__pixel.html#a6f75bc951acd07267e0841ca5985d8b7" title="m_pixel::ppm_draw_fill_line" alt="" coords="1548,189,1752,216"/>
+<area shape="rect" id="node20" href="$namespacem__pixel.html#a4924b3a5033acb74a4f4df60a4ba21eb" title="m_pixel::ppm_yintercept" alt="" coords="1558,240,1742,267"/>
+<area shape="rect" id="node21" href="$namespacem__pixel.html#a4396c3ff36a080fbbfa859348203d0c7" title="m_pixel::sort_shell\l_integers_hl" alt="" coords="1577,291,1723,333"/>
+</map>

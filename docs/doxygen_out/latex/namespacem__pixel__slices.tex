@@ -1,0 +1,569 @@
+\hypertarget{namespacem__pixel__slices}{}\section{m\+\_\+pixel\+\_\+slices Module Reference}
+\label{namespacem__pixel__slices}\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+subroutine, public \mbox{\hyperlink{namespacem__pixel__slices_af2848516f6507a3d0bcca92ff07ef40f}{dl\+\_\+slices}} (A, I\+NX, I\+NZ, NX, NZ, A\+L\+P\+HA, B\+E\+TA, XH, YH, ZH, I\+F\+L\+AG, I\+A\+X\+IS, XT, N\+XT, X\+A\+S\+T\+A\+RT, X\+A\+E\+ND, N\+MX, N\+NX, M\+LX, T\+SX, N\+DX, S\+MX, YT, N\+YT, N\+MY, N\+NY, M\+LY, T\+SY, N\+DY, S\+MY, ZT, N\+ZT, Z\+A\+S\+T\+A\+RT, Z\+A\+E\+ND, N\+MZ, N\+NZ, M\+LZ, T\+SZ, N\+DZ, S\+MZ, A\+M\+I\+N\+IN, A\+M\+A\+X\+IN, I\+C\+OL, maxsize)
+\item 
+subroutine, private \mbox{\hyperlink{namespacem__pixel__slices_a61f419d67b700758eceed72e406a37f0}{dl\+\_\+vxpt3d}} (X, Y, A\+V\+AL, IX, IZ, NX)
+\item 
+subroutine, private \mbox{\hyperlink{namespacem__pixel__slices_a1508683ec3b2444091bb34d40b5d8b93}{dl\+\_\+intersect}} (F\+L\+AG, X, Y, A\+X1, A\+Y1, A\+X2, A\+Y2, B\+X1, B\+Y1, B\+X2, B\+Y2, A)
+\item 
+subroutine, private \mbox{\hyperlink{namespacem__pixel__slices_ab70907b4409a4346c450488b5bcb34a8}{dl\+\_\+axisb}} (X0, Y0, A0, N0, S0, T0, C0, D0, NM, NN, ML, TS, ND, SM, I\+C\+OL)
+\item 
+subroutine, private \mbox{\hyperlink{namespacem__pixel__slices_afcc122fe448b5f806c0a372a203cd9ea}{dl\+\_\+axisa}} (X0, Y0, A0, N0, S0, T0, C0, D0, NM, ML, I\+C\+OL)
+\item 
+subroutine, private \mbox{\hyperlink{namespacem__pixel__slices_a7d9372496e88c384aea5ad1b26750d1b}{dl\+\_\+number}} (X, Y, H\+G\+HT, Z, T, F0, I\+PF)
+\item 
+subroutine, private \mbox{\hyperlink{namespacem__pixel__slices_a47408b6c6411a3c3cb3419b319e57978}{dl\+\_\+range}} (X, S, N, K, IX, X\+M\+IN, DX)
+\item 
+subroutine, private \mbox{\hyperlink{namespacem__pixel__slices_a8e362bf8eea80faddc97f7d137c95f9c}{dl\+\_\+color}} (ic)
+\item 
+subroutine, private \mbox{\hyperlink{namespacem__pixel__slices_acafdf0174290a0e231ca120f6305b5d0}{dl\+\_\+draw}} (xa, ya)
+\item 
+subroutine, private \mbox{\hyperlink{namespacem__pixel__slices_ab9e9530d7fb4fbea1bc5d52744498731}{dl\+\_\+move}} (xa, ya)
+\item 
+subroutine, private \mbox{\hyperlink{namespacem__pixel__slices_ad35fa14bd29e8e895f22de6500b6b5ff}{dl\+\_\+translate}} (xa, ya)
+\item 
+subroutine, private \mbox{\hyperlink{namespacem__pixel__slices_a87a664883c6c5e0e2812df4d1ea29515}{dl\+\_\+viewport}} (xmin, xmax, ymin, ymax)
+\item 
+subroutine, private \mbox{\hyperlink{namespacem__pixel__slices_a2a4bb6da0ae36c65fdf05996e3ae5487}{dl\+\_\+width}} (ic)
+\item 
+subroutine, private \mbox{\hyperlink{namespacem__pixel__slices_a141b4da9ce5a0d633cc488f656c0320d}{dl\+\_\+trs}} (X\+IN, Y\+IN, X\+C\+ON, Y\+C\+ON)
+\item 
+subroutine, private \mbox{\hyperlink{namespacem__pixel__slices_aa70737b5f5945b2f513163ee5c40942d}{dl\+\_\+plot}} (X\+P\+L\+O\+T0, Y\+P\+L\+O\+T0, I\+S\+E\+L\+E\+C\+T0)
+\item 
+subroutine, public \mbox{\hyperlink{namespacem__pixel__slices_a4ac8bc6e1f869e60a675611420fee0f7}{dl\+\_\+init}} (xmax0, ymax0, V\+PX, V\+PY, Z\+OM)
+\item 
+subroutine, private \mbox{\hyperlink{namespacem__pixel__slices_af0a3aeaa17e192568cb6a69a3b3eeab6}{dl\+\_\+clipit}} (I\+V\+TB, X\+V2, Y\+V2, A\+V1, A\+V2, XM, YM, XX, YX)
+\item 
+subroutine, public \mbox{\hyperlink{namespacem__pixel__slices_a2a40fc08575b18772b520c7b5b81a91e}{dl\+\_\+symbol}} (X, Y, S, T, A, NN, IS)
+\item 
+integer function, private \mbox{\hyperlink{namespacem__pixel__slices_aa0de53a25754eab8fff1732aa2f93eba}{dl\+\_\+inbox}} (X, Y, X\+\_\+\+B\+O\+T\+T\+O\+M\+\_\+\+L\+E\+FT, Y\+\_\+\+B\+O\+T\+T\+O\+M\+\_\+\+L\+E\+FT, X\+\_\+top\+\_\+right, Y\+\_\+top\+\_\+right)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+real, save \mbox{\hyperlink{namespacem__pixel__slices_a984b384660455b08f81e6ba889c4f181}{translatexq}}
+\item 
+real, save \mbox{\hyperlink{namespacem__pixel__slices_ac0ed11bf15d4d4bf8a97194d64035b02}{translateyq}}
+\item 
+real, save \mbox{\hyperlink{namespacem__pixel__slices_a982eea046c0a07e9767fac51b96e9c5b}{xminq}}
+\item 
+real, save \mbox{\hyperlink{namespacem__pixel__slices_afc89e60a080837a7d23abc70409bcde7}{yminq}}
+\item 
+real, save \mbox{\hyperlink{namespacem__pixel__slices_a72480fe0bf407c578fb6c6c01b929447}{xmaxq}}
+\item 
+real, save \mbox{\hyperlink{namespacem__pixel__slices_a9f789eabf3f49da6fdd6c713642836c5}{ymaxq}}
+\item 
+real, save \mbox{\hyperlink{namespacem__pixel__slices_a560f9a31fb656d89f985a6bb0c00d815}{scaleq}}
+\item 
+real, save \mbox{\hyperlink{namespacem__pixel__slices_ae99e40f4f0b19ff8415ac84db8532f0d}{xlastscaleq}}
+\item 
+real, save \mbox{\hyperlink{namespacem__pixel__slices_a15c58d927d442047ca7d648b32b0971a}{ylastscaleq}}
+\item 
+real, save \mbox{\hyperlink{namespacem__pixel__slices_ad82933d6a03faeb06a790664ed1e4cb7}{angleq}}
+\item 
+real, dimension(4), save \mbox{\hyperlink{namespacem__pixel__slices_a46f6b80eeb99ecff5fd18e41d1b17f0a}{viewportq}}
+\item 
+real, save \mbox{\hyperlink{namespacem__pixel__slices_aea975665739d351db83cfcc41e1914db}{xscaleq}}
+\item 
+real, save \mbox{\hyperlink{namespacem__pixel__slices_aff993c23736cb8fc57b8b3ebe5021ba5}{yscaleq}}
+\item 
+real, save \mbox{\hyperlink{namespacem__pixel__slices_af1ea5e682e81c2984c650485935a93e8}{zscaleq}}
+\item 
+real, save \mbox{\hyperlink{namespacem__pixel__slices_ae256fff4bec0279eb4e2439eb3973a1f}{aminq}}
+\item 
+real, save \mbox{\hyperlink{namespacem__pixel__slices_a72bdfc50e6b4b5a8b123083e4e529e9c}{alphq}}
+\item 
+real, save \mbox{\hyperlink{namespacem__pixel__slices_ab90a7c0b6645a0405a9c5e9feff7b153}{betq}}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function/\+Subroutine Documentation}
+\mbox{\Hypertarget{namespacem__pixel__slices_afcc122fe448b5f806c0a372a203cd9ea}\label{namespacem__pixel__slices_afcc122fe448b5f806c0a372a203cd9ea}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!dl\+\_\+axisa@{dl\+\_\+axisa}}
+\index{dl\+\_\+axisa@{dl\+\_\+axisa}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{dl\+\_\+axisa()}{dl\_axisa()}}
+{\footnotesize\ttfamily subroutine, private m\+\_\+pixel\+\_\+slices\+::dl\+\_\+axisa (\begin{DoxyParamCaption}\item[{real}]{X0,  }\item[{real}]{Y0,  }\item[{character, dimension($\ast$)}]{A0,  }\item[{integer}]{N0,  }\item[{real}]{S0,  }\item[{real}]{T0,  }\item[{real}]{C0,  }\item[{real}]{D0,  }\item[{integer}]{NM,  }\item[{integer}]{ML,  }\item[{integer, dimension(4)}]{I\+C\+OL }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+References dl\+\_\+color(), dl\+\_\+draw(), dl\+\_\+move(), dl\+\_\+number(), and dl\+\_\+symbol().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacem__pixel__slices_afcc122fe448b5f806c0a372a203cd9ea_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{namespacem__pixel__slices_afcc122fe448b5f806c0a372a203cd9ea_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacem__pixel__slices_ab70907b4409a4346c450488b5bcb34a8}\label{namespacem__pixel__slices_ab70907b4409a4346c450488b5bcb34a8}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!dl\+\_\+axisb@{dl\+\_\+axisb}}
+\index{dl\+\_\+axisb@{dl\+\_\+axisb}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{dl\+\_\+axisb()}{dl\_axisb()}}
+{\footnotesize\ttfamily subroutine, private m\+\_\+pixel\+\_\+slices\+::dl\+\_\+axisb (\begin{DoxyParamCaption}\item[{real}]{X0,  }\item[{real}]{Y0,  }\item[{character$\ast$($\ast$)}]{A0,  }\item[{integer}]{N0,  }\item[{real}]{S0,  }\item[{real}]{T0,  }\item[{real}]{C0,  }\item[{real}]{D0,  }\item[{integer}]{NM,  }\item[{integer}]{NN,  }\item[{integer}]{ML,  }\item[{real}]{TS,  }\item[{integer}]{ND,  }\item[{real}]{SM,  }\item[{integer, dimension(4)}]{I\+C\+OL }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+References dl\+\_\+color(), dl\+\_\+draw(), dl\+\_\+move(), dl\+\_\+number(), and dl\+\_\+symbol().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacem__pixel__slices_ab70907b4409a4346c450488b5bcb34a8_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{namespacem__pixel__slices_ab70907b4409a4346c450488b5bcb34a8_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacem__pixel__slices_af0a3aeaa17e192568cb6a69a3b3eeab6}\label{namespacem__pixel__slices_af0a3aeaa17e192568cb6a69a3b3eeab6}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!dl\+\_\+clipit@{dl\+\_\+clipit}}
+\index{dl\+\_\+clipit@{dl\+\_\+clipit}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{dl\+\_\+clipit()}{dl\_clipit()}}
+{\footnotesize\ttfamily subroutine, private m\+\_\+pixel\+\_\+slices\+::dl\+\_\+clipit (\begin{DoxyParamCaption}\item[{integer}]{I\+V\+TB,  }\item[{real}]{X\+V2,  }\item[{real}]{Y\+V2,  }\item[{real}]{A\+V1,  }\item[{real}]{A\+V2,  }\item[{real}]{XM,  }\item[{real}]{YM,  }\item[{real}]{XX,  }\item[{real}]{YX }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+References dl\+\_\+inbox().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{namespacem__pixel__slices_af0a3aeaa17e192568cb6a69a3b3eeab6_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacem__pixel__slices_af0a3aeaa17e192568cb6a69a3b3eeab6_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacem__pixel__slices_a8e362bf8eea80faddc97f7d137c95f9c}\label{namespacem__pixel__slices_a8e362bf8eea80faddc97f7d137c95f9c}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!dl\+\_\+color@{dl\+\_\+color}}
+\index{dl\+\_\+color@{dl\+\_\+color}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{dl\+\_\+color()}{dl\_color()}}
+{\footnotesize\ttfamily subroutine, private m\+\_\+pixel\+\_\+slices\+::dl\+\_\+color (\begin{DoxyParamCaption}\item[{integer}]{ic }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+References m\+\_\+pixel\+::color().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=306pt]{namespacem__pixel__slices_a8e362bf8eea80faddc97f7d137c95f9c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacem__pixel__slices_a8e362bf8eea80faddc97f7d137c95f9c_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacem__pixel__slices_acafdf0174290a0e231ca120f6305b5d0}\label{namespacem__pixel__slices_acafdf0174290a0e231ca120f6305b5d0}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!dl\+\_\+draw@{dl\+\_\+draw}}
+\index{dl\+\_\+draw@{dl\+\_\+draw}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{dl\+\_\+draw()}{dl\_draw()}}
+{\footnotesize\ttfamily subroutine, private m\+\_\+pixel\+\_\+slices\+::dl\+\_\+draw (\begin{DoxyParamCaption}\item[{real}]{xa,  }\item[{real}]{ya }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+References dl\+\_\+plot().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacem__pixel__slices_acafdf0174290a0e231ca120f6305b5d0_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacem__pixel__slices_acafdf0174290a0e231ca120f6305b5d0_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacem__pixel__slices_aa0de53a25754eab8fff1732aa2f93eba}\label{namespacem__pixel__slices_aa0de53a25754eab8fff1732aa2f93eba}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!dl\+\_\+inbox@{dl\+\_\+inbox}}
+\index{dl\+\_\+inbox@{dl\+\_\+inbox}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{dl\+\_\+inbox()}{dl\_inbox()}}
+{\footnotesize\ttfamily integer function, private m\+\_\+pixel\+\_\+slices\+::dl\+\_\+inbox (\begin{DoxyParamCaption}\item[{real, intent(in)}]{X,  }\item[{real, intent(in)}]{Y,  }\item[{real, intent(in)}]{X\+\_\+\+B\+O\+T\+T\+O\+M\+\_\+\+L\+E\+FT,  }\item[{real, intent(in)}]{Y\+\_\+\+B\+O\+T\+T\+O\+M\+\_\+\+L\+E\+FT,  }\item[{real, intent(in)}]{X\+\_\+top\+\_\+right,  }\item[{real, intent(in)}]{Y\+\_\+top\+\_\+right }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacem__pixel__slices_aa0de53a25754eab8fff1732aa2f93eba_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacem__pixel__slices_a4ac8bc6e1f869e60a675611420fee0f7}\label{namespacem__pixel__slices_a4ac8bc6e1f869e60a675611420fee0f7}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!dl\+\_\+init@{dl\+\_\+init}}
+\index{dl\+\_\+init@{dl\+\_\+init}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{dl\+\_\+init()}{dl\_init()}}
+{\footnotesize\ttfamily subroutine, public m\+\_\+pixel\+\_\+slices\+::dl\+\_\+init (\begin{DoxyParamCaption}\item[{real}]{xmax0,  }\item[{real}]{ymax0,  }\item[{real}]{V\+PX,  }\item[{real}]{V\+PY,  }\item[{real}]{Z\+OM }\end{DoxyParamCaption})}
+
+
+
+References angleq, m\+\_\+pixel\+::clear(), m\+\_\+pixel\+::color(), dl\+\_\+color(), dl\+\_\+viewport(), m\+\_\+pixel\+::page(), scaleq, translatexq, translateyq, xlastscaleq, xmaxq, xminq, ylastscaleq, ymaxq, and yminq.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacem__pixel__slices_a4ac8bc6e1f869e60a675611420fee0f7_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacem__pixel__slices_a1508683ec3b2444091bb34d40b5d8b93}\label{namespacem__pixel__slices_a1508683ec3b2444091bb34d40b5d8b93}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!dl\+\_\+intersect@{dl\+\_\+intersect}}
+\index{dl\+\_\+intersect@{dl\+\_\+intersect}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{dl\+\_\+intersect()}{dl\_intersect()}}
+{\footnotesize\ttfamily subroutine, private m\+\_\+pixel\+\_\+slices\+::dl\+\_\+intersect (\begin{DoxyParamCaption}\item[{logical}]{F\+L\+AG,  }\item[{real}]{X,  }\item[{real}]{Y,  }\item[{real}]{A\+X1,  }\item[{real}]{A\+Y1,  }\item[{real}]{A\+X2,  }\item[{real}]{A\+Y2,  }\item[{real}]{B\+X1,  }\item[{real}]{B\+Y1,  }\item[{real}]{B\+X2,  }\item[{real}]{B\+Y2,  }\item[{logical}]{A }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{namespacem__pixel__slices_a1508683ec3b2444091bb34d40b5d8b93_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacem__pixel__slices_ab9e9530d7fb4fbea1bc5d52744498731}\label{namespacem__pixel__slices_ab9e9530d7fb4fbea1bc5d52744498731}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!dl\+\_\+move@{dl\+\_\+move}}
+\index{dl\+\_\+move@{dl\+\_\+move}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{dl\+\_\+move()}{dl\_move()}}
+{\footnotesize\ttfamily subroutine, private m\+\_\+pixel\+\_\+slices\+::dl\+\_\+move (\begin{DoxyParamCaption}\item[{real}]{xa,  }\item[{real}]{ya }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+References dl\+\_\+plot().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacem__pixel__slices_ab9e9530d7fb4fbea1bc5d52744498731_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacem__pixel__slices_ab9e9530d7fb4fbea1bc5d52744498731_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacem__pixel__slices_a7d9372496e88c384aea5ad1b26750d1b}\label{namespacem__pixel__slices_a7d9372496e88c384aea5ad1b26750d1b}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!dl\+\_\+number@{dl\+\_\+number}}
+\index{dl\+\_\+number@{dl\+\_\+number}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{dl\+\_\+number()}{dl\_number()}}
+{\footnotesize\ttfamily subroutine, private m\+\_\+pixel\+\_\+slices\+::dl\+\_\+number (\begin{DoxyParamCaption}\item[{real}]{X,  }\item[{real}]{Y,  }\item[{real}]{H\+G\+HT,  }\item[{real}]{Z,  }\item[{real}]{T,  }\item[{real}]{F0,  }\item[{integer}]{I\+PF }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+References dl\+\_\+symbol().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacem__pixel__slices_a7d9372496e88c384aea5ad1b26750d1b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacem__pixel__slices_a7d9372496e88c384aea5ad1b26750d1b_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacem__pixel__slices_aa70737b5f5945b2f513163ee5c40942d}\label{namespacem__pixel__slices_aa70737b5f5945b2f513163ee5c40942d}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!dl\+\_\+plot@{dl\+\_\+plot}}
+\index{dl\+\_\+plot@{dl\+\_\+plot}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{dl\+\_\+plot()}{dl\_plot()}}
+{\footnotesize\ttfamily subroutine, private m\+\_\+pixel\+\_\+slices\+::dl\+\_\+plot (\begin{DoxyParamCaption}\item[{real}]{X\+P\+L\+O\+T0,  }\item[{real}]{Y\+P\+L\+O\+T0,  }\item[{integer}]{I\+S\+E\+L\+E\+C\+T0 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+References dl\+\_\+clipit(), dl\+\_\+inbox(), dl\+\_\+trs(), m\+\_\+pixel\+::draw2(), m\+\_\+pixel\+::move2(), translatexq, translateyq, viewportq, xlastscaleq, and ylastscaleq.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacem__pixel__slices_aa70737b5f5945b2f513163ee5c40942d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacem__pixel__slices_aa70737b5f5945b2f513163ee5c40942d_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacem__pixel__slices_a47408b6c6411a3c3cb3419b319e57978}\label{namespacem__pixel__slices_a47408b6c6411a3c3cb3419b319e57978}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!dl\+\_\+range@{dl\+\_\+range}}
+\index{dl\+\_\+range@{dl\+\_\+range}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{dl\+\_\+range()}{dl\_range()}}
+{\footnotesize\ttfamily subroutine, private m\+\_\+pixel\+\_\+slices\+::dl\+\_\+range (\begin{DoxyParamCaption}\item[{real, dimension($\ast$)}]{X,  }\item[{real}]{S,  }\item[{integer}]{N,  }\item[{integer}]{K,  }\item[{integer}]{IX,  }\item[{real}]{X\+M\+IN,  }\item[{real}]{DX }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{namespacem__pixel__slices_a47408b6c6411a3c3cb3419b319e57978_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacem__pixel__slices_af2848516f6507a3d0bcca92ff07ef40f}\label{namespacem__pixel__slices_af2848516f6507a3d0bcca92ff07ef40f}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!dl\+\_\+slices@{dl\+\_\+slices}}
+\index{dl\+\_\+slices@{dl\+\_\+slices}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{dl\+\_\+slices()}{dl\_slices()}}
+{\footnotesize\ttfamily subroutine, public m\+\_\+pixel\+\_\+slices\+::dl\+\_\+slices (\begin{DoxyParamCaption}\item[{real, dimension(inx,inz)}]{A,  }\item[{integer}]{I\+NX,  }\item[{integer}]{I\+NZ,  }\item[{integer}]{NX,  }\item[{integer}]{NZ,  }\item[{real}]{A\+L\+P\+HA,  }\item[{real}]{B\+E\+TA,  }\item[{real}]{XH,  }\item[{real}]{YH,  }\item[{real}]{ZH,  }\item[{integer}]{I\+F\+L\+AG,  }\item[{integer}]{I\+A\+X\+IS,  }\item[{character$\ast$($\ast$)}]{XT,  }\item[{integer}]{N\+XT,  }\item[{real}]{X\+A\+S\+T\+A\+RT,  }\item[{real}]{X\+A\+E\+ND,  }\item[{integer}]{N\+MX,  }\item[{integer}]{N\+NX,  }\item[{integer}]{M\+LX,  }\item[{real}]{T\+SX,  }\item[{integer}]{N\+DX,  }\item[{real}]{S\+MX,  }\item[{character$\ast$($\ast$)}]{YT,  }\item[{integer}]{N\+YT,  }\item[{integer}]{N\+MY,  }\item[{integer}]{N\+NY,  }\item[{integer}]{M\+LY,  }\item[{real}]{T\+SY,  }\item[{integer}]{N\+DY,  }\item[{real}]{S\+MY,  }\item[{character$\ast$($\ast$)}]{ZT,  }\item[{integer}]{N\+ZT,  }\item[{real}]{Z\+A\+S\+T\+A\+RT,  }\item[{real}]{Z\+A\+E\+ND,  }\item[{integer}]{N\+MZ,  }\item[{integer}]{N\+NZ,  }\item[{integer}]{M\+LZ,  }\item[{real}]{T\+SZ,  }\item[{integer}]{N\+DZ,  }\item[{real}]{S\+MZ,  }\item[{real}]{A\+M\+I\+N\+IN,  }\item[{real}]{A\+M\+A\+X\+IN,  }\item[{integer, dimension($\ast$)}]{I\+C\+OL,  }\item[{integer, intent(in), optional}]{maxsize }\end{DoxyParamCaption})}
+
+
+
+References alphq, aminq, betq, dl\+\_\+axisa(), dl\+\_\+axisb(), dl\+\_\+color(), dl\+\_\+draw(), dl\+\_\+intersect(), dl\+\_\+move(), dl\+\_\+plot(), dl\+\_\+range(), dl\+\_\+vxpt3d(), xscaleq, yscaleq, and zscaleq.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacem__pixel__slices_af2848516f6507a3d0bcca92ff07ef40f_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacem__pixel__slices_a2a40fc08575b18772b520c7b5b81a91e}\label{namespacem__pixel__slices_a2a40fc08575b18772b520c7b5b81a91e}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!dl\+\_\+symbol@{dl\+\_\+symbol}}
+\index{dl\+\_\+symbol@{dl\+\_\+symbol}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{dl\+\_\+symbol()}{dl\_symbol()}}
+{\footnotesize\ttfamily subroutine, public m\+\_\+pixel\+\_\+slices\+::dl\+\_\+symbol (\begin{DoxyParamCaption}\item[{real}]{X,  }\item[{real}]{Y,  }\item[{real}]{S,  }\item[{character$\ast$($\ast$)}]{T,  }\item[{real}]{A,  }\item[{integer}]{NN,  }\item[{integer}]{IS }\end{DoxyParamCaption})}
+
+
+
+References dl\+\_\+draw(), dl\+\_\+move(), and dl\+\_\+plot().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacem__pixel__slices_a2a40fc08575b18772b520c7b5b81a91e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacem__pixel__slices_a2a40fc08575b18772b520c7b5b81a91e_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacem__pixel__slices_ad35fa14bd29e8e895f22de6500b6b5ff}\label{namespacem__pixel__slices_ad35fa14bd29e8e895f22de6500b6b5ff}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!dl\+\_\+translate@{dl\+\_\+translate}}
+\index{dl\+\_\+translate@{dl\+\_\+translate}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{dl\+\_\+translate()}{dl\_translate()}}
+{\footnotesize\ttfamily subroutine, private m\+\_\+pixel\+\_\+slices\+::dl\+\_\+translate (\begin{DoxyParamCaption}\item[{real}]{xa,  }\item[{real}]{ya }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+References dl\+\_\+plot().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacem__pixel__slices_ad35fa14bd29e8e895f22de6500b6b5ff_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacem__pixel__slices_a141b4da9ce5a0d633cc488f656c0320d}\label{namespacem__pixel__slices_a141b4da9ce5a0d633cc488f656c0320d}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!dl\+\_\+trs@{dl\+\_\+trs}}
+\index{dl\+\_\+trs@{dl\+\_\+trs}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{dl\+\_\+trs()}{dl\_trs()}}
+{\footnotesize\ttfamily subroutine, private m\+\_\+pixel\+\_\+slices\+::dl\+\_\+trs (\begin{DoxyParamCaption}\item[{real}]{X\+IN,  }\item[{real}]{Y\+IN,  }\item[{real}]{X\+C\+ON,  }\item[{real}]{Y\+C\+ON }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+References angleq, scaleq, translatexq, and translateyq.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacem__pixel__slices_a141b4da9ce5a0d633cc488f656c0320d_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacem__pixel__slices_a87a664883c6c5e0e2812df4d1ea29515}\label{namespacem__pixel__slices_a87a664883c6c5e0e2812df4d1ea29515}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!dl\+\_\+viewport@{dl\+\_\+viewport}}
+\index{dl\+\_\+viewport@{dl\+\_\+viewport}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{dl\+\_\+viewport()}{dl\_viewport()}}
+{\footnotesize\ttfamily subroutine, private m\+\_\+pixel\+\_\+slices\+::dl\+\_\+viewport (\begin{DoxyParamCaption}\item[{real, intent(in)}]{xmin,  }\item[{real, intent(in)}]{xmax,  }\item[{real, intent(in)}]{ymin,  }\item[{real, intent(in)}]{ymax }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+References dl\+\_\+trs(), and viewportq.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{namespacem__pixel__slices_a87a664883c6c5e0e2812df4d1ea29515_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=345pt]{namespacem__pixel__slices_a87a664883c6c5e0e2812df4d1ea29515_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacem__pixel__slices_a61f419d67b700758eceed72e406a37f0}\label{namespacem__pixel__slices_a61f419d67b700758eceed72e406a37f0}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!dl\+\_\+vxpt3d@{dl\+\_\+vxpt3d}}
+\index{dl\+\_\+vxpt3d@{dl\+\_\+vxpt3d}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{dl\+\_\+vxpt3d()}{dl\_vxpt3d()}}
+{\footnotesize\ttfamily subroutine, private m\+\_\+pixel\+\_\+slices\+::dl\+\_\+vxpt3d (\begin{DoxyParamCaption}\item[{real}]{X,  }\item[{real}]{Y,  }\item[{real}]{A\+V\+AL,  }\item[{integer}]{IX,  }\item[{integer}]{IZ,  }\item[{integer}]{NX }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+References alphq, aminq, betq, xscaleq, yscaleq, and zscaleq.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{namespacem__pixel__slices_a61f419d67b700758eceed72e406a37f0_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacem__pixel__slices_a2a4bb6da0ae36c65fdf05996e3ae5487}\label{namespacem__pixel__slices_a2a4bb6da0ae36c65fdf05996e3ae5487}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!dl\+\_\+width@{dl\+\_\+width}}
+\index{dl\+\_\+width@{dl\+\_\+width}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{dl\+\_\+width()}{dl\_width()}}
+{\footnotesize\ttfamily subroutine, private m\+\_\+pixel\+\_\+slices\+::dl\+\_\+width (\begin{DoxyParamCaption}\item[{integer}]{ic }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+References m\+\_\+pixel\+::linewidth().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=327pt]{namespacem__pixel__slices_a2a4bb6da0ae36c65fdf05996e3ae5487_cgraph}
+\end{center}
+\end{figure}
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{namespacem__pixel__slices_a72bdfc50e6b4b5a8b123083e4e529e9c}\label{namespacem__pixel__slices_a72bdfc50e6b4b5a8b123083e4e529e9c}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!alphq@{alphq}}
+\index{alphq@{alphq}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{alphq}{alphq}}
+{\footnotesize\ttfamily real, save m\+\_\+pixel\+\_\+slices\+::alphq\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{namespacem__pixel__slices_ae256fff4bec0279eb4e2439eb3973a1f}\label{namespacem__pixel__slices_ae256fff4bec0279eb4e2439eb3973a1f}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!aminq@{aminq}}
+\index{aminq@{aminq}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{aminq}{aminq}}
+{\footnotesize\ttfamily real, save m\+\_\+pixel\+\_\+slices\+::aminq\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{namespacem__pixel__slices_ad82933d6a03faeb06a790664ed1e4cb7}\label{namespacem__pixel__slices_ad82933d6a03faeb06a790664ed1e4cb7}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!angleq@{angleq}}
+\index{angleq@{angleq}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{angleq}{angleq}}
+{\footnotesize\ttfamily real, save m\+\_\+pixel\+\_\+slices\+::angleq\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{namespacem__pixel__slices_ab90a7c0b6645a0405a9c5e9feff7b153}\label{namespacem__pixel__slices_ab90a7c0b6645a0405a9c5e9feff7b153}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!betq@{betq}}
+\index{betq@{betq}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{betq}{betq}}
+{\footnotesize\ttfamily real, save m\+\_\+pixel\+\_\+slices\+::betq\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{namespacem__pixel__slices_a560f9a31fb656d89f985a6bb0c00d815}\label{namespacem__pixel__slices_a560f9a31fb656d89f985a6bb0c00d815}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!scaleq@{scaleq}}
+\index{scaleq@{scaleq}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{scaleq}{scaleq}}
+{\footnotesize\ttfamily real, save m\+\_\+pixel\+\_\+slices\+::scaleq\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{namespacem__pixel__slices_a984b384660455b08f81e6ba889c4f181}\label{namespacem__pixel__slices_a984b384660455b08f81e6ba889c4f181}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!translatexq@{translatexq}}
+\index{translatexq@{translatexq}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{translatexq}{translatexq}}
+{\footnotesize\ttfamily real, save m\+\_\+pixel\+\_\+slices\+::translatexq\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{namespacem__pixel__slices_ac0ed11bf15d4d4bf8a97194d64035b02}\label{namespacem__pixel__slices_ac0ed11bf15d4d4bf8a97194d64035b02}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!translateyq@{translateyq}}
+\index{translateyq@{translateyq}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{translateyq}{translateyq}}
+{\footnotesize\ttfamily real, save m\+\_\+pixel\+\_\+slices\+::translateyq\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{namespacem__pixel__slices_a46f6b80eeb99ecff5fd18e41d1b17f0a}\label{namespacem__pixel__slices_a46f6b80eeb99ecff5fd18e41d1b17f0a}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!viewportq@{viewportq}}
+\index{viewportq@{viewportq}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{viewportq}{viewportq}}
+{\footnotesize\ttfamily real, dimension(4), save m\+\_\+pixel\+\_\+slices\+::viewportq\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{namespacem__pixel__slices_ae99e40f4f0b19ff8415ac84db8532f0d}\label{namespacem__pixel__slices_ae99e40f4f0b19ff8415ac84db8532f0d}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!xlastscaleq@{xlastscaleq}}
+\index{xlastscaleq@{xlastscaleq}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{xlastscaleq}{xlastscaleq}}
+{\footnotesize\ttfamily real, save m\+\_\+pixel\+\_\+slices\+::xlastscaleq\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{namespacem__pixel__slices_a72480fe0bf407c578fb6c6c01b929447}\label{namespacem__pixel__slices_a72480fe0bf407c578fb6c6c01b929447}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!xmaxq@{xmaxq}}
+\index{xmaxq@{xmaxq}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{xmaxq}{xmaxq}}
+{\footnotesize\ttfamily real, save m\+\_\+pixel\+\_\+slices\+::xmaxq\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{namespacem__pixel__slices_a982eea046c0a07e9767fac51b96e9c5b}\label{namespacem__pixel__slices_a982eea046c0a07e9767fac51b96e9c5b}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!xminq@{xminq}}
+\index{xminq@{xminq}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{xminq}{xminq}}
+{\footnotesize\ttfamily real, save m\+\_\+pixel\+\_\+slices\+::xminq\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{namespacem__pixel__slices_aea975665739d351db83cfcc41e1914db}\label{namespacem__pixel__slices_aea975665739d351db83cfcc41e1914db}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!xscaleq@{xscaleq}}
+\index{xscaleq@{xscaleq}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{xscaleq}{xscaleq}}
+{\footnotesize\ttfamily real, save m\+\_\+pixel\+\_\+slices\+::xscaleq\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{namespacem__pixel__slices_a15c58d927d442047ca7d648b32b0971a}\label{namespacem__pixel__slices_a15c58d927d442047ca7d648b32b0971a}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!ylastscaleq@{ylastscaleq}}
+\index{ylastscaleq@{ylastscaleq}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{ylastscaleq}{ylastscaleq}}
+{\footnotesize\ttfamily real, save m\+\_\+pixel\+\_\+slices\+::ylastscaleq\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{namespacem__pixel__slices_a9f789eabf3f49da6fdd6c713642836c5}\label{namespacem__pixel__slices_a9f789eabf3f49da6fdd6c713642836c5}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!ymaxq@{ymaxq}}
+\index{ymaxq@{ymaxq}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{ymaxq}{ymaxq}}
+{\footnotesize\ttfamily real, save m\+\_\+pixel\+\_\+slices\+::ymaxq\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{namespacem__pixel__slices_afc89e60a080837a7d23abc70409bcde7}\label{namespacem__pixel__slices_afc89e60a080837a7d23abc70409bcde7}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!yminq@{yminq}}
+\index{yminq@{yminq}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{yminq}{yminq}}
+{\footnotesize\ttfamily real, save m\+\_\+pixel\+\_\+slices\+::yminq\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{namespacem__pixel__slices_aff993c23736cb8fc57b8b3ebe5021ba5}\label{namespacem__pixel__slices_aff993c23736cb8fc57b8b3ebe5021ba5}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!yscaleq@{yscaleq}}
+\index{yscaleq@{yscaleq}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{yscaleq}{yscaleq}}
+{\footnotesize\ttfamily real, save m\+\_\+pixel\+\_\+slices\+::yscaleq\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{namespacem__pixel__slices_af1ea5e682e81c2984c650485935a93e8}\label{namespacem__pixel__slices_af1ea5e682e81c2984c650485935a93e8}} 
+\index{m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}!zscaleq@{zscaleq}}
+\index{zscaleq@{zscaleq}!m\+\_\+pixel\+\_\+slices@{m\+\_\+pixel\+\_\+slices}}
+\subsubsection{\texorpdfstring{zscaleq}{zscaleq}}
+{\footnotesize\ttfamily real, save m\+\_\+pixel\+\_\+slices\+::zscaleq\hspace{0.3cm}{\ttfamily [private]}}
+

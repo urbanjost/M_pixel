@@ -1,10 +1,11 @@
           program demo_hershey
           use M_pixel
           use M_writegif_animated, only : write_animated_gif
-          use M_pixel, only : i2s
+          implicit none
           integer,parameter :: isize=600
           integer,parameter :: topsym=432
-          integer  :: movie(1:topsym,0:isize-1,0:isize-1)
+          integer           :: movie(1:topsym,0:isize-1,0:isize-1)
+          integer           :: i
           !! set up environment
           call prefsize(isize,isize)
           call vinit()
@@ -31,14 +32,14 @@
              call textang(0.0)
              call move2(0.0,0.0)
              call textsize(150.0,150.0)
-             call drawstr('\'//i2s(i+1000)//'\')
+             call drawstr('\',i+1000,'\',nospace=.true.)
 
              call centertext(.false.)
              call color(1)
              call move2(-120.0,120.0)
              call textsize(10.0,10.0)
              call linewidth(40)
-             call drawstr(i2s(i+1000)//' ')
+             call drawstr(i+1000,' ')
              movie(i,:,:)=P_pixel
           enddo
           call vexit()

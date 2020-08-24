@@ -5,6 +5,8 @@
 \item 
 interface \mbox{\hyperlink{interfacem__pixel_1_1d2r}{d2r}}
 \item 
+interface \mbox{\hyperlink{interfacem__pixel_1_1drawstr}{drawstr}}
+\item 
 type \mbox{\hyperlink{structm__pixel_1_1matrix}{matrix}}
 \end{DoxyCompactItemize}
 \subsection*{Functions/\+Subroutines}
@@ -96,7 +98,7 @@ subroutine, public \mbox{\hyperlink{namespacem__pixel_a566adb827a3a26ba42d4e86e4
 \item 
 subroutine, public \mbox{\hyperlink{namespacem__pixel_a58406ffd6c2a9fdf2ea7772198b54255}{drawchar}} (ch)
 \item 
-subroutine, public \mbox{\hyperlink{namespacem__pixel_a6fa0c2d531d1ac74840aa2f0e2b050e0}{drawstr}} (string)
+subroutine \mbox{\hyperlink{namespacem__pixel_a3f8850328e359af5802954b2f70652f5}{drawstr\+\_\+}} (string)
 \item 
 subroutine, public \mbox{\hyperlink{namespacem__pixel_a626d769d3dae0c292e3ef1617ad43efb}{getgp2}} (x, y)
 \item 
@@ -119,6 +121,12 @@ logical function \mbox{\hyperlink{namespacem__pixel_a4924b3a5033acb74a4f4df60a4b
 subroutine \mbox{\hyperlink{namespacem__pixel_aedaf33a27e9899da22c2497aff2af903}{ppm\+\_\+solid\+\_\+fill}} (x, y, n)
 \item 
 subroutine \mbox{\hyperlink{namespacem__pixel_aede24c612504a3e416840e6242c2d8fb}{ppm\+\_\+endcap\+\_\+circle}} (x, y)
+\item 
+subroutine \mbox{\hyperlink{namespacem__pixel_af907f9c8cb0421cf9c5e6356e355382e}{msg\+\_\+scalar}} (generic0, generic1, generic2, generic3, generic4, generic5, generic6, generic7, generic8, generic9, generica, genericb, genericc, genericd, generice, genericf, genericg, generich, generici, genericj, nospace)
+\begin{DoxyCompactList}\small\item\em \subsubsection*{N\+A\+ME}
+
+drawstr(3f) -\/ \mbox{[}M\+\_\+msg\mbox{]} converts any standard scalar type to a string and prints it (L\+I\+C\+E\+N\+SE\+:PD) \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacem__pixel_a8c097c521deafffc765bd3f35eca423c}{msg\+\_\+one}} (generic0, generic1, generic2, generic3, generic4, generic5, generic6, generic7, generic8, generic9, nospace)
 \item 
 elemental real function, public \mbox{\hyperlink{namespacem__pixel_a312c40bfbd03b2bbe6f85bc5efca6ce3}{cosd}} (angle\+\_\+in\+\_\+degrees)
 \item 
@@ -432,6 +440,14 @@ Here is the call graph for this function\+:
 \includegraphics[width=350pt]{namespacem__pixel_af3b81a21a0b2f6b5eddd09c031bd6173_cgraph}
 \end{center}
 \end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=327pt]{namespacem__pixel_af3b81a21a0b2f6b5eddd09c031bd6173_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{namespacem__pixel_ab3dc83b63d2ab1bf3f63932abca4245d}\label{namespacem__pixel_ab3dc83b63d2ab1bf3f63932abca4245d}} 
 \index{m\+\_\+pixel@{m\+\_\+pixel}!closepoly@{closepoly}}
 \index{closepoly@{closepoly}!m\+\_\+pixel@{m\+\_\+pixel}}
@@ -492,6 +508,14 @@ Here is the caller graph for this function\+:
 
 References p\+\_\+color\+\_\+index.
 
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacem__pixel_a334bde41bc7b2db19b950b1271ba7463_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{namespacem__pixel_aee26ac45961d4093d2e472fcb6e1887d}\label{namespacem__pixel_aee26ac45961d4093d2e472fcb6e1887d}} 
 \index{m\+\_\+pixel@{m\+\_\+pixel}!color\+\_\+name2rgb@{color\+\_\+name2rgb}}
 \index{color\+\_\+name2rgb@{color\+\_\+name2rgb}!m\+\_\+pixel@{m\+\_\+pixel}}
@@ -585,7 +609,7 @@ Here is the caller graph for this function\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=315pt]{namespacem__pixel_a12012e819bb14b27d2b49732aa2e4e55_icgraph}
+\includegraphics[width=350pt]{namespacem__pixel_a12012e819bb14b27d2b49732aa2e4e55_icgraph}
 \end{center}
 \end{figure}
 \mbox{\Hypertarget{namespacem__pixel_a42791c7e58158616dae7c36ec5806717}\label{namespacem__pixel_a42791c7e58158616dae7c36ec5806717}} 
@@ -620,23 +644,11 @@ Here is the caller graph for this function\+:
 \subsubsection{\texorpdfstring{drawchar()}{drawchar()}}
 {\footnotesize\ttfamily subroutine, public m\+\_\+pixel\+::drawchar (\begin{DoxyParamCaption}\item[{character(len=1), intent(in)}]{ch }\end{DoxyParamCaption})}
 
-
-
-References drawstr().
-
-Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{namespacem__pixel_a58406ffd6c2a9fdf2ea7772198b54255_cgraph}
-\end{center}
-\end{figure}
-\mbox{\Hypertarget{namespacem__pixel_a6fa0c2d531d1ac74840aa2f0e2b050e0}\label{namespacem__pixel_a6fa0c2d531d1ac74840aa2f0e2b050e0}} 
-\index{m\+\_\+pixel@{m\+\_\+pixel}!drawstr@{drawstr}}
-\index{drawstr@{drawstr}!m\+\_\+pixel@{m\+\_\+pixel}}
-\subsubsection{\texorpdfstring{drawstr()}{drawstr()}}
-{\footnotesize\ttfamily subroutine, public m\+\_\+pixel\+::drawstr (\begin{DoxyParamCaption}\item[{character(len=$\ast$), intent(in)}]{string }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{namespacem__pixel_a3f8850328e359af5802954b2f70652f5}\label{namespacem__pixel_a3f8850328e359af5802954b2f70652f5}} 
+\index{m\+\_\+pixel@{m\+\_\+pixel}!drawstr\+\_\+@{drawstr\+\_\+}}
+\index{drawstr\+\_\+@{drawstr\+\_\+}!m\+\_\+pixel@{m\+\_\+pixel}}
+\subsubsection{\texorpdfstring{drawstr\+\_\+()}{drawstr\_()}}
+{\footnotesize\ttfamily subroutine m\+\_\+pixel\+::drawstr\+\_\+ (\begin{DoxyParamCaption}\item[{character(len=$\ast$), intent(in)}]{string }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
@@ -647,7 +659,7 @@ Here is the call graph for this function\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{namespacem__pixel_a6fa0c2d531d1ac74840aa2f0e2b050e0_cgraph}
+\includegraphics[width=350pt]{namespacem__pixel_a3f8850328e359af5802954b2f70652f5_cgraph}
 \end{center}
 \end{figure}
 Here is the caller graph for this function\+:
@@ -655,7 +667,7 @@ Here is the caller graph for this function\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=321pt]{namespacem__pixel_a6fa0c2d531d1ac74840aa2f0e2b050e0_icgraph}
+\includegraphics[width=337pt]{namespacem__pixel_a3f8850328e359af5802954b2f70652f5_icgraph}
 \end{center}
 \end{figure}
 \mbox{\Hypertarget{namespacem__pixel_a566adb827a3a26ba42d4e86e4c6e12af}\label{namespacem__pixel_a566adb827a3a26ba42d4e86e4c6e12af}} 
@@ -683,7 +695,7 @@ Here is the caller graph for this function\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=334pt]{namespacem__pixel_acacbc4462423b9aa0f591cbe7aba4ec6_icgraph}
+\includegraphics[width=350pt]{namespacem__pixel_acacbc4462423b9aa0f591cbe7aba4ec6_icgraph}
 \end{center}
 \end{figure}
 \mbox{\Hypertarget{namespacem__pixel_a626d769d3dae0c292e3ef1617ad43efb}\label{namespacem__pixel_a626d769d3dae0c292e3ef1617ad43efb}} 
@@ -901,7 +913,7 @@ Here is the caller graph for this function\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=297pt]{namespacem__pixel_ac39c9efa849915aff58657e2df03fe3c_icgraph}
+\includegraphics[width=350pt]{namespacem__pixel_ac39c9efa849915aff58657e2df03fe3c_icgraph}
 \end{center}
 \end{figure}
 \mbox{\Hypertarget{namespacem__pixel_a7b08886c913b47694edeb60fa747afc4}\label{namespacem__pixel_a7b08886c913b47694edeb60fa747afc4}} 
@@ -966,6 +978,14 @@ Here is the caller graph for this function\+:
 
 References p\+\_\+viewport\+\_\+width, and p\+\_\+width.
 
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=327pt]{namespacem__pixel_a16379e283aaa99e2e0ba1eb26e93452d_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{namespacem__pixel_a7b4934756a8325a19fee6653c4cbf6af}\label{namespacem__pixel_a7b4934756a8325a19fee6653c4cbf6af}} 
 \index{m\+\_\+pixel@{m\+\_\+pixel}!lower@{lower}}
 \index{lower@{lower}!m\+\_\+pixel@{m\+\_\+pixel}}
@@ -1044,6 +1064,94 @@ Here is the caller graph for this function\+:
 \includegraphics[width=350pt]{namespacem__pixel_ab5d4dc474ff84dc0f3f35f4a395979e0_icgraph}
 \end{center}
 \end{figure}
+\mbox{\Hypertarget{namespacem__pixel_a8c097c521deafffc765bd3f35eca423c}\label{namespacem__pixel_a8c097c521deafffc765bd3f35eca423c}} 
+\index{m\+\_\+pixel@{m\+\_\+pixel}!msg\+\_\+one@{msg\+\_\+one}}
+\index{msg\+\_\+one@{msg\+\_\+one}!m\+\_\+pixel@{m\+\_\+pixel}}
+\subsubsection{\texorpdfstring{msg\+\_\+one()}{msg\_one()}}
+{\footnotesize\ttfamily subroutine m\+\_\+pixel\+::msg\+\_\+one (\begin{DoxyParamCaption}\item[{class($\ast$), dimension(\+:), intent(in)}]{generic0,  }\item[{class($\ast$), dimension(\+:), intent(in), optional}]{generic1,  }\item[{class($\ast$), dimension(\+:), intent(in), optional}]{generic2,  }\item[{class($\ast$), dimension(\+:), intent(in), optional}]{generic3,  }\item[{class($\ast$), dimension(\+:), intent(in), optional}]{generic4,  }\item[{class($\ast$), dimension(\+:), intent(in), optional}]{generic5,  }\item[{class($\ast$), dimension(\+:), intent(in), optional}]{generic6,  }\item[{class($\ast$), dimension(\+:), intent(in), optional}]{generic7,  }\item[{class($\ast$), dimension(\+:), intent(in), optional}]{generic8,  }\item[{class($\ast$), dimension(\+:), intent(in), optional}]{generic9,  }\item[{logical, intent(in), optional}]{nospace }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+References drawstr\+\_\+(), and print\+\_\+generic().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacem__pixel_a8c097c521deafffc765bd3f35eca423c_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacem__pixel_af907f9c8cb0421cf9c5e6356e355382e}\label{namespacem__pixel_af907f9c8cb0421cf9c5e6356e355382e}} 
+\index{m\+\_\+pixel@{m\+\_\+pixel}!msg\+\_\+scalar@{msg\+\_\+scalar}}
+\index{msg\+\_\+scalar@{msg\+\_\+scalar}!m\+\_\+pixel@{m\+\_\+pixel}}
+\subsubsection{\texorpdfstring{msg\+\_\+scalar()}{msg\_scalar()}}
+{\footnotesize\ttfamily subroutine m\+\_\+pixel\+::msg\+\_\+scalar (\begin{DoxyParamCaption}\item[{class($\ast$), intent(in), optional}]{generic0,  }\item[{class($\ast$), intent(in), optional}]{generic1,  }\item[{class($\ast$), intent(in), optional}]{generic2,  }\item[{class($\ast$), intent(in), optional}]{generic3,  }\item[{class($\ast$), intent(in), optional}]{generic4,  }\item[{class($\ast$), intent(in), optional}]{generic5,  }\item[{class($\ast$), intent(in), optional}]{generic6,  }\item[{class($\ast$), intent(in), optional}]{generic7,  }\item[{class($\ast$), intent(in), optional}]{generic8,  }\item[{class($\ast$), intent(in), optional}]{generic9,  }\item[{class($\ast$), intent(in), optional}]{generica,  }\item[{class($\ast$), intent(in), optional}]{genericb,  }\item[{class($\ast$), intent(in), optional}]{genericc,  }\item[{class($\ast$), intent(in), optional}]{genericd,  }\item[{class($\ast$), intent(in), optional}]{generice,  }\item[{class($\ast$), intent(in), optional}]{genericf,  }\item[{class($\ast$), intent(in), optional}]{genericg,  }\item[{class($\ast$), intent(in), optional}]{generich,  }\item[{class($\ast$), intent(in), optional}]{generici,  }\item[{class($\ast$), intent(in), optional}]{genericj,  }\item[{logical, intent(in), optional}]{nospace }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\subsubsection*{N\+A\+ME}
+
+drawstr(3f) -\/ \mbox{[}M\+\_\+msg\mbox{]} converts any standard scalar type to a string and prints it (L\+I\+C\+E\+N\+SE\+:PD) 
+
+\subsubsection*{S\+Y\+N\+O\+P\+S\+IS}
+
+\begin{DoxyVerb}subroutine drawstr(g0,g1,g2,g3,g4,g5,g6,g7,g8,g9,ga,gb,gc,gd,ge,gf,gg,gh,gi,gj,nospace)
+
+ class(*),intent(in),optional  :: g0,g1,g2,g3,g4,g5,g6,g7,g8,g9
+ class(*),intent(in),optional  :: ga,gb,gc,gd,ge,gf,gg,gh,gi,gj
+ logical,intent(in),optional   :: nospace
+\end{DoxyVerb}
+
+
+\subsubsection*{D\+E\+S\+C\+R\+I\+P\+T\+I\+ON}
+
+drawstr(3f) builds a space-\/separated string from up to twenty scalar values.
+
+\subsubsection*{O\+P\+T\+I\+O\+NS}
+
+g\mbox{[}0-\/9a-\/j\mbox{]} optional value to print the value of after the message. May be of type I\+N\+T\+E\+G\+ER, L\+O\+G\+I\+C\+AL, R\+E\+AL, D\+O\+U\+B\+L\+E\+P\+R\+E\+C\+I\+S\+I\+ON, C\+O\+M\+P\+L\+EX, or C\+H\+A\+R\+A\+C\+T\+ER.
+
+Optionally, all the generic values can be single-\/dimensioned arrays. Currently, mixing scalar arguments and array arguments is not supported.
+
+nospace if nospace=.true., then no spaces are added between values
+
+\subsubsection*{E\+X\+A\+M\+P\+L\+ES}
+
+Sample program\+:
+
+program demo\+\_\+msg use M\+\_\+pixel, only \+: str implicit none character(len=\+:),allocatable \+:\+: pr character(len=\+:),allocatable \+:\+: frmt integer \+:\+: biggest
+
+pr=str(\textquotesingle{}H\+U\+G\+E(3f) integers\textquotesingle{},huge(0),\textquotesingle{}and real\textquotesingle{},huge(0.\+0),\textquotesingle{}and double\textquotesingle{},huge(0.\+0d0)) write($\ast$,\textquotesingle{}(a)\textquotesingle{})pr pr=str(\textquotesingle{}real \+:\textquotesingle{},huge(0.\+0),0.\+0,12345.\+6789,tiny(0.\+0) ) write($\ast$,\textquotesingle{}(a)\textquotesingle{})pr pr=str(\textquotesingle{}doubleprecision \+:\textquotesingle{},huge(0.\+0d0),0.\+0d0,12345.\+6789d0,tiny(0.\+0d0) ) write($\ast$,\textquotesingle{}(a)\textquotesingle{})pr pr=str(\textquotesingle{}complex \+:\textquotesingle{},cmplx(huge(0.\+0),tiny(0.\+0)) ) write($\ast$,\textquotesingle{}(a)\textquotesingle{})pr
+
+! create a format on the fly biggest=huge(0) frmt=str(\textquotesingle{}($\ast$(i\textquotesingle{},int(log10(real(biggest))),\textquotesingle{}\+:,1x))\textquotesingle{},nospace=.true.) write($\ast$,$\ast$)\textquotesingle{}format=\textquotesingle{},frmt
+
+! although it will often work, using str(3f) in an I/O statement is not recommended ! because if an error occurs str(3f) will try to write while part of an I/O statement ! which not all compilers can handle and is currently non-\/standard write($\ast$,$\ast$)str(\textquotesingle{}program will now stop\textquotesingle{})
+
+end program demo\+\_\+msg
+
+Output
+
+H\+U\+G\+E(3f) integers 2147483647 and real 3.\+40282347E+38 and double 1.\+7976931348623157E+308 real \+: 3.\+40282347E+38 0.\+00000000 12345.\+6787 1.\+17549435E-\/38 doubleprecision \+: 1.\+7976931348623157E+308 0.\+0000000000000000 12345.\+678900000001 2.\+2250738585072014E-\/308 complex \+: (3.\+40282347E+38,1.\+17549435E-\/38) format=($\ast$(i9\+:,1x)) program will now stop
+
+\subsubsection*{A\+U\+T\+H\+OR}
+
+John S. Urban
+
+\subsubsection*{L\+I\+C\+E\+N\+SE}
+
+Public Domain 
+
+References drawstr\+\_\+(), and print\+\_\+generic().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacem__pixel_af907f9c8cb0421cf9c5e6356e355382e_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{namespacem__pixel_a80dece6adac704024a5a76efee697770}\label{namespacem__pixel_a80dece6adac704024a5a76efee697770}} 
 \index{m\+\_\+pixel@{m\+\_\+pixel}!ortho2@{ortho2}}
 \index{ortho2@{ortho2}!m\+\_\+pixel@{m\+\_\+pixel}}
@@ -1067,7 +1175,7 @@ Here is the caller graph for this function\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=295pt]{namespacem__pixel_a80dece6adac704024a5a76efee697770_icgraph}
+\includegraphics[width=350pt]{namespacem__pixel_a80dece6adac704024a5a76efee697770_icgraph}
 \end{center}
 \end{figure}
 \mbox{\Hypertarget{namespacem__pixel_a6733a8657ca9f51b2648690dbae258c9}\label{namespacem__pixel_a6733a8657ca9f51b2648690dbae258c9}} 
@@ -1086,6 +1194,14 @@ Here is the call graph for this function\+:
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{namespacem__pixel_a6733a8657ca9f51b2648690dbae258c9_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=327pt]{namespacem__pixel_a6733a8657ca9f51b2648690dbae258c9_icgraph}
 \end{center}
 \end{figure}
 \mbox{\Hypertarget{namespacem__pixel_a11234e0b33104eb0afb24f928b072053}\label{namespacem__pixel_a11234e0b33104eb0afb24f928b072053}} 
@@ -1603,7 +1719,7 @@ Here is the caller graph for this function\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=306pt]{namespacem__pixel_a43247343cd316e3aa075b44b5166e2e9_icgraph}
+\includegraphics[width=350pt]{namespacem__pixel_a43247343cd316e3aa075b44b5166e2e9_icgraph}
 \end{center}
 \end{figure}
 \mbox{\Hypertarget{namespacem__pixel_a9e23c9a3a5f3b1482986f067fbf8487f}\label{namespacem__pixel_a9e23c9a3a5f3b1482986f067fbf8487f}} 

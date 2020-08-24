@@ -1,6 +1,8 @@
           program demo_rect
           use M_pixel
           use M_writegif, only : writegif
+          implicit none
+          integer :: i
 
           !! set up graphics area
           call prefsize(400,400)

@@ -2,6 +2,7 @@
             use M_pixel, only : prefsize,vinit,ortho2,vexit
             use M_pixel, only : linewidth,circle,color
             use M_pixel, only : print_ppm
+            implicit none
             call prefsize(40,40)
             call vinit()
             call ortho2(-100.0,100.0,-100.0,100.0)

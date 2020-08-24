@@ -1,6 +1,7 @@
           program demo_arc
           use M_pixel
           use M_writegif, only : writegif
+          implicit none
           integer  :: transparent=0
           call prefsize(600,240)
           call vinit()

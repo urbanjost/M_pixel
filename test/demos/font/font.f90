@@ -1,6 +1,7 @@
           program demo_font
           use :: M_pixel
           use :: M_writegif, only : writegif
+          implicit none
           real    :: left
           real    :: baseline=80.0
           integer :: icolor=1
@@ -42,7 +43,7 @@
           subroutine nextline(string)
           character(len=*) :: string
           !! reduce some duplicate code; very specific to this example
-             integer :: iend
+          integer :: iend
              iend=index(string,',')  ! if comma, assume font name found
              if(iend.ne.0)call font(string(:iend-1)) ! change font
              icolor=icolor+1         ! set pen color

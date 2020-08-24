@@ -55,15 +55,14 @@
 !   Sample program
 ! 
 !    program demo_M_pixel
-! 
 !    use M_pixel
 !    use M_writegif, only :  writegif
 !    use M_pixel,    only : cosd, sind
 !    implicit none
 ! 
-!       integer  :: i
-!       integer  :: j
-!       integer  :: icolor
+!    integer  :: i
+!    integer  :: j
+!    integer  :: icolor
 ! 
 !       ! initialize image
 !       call prefsize(400,400)  ! set size before starting
@@ -280,6 +279,9 @@ public  :: justfy
 public  :: font
 public  :: strlength           ! length of string in world coordinates
 public  :: drawstr             ! draw the text in string at the current position
+interface drawstr
+   module procedure msg_scalar, msg_one
+end interface drawstr
 public  :: drawchar            ! draw a character at the current position
 public  :: textsize            ! set text size in world units
 public  :: textang             ! set text angle
@@ -1446,6 +1448,8 @@ contains
 !    program demo_rect
 !    use M_pixel
 !    use M_writegif, only : writegif
+!    implicit none
+!    integer :: i
 ! 
 !    !! set up graphics area
 !    call prefsize(400,400)
@@ -2179,9 +2183,11 @@ end subroutine draw_line_single
 !    THETA  is the positive CCW angle W.R.T. the X-axis
 !    NTEXT  is the number of characters in itext to plot
 !           o If NTEXT.lt.-1 the pen is down to (X,Y) and a single special
-!             centered symbol is plotted.
+!             centered symbol is plotted. ITEXT must be from CHAR(0) to
+!             CHAR(21).
 !           o If NTEXT.eq.-1 the pen is up to (X,Y) and a single special
-!             centered symbol is plotted.
+!             centered symbol is plotted. ITEXT must be from CHAR(0) to
+!             CHAR(21).
 !           o if NTEXT=0 a single Simplex Roman character from ITEXT,
 !             left-justified, is plotted.
 !           o if NTEXT.gt.0 NTEXT characters from ITEXT are decoded and
@@ -2255,10 +2261,11 @@ end subroutine draw_line_single
 !    program demo_hershey
 !    use M_pixel
 !    use M_writegif_animated, only : write_animated_gif
-!    use M_pixel, only : i2s
+!    implicit none
 !    integer,parameter :: isize=600
 !    integer,parameter :: topsym=432
-!    integer  :: movie(1:topsym,0:isize-1,0:isize-1)
+!    integer           :: movie(1:topsym,0:isize-1,0:isize-1)
+!    integer           :: i
 !    !! set up environment
 !    call prefsize(isize,isize)
 !    call vinit()
@@ -2285,14 +2292,14 @@ end subroutine draw_line_single
 !       call textang(0.0)
 !       call move2(0.0,0.0)
 !       call textsize(150.0,150.0)
-!       call drawstr('\'//i2s(i+1000)//'\')
+!       call drawstr('\',i+1000,'\',nospace=.true.)
 ! 
 !       call centertext(.false.)
 !       call color(1)
 !       call move2(-120.0,120.0)
 !       call textsize(10.0,10.0)
 !       call linewidth(40)
-!       call drawstr(i2s(i+1000)//' ')
+!       call drawstr(i+1000,' ')
 !       movie(i,:,:)=P_pixel
 !    enddo
 !    call vexit()
@@ -2367,6 +2374,7 @@ subroutine hershey(x,y,height,itext,theta,ntext)
      &                           (2**NBITS-MIN0(1,MOD(-IWORD, &
      &                           2**(NSTART-NBITS))))
 !-----------------------------------------------------------------------------------------------------------------------------------
+      !!write(*,*)'GOT HERE A','X=',x,'Y=',y,'HEIGHT=',height,'ITEXT=',itext,'THETA=',theta,'NTEXT=',ntext
       yoff=0.0
       si=sind(theta)
       co=cosd(theta)
@@ -2386,7 +2394,7 @@ subroutine hershey(x,y,height,itext,theta,ntext)
        if(ntext.lt.-1)call hstylus(xi,yi,idown)
        ia=ichar(itext(1:1))+1
        if(ia.gt.size(isstar))then
-          write(*,*)'*hershey* character of out range for centered characters=',ia,itext(1:1)
+          write(*,*)'*hershey* error: character out of range for centered characters=',ia,itext(1:1)
           ia=size(isstar)
        endif
        is=isstar(ia)
@@ -2811,6 +2819,7 @@ END SUBROUTINE CHRCOD
 !    program demo_strlength
 !    use :: M_pixel
 !    use :: M_writegif, only : writegif
+!    implicit none
 !    real    :: left
 !    real    :: baseline
 !    integer :: icolor=0
@@ -3017,7 +3026,7 @@ end subroutine justfy
 ! EXAMPLE
 !   Sample program:
 ! 
-!    demo_polyline2
+!    program demo_polyline2
 !    use M_pixel
 !    use M_writegif, only : writegif
 !    implicit none
@@ -3162,6 +3171,7 @@ end subroutine if_init
 !    program demo_arc
 !    use M_pixel
 !    use M_writegif, only : writegif
+!    implicit none
 !    integer  :: transparent=0
 !    call prefsize(600,240)
 !    call vinit()
@@ -3242,6 +3252,7 @@ end subroutine arc
 !    program demo_circle
 !    use M_pixel
 !    use M_writegif, only : writegif
+!    implicit none
 !    !! set up drawing surface
 !    call prefsize(400,400)
 !    call vinit()
@@ -3393,8 +3404,8 @@ end subroutine linewidth
 ! 
 !     program demo_color
 !     use M_pixel
-!     use M_pixel,  only : i2s
 !     use M_writegif, only : writegif
+!     implicit none
 !     real    :: b=0.5
 !     real    :: y1,y2,ym,x1,x2
 !     real    :: width=50.0/8.0,width2
@@ -3422,7 +3433,7 @@ end subroutine linewidth
 !           call closepoly()
 !           call color(i+1)
 !           call move2((x1+x2)/2.0,ym)
-!           call drawstr((i2s(i)))     ! convert number to string and draw it
+!           call drawstr(i)     ! convert number to string and draw it
 !           call circle((x1+x2)/2.0, ym, (x2-x1)/2.10)
 !           x1=x1+width
 !        enddo
@@ -3479,14 +3490,16 @@ end subroutine color
 !    use m_pixel, only: hue
 !    use M_writegif, only : writegif
 !    use M_pixel,    only : cosd, sind
+!    use M_writegif_animated, only : write_animated_gif
 !    implicit none
-!       character(len=4096)  :: filename
-!       real                 :: lightstep
-!       integer              :: ii,iframe
-!       integer,parameter    :: SLICES=30
-!       integer,parameter    :: RINGS=  8
-!       real                 :: LIGHTNESS
-!       integer,parameter    :: BOX=1200
+!    character(len=4096)  :: filename
+!    real                 :: lightstep
+!    integer              :: ii,iframe
+!    integer,parameter    :: SLICES=30
+!    integer,parameter    :: RINGS=  8
+!    real                 :: LIGHTNESS
+!    integer,parameter    :: BOX=1200
+!    integer              :: movie(1:19,0:box-1,0:box-1)
 !       call prefsize(BOX,BOX)
 !       call vinit(' ')
 !       call color(0)
@@ -3503,8 +3516,10 @@ end subroutine color
 !          call wheel()
 !          write(filename,'("mapcolor.3_",i3.3,".gif")')int(LIGHTNESS)
 !          call writegif(filename,P_pixel,P_colormap)
+!          movie(ii,:,:)=P_pixel
 !          LIGHTNESS=LIGHTNESS+LIGHTSTEP
 !       enddo
+!       call write_animated_gif('mapcolor.3m_pixel.gif',movie,P_colormap,delay=40)
 !       call vexit()
 !    contains
 !    !=======================================================================--------
@@ -3537,25 +3552,25 @@ end subroutine color
 !    end subroutine wheel
 !    !=======================================================================--------
 !    subroutine slice(hue_val) ! draw a slice
-!       integer           :: buffer
-!       real              :: hue_val, ang_inc
-!       character(len=40) :: inline
-!       real              :: step
-!       real              :: X1, X2, X3, X4
-!       real              :: Y1, Y2, Y3, Y4
-!       !
-!       integer           :: maxcolors, current_color
-!       integer           :: ir, ig, ib
-!       real              :: r,g,b
-!       real              :: saturation
-!       !
-!       integer           :: status
-!       integer           :: icount
-!       real              :: angle1, angle2
-!       real              :: radius1, radius2, radius3, radius4
-!       !
-!       integer,save      :: color_count=0
-!       !
+!    integer           :: buffer
+!    real              :: hue_val, ang_inc
+!    character(len=40) :: inline
+!    real              :: step
+!    real              :: X1, X2, X3, X4
+!    real              :: Y1, Y2, Y3, Y4
+!    !
+!    integer           :: maxcolors, current_color
+!    integer           :: ir, ig, ib
+!    real              :: r,g,b
+!    real              :: saturation
+!    !
+!    integer           :: status
+!    integer           :: icount
+!    real              :: angle1, angle2
+!    real              :: radius1, radius2, radius3, radius4
+!    !
+!    integer,save      :: color_count=0
+!    !
 !       buffer=8
 !       ANG_INC=360.0/SLICES
 !       angle1=hue_val-ANG_INC/2
@@ -3667,13 +3682,13 @@ end subroutine mapcolor
 ! 
 !    program demo_circleprecision
 !    use M_pixel
-!    use M_pixel,  only : i2s
 !    use M_writegif, only : writegif
-!    real    :: b=0.5
-!    real    :: y1,y2,ym,x1,x2
-!    real    :: width=50.0/8.0,width2
+!    implicit none
+!    real              :: b=0.5
+!    real              :: y1,y2,ym,x1,x2
+!    real              :: width=50.0/8.0,width2
 !    integer,parameter :: ivals(*)=[3,5,7,10,20,30,60,100]
-!    integer :: i
+!    integer           :: i
 !       !! set up long bar as plotting area
 !       call prefsize(1000,200)
 !       call vinit()
@@ -3693,7 +3708,7 @@ end subroutine mapcolor
 !          x2=x1+width2
 !          call move2((x1+x2)/2.0,ym)
 !          call circleprecision(ivals(i))
-!          call drawstr((i2s(ivals(i))))     ! convert number to string and draw it
+!          call drawstr(ivals(i))     ! convert number to string and draw it
 !          call circle((x1+x2)/2.0, ym, (x2-x1)/2.10)
 !          x1=x1+width
 !       enddo
@@ -4078,6 +4093,8 @@ end subroutine page
 !      use M_pixel, only: linewidth
 !      use M_pixel, only: P_pixel, P_colormap
 !      use M_writegif, only : writegif
+!      implicit none
+!      integer :: i
 !      call prefsize(500,500)
 !      call vinit()
 !      call ortho2(-110.0,110.0,-110.0,110.0)
@@ -4134,6 +4151,7 @@ end subroutine rmove2
 !      use M_pixel, only : move2, draw2, vexit
 !      use M_pixel, only : P_pixel,P_colormap
 !      use M_writegif, only : writegif
+!      implicit none
 !      call prefsize(60,40)
 !      call vinit()
 !      call ortho2(-300.0,300.0,-200.0,200.0)
@@ -4189,6 +4207,7 @@ end subroutine move2
 !      use M_pixel, only: clear, move2, rdraw2, vexit,color
 !      use M_pixel, only: P_pixel, P_colormap
 !      use M_writegif, only : writegif
+!      implicit none
 ! 
 !      call prefsize(200,200)
 !      call vinit()
@@ -4213,6 +4232,7 @@ end subroutine move2
 !      contains
 ! 
 !      subroutine square(side)
+!      real,intent(in) :: side
 !      call rdraw2( side,   0.0)
 !      call rdraw2(  0.0,  side)
 !      call rdraw2(-side,   0.0)
@@ -4279,10 +4299,10 @@ end subroutine rdraw2
 !    ! Changing the parameter A will turn the spiral,
 !    ! while B controls the distance between successive turnings.
 !    !
-!       implicit none
-!       integer        :: i
-!       real           :: x,y,radius,theta
-!       real,parameter :: rotate=0.0, gap=2.0
+!    implicit none
+!    integer        :: i
+!    real           :: x,y,radius,theta
+!    real,parameter :: rotate=0.0, gap=2.0
 !       call prefsize(400,400)
 !       call vinit('')
 !       call ortho2(-150.0,150.0,-150.0,150.0)
@@ -4354,6 +4374,7 @@ end subroutine draw2
 !      use M_pixel, only: move2, draw2, vexit, color
 !      use M_pixel, only : P_pixel,P_colormap
 !      use M_writegif, only : writegif
+!      implicit none
 !         ! make first file with one size
 !         call prefsize(60*2,40*2)
 !         call vinit()
@@ -4422,6 +4443,7 @@ end subroutine prefsize
 !      use M_pixel, only: move2, draw2, color, vinit
 !      use M_pixel, only : P_pixel,P_colormap
 !      use M_writegif, only : writegif
+!      implicit none
 !      call prefsize(60,40)
 !      call vinit()
 !      call ortho2(-300.0,300.0,-200.0,200.0)
@@ -4474,6 +4496,7 @@ end subroutine vexit
 !      use M_pixel, only    : move2, draw2, vexit, color
 !      use M_pixel, only    : P_pixel, P_colormap
 !      use M_writegif, only : writegif
+!      implicit none
 !      call prefsize(60,40)
 !      call vinit()
 !      call ortho2(-300.0,300.0,-200.0,200.0)
@@ -4739,6 +4762,7 @@ end subroutine closepoly
 !      use M_pixel, only : prefsize,vinit,ortho2,vexit
 !      use M_pixel, only : linewidth,circle,color
 !      use M_pixel, only : print_ppm
+!      implicit none
 !      call prefsize(40,40)
 !      call vinit()
 !      call ortho2(-100.0,100.0,-100.0,100.0)
@@ -4804,6 +4828,7 @@ end subroutine print_ppm
 ! 
 !    program demo_print_ascii
 !    use M_pixel
+!    implicit none
 !    call prefsize(80,24)
 !    call vinit()
 !    call ortho2(0.0,80.0,0.0,24.0)
@@ -5128,6 +5153,9 @@ end subroutine xcentertext
 !    use :: M_pixel
 !    use :: M_pixel, only : cosd, sind
 !    use :: M_writegif, only : writegif
+!    implicit none
+!    real    :: x1, y1, xx, yy, ang, r
+!    integer :: i, j
 !    !! set up drawing environment
 !    call prefsize(600,600)
 !    call vinit()
@@ -5214,6 +5242,8 @@ end subroutine centertext
 !    use :: M_pixel
 !    use :: M_pixel, only : cosd, sind
 !    use :: M_writegif, only : writegif
+!    implicit none
+!    integer :: i
 !    !! set up drawing environment
 !    call prefsize(600,600)
 !    call vinit()
@@ -5281,6 +5311,7 @@ end subroutine textang
 !    program demo_font
 !    use :: M_pixel
 !    use :: M_writegif, only : writegif
+!    implicit none
 !    real    :: left
 !    real    :: baseline=80.0
 !    integer :: icolor=1
@@ -5322,7 +5353,7 @@ end subroutine textang
 !    subroutine nextline(string)
 !    character(len=*) :: string
 !    !! reduce some duplicate code; very specific to this example
-!       integer :: iend
+!    integer :: iend
 !       iend=index(string,',')  ! if comma, assume font name found
 !       if(iend.ne.0)call font(string(:iend-1)) ! change font
 !       icolor=icolor+1         ! set pen color
@@ -5373,8 +5404,10 @@ end subroutine font
 !    program demo_drawchar
 !    use M_pixel
 !    use M_writegif_animated, only : write_animated_gif
+!    implicit none
 !    integer,parameter :: isize=600
-!    integer  :: movie(32:124,0:isize-1,0:isize-1)
+!    integer           :: movie(32:124,0:isize-1,0:isize-1)
+!    integer           :: i
 !    !! set up environment
 !    call prefsize(isize,isize)
 !    call vinit()
@@ -5486,7 +5519,7 @@ end subroutine drawchar
 ! LICENSE
 !    Public Domain
 !
-subroutine drawstr(string)
+subroutine drawstr_(string)
 !-!use :: M_pixel, only : cosd, sind
 
 ! ident_43="@(#)M_pixel::drawstr(3f): draw text at the current position"
@@ -5576,7 +5609,7 @@ character(len=:),allocatable :: fontstring
    yy=yt+sind(P_TEXT_ANGLE)*ll
    call move2(xx,yy)
 
-end subroutine drawstr
+end subroutine drawstr_
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
@@ -5740,6 +5773,7 @@ end subroutine point2
 ! 
 !    program demo_state
 !    use M_pixel
+!    implicit none
 !    call prefsize(640,400)
 !    call vinit()
 !    call state()
@@ -5825,8 +5859,9 @@ end subroutine state
 !    program demo_poly2
 !    use M_pixel
 !    use M_writegif, only : writegif
-!    integer :: i,j
-!    real    :: xx,yy
+!    implicit none
+!    integer :: i, j, icolor
+!    real    :: xx, yy
 !       call prefsize(512,512)
 !       call vinit()
 !       call ortho2(0.0,256.0,0.0,256.0)
@@ -5848,29 +5883,30 @@ end subroutine state
 !    contains
 ! 
 !    subroutine setcolor(iset,xx,yy)
-!    use M_pixel, only : i2s
+!    use M_pixel,  only : i2s
 !    use M_pixel,  only : color_name2rgb
 !    integer,intent(in) :: iset
 !    real,intent(in)    :: xx,yy
 !    character(len=80)  :: echoname
-!    real    :: points(2,100)
-!    if(iset.gt.255)return
-!    ! determine coordinates of next square
-!    points(1:2,1)=[xx,      yy      ]
-!    points(1:2,2)=[xx,      yy+16.0 ]
-!    points(1:2,3)=[xx+16.0, yy+16.0 ]
-!    points(1:2,4)=[xx+16.0, yy      ]
-!    points(1:2,5)=[xx,      yy      ]
-!    ! get some nice RGB values to try from named colors known by M_pixel module
-!    call color_name2rgb(i2s(icolor),red,green,blue,echoname)
-!    if(echoname.eq.'Unknown') return
-!    ! set a color number to the new RGB values
-!    write(*,*)icolor, nint(red*2.55), nint(green*2.55), nint(blue*2.55),trim(echoname)
-!    call mapcolor(icolor, nint(red*2.55), nint(green*2.55), nint(blue*2.55))
-!    ! set to the new color
-!    call color(icolor)
-!    ! fill the rectangle in that color
-!    call poly2(5,points)
+!    real               :: points(2,100)
+!    real               :: red, green, blue
+!       if(iset.gt.255)return
+!       ! determine coordinates of next square
+!       points(1:2,1)=[xx,      yy      ]
+!       points(1:2,2)=[xx,      yy+16.0 ]
+!       points(1:2,3)=[xx+16.0, yy+16.0 ]
+!       points(1:2,4)=[xx+16.0, yy      ]
+!       points(1:2,5)=[xx,      yy      ]
+!       ! get some nice RGB values to try from named colors known by M_pixel module
+!       call color_name2rgb(i2s(icolor),red,green,blue,echoname)
+!       if(echoname.eq.'Unknown') return
+!       ! set a color number to the new RGB values
+!       write(*,*)icolor, nint(red*2.55), nint(green*2.55), nint(blue*2.55),trim(echoname)
+!       call mapcolor(icolor, nint(red*2.55), nint(green*2.55), nint(blue*2.55))
+!       ! set to the new color
+!       call color(icolor)
+!       ! fill the rectangle in that color
+!       call poly2(5,points)
 !    end subroutine setcolor
 ! 
 !    end program demo_poly2
@@ -6148,6 +6184,226 @@ integer,intent(in) :: y
    call PPM_SOLID_FILL(cxras,cyras,nsegs)
 
 end subroutine PPM_ENDCAP_CIRCLE
+!===================================================================================================================================
+!()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
+!===================================================================================================================================
+!>
+!!##NAME
+!!    drawstr(3f) - [M_msg] converts any standard scalar type to a string and prints it
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!    subroutine drawstr(g0,g1,g2,g3,g4,g5,g6,g7,g8,g9,ga,gb,gc,gd,ge,gf,gg,gh,gi,gj,nospace)
+!!
+!!     class(*),intent(in),optional  :: g0,g1,g2,g3,g4,g5,g6,g7,g8,g9
+!!     class(*),intent(in),optional  :: ga,gb,gc,gd,ge,gf,gg,gh,gi,gj
+!!     logical,intent(in),optional   :: nospace
+!!
+!!##DESCRIPTION
+!!    drawstr(3f) builds a space-separated string from up to twenty scalar values.
+!!
+!!##OPTIONS
+!!    g[0-9a-j]   optional value to print the value of after the message. May
+!!                be of type INTEGER, LOGICAL, REAL, DOUBLEPRECISION,
+!!                COMPLEX, or CHARACTER.
+!!
+!!                Optionally, all the generic values can be
+!!                single-dimensioned arrays. Currently, mixing scalar
+!!                arguments and array arguments is not supported.
+!!
+!!    nospace     if nospace=.true., then no spaces are added between values
+!!
+!!
+!!##EXAMPLES
+!!
+!!   Sample program:
+!!
+!!    program demo_msg
+!!    use M_pixel, only : str
+!!    implicit none
+!!    character(len=:),allocatable :: pr
+!!    character(len=:),allocatable :: frmt
+!!    integer                      :: biggest
+!!
+!!    pr=str('HUGE(3f) integers',huge(0),'and real',huge(0.0),'and double',huge(0.0d0))
+!!    write(*,'(a)')pr
+!!    pr=str('real            :',huge(0.0),0.0,12345.6789,tiny(0.0) )
+!!    write(*,'(a)')pr
+!!    pr=str('doubleprecision :',huge(0.0d0),0.0d0,12345.6789d0,tiny(0.0d0) )
+!!    write(*,'(a)')pr
+!!    pr=str('complex         :',cmplx(huge(0.0),tiny(0.0)) )
+!!    write(*,'(a)')pr
+!!
+!!    ! create a format on the fly
+!!    biggest=huge(0)
+!!    frmt=str('(*(i',int(log10(real(biggest))),':,1x))',nospace=.true.)
+!!    write(*,*)'format=',frmt
+!!
+!!    ! although it will often work, using str(3f) in an I/O statement is not recommended
+!!    ! because if an error occurs str(3f) will try to write while part of an I/O statement
+!!    ! which not all compilers can handle and is currently non-standard
+!!    write(*,*)str('program will now stop')
+!!
+!!    end program demo_msg
+!!
+!!  Output
+!!
+!!    HUGE(3f) integers 2147483647 and real 3.40282347E+38 and double 1.7976931348623157E+308
+!!    real            : 3.40282347E+38 0.00000000 12345.6787 1.17549435E-38
+!!    doubleprecision : 1.7976931348623157E+308 0.0000000000000000 12345.678900000001 2.2250738585072014E-308
+!!    complex         : (3.40282347E+38,1.17549435E-38)
+!!     format=(*(i9:,1x))
+!!     program will now stop
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
+subroutine msg_scalar(generic0, generic1, generic2, generic3, generic4, generic5, generic6, generic7, generic8, generic9, &
+                  & generica, genericb, genericc, genericd, generice, genericf, genericg, generich, generici, genericj, &
+                  & nospace)
+implicit none
+
+! ident_2="@(#)M_msg::msg_scalar(3fp): writes a message to a string composed of any standard scalar types"
+
+class(*),intent(in),optional  :: generic0, generic1, generic2, generic3, generic4
+class(*),intent(in),optional  :: generic5, generic6, generic7, generic8, generic9
+class(*),intent(in),optional  :: generica, genericb, genericc, genericd, generice
+class(*),intent(in),optional  :: genericf, genericg, generich, generici, genericj
+logical,intent(in),optional   :: nospace
+character(len=:), allocatable :: msg
+character(len=4096)           :: line
+integer                       :: istart
+integer                       :: increment
+   if(present(nospace))then
+      if(nospace)then
+         increment=1
+      else
+         increment=2
+      endif
+   else
+      increment=2
+   endif
+
+   istart=1
+   line=''
+   if(present(generic0))call print_generic(generic0)
+   if(present(generic1))call print_generic(generic1)
+   if(present(generic2))call print_generic(generic2)
+   if(present(generic3))call print_generic(generic3)
+   if(present(generic4))call print_generic(generic4)
+   if(present(generic5))call print_generic(generic5)
+   if(present(generic6))call print_generic(generic6)
+   if(present(generic7))call print_generic(generic7)
+   if(present(generic8))call print_generic(generic8)
+   if(present(generic9))call print_generic(generic9)
+   if(present(generica))call print_generic(generica)
+   if(present(genericb))call print_generic(genericb)
+   if(present(genericc))call print_generic(genericc)
+   if(present(genericd))call print_generic(genericd)
+   if(present(generice))call print_generic(generice)
+   if(present(genericf))call print_generic(genericf)
+   if(present(genericg))call print_generic(genericg)
+   if(present(generich))call print_generic(generich)
+   if(present(generici))call print_generic(generici)
+   if(present(genericj))call print_generic(genericj)
+   msg=trim(line)
+   call drawstr_(msg)
+contains
+!===================================================================================================================================
+subroutine print_generic(generic)
+!use, intrinsic :: iso_fortran_env, only : int8, int16, int32, biggest=>int64, real32, real64, dp=>real128
+use,intrinsic :: iso_fortran_env, only : int8, int16, int32, int64, real32, real64, real128
+class(*),intent(in) :: generic
+   select type(generic)
+      type is (integer(kind=int8));     write(line(istart:),'(i0)') generic
+      type is (integer(kind=int16));    write(line(istart:),'(i0)') generic
+      type is (integer(kind=int32));    write(line(istart:),'(i0)') generic
+      type is (integer(kind=int64));    write(line(istart:),'(i0)') generic
+      type is (real(kind=real32));      write(line(istart:),'(1pg0)') generic
+      type is (real(kind=real64));      write(line(istart:),'(1pg0)') generic
+      type is (real(kind=real128));     write(line(istart:),'(1pg0)') generic
+      type is (logical);                write(line(istart:),'(1l)') generic
+      type is (character(len=*));       write(line(istart:),'(a)') trim(generic)
+      type is (complex);                write(line(istart:),'("(",1pg0,",",1pg0,")")') generic
+   end select
+   istart=len_trim(line)+increment
+end subroutine print_generic
+!===================================================================================================================================
+end subroutine msg_scalar
+!===================================================================================================================================
+!()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
+!===================================================================================================================================
+subroutine msg_one(generic0,generic1, generic2, generic3, generic4, generic5, generic6, generic7, generic8, generic9,nospace)
+implicit none
+
+! ident_3="@(#)M_msg::msg_one(3fp): writes a message to a string composed of any standard one dimensional types"
+
+class(*),intent(in)           :: generic0(:)
+class(*),intent(in),optional  :: generic1(:), generic2(:), generic3(:), generic4(:), generic5(:)
+class(*),intent(in),optional  :: generic6(:), generic7(:), generic8(:), generic9(:)
+logical,intent(in),optional   :: nospace
+character(len=:), allocatable :: msg
+character(len=4096)           :: line
+integer                       :: istart
+integer                       :: increment
+   if(present(nospace))then
+      if(nospace)then
+         increment=1
+      else
+         increment=2
+      endif
+   else
+      increment=2
+   endif
+
+   istart=1
+   line=' '
+   call print_generic(generic0)
+   if(present(generic1))call print_generic(generic1)
+   if(present(generic2))call print_generic(generic2)
+   if(present(generic3))call print_generic(generic3)
+   if(present(generic4))call print_generic(generic4)
+   if(present(generic5))call print_generic(generic5)
+   if(present(generic6))call print_generic(generic6)
+   if(present(generic7))call print_generic(generic7)
+   if(present(generic8))call print_generic(generic8)
+   if(present(generic9))call print_generic(generic9)
+   msg=trim(line)
+   call drawstr_(msg)
+contains
+!===================================================================================================================================
+subroutine print_generic(generic)
+!use, intrinsic :: iso_fortran_env, only : int8, int16, int32, biggest=>int64, real32, real64, dp=>real128
+use,intrinsic :: iso_fortran_env, only : int8, int16, int32, int64, real32, real64, real128
+class(*),intent(in),optional :: generic(:)
+integer :: i
+   select type(generic)
+      type is (integer(kind=int8));     write(line(istart:),'("[",*(i0,1x))') generic
+      type is (integer(kind=int16));    write(line(istart:),'("[",*(i0,1x))') generic
+      type is (integer(kind=int32));    write(line(istart:),'("[",*(i0,1x))') generic
+      type is (integer(kind=int64));    write(line(istart:),'("[",*(i0,1x))') generic
+      type is (real(kind=real32));      write(line(istart:),'("[",*(1pg0,1x))') generic
+      type is (real(kind=real64));      write(line(istart:),'("[",*(1pg0,1x))') generic
+      type is (real(kind=real128));     write(line(istart:),'("[",*(1pg0,1x))') generic
+      !type is (real(kind=real256));     write(error_unit,'(1pg0)',advance='no') generic
+      type is (logical);                write(line(istart:),'("[",*(1l,1x))') generic
+      type is (character(len=*));       write(line(istart:),'("[",:*("""",a,"""",1x))') (trim(generic(i)),i=1,size(generic))
+      type is (complex);                write(line(istart:),'("[",*("(",1pg0,",",1pg0,")",1x))') generic
+      class default
+         stop 'unknown type in *print_generic*'
+   end select
+   line=trim(line)//"]"
+   istart=len_trim(line)+increment
+end subroutine print_generic
+!===================================================================================================================================
+end subroutine msg_one
+!===================================================================================================================================
+!()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
+!===================================================================================================================================
+! EXTRACTED FROM OTHER MODULES
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
 !===================================================================================================================================
@@ -7036,6 +7292,7 @@ end subroutine rgbyiq
 ! 
 !        program demo_closest_color_name
 !        use M_pixel, only : closest_color_name
+!        implicit none
 !        character(len=100) :: string ! at least 20 characters
 !        string=' '
 ! 
@@ -7773,7 +8030,7 @@ end function lower
 !    implicit none
 !    real    :: x,y
 !    real    :: r,i
-!    integer :: ios
+!    !!integer :: ios
 ! 
 !    !!INFINITE: do
 !    !!   write(*,advance='no')'Enter radius and inclination(in radians):'

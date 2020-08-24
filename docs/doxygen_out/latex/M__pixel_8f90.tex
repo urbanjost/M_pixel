@@ -5,6 +5,8 @@
 \item 
 type \mbox{\hyperlink{structm__pixel_1_1matrix}{m\+\_\+pixel\+::matrix}}
 \item 
+interface \mbox{\hyperlink{interfacem__pixel_1_1drawstr}{m\+\_\+pixel\+::drawstr}}
+\item 
 interface \mbox{\hyperlink{interfacem__pixel_1_1d2r}{m\+\_\+pixel\+::d2r}}
 \end{DoxyCompactItemize}
 \subsection*{Modules}
@@ -101,7 +103,7 @@ subroutine, public \mbox{\hyperlink{namespacem__pixel_a566adb827a3a26ba42d4e86e4
 \item 
 subroutine, public \mbox{\hyperlink{namespacem__pixel_a58406ffd6c2a9fdf2ea7772198b54255}{m\+\_\+pixel\+::drawchar}} (ch)
 \item 
-subroutine, public \mbox{\hyperlink{namespacem__pixel_a6fa0c2d531d1ac74840aa2f0e2b050e0}{m\+\_\+pixel\+::drawstr}} (string)
+subroutine \mbox{\hyperlink{namespacem__pixel_a3f8850328e359af5802954b2f70652f5}{m\+\_\+pixel\+::drawstr\+\_\+}} (string)
 \item 
 subroutine, public \mbox{\hyperlink{namespacem__pixel_a626d769d3dae0c292e3ef1617ad43efb}{m\+\_\+pixel\+::getgp2}} (x, y)
 \item 
@@ -124,6 +126,16 @@ logical function \mbox{\hyperlink{namespacem__pixel_a4924b3a5033acb74a4f4df60a4b
 subroutine \mbox{\hyperlink{namespacem__pixel_aedaf33a27e9899da22c2497aff2af903}{m\+\_\+pixel\+::ppm\+\_\+solid\+\_\+fill}} (x, y, n)
 \item 
 subroutine \mbox{\hyperlink{namespacem__pixel_aede24c612504a3e416840e6242c2d8fb}{m\+\_\+pixel\+::ppm\+\_\+endcap\+\_\+circle}} (x, y)
+\item 
+subroutine \mbox{\hyperlink{namespacem__pixel_af907f9c8cb0421cf9c5e6356e355382e}{m\+\_\+pixel\+::msg\+\_\+scalar}} (generic0, generic1, generic2, generic3, generic4, generic5, generic6, generic7, generic8, generic9, generica, genericb, genericc, genericd, generice, genericf, genericg, generich, generici, genericj, nospace)
+\begin{DoxyCompactList}\small\item\em \subsubsection*{N\+A\+ME}
+
+drawstr(3f) -\/ \mbox{[}M\+\_\+msg\mbox{]} converts any standard scalar type to a string and prints it (L\+I\+C\+E\+N\+SE\+:PD) \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{M__pixel_8f90_aaa8ee15f943d8e1543ae35ab732c3cd2}{print\+\_\+generic}} (generic)
+\item 
+subroutine \mbox{\hyperlink{namespacem__pixel_a8c097c521deafffc765bd3f35eca423c}{m\+\_\+pixel\+::msg\+\_\+one}} (generic0, generic1, generic2, generic3, generic4, generic5, generic6, generic7, generic8, generic9, nospace)
+\item 
+subroutine \mbox{\hyperlink{M__pixel_8f90_a9d5e1620d474ac03a74eeb9b0f7d6ae1}{print\+\_\+generic}} (generic)
 \item 
 elemental real function, public \mbox{\hyperlink{namespacem__pixel_a312c40bfbd03b2bbe6f85bc5efca6ce3}{m\+\_\+pixel\+::cosd}} (angle\+\_\+in\+\_\+degrees)
 \item 
@@ -314,3 +326,26 @@ real, parameter \mbox{\hyperlink{namespacem__pixel_a51ed97a239a2e633db7f4a5cf7e6
 \item 
 real, parameter \mbox{\hyperlink{namespacem__pixel_ae2cb6913bb1501cb9872cb874a6c283e}{m\+\_\+pixel\+::degrees\+\_\+to\+\_\+radians}} = P\+I\+\_\+D / 180.\+0\+D+00
 \end{DoxyCompactItemize}
+
+
+\subsection{Function/\+Subroutine Documentation}
+\mbox{\Hypertarget{M__pixel_8f90_aaa8ee15f943d8e1543ae35ab732c3cd2}\label{M__pixel_8f90_aaa8ee15f943d8e1543ae35ab732c3cd2}} 
+\index{M\+\_\+pixel.\+f90@{M\+\_\+pixel.\+f90}!print\+\_\+generic@{print\+\_\+generic}}
+\index{print\+\_\+generic@{print\+\_\+generic}!M\+\_\+pixel.\+f90@{M\+\_\+pixel.\+f90}}
+\subsubsection{\texorpdfstring{print\+\_\+generic()}{print\_generic()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily subroutine msg\+\_\+scalar\+::print\+\_\+generic (\begin{DoxyParamCaption}\item[{class($\ast$), intent(in)}]{generic }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=313pt]{M__pixel_8f90_aaa8ee15f943d8e1543ae35ab732c3cd2_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{M__pixel_8f90_a9d5e1620d474ac03a74eeb9b0f7d6ae1}\label{M__pixel_8f90_a9d5e1620d474ac03a74eeb9b0f7d6ae1}} 
+\index{M\+\_\+pixel.\+f90@{M\+\_\+pixel.\+f90}!print\+\_\+generic@{print\+\_\+generic}}
+\index{print\+\_\+generic@{print\+\_\+generic}!M\+\_\+pixel.\+f90@{M\+\_\+pixel.\+f90}}
+\subsubsection{\texorpdfstring{print\+\_\+generic()}{print\_generic()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily subroutine msg\+\_\+one\+::print\+\_\+generic (\begin{DoxyParamCaption}\item[{class($\ast$), dimension(\+:), intent(in), optional}]{generic }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+

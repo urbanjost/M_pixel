@@ -13,10 +13,10 @@
           ! Changing the parameter A will turn the spiral,
           ! while B controls the distance between successive turnings.
           !
-             implicit none
-             integer        :: i
-             real           :: x,y,radius,theta
-             real,parameter :: rotate=0.0, gap=2.0
+          implicit none
+          integer        :: i
+          real           :: x,y,radius,theta
+          real,parameter :: rotate=0.0, gap=2.0
              call prefsize(400,400)
              call vinit('')
              call ortho2(-150.0,150.0,-150.0,150.0)

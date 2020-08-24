@@ -2,6 +2,8 @@
           use :: M_pixel
           use :: M_pixel, only : cosd, sind
           use :: M_writegif, only : writegif
+          implicit none
+          integer :: i
           !! set up drawing environment
           call prefsize(600,600)
           call vinit()

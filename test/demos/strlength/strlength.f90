@@ -1,6 +1,7 @@
           program demo_strlength
           use :: M_pixel
           use :: M_writegif, only : writegif
+          implicit none
           real    :: left
           real    :: baseline
           integer :: icolor=0

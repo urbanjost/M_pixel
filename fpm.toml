@@ -10,23 +10,20 @@ copyright = "2020 John Urban"
 #   source-dir="test"
 #   main="test_suite_M_pixel.f90"
 
-#[[executable]]
-#   name="slices"
-#   source-dir="app/slices"
-#   main="slices.f90"
+[[executable]]
+   name="slices"
+   source-dir="app/slices"
+   main="pixel_slices.f90"
+#   [test.dependencies]
 
 #[[test]]
 #   source-dir="test/gif/mandelbrot"
 #   name="gif"
 #   main="mandelbrot.f90"
 [[test]]
-   source-dir="test/roman"
-   name="roman"
-   main="roman.f90"
-#[[test]]
-#   source-dir="test/no"
-#   name="no"
-#   main="circle_animated.f90"
+   source-dir="test/no"
+   name="no"
+   main="circle_animated.f90"
 [[test]]
    source-dir="test/demos/arc"
    name="arc"
@@ -131,10 +128,10 @@ copyright = "2020 John Urban"
    source-dir="test/demos/poly2"
    name="poly2"
    main="poly2.f90"
-#[[test]]
-#   source-dir="test/demos/polyline2"
-#   name="polyline2"
-#   main="polyline2.f90"
+[[test]]
+   source-dir="test/demos/polyline2"
+   name="polyline2"
+   main="polyline2.f90"
 [[test]]
    source-dir="test/demos/prefsize"
    name="prefsize"

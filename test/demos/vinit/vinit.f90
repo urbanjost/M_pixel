@@ -3,6 +3,7 @@
             use M_pixel, only    : move2, draw2, vexit, color
             use M_pixel, only    : P_pixel, P_colormap
             use M_writegif, only : writegif
+            implicit none
             call prefsize(60,40)
             call vinit()
             call ortho2(-300.0,300.0,-200.0,200.0)

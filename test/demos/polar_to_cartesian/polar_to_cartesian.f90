@@ -3,7 +3,7 @@
           implicit none
           real    :: x,y
           real    :: r,i
-          integer :: ios
+          !!integer :: ios
 
           !!INFINITE: do
           !!   write(*,advance='no')'Enter radius and inclination(in radians):'

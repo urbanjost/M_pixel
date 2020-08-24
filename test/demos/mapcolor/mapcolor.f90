@@ -3,14 +3,16 @@
           use m_pixel, only: hue
           use M_writegif, only : writegif
           use M_pixel,    only : cosd, sind
+          use M_writegif_animated, only : write_animated_gif
           implicit none
-             character(len=4096)  :: filename
-             real                 :: lightstep
-             integer              :: ii,iframe
-             integer,parameter    :: SLICES=30
-             integer,parameter    :: RINGS=  8
-             real                 :: LIGHTNESS
-             integer,parameter    :: BOX=1200
+          character(len=4096)  :: filename
+          real                 :: lightstep
+          integer              :: ii,iframe
+          integer,parameter    :: SLICES=30
+          integer,parameter    :: RINGS=  8
+          real                 :: LIGHTNESS
+          integer,parameter    :: BOX=1200
+          integer              :: movie(1:19,0:box-1,0:box-1)
              call prefsize(BOX,BOX)
              call vinit(' ')
              call color(0)
@@ -27,8 +29,10 @@
                 call wheel()
                 write(filename,'("mapcolor.3_",i3.3,".gif")')int(LIGHTNESS)
                 call writegif(filename,P_pixel,P_colormap)
+                movie(ii,:,:)=P_pixel
                 LIGHTNESS=LIGHTNESS+LIGHTSTEP
              enddo
+             call write_animated_gif('mapcolor.3m_pixel.gif',movie,P_colormap,delay=40)
              call vexit()
           contains
           !=======================================================================--------
@@ -61,25 +65,25 @@
           end subroutine wheel
           !=======================================================================--------
           subroutine slice(hue_val) ! draw a slice
-             integer           :: buffer
-             real              :: hue_val, ang_inc
-             character(len=40) :: inline
-             real              :: step
-             real              :: X1, X2, X3, X4
-             real              :: Y1, Y2, Y3, Y4
-             !
-             integer           :: maxcolors, current_color
-             integer           :: ir, ig, ib
-             real              :: r,g,b
-             real              :: saturation
-             !
-             integer           :: status
-             integer           :: icount
-             real              :: angle1, angle2
-             real              :: radius1, radius2, radius3, radius4
-             !
-             integer,save      :: color_count=0
-             !
+          integer           :: buffer
+          real              :: hue_val, ang_inc
+          character(len=40) :: inline
+          real              :: step
+          real              :: X1, X2, X3, X4
+          real              :: Y1, Y2, Y3, Y4
+          !
+          integer           :: maxcolors, current_color
+          integer           :: ir, ig, ib
+          real              :: r,g,b
+          real              :: saturation
+          !
+          integer           :: status
+          integer           :: icount
+          real              :: angle1, angle2
+          real              :: radius1, radius2, radius3, radius4
+          !
+          integer,save      :: color_count=0
+          !
              buffer=8
              ANG_INC=360.0/SLICES
              angle1=hue_val-ANG_INC/2

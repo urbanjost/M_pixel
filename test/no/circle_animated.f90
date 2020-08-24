@@ -30,5 +30,5 @@ integer            :: iframe
       movie(iframe+85+1,:,:)=p_pixel(:,:)
    enddo
    call vexit()    ! close up plot package
-   call write_animated_gif('movie.gif',movie,p_colormap,delay=1)
+   call write_animated_gif('no.gif',movie,p_colormap,delay=1)
 end program plottests

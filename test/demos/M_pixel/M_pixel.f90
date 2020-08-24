@@ -1,13 +1,12 @@
           program demo_M_pixel
-
           use M_pixel
           use M_writegif, only :  writegif
           use M_pixel,    only : cosd, sind
           implicit none
 
-             integer  :: i
-             integer  :: j
-             integer  :: icolor
+          integer  :: i
+          integer  :: j
+          integer  :: icolor
 
              ! initialize image
              call prefsize(400,400)  ! set size before starting

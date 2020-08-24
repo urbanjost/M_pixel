@@ -1,6 +1,7 @@
           program demo_circle
           use M_pixel
           use M_writegif, only : writegif
+          implicit none
           !! set up drawing surface
           call prefsize(400,400)
           call vinit()

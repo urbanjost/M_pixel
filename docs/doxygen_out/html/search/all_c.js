@@ -3,6 +3,8 @@ var searchData=
   ['m_5fpixel_20fortran_20library',['M_pixel Fortran Library',['../index.html',1,'']]],
   ['m_5fpixel',['m_pixel',['../namespacem__pixel.html',1,'']]],
   ['m_5fpixel_2ef90',['M_pixel.f90',['../M__pixel_8f90.html',1,'']]],
+  ['m_5fpixel_5fslices',['m_pixel_slices',['../namespacem__pixel__slices.html',1,'']]],
+  ['m_5fpixel_5fslices_2ef90',['M_pixel_slices.f90',['../M__pixel__slices_8f90.html',1,'']]],
   ['m_5freadgif',['m_readgif',['../namespacem__readgif.html',1,'']]],
   ['m_5freadgif_2ef90',['M_readgif.f90',['../M__readgif_8f90.html',1,'']]],
   ['m_5fwritegif',['m_writegif',['../namespacem__writegif.html',1,'']]],
@@ -18,5 +20,7 @@ var searchData=
   ['max_5flzw_5fbits',['max_lzw_bits',['../namespacem__readgif.html#a42041a4cc2179d606ca9a1df44a797fe',1,'m_readgif']]],
   ['maxbase',['maxbase',['../namespacem__writegif.html#ae052e1663af721294a611d19b300a8ef',1,'m_writegif']]],
   ['maxcode',['maxcode',['../namespacem__writegif.html#ac55f9abf33971ad396b2ae59b288b0bb',1,'m_writegif']]],
-  ['move2',['move2',['../namespacem__pixel.html#ab5d4dc474ff84dc0f3f35f4a395979e0',1,'m_pixel']]]
+  ['move2',['move2',['../namespacem__pixel.html#ab5d4dc474ff84dc0f3f35f4a395979e0',1,'m_pixel']]],
+  ['msg_5fone',['msg_one',['../interfacem__pixel_1_1drawstr.html#ae8691c6c203ee9b2f71a835830f2e194',1,'m_pixel::drawstr::msg_one()'],['../namespacem__pixel.html#a8c097c521deafffc765bd3f35eca423c',1,'m_pixel::msg_one()']]],
+  ['msg_5fscalar',['msg_scalar',['../interfacem__pixel_1_1drawstr.html#a09631abb575f4e9c56f28228f97cd896',1,'m_pixel::drawstr::msg_scalar()'],['../namespacem__pixel.html#af907f9c8cb0421cf9c5e6356e355382e',1,'m_pixel::msg_scalar()']]]
 ];

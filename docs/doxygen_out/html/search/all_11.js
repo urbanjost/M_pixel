@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['scaleq',['scaleq',['../namespacem__pixel__slices.html#a560f9a31fb656d89f985a6bb0c00d815',1,'m_pixel_slices']]],
   ['sind',['sind',['../namespacem__pixel.html#a3ef23ce0230c47b30cb627ebd439daae',1,'m_pixel']]],
   ['skip',['skip',['../namespacem__writegif.html#aaf7927ca24ee3d409138c18d7d254433',1,'m_writegif']]],
   ['slen',['slen',['../namespacem__writegif.html#ad3e590b43489ea5d2c357953adaca817',1,'m_writegif']]],

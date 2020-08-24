@@ -3,6 +3,7 @@
             use M_pixel, only: clear, move2, rdraw2, vexit,color
             use M_pixel, only: P_pixel, P_colormap
             use M_writegif, only : writegif
+            implicit none
 
             call prefsize(200,200)
             call vinit()
@@ -27,6 +28,7 @@
             contains
 
             subroutine square(side)
+            real,intent(in) :: side
             call rdraw2( side,   0.0)
             call rdraw2(  0.0,  side)
             call rdraw2(-side,   0.0)

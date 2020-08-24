@@ -1,5 +1,6 @@
           program demo_print_ascii
           use M_pixel
+          implicit none
           call prefsize(80,24)
           call vinit()
           call ortho2(0.0,80.0,0.0,24.0)
