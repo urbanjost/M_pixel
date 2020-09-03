@@ -1,9 +1,10 @@
 name = "M_pixel"
 version = "0.1.0"
-#license = "Public Domain"
+license = "Public Domain"
 author = "John S. Urban"
 maintainer = "urbanjost@comcast.net"
 copyright = "2020 John Urban"
+description = "basic vector drawing into a pixel graphics format"
 
 #[[test]]
 #   name="runTests"

@@ -71,7 +71,7 @@ all: $(PROG)
 $(PROG): $(OBJS)
 	-$(F90) $(LDFLAGS) $@.f90 -o $@ $(OBJS) $(LIBS)
 clean:
-	rm -f $(PROG) $(CPROG) $(OBJS) *.mod
+	rm -f $(PROG) $(CPROG) $(OBJS) *.mod manpages.txt
 .SUFFIXES: $(SUFFIXES) .f90 .F90 
 .f90.o:
 	$(F90) $(F90FLAGS) -c $<
@@ -101,7 +101,7 @@ man:
 	: INDEX OF MANPAGES TOPICS
 	@env MANPATH=../man MANWIDTH=256 man -k .|col -b
 	: MANPAGES
-	@env MANPATH=../man MANWIDTH=80  man --regex '.*'|col -b
+	@env MANPATH=../man MANWIDTH=80  man --regex '.*'|col -b|tee manpages.txt
 	: SPELLING
 	@env MANPATH=../man MANWIDTH=80  man --regex '.*'|col -b|spell|xargs -n 5|column -t
 

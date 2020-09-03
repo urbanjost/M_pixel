@@ -22,11 +22,11 @@
 !    use :: M_pixel, only : print_ascii, print_ppm
 !    use :: M_pixel, only : hue
 ! 
-!    ! Differences between M_pixel and M_vogle and VOGLE-related procedures:
-!    !    hershey(3f) and justfy(3f) do not exist in VOGLE and might be replaced
+!    ! Differences between M_pixel and M_draw and M_draw-related procedures:
+!    !    hershey(3f) and justfy(3f) do not exist in M_draw and might be replaced
 !    !    and the same font names are not available
-!    !    print_ascii(3f) and print_ppm(3f) do not exist in VOGLE
-!    !    state(3f) does not exist in VOGLE
+!    !    print_ascii(3f) and print_ppm(3f) do not exist in M_draw
+!    !    state(3f) does not exist in M_draw
 !    !    viewport is in terms of pixels, not range -1.0 to 1.0
 ! 
 !   Module variables
@@ -1449,36 +1449,36 @@ contains
 !    use M_pixel
 !    use M_writegif, only : writegif
 !    implicit none
-!    integer :: i
+!       integer :: i
 ! 
-!    !! set up graphics area
-!    call prefsize(400,400)
-!    call vinit()
-!    call ortho2(left=-100.0, right=100.0, bottom=-100.0, top=100.0)
+!       !! set up graphics area
+!       call prefsize(400,400)
+!       call vinit()
+!       call ortho2(left=-100.0, right=100.0, bottom=-100.0, top=100.0)
 ! 
-!    !! draw some filled rectangles
-!    do i=95,5,-10
-!       call makepoly()
-!       call color(i/10)
-!       call rect( -1.0*i, -1.0*i, 1.0*i, 1.0*i )
-!       call closepoly()
-!    enddo
+!       !! draw some filled rectangles
+!       do i=95,5,-10
+!          call makepoly()
+!          call color(i/10)
+!          call rect( -1.0*i, -1.0*i, 1.0*i, 1.0*i )
+!          call closepoly()
+!       enddo
 ! 
-!    !! draw some rectangles
-!    call linewidth(50)
-!    call color(7)
-!    do i=5,95,5
-!       call rect( -1.0*i, -1.0*i, 1.0*i, 1.0*i )
-!    enddo
+!       !! draw some rectangles
+!       call linewidth(50)
+!       call color(7)
+!       do i=5,95,5
+!          call rect( -1.0*i, -1.0*i, 1.0*i, 1.0*i )
+!       enddo
 ! 
-!    !! render pixel array to a file
-!    call writegif('rect.3m_pixel.gif',P_pixel,P_colormap)
+!       !! render pixel array to a file
+!       call writegif('rect.3m_pixel.gif',P_pixel,P_colormap)
 ! 
-!    !! display graphic assuming display(1) is available
-!    call execute_command_line('display rect.3m_pixel.gif')
+!       !! display graphic assuming display(1) is available
+!       call execute_command_line('display rect.3m_pixel.gif')
 ! 
-!    !! wrap up graphics
-!    call vexit()
+!       !! wrap up graphics
+!       call vexit()
 ! 
 !    end program demo_rect
 ! 
@@ -2267,45 +2267,45 @@ end subroutine draw_line_single
 !    integer           :: movie(1:topsym,0:isize-1,0:isize-1)
 !    integer           :: i
 !    !! set up environment
-!    call prefsize(isize,isize)
-!    call vinit()
-!    call ortho2(-150.0,150.0,-150.0,150.0)
+!       call prefsize(isize,isize)
+!       call vinit()
+!       call ortho2(-150.0,150.0,-150.0,150.0)
 ! 
-!    !! draw all characters using hershey numeric strings
-!    do i=1,topsym
-!       !! draw reference circle and crosshairs
-!       call color(0)
-!       call clear()
+!       !! draw all characters using hershey numeric strings
+!       do i=1,topsym
+!          !! draw reference circle and crosshairs
+!          call color(0)
+!          call clear()
 ! 
-!       call color(4)
-!       call linewidth(100)
-!       call circle(0.0,0.0,75.0)
-!       call move2(-75.0,0.0)
-!       call draw2(75.0,0.0)
-!       call move2(0.0,-75.0)
-!       call draw2(0.0,75.0)
+!          call color(4)
+!          call linewidth(100)
+!          call circle(0.0,0.0,75.0)
+!          call move2(-75.0,0.0)
+!          call draw2(75.0,0.0)
+!          call move2(0.0,-75.0)
+!          call draw2(0.0,75.0)
 ! 
-!       call centertext(.true.)
-!       call color(7)
-!       call linewidth(500)
-!       call textang(3.0*i)
-!       call textang(0.0)
-!       call move2(0.0,0.0)
-!       call textsize(150.0,150.0)
-!       call drawstr('\',i+1000,'\',nospace=.true.)
+!          call centertext(.true.)
+!          call color(7)
+!          call linewidth(500)
+!          call textang(3.0*i)
+!          call textang(0.0)
+!          call move2(0.0,0.0)
+!          call textsize(150.0,150.0)
+!          call drawstr('\',i+1000,'\',nospace=.true.)
 ! 
-!       call centertext(.false.)
-!       call color(1)
-!       call move2(-120.0,120.0)
-!       call textsize(10.0,10.0)
-!       call linewidth(40)
-!       call drawstr(i+1000,' ')
-!       movie(i,:,:)=P_pixel
-!    enddo
-!    call vexit()
-!    !! write to file and display with display(1)
-!    call write_animated_gif('hershey.3m_pixel.gif',movie,P_colormap,delay=40)
-!    !call execute_command_line('display hershey.3m_pixel.gif')
+!          call centertext(.false.)
+!          call color(1)
+!          call move2(-120.0,120.0)
+!          call textsize(10.0,10.0)
+!          call linewidth(40)
+!          call drawstr(i+1000,' ')
+!          movie(i,:,:)=P_pixel
+!       enddo
+!       call vexit()
+!       !! write to file and display with display(1)
+!       call write_animated_gif('hershey.3m_pixel.gif',movie,P_colormap,delay=40)
+!       !call execute_command_line('display hershey.3m_pixel.gif')
 !    end program demo_hershey
 ! 
 ! AUTHOR
@@ -3032,18 +3032,18 @@ end subroutine justfy
 !    implicit none
 !    integer :: transparent=0
 !    integer :: ipaws
-!    call prefsize(300,300)
-!    call vinit(' ')
-!    call ortho2(-2.0,2.0,-2.0,2.0)
-!    call color(2)
-!    call linewidth(100)
-!    call polyline2([-0.5,-0.5, -0.5,+0.5, +0.5,+0.5, +0.5,-0.5])
-!    call color(4)
-!    call polyline2( [-1,-1,+1,+1,-1] , &  ! X values
-!    & [-1,+1,+1,-1,-1] )    ! Y values
-!     ! write gif with a transparent background
-!    call writegif('polyline2.3m_pixel.gif',P_pixel,P_ColorMap,transparent)
-!    call vexit()
+!       call prefsize(300,300)
+!       call vinit(' ')
+!       call ortho2(-2.0,2.0,-2.0,2.0)
+!       call color(2)
+!       call linewidth(100)
+!       call polyline2([-0.5,-0.5, -0.5,+0.5, +0.5,+0.5, +0.5,-0.5])
+!       call color(4)
+!       call polyline2( [-1,-1,+1,+1,-1] , &  ! X values
+!       & [-1,+1,+1,-1,-1] )    ! Y values
+!        ! write gif with a transparent background
+!       call writegif('polyline2.3m_pixel.gif',P_pixel,P_ColorMap,transparent)
+!       call vexit()
 !    end program demo_polyline2
 ! 
 ! AUTHOR
@@ -3106,6 +3106,28 @@ end subroutine polyline2
 !    INDX   color index to set pixel array to. Optional
 ! 
 ! EXAMPLE
+!   Sample program
+! 
+!    program demo_clear
+!    use :: M_pixel
+!    use :: M_writegif, only : writegif
+!    implicit none
+!    real,parameter :: x=400.0, y=400.0
+!       call prefsize(int(x), int(y)) ! set up drawing surface
+!       call vinit()
+!       call color(1)
+!       call linewidth(300)
+!       ! clear a circle and rectangle in default window and viewport
+!       call rect(0.0,0.0,x,y)
+!       call circle(x/2.0,y/2.0,x/2.0)
+!       ! now clear screen to current color
+!       call color(3)
+!       call clear()
+!       ! gif should be blank
+!       call writegif('clear.3m_pixel.gif',P_pixel,P_colormap)
+!       call execute_command_line('display clear.3m_pixel.gif')
+!       call vexit()
+!    end program demo_clear
 ! AUTHOR
 !    John S. Urban
 ! LICENSE
@@ -3173,17 +3195,17 @@ end subroutine if_init
 !    use M_writegif, only : writegif
 !    implicit none
 !    integer  :: transparent=0
-!    call prefsize(600,240)
-!    call vinit()
-!    call ortho2(0.0,60.0,0.0,24.0)
-!    call linewidth(400)
-!    call color(1)
-!    call arc(16.0,12.0,12.0,90.0,270.0)
-!    call color(2)
-!    call arc(44.0,12.0,12.0,-90.0,90.0)
-!    ! write gif with a transparent background
-!    call writegif('arc.3m_pixel.gif',P_pixel,P_ColorMap,transparent)
-!    call vexit()
+!       call prefsize(600,240)
+!       call vinit()
+!       call ortho2(0.0,60.0,0.0,24.0)
+!       call linewidth(400)
+!       call color(1)
+!       call arc(16.0,12.0,12.0,90.0,270.0)
+!       call color(2)
+!       call arc(44.0,12.0,12.0,-90.0,90.0)
+!       ! write gif with a transparent background
+!       call writegif('arc.3m_pixel.gif',P_pixel,P_ColorMap,transparent)
+!       call vexit()
 !    end program demo_arc
 ! 
 ! AUTHOR
@@ -3253,29 +3275,29 @@ end subroutine arc
 !    use M_pixel
 !    use M_writegif, only : writegif
 !    implicit none
-!    !! set up drawing surface
-!    call prefsize(400,400)
-!    call vinit()
-!    call ortho2(left=-100.0, right=100.0, bottom=-100.0, top=100.0)
-!    call color(3)
-!    call clear()
-!    call color(4)
-!    call linewidth(200)
-!    !! draw some circles
-!    call circle(0.0, 0.0, 90.0)
-!    call color(1)
-!    call circle(0.0, 0.0, 40.0)
-!    call color(2)
-!    call circle(-25.0, 25.0, 20.0)
-!    call circle(-25.0,-25.0, 20.0)
-!    call circle( 25.0, 25.0, 20.0)
-!    call circle( 25.0,-25.0, 20.0)
-!    !! render the pixel map
-!    call writegif('circle.3m_pixel.gif',P_pixel,P_colormap)
-!    !! display the graphic assuming display(1) is available
-!    call execute_command_line('display circle.3m_pixel.gif')
-!    !! exit graphics mode
-!    call vexit()
+!       !! set up drawing surface
+!       call prefsize(400,400)
+!       call vinit()
+!       call ortho2(left=-100.0, right=100.0, bottom=-100.0, top=100.0)
+!       call color(3)
+!       call clear()
+!       call color(4)
+!       call linewidth(200)
+!       !! draw some circles
+!       call circle(0.0, 0.0, 90.0)
+!       call color(1)
+!       call circle(0.0, 0.0, 40.0)
+!       call color(2)
+!       call circle(-25.0, 25.0, 20.0)
+!       call circle(-25.0,-25.0, 20.0)
+!       call circle( 25.0, 25.0, 20.0)
+!       call circle( 25.0,-25.0, 20.0)
+!       !! render the pixel map
+!       call writegif('circle.3m_pixel.gif',P_pixel,P_colormap)
+!       !! display the graphic assuming display(1) is available
+!       call execute_command_line('display circle.3m_pixel.gif')
+!       !! exit graphics mode
+!       call vexit()
 !    end program demo_circle
 ! 
 ! AUTHOR
@@ -3815,7 +3837,39 @@ end subroutine getviewport
 !         Y |                                    |
 !           #------------------------------------#
 !      (left=0,bottom=400)
+! EXAMPLE
+!    program demo_viewport
+!    use :: M_pixel
+!    use :: M_writegif, only : writegif
+!    implicit none
+!       call prefsize(400, 400) ! set up drawing surface
+!       call vinit()
+!       call color(7)
+!       call linewidth(40)
+!       call clear()
+!       call ortho2(-88.0, 88.0, -88.0, 88.0)
+!       ! draw the same circle, just changing viewport
 ! 
+!       call viewport(   0.0, 200.0,   0.0, 200.0 ); call draw_circle(1)
+!       call viewport( 200.0, 400.0,   0.0, 200.0 ); call draw_circle(2)
+!       call viewport(   0.0, 200.0, 200.0, 400.0 ); call draw_circle(3)
+!       call viewport( 200.0, 400.0, 200.0, 400.0 ); call draw_circle(4)
+!       call viewport( 250.0, 350.0, 150.0, 300.0 ); call draw_circle(5)
+! 
+!       call writegif('viewport.3m_pixel.gif',P_pixel,P_colormap)
+!       !call execute_command_line('display viewport.3m_pixel.gif')
+!       call vexit()
+!    contains
+!    subroutine draw_circle(icolor)
+!    integer,intent(in) :: icolor
+!       call color(0)
+!       call rect(-88.0,-88.0,88.0,88.0)
+!       call color(icolor)
+!       call makepoly()
+!       call circle(0.0,0.0,88.0)
+!       call closepoly()
+!    end subroutine draw_circle
+!    end program demo_viewport
 ! AUTHOR
 !    John S. Urban
 ! LICENSE
@@ -4095,18 +4149,18 @@ end subroutine page
 !      use M_writegif, only : writegif
 !      implicit none
 !      integer :: i
-!      call prefsize(500,500)
-!      call vinit()
-!      call ortho2(-110.0,110.0,-110.0,110.0)
-!      call move2(-100.0,-100.0)
-!      call linewidth(70)
-!      do i=1,20
-!         call rmove2(10.0, 0.0)
-!         call rdraw2( 0.0,10.0)
-!      enddo
-!      call writegif('rmove2.3m_pixel.gif',P_pixel,P_colormap)
-!      call  execute_command_line('display rmove2.3m_pixel.gif')
-!      call vexit()
+!         call prefsize(500,500)
+!         call vinit()
+!         call ortho2(-110.0,110.0,-110.0,110.0)
+!         call move2(-100.0,-100.0)
+!         call linewidth(70)
+!         do i=1,20
+!            call rmove2(10.0, 0.0)
+!            call rdraw2( 0.0,10.0)
+!         enddo
+!         call writegif('rmove2.3m_pixel.gif',P_pixel,P_colormap)
+!         call  execute_command_line('display rmove2.3m_pixel.gif')
+!         call vexit()
 !      end program demo_rmove2
 ! AUTHOR
 !    John S. Urban
@@ -4152,16 +4206,16 @@ end subroutine rmove2
 !      use M_pixel, only : P_pixel,P_colormap
 !      use M_writegif, only : writegif
 !      implicit none
-!      call prefsize(60,40)
-!      call vinit()
-!      call ortho2(-300.0,300.0,-200.0,200.0)
-!      call clear(0)
-!      call move2(-300.0,-200.0)
-!      call draw2(300.0,200.0)
-!      call move2(300.0,-200.0)
-!      call draw2(-300.0,200.0)
-!      call writegif('move2.3m_pixel.gif',P_pixel,P_colormap)
-!      call vexit()
+!         call prefsize(60,40)
+!         call vinit()
+!         call ortho2(-300.0,300.0,-200.0,200.0)
+!         call clear(0)
+!         call move2(-300.0,-200.0)
+!         call draw2(300.0,200.0)
+!         call move2(300.0,-200.0)
+!         call draw2(-300.0,200.0)
+!         call writegif('move2.3m_pixel.gif',P_pixel,P_colormap)
+!         call vexit()
 !      end program demo_move2
 ! AUTHOR
 !    John S. Urban
@@ -4209,35 +4263,35 @@ end subroutine move2
 !      use M_writegif, only : writegif
 !      implicit none
 ! 
-!      call prefsize(200,200)
-!      call vinit()
-!      call ortho2(-55.0, 55.0, -55.0,  55.0)
-!      call linewidth(400)
-!      call color(7)
-!      call clear()
+!         call prefsize(200,200)
+!         call vinit()
+!         call ortho2(-55.0, 55.0, -55.0,  55.0)
+!         call linewidth(400)
+!         call color(7)
+!         call clear()
 ! 
-!      call color(1)
-!      call move2(-50.0,0.0)
-!      call square(50.0)
+!         call color(1)
+!         call move2(-50.0,0.0)
+!         call square(50.0)
 ! 
-!      call linewidth(200)
-!      call color(2)
-!      call move2(  0.0,-50.0)
-!      call square(50.0)
+!         call linewidth(200)
+!         call color(2)
+!         call move2(  0.0,-50.0)
+!         call square(50.0)
 ! 
-!      call writegif('rdraw2.3m_pixel.gif',P_pixel,P_colormap)
-!      call execute_command_line('display rdraw2.3m_pixel.gif')
-!      call vexit()
+!         call writegif('rdraw2.3m_pixel.gif',P_pixel,P_colormap)
+!         call execute_command_line('display rdraw2.3m_pixel.gif')
+!         call vexit()
 ! 
-!      contains
+!         contains
 ! 
-!      subroutine square(side)
-!      real,intent(in) :: side
-!      call rdraw2( side,   0.0)
-!      call rdraw2(  0.0,  side)
-!      call rdraw2(-side,   0.0)
-!      call rdraw2(  0.0, -side)
-!      end subroutine square
+!         subroutine square(side)
+!         real,intent(in) :: side
+!         call rdraw2( side,   0.0)
+!         call rdraw2(  0.0,  side)
+!         call rdraw2(-side,   0.0)
+!         call rdraw2(  0.0, -side)
+!         end subroutine square
 ! 
 !      end program demo_rdraw2
 ! 
@@ -4444,17 +4498,17 @@ end subroutine prefsize
 !      use M_pixel, only : P_pixel,P_colormap
 !      use M_writegif, only : writegif
 !      implicit none
-!      call prefsize(60,40)
-!      call vinit()
-!      call ortho2(-300.0,300.0,-200.0,200.0)
-!      call clear(0)
-!      call color(1)
-!      call move2(-300.0,-200.0)
-!      call draw2(300.0,200.0)
-!      call move2(300.0,-200.0)
-!      call draw2(-300.0,200.0)
-!      call writegif('vexit.3m_pixel.gif',P_pixel,P_colormap)
-!      call vexit()
+!         call prefsize(60,40)
+!         call vinit()
+!         call ortho2(-300.0,300.0,-200.0,200.0)
+!         call clear(0)
+!         call color(1)
+!         call move2(-300.0,-200.0)
+!         call draw2(300.0,200.0)
+!         call move2(300.0,-200.0)
+!         call draw2(-300.0,200.0)
+!         call writegif('vexit.3m_pixel.gif',P_pixel,P_colormap)
+!         call vexit()
 !      end program demo_vexit
 ! AUTHOR
 !    John S. Urban
@@ -4497,17 +4551,17 @@ end subroutine vexit
 !      use M_pixel, only    : P_pixel, P_colormap
 !      use M_writegif, only : writegif
 !      implicit none
-!      call prefsize(60,40)
-!      call vinit()
-!      call ortho2(-300.0,300.0,-200.0,200.0)
-!      call clear(0)
-!      call color(1)
-!      call move2(-300.0,-200.0)
-!      call draw2(300.0,200.0)
-!      call move2(300.0,-200.0)
-!      call draw2(-300.0,200.0)
-!      call writegif('vinit.3m_pixel.gif',P_pixel,P_colormap)
-!      call vexit()
+!         call prefsize(60,40)
+!         call vinit()
+!         call ortho2(-300.0,300.0,-200.0,200.0)
+!         call clear(0)
+!         call color(1)
+!         call move2(-300.0,-200.0)
+!         call draw2(300.0,200.0)
+!         call move2(300.0,-200.0)
+!         call draw2(-300.0,200.0)
+!         call writegif('vinit.3m_pixel.gif',P_pixel,P_colormap)
+!         call vexit()
 !      end program demo_vinit
 ! AUTHOR
 !    John S. Urban
@@ -5760,7 +5814,7 @@ end subroutine point2
 ! 
 ! DESCRIPTION
 !    Print the state of the M_pixel graphics module. This is primarily used in
-!    debugging during program development and is not currently in the VOGLE library.
+!    debugging during program development and is not currently in the M_draw library.
 ! 
 ! OPTIONS
 !    STRING  can have the following values
@@ -5774,10 +5828,10 @@ end subroutine point2
 !    program demo_state
 !    use M_pixel
 !    implicit none
-!    call prefsize(640,400)
-!    call vinit()
-!    call state()
-!    call vexit()
+!       call prefsize(640,400)
+!       call vinit()
+!       call state()
+!       call vexit()
 !    end program demo_state
 !   Results:
 ! 
@@ -6226,24 +6280,24 @@ end subroutine PPM_ENDCAP_CIRCLE
 !!    character(len=:),allocatable :: frmt
 !!    integer                      :: biggest
 !!
-!!    pr=str('HUGE(3f) integers',huge(0),'and real',huge(0.0),'and double',huge(0.0d0))
-!!    write(*,'(a)')pr
-!!    pr=str('real            :',huge(0.0),0.0,12345.6789,tiny(0.0) )
-!!    write(*,'(a)')pr
-!!    pr=str('doubleprecision :',huge(0.0d0),0.0d0,12345.6789d0,tiny(0.0d0) )
-!!    write(*,'(a)')pr
-!!    pr=str('complex         :',cmplx(huge(0.0),tiny(0.0)) )
-!!    write(*,'(a)')pr
+!!       pr=str('HUGE(3f) integers',huge(0),'and real',huge(0.0),'and double',huge(0.0d0))
+!!       write(*,'(a)')pr
+!!       pr=str('real            :',huge(0.0),0.0,12345.6789,tiny(0.0) )
+!!       write(*,'(a)')pr
+!!       pr=str('doubleprecision :',huge(0.0d0),0.0d0,12345.6789d0,tiny(0.0d0) )
+!!       write(*,'(a)')pr
+!!       pr=str('complex         :',cmplx(huge(0.0),tiny(0.0)) )
+!!       write(*,'(a)')pr
 !!
-!!    ! create a format on the fly
-!!    biggest=huge(0)
-!!    frmt=str('(*(i',int(log10(real(biggest))),':,1x))',nospace=.true.)
-!!    write(*,*)'format=',frmt
+!!       ! create a format on the fly
+!!       biggest=huge(0)
+!!       frmt=str('(*(i',int(log10(real(biggest))),':,1x))',nospace=.true.)
+!!       write(*,*)'format=',frmt
 !!
-!!    ! although it will often work, using str(3f) in an I/O statement is not recommended
-!!    ! because if an error occurs str(3f) will try to write while part of an I/O statement
-!!    ! which not all compilers can handle and is currently non-standard
-!!    write(*,*)str('program will now stop')
+!!       ! although it will often work, using str(3f) in an I/O statement is not recommended
+!!       ! because if an error occurs str(3f) will try to write while part of an I/O statement
+!!       ! which not all compilers can handle and is currently non-standard
+!!       write(*,*)str('program will now stop')
 !!
 !!    end program demo_msg
 !!
@@ -7294,16 +7348,16 @@ end subroutine rgbyiq
 !        use M_pixel, only : closest_color_name
 !        implicit none
 !        character(len=100) :: string ! at least 20 characters
-!        string=' '
+!           string=' '
 ! 
-!        call closest_color_name(100.0,  0.0,  0.0,string)
-!        write(*,*)trim(string)
+!           call closest_color_name(100.0,  0.0,  0.0,string)
+!           write(*,*)trim(string)
 ! 
-!        call closest_color_name(  0.0,100.0,  0.0,string)
-!        write(*,*)trim(string)
+!           call closest_color_name(  0.0,100.0,  0.0,string)
+!           write(*,*)trim(string)
 ! 
-!        call closest_color_name(  0.0,  0.0,100.0,string)
-!        write(*,*)trim(string)
+!           call closest_color_name(  0.0,  0.0,100.0,string)
+!           write(*,*)trim(string)
 ! 
 !        end program demo_closest_color_name
 ! 
@@ -8032,13 +8086,13 @@ end function lower
 !    real    :: r,i
 !    !!integer :: ios
 ! 
-!    !!INFINITE: do
-!    !!   write(*,advance='no')'Enter radius and inclination(in radians):'
-!    !!   read(*,*,iostat=ios) r, i
-!    !!   if(ios.ne.0)exit INFINITE
-!       call polar_to_cartesian(r,i,x,y)
-!       write(*,*)'x=',x,' y=',y,'radius=',r,'inclination=',i
-!    !!enddo INFINITE
+!     !!INFINITE: do
+!     !!   write(*,advance='no')'Enter radius and inclination(in radians):'
+!     !!   read(*,*,iostat=ios) r, i
+!     !!   if(ios.ne.0)exit INFINITE
+!        call polar_to_cartesian(r,i,x,y)
+!        write(*,*)'x=',x,' y=',y,'radius=',r,'inclination=',i
+!     !!enddo INFINITE
 !    end program demo_polar_to_cartesian
 ! AUTHOR
 !    John S. Urban

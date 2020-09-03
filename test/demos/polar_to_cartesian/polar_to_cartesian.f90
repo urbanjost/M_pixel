@@ -5,11 +5,11 @@
           real    :: r,i
           !!integer :: ios
 
-          !!INFINITE: do
-          !!   write(*,advance='no')'Enter radius and inclination(in radians):'
-          !!   read(*,*,iostat=ios) r, i
-          !!   if(ios.ne.0)exit INFINITE
-             call polar_to_cartesian(r,i,x,y)
-             write(*,*)'x=',x,' y=',y,'radius=',r,'inclination=',i
-          !!enddo INFINITE
-          end program demo_polar_to_cartesian
+           !!INFINITE: do
+           !!   write(*,advance='no')'Enter radius and inclination(in radians):'
+           !!   read(*,*,iostat=ios) r, i
+           !!   if(ios.ne.0)exit INFINITE
+              call polar_to_cartesian(r,i,x,y)
+              write(*,*)'x=',x,' y=',y,'radius=',r,'inclination=',i
+           !!enddo INFINITE
+       end program demo_polar_to_cartesian
