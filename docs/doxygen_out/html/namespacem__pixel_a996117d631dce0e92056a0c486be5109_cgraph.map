@@ -1,8 +1,0 @@
-<map id="m_pixel::poly2" name="m_pixel::poly2">
-<area shape="rect" id="node2" href="$namespacem__pixel.html#aedaf33a27e9899da22c2497aff2af903" title="m_pixel::ppm_solid_fill" alt="" coords="177,64,349,91"/>
-<area shape="rect" id="node7" href="$namespacem__pixel.html#a9d4aea8ae2eb15317b83fa03a11371b2" title="m_pixel::world2viewport" alt="" coords="172,115,355,141"/>
-<area shape="rect" id="node3" href="$namespacem__pixel.html#a4924b3a5033acb74a4f4df60a4ba21eb" title="m_pixel::ppm_yintercept" alt="" coords="413,5,597,32"/>
-<area shape="rect" id="node4" href="$namespacem__pixel.html#a4396c3ff36a080fbbfa859348203d0c7" title="m_pixel::sort_shell\l_integers_hl" alt="" coords="432,57,577,98"/>
-<area shape="rect" id="node6" href="$namespacem__pixel.html#a6f75bc951acd07267e0841ca5985d8b7" title="m_pixel::ppm_draw_fill_line" alt="" coords="403,123,607,149"/>
-<area shape="rect" id="node5" href="$namespacem__pixel.html#a063f74c3dd2f7f086dc47ec68abc22c9" title="m_pixel::swapcoord" alt="" coords="655,64,807,91"/>
-</map>

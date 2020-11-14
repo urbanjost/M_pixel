@@ -1,155 +1,159 @@
-! NAME
-!    M_pixel(3f) - [M_pixel] module for drawing into a pixel array with 2D vector operations
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!   Module procedures
-! 
-!    use M_writegif, only : writegif
-! 
-!    use :: M_pixel, only : drawchar,    rect,            rdraw2,      strlength
-!    use :: M_pixel, only : color,       mapcolor,        clear,       draw2
-!    use :: M_pixel, only : circle,      circleprecision, arc,         getviewport
-!    use :: M_pixel, only : viewport,    ortho2,          rmove2
-!    use :: M_pixel, only : line,        linewidth,       polyline2,   move2
-!    use :: M_pixel, only : move2,       draw2,           prefsize,    vinit
-!    use :: M_pixel, only : textang,     textsize,        drawstr,     getgp2
-!    use :: M_pixel, only : vflush,      page,            point2,      getdisplaysize
-!    use :: M_pixel, only : poly2,       centertext,      xcentertext, ycentertext
-!    use :: M_pixel, only : makepoly,    closepoly,       font
-! 
-!    use :: M_pixel, only : state,       hershey,         justfy
-!    use :: M_pixel, only : print_ascii, print_ppm
-!    use :: M_pixel, only : hue
-! 
-!    ! Differences between M_pixel and M_draw and M_draw-related procedures:
-!    !    hershey(3f) and justfy(3f) do not exist in M_draw and might be replaced
-!    !    and the same font names are not available
-!    !    print_ascii(3f) and print_ppm(3f) do not exist in M_draw
-!    !    state(3f) does not exist in M_draw
-!    !    viewport is in terms of pixels, not range -1.0 to 1.0
-! 
-!   Module variables
-! 
-!    use M_pixel, only : P_pixel, P_ColorMap, P_debug
-! 
-! DESCRIPTION
-! 
-!    M_pixel(3fm) is intended to produce simple pixel graphics composed of
-!    line drawings and polygon fills in two dimensions. It handles circles,
-!    curves, arcs, polygons, and software text. It is designed to provide a
-!    programming interface very similar to a subset of the VOGLE graphics
-!    library (M_pixel does not support objects, interactive graphics,
-!    or 3D vectors).
-! 
-!    It is primarily intended to provide a simple Fortran-based set of
-!    routines that can generate simple graphics that can be written to a
-!    GIF file using the writegif(3f) routine.
-! 
-!    This is a prototype under construction starting 2017-06, but is already
-!    useful. Improvements in line width, dashed lines, polygon fill and
-!    higher level graphing routines are being worked on. If anyone is
-!    interested in collaborating on the module, contact the author.
-! 
-! EXAMPLE
-!   Sample program
-! 
-!    program demo_M_pixel
-!    use M_pixel
-!    use M_writegif, only :  writegif
-!    use M_pixel,    only : cosd, sind
-!    implicit none
-! 
-!    integer  :: i
-!    integer  :: j
-!    integer  :: icolor
-! 
-!       ! initialize image
-!       call prefsize(400,400)  ! set size before starting
-!       call vinit()            ! start graphics
-!       call clear(0)           ! clear to color 0
-! 
-!       ! put some colored boxes into pixmap by address
-!       ! so show how the pixel map can be edited easily with
-!       ! other routines that can manipulate a pixel array.
-!       ! The P_pixel array was created when vinit(3f) was called
-!       icolor=1
-!       do i=1,4
-!          do j=1,4
-!             P_pixel((i-1)*100+1+3:i*100-3,(j-1)*100+1+3:j*100-3)=icolor
-!             icolor=icolor+1
-!          enddo
-!       enddo
-! 
-!       ! map area of virtual world to pixel array
-!       ! notice Y-axis for viewport is zero at TOP
-!          ! viewport(left, right, bottom, top)
-!       call viewport(0.0,  400.0,  400.0, 0.0)
-!       ! define the virtual world area we want to work in
-!           !ortho2(left, right, bottom,   top)
-!       call ortho2(0.0,  400.0,    0.0, 400.0)
-!       ! the drawing routines use these world units
-! 
-!       ! draw polar grids
-!       call linewidth(100)
-!       call color(14)
-!       call target(200.0,200.0,200.0)
-! 
-!       call linewidth(75)
-!       call color(0)
-!       call target(100.0,200.0,50.0)
-! 
-!       ! draw some lines
-!       call color(1)
-!       call linewidth(200)
-!       call line(1.0,1.0,400.0,400.0)
-! 
-!       call color(4)
-!       call line(350.0,200.0,350.0,300.0)
-! 
-!       ! print some text
-!       call color(1)
-!       !call hershey(x,y,height,itext,theta,ntext)
-!       call linewidth(125)
-!       call hershey(40.0, 40.0,35.0,'Hello World',0.0,11)
-!       call color(7)
-!       call linewidth(25)
-!       call hershey(40.0, 80.0,35.0,'Hello World',0.0,11)
-!       call linewidth(100)
-!       call hershey(40.0,120.0,35.0,'Hello World',30.0,11)
-! 
-!       call hershey( 40.0,350.0,35.0,'\COMPLEX\Hello World',0.0,20)
-!       call hershey( 40.0,310.0,35.0,'\DUPLEX\Hello World',0.0,19)
-!       call hershey( 350.0,400.0,35.0,'\ITALIC\Hello World',90.0,19)
-!       call linewidth(50)
-!       call hershey(200.0,120.0,15.0,'\SIMPLEX\Hello World',20.0,20)
-! 
-!       ! change background color directly
-!       where (P_pixel.eq.0) P_pixel=9
-!       ! write standard gif file
-!       call writegif('M_pixel.3m_pixel.gif',P_pixel,P_ColorMap)
-! 
-!    contains
-! 
-!       subroutine target(xc,yc,rc)
-!       use M_pixel,    only : cosd, sind
-!       real     :: xc,yc,rc
-!       integer  :: i
-!       real     :: x,y
-!          do i=0,360,10
-!             x=rc*cosd(i)
-!             y=rc*sind(i)
-!             call line(xc,yc,xc+x,yc+y)
-!          enddo
-!          do i=1,int(rc),10
-!             call circle(xc,yc,real(i))
-!          enddo
-!       end subroutine target
-!    end program demo_M_pixel
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    M_pixel(3f) - [M_pixel::INTRO] module for drawing into a pixel array with 2D vector operations
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!   Module procedures
+!!
+!!    use M_writegif, only : writegif
+!!
+!!    use :: M_pixel, only : drawchar,  rect,            rdraw2,     strlength
+!!    use :: M_pixel, only : color,     mapcolor,        clear,      draw2
+!!    use :: M_pixel, only : circle,    circleprecision, arc,        getviewport
+!!    use :: M_pixel, only : viewport,  ortho2,          rmove2
+!!    use :: M_pixel, only : line,      linewidth,       polyline2,  move2
+!!    use :: M_pixel, only : move2,     draw2,           prefsize,   vinit
+!!    use :: M_pixel, only : textang,   textsize,        drawstr,    getgp2
+!!    use :: M_pixel, only : vflush,    page,            point2,     getdisplaysize
+!!    use :: M_pixel, only : poly2,     centertext,      xcentertext, ycentertext
+!!    use :: M_pixel, only : makepoly,  closepoly,       font
+!!
+!!    use :: M_pixel, only : state,     hershey,         justfy
+!!    use :: M_pixel, only : print_ascii, print_ppm
+!!    use :: M_pixel, only : hue
+!!
+!!    ! Differences between M_pixel and M_draw and M_draw-related procedures:
+!!    !    hershey(3f) and justfy(3f) do not exist in M_draw and might be replaced
+!!    !    and the same font names are not available
+!!    !    print_ascii(3f) and print_ppm(3f) do not exist in M_draw
+!!    !    state(3f) does not exist in M_draw
+!!    !    viewport is in terms of pixels, not range -1.0 to 1.0
+!!
+!!   Module variables
+!!
+!!    use M_pixel, only : P_pixel, P_ColorMap, P_debug
+!!
+!!##DESCRIPTION
+!!    M_pixel(3fm) is intended to produce simple pixel graphics composed of
+!!    line drawings and polygon fills in two dimensions. It handles circles,
+!!    curves, arcs, polygons, and software text. It is designed to provide a
+!!    programming interface very similar to a subset of the VOGLE graphics
+!!    library (M_pixel does not support objects, interactive graphics,
+!!    or 3D vectors).
+!!
+!!    It is primarily intended to provide a simple Fortran-based set of
+!!    routines that can generate simple graphics that can be written to a
+!!    GIF file using the writegif(3f) routine.
+!!
+!!    This is a prototype under construction starting 2017-06, but is already
+!!    useful. Improvements in line width, dashed lines, polygon fill and
+!!    higher level graphing routines are being worked on. If anyone is
+!!    interested in collaborating on the module, contact the author.
+!!
+!!##EXAMPLE
+!!
+!!   Sample program
+!!
+!!    program demo_M_pixel
+!!    use M_pixel
+!!    use M_writegif, only :  writegif
+!!    use M_pixel,    only : cosd, sind
+!!    implicit none
+!!
+!!    integer  :: i
+!!    integer  :: j
+!!    integer  :: icolor
+!!
+!!       ! initialize image
+!!       call prefsize(400,400)  ! set size before starting
+!!       call vinit()            ! start graphics
+!!       call clear(0)           ! clear to color 0
+!!
+!!       ! put some colored boxes into pixmap by address
+!!       ! so show how the pixel map can be edited easily with
+!!       ! other routines that can manipulate a pixel array.
+!!       ! The P_pixel array was created when vinit(3f) was called
+!!       icolor=1
+!!       do i=1,4
+!!          do j=1,4
+!!             P_pixel((i-1)*100+1+3:i*100-3,(j-1)*100+1+3:j*100-3)=icolor
+!!             icolor=icolor+1
+!!          enddo
+!!       enddo
+!!
+!!       ! map area of virtual world to pixel array
+!!       ! notice Y-axis for viewport is zero at TOP
+!!          ! viewport(left, right, bottom, top)
+!!       call viewport(0.0,  400.0,  400.0, 0.0)
+!!       ! define the virtual world area we want to work in
+!!           !ortho2(left, right, bottom,   top)
+!!       call ortho2(0.0,  400.0,    0.0, 400.0)
+!!       ! the drawing routines use these world units
+!!
+!!       ! draw polar grids
+!!       call linewidth(100)
+!!       call color(14)
+!!       call target(200.0,200.0,200.0)
+!!
+!!       call linewidth(75)
+!!       call color(0)
+!!       call target(100.0,200.0,50.0)
+!!
+!!       ! draw some lines
+!!       call color(1)
+!!       call linewidth(200)
+!!       call line(1.0,1.0,400.0,400.0)
+!!
+!!       call color(4)
+!!       call line(350.0,200.0,350.0,300.0)
+!!
+!!       ! print some text
+!!       call color(1)
+!!       !call hershey(x,y,height,itext,theta,ntext)
+!!       call linewidth(125)
+!!       call hershey(40.0, 40.0,35.0,'Hello World',0.0,11)
+!!       call color(7)
+!!       call linewidth(25)
+!!       call hershey(40.0, 80.0,35.0,'Hello World',0.0,11)
+!!       call linewidth(100)
+!!       call hershey(40.0,120.0,35.0,'Hello World',30.0,11)
+!!
+!!       call hershey( 40.0,350.0,35.0,'\COMPLEX\Hello World',0.0,20)
+!!       call hershey( 40.0,310.0,35.0,'\DUPLEX\Hello World',0.0,19)
+!!       call hershey( 350.0,400.0,35.0,'\ITALIC\Hello World',90.0,19)
+!!       call linewidth(50)
+!!       call hershey(200.0,120.0,15.0,'\SIMPLEX\Hello World',20.0,20)
+!!
+!!       ! change background color directly
+!!       where (P_pixel.eq.0) P_pixel=9
+!!       ! write standard gif file
+!!       call writegif('M_pixel.3m_pixel.gif',P_pixel,P_ColorMap)
+!!
+!!    contains
+!!
+!!       subroutine target(xc,yc,rc)
+!!       use M_pixel,    only : cosd, sind
+!!       real     :: xc,yc,rc
+!!       integer  :: i
+!!       real     :: x,y
+!!          do i=0,360,10
+!!             x=rc*cosd(i)
+!!             y=rc*sind(i)
+!!             call line(xc,yc,xc+x,yc+y)
+!!          enddo
+!!          do i=1,int(rc),10
+!!             call circle(xc,yc,real(i))
+!!          enddo
+!!       end subroutine target
+!!    end program demo_M_pixel
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
@@ -1425,67 +1429,71 @@ contains
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!      rect(3f) - [M_pixel] draw rectangle given two corners
-!      (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine rect(x1,y1, x2,y2)
-!    real,intent(in) :: x1,y1,x2,y2
-! 
-! DESCRIPTION
-!    Draw rectangle given two opposite corners.
-! 
-! OPTIONS
-!    X1,Y1  coordinates of a corner of the rectangle
-!    X2,Y2  coordinates of corner point opposite first point
-! 
-! EXAMPLE
-!   Sample program:
-! 
-!    program demo_rect
-!    use M_pixel
-!    use M_writegif, only : writegif
-!    implicit none
-!       integer :: i
-! 
-!       !! set up graphics area
-!       call prefsize(400,400)
-!       call vinit()
-!       call ortho2(left=-100.0, right=100.0, bottom=-100.0, top=100.0)
-! 
-!       !! draw some filled rectangles
-!       do i=95,5,-10
-!          call makepoly()
-!          call color(i/10)
-!          call rect( -1.0*i, -1.0*i, 1.0*i, 1.0*i )
-!          call closepoly()
-!       enddo
-! 
-!       !! draw some rectangles
-!       call linewidth(50)
-!       call color(7)
-!       do i=5,95,5
-!          call rect( -1.0*i, -1.0*i, 1.0*i, 1.0*i )
-!       enddo
-! 
-!       !! render pixel array to a file
-!       call writegif('rect.3m_pixel.gif',P_pixel,P_colormap)
-! 
-!       !! display graphic assuming display(1) is available
-!       call execute_command_line('display rect.3m_pixel.gif')
-! 
-!       !! wrap up graphics
-!       call vexit()
-! 
-!    end program demo_rect
-! 
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!      rect(3f) - [M_pixel:POLYGON] draw rectangle given two corners
+!!      (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine rect(x1,y1, x2,y2)
+!!    real,intent(in) :: x1,y1,x2,y2
+!!
+!!##DESCRIPTION
+!!    Draw rectangle given two opposite corners.
+!!
+!!##OPTIONS
+!!    X1,Y1  coordinates of a corner of the rectangle
+!!    X2,Y2  coordinates of corner point opposite first point
+!!
+!!##EXAMPLE
+!!
+!!   Sample program:
+!!
+!!    program demo_rect
+!!    use M_pixel
+!!    use M_writegif, only : writegif
+!!    implicit none
+!!       integer :: i
+!!
+!!       !! set up graphics area
+!!       call prefsize(400,400)
+!!       call vinit()
+!!       call ortho2(left=-100.0, right=100.0, bottom=-100.0, top=100.0)
+!!
+!!       !! draw some filled rectangles
+!!       do i=95,5,-10
+!!          call makepoly()
+!!          call color(i/10)
+!!          call rect( -1.0*i, -1.0*i, 1.0*i, 1.0*i )
+!!          call closepoly()
+!!       enddo
+!!
+!!       !! draw some rectangles
+!!       call linewidth(50)
+!!       call color(7)
+!!       do i=5,95,5
+!!          call rect( -1.0*i, -1.0*i, 1.0*i, 1.0*i )
+!!       enddo
+!!
+!!       !! render pixel array to a file
+!!       call writegif('rect.3m_pixel.gif',P_pixel,P_colormap)
+!!
+!!       !! display graphic assuming display(1) is available
+!!       call execute_command_line('display rect.3m_pixel.gif')
+!!
+!!       !! wrap up graphics
+!!       call vexit()
+!!
+!!    end program demo_rect
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine rect(x1,y1, x2,y2)
 
 ! ident_1="@(#)M_pixel::rect(3f): draw line rectangle given two opposite corners"
@@ -1510,27 +1518,30 @@ end subroutine rect
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!      line(3f) - [M_pixel] draw line between two points
-!      (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine line(x1,y1, x2,y2 )
-!    real,intent(in)            :: x1,y1,x2,y2
-! 
-! DESCRIPTION
-!    Draw line between two points using current line width and color
-! 
-! OPTIONS
-!    X1,Y1  starting point for line segment
-!    X2,Y2  end point for line segment
-! 
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!      line(3f) - [M_pixel:DRAW] draw line between two points
+!!      (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine line(x1,y1, x2,y2 )
+!!    real,intent(in)            :: x1,y1,x2,y2
+!!
+!!##DESCRIPTION
+!!    Draw line between two points using current line width and color
+!!
+!!##OPTIONS
+!!    X1,Y1  starting point for line segment
+!!    X2,Y2  end point for line segment
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine line(x1,y1, x2,y2 )
 
 ! ident_2="@(#)M_pixel::line(3f): draw line between two points applying line width and color"
@@ -1607,500 +1618,589 @@ end subroutine swapcoord
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!      draw_line_single(3fp) - [M_pixel] Bresenham's line algorithm
-!      (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine draw_line_single(x1,y1, x2,y2)
-!    integer,intent(in)            :: x1,y1,x2,y2
-! 
-! DESCRIPTION
-! 
-! From Wikipedia, the free encyclopedia
-! 
-! The Bresenham line algorithm is an algorithm that determines which points in an n-dimensional raster should be plotted in order to
-! form a close approximation to a straight line between two given points. It is commonly used to draw lines on a computer screen, as
-! it uses only integer addition, subtraction and bit shifting all of which are very cheap operations in standard computer
-! architectures. It is one of the earliest algorithms developed in the field of computer graphics.
-! 
-! Through a minor expansion, the original algorithm for lines can also be used to draw circles. Also this can be done with simple
-! arithmetic operations; quadratic or trigonometric expressions can be avoided or recursively dissolved into simpler steps.
-! 
-! The mentioned properties make it still an important algorithm, and it is used among others in plotters, in graphics chips of modern
-! graphics cards, and in many graphics libraries. As it is so simple, it is not only implemented in the firmware of such devices, but
-! is also cast into hardware of those graphics chips.
-! 
-! To be precise, the label "Bresenham" is today often used for a whole family of algorithms, which have actually been developed by
-! others, later, yet in succession of Bresenham and with a similar basic approach. See deeper references below.
-! 
-! CONTENTS
-! 
-!   * 1 The algorithm
-!   * 2 Generalization
-!   * 3 Optimization
-!   * 4 Different approach to the algorithm
-!       + 4.1 Generalized version for this approach
-!   * 5 Circle Variant
-!       + 5.1 Drawing incomplete octants
-!       + 5.2 Ellipses
-!   * 6 History
-!   * 7 Similar Algorithms
-!   * 8 References
-!   * 9 See also
-!   * 10 External links
-! 
-! The common conventions that pixel coordinates increase in the down and right directions and that pixel centers have integer
-! coordinates will be used. The endpoints of the line are the pixels at (x[0], y[0]) and (x[1], y[1]), where the first coordinate of
-! the pair is the column and the second is the row.
-! 
-! The algorithm will be initially presented only for the octant in which the segment goes down and to the right (x[0]?x[1] and y[0]?y
-! [1] ) , and its horizontal projection x[1] ? x[0] is longer than the vertical projection y[1] ? y[0] (in other words, the line has
-! a slope less than 1 and greater than 0.) In this octant, for each column x between x[0] and x[1], there is exactly one row y
-! (computed by the algorithm) containing a pixel of the line, while each row between y[0] and y[1] contains multiple rasterized
-! pixels.
-! 
-! Bresenham's algorithm chooses the integer y corresponding to the pixel center that is closest to the ideal (fractional) y for the
-! same x; on successive columns y can remain the same or increase by 1. The general equation of the line through the endpoints is
-! given by:
-! 
-!     y - y_0 = \frac{y_1-y_0}{x_1-x_0} (x-x_0).
-! 
-! Since we know the column, x, the pixel's row, y, is given by rounding this quantity to the nearest integer:
-! 
-!     \frac{y_1-y_0}{x_1-x_0} (x-x_0) + y_0.
-! 
-! The slope (y[1] ? y[0]) / (x[1] ? x[0]) depends on the endpoint coordinates only and can be precomputed, and the ideal y for
-! successive integer values of x can be computed starting from y[0] and repeatedly adding the slope.
-! 
-! In practice, the algorithm can track, instead of possibly large y values, a small error value between ?0.5 and 0.5: the vertical
-! distance between the rounded and the exact y values for the current x. Each time x is increased, the error is increased by the
-! slope; if it exceeds 0.5, the rasterization y is increased by 1 (the line continues on the next lower row of the raster) and the
-! error is decremented by 1.0.
-! 
-! In the following pseudocode sample plot(x,y) plots a point and abs returns absolute value:
-! 
-! 
-!  function line(x0, x1, y0, y1)
-!      int deltax := x1 - x0
-!      int deltay := y1 - y0
-!      real error := 0
-!      real deltaerr := deltay / deltax    // Assume deltax != 0 (line is not vertical)
-!      int y := y0
-!      for x from x0 to x1
-!          plot(x,y)
-!          error := error + deltaerr
-!          if abs(error) ? 0.5 then
-!              y := y + 1
-!              error := error - 1.0
-! 
-! GENERALIZATION
-! 
-! This first version only handles lines that descend to the right. We would of course like to be able to draw all lines. The first
-! case is allowing us to draw lines that still slope downwards but head in the opposite direction. This is a simple matter of
-! swapping the initial points if x0 > x1. Trickier is determining how to draw lines that go up. To do this, we check if y[0] ? y[1];
-! if so, we step y by -1 instead of 1. Lastly, We still need to generalize the algorithm to drawing lines in all directions. Up until
-! now we have only been able to draw lines with a slope less than one. To be able to draw lines with a steeper slope, we take
-! advantage of the fact that a steep line can be reflected across the line y=x to obtain a line with a small slope. The effect is to
-! switch the x and y variables throughout, including switching the parameters to plot. The code looks like this:
-! 
-!  function line(x0, x1, y0, y1)
-!      boolean steep := abs(y1 - y0) > abs(x1 - x0)
-!      if steep then
-!          swap(x0, y0)
-!          swap(x1, y1)
-!      if x0 > x1 then
-!          swap(x0, x1)
-!          swap(y0, y1)
-!      int deltax := x1 - x0
-!      int deltay := abs(y1 - y0)
-!      real error := 0
-!      real deltaerr := deltay / deltax
-!      int ystep
-!      int y := y0
-!      if y0 < y1 then ystep := 1 else ystep := -1
-!      for x from x0 to x1
-!          if steep then plot(y,x) else plot(x,y)
-!          error := error + deltaerr
-!          if error ? 0.5 then
-!              y := y + ystep
-!              error := error - 1.0
-! 
-! The function now handles all lines and implements the complete Bresenham's algorithm. A more standard C code for the algorithm is
-! shown here:
-! 
-!    void Bresenham(int x1, int y1, int x2, int y2) {
-!             int slope;
-!             int dx, dy, incE, incNE, d, x, y;
-!             // Reverse lines where x1 > x2
-!             if (x1 > x2)
-!             {
-!                 Bresenham(x2, y2, x1, y1);
-!                 return;
-!             }
-!             dx = x2 - x1;
-!             dy = y2 - y1;
-!             // Adjust y-increment for negatively sloped lines
-!             if (dy < 0)
-!             {
-!                 slope = -1;
-!                 dy = -dy;
-!             }
-!             else
-!             {
-!                 slope = 1;
-!             }
-!             // Bresenham constants
-!             incE = 2 * dy;
-!             incNE = 2 * dy - 2 * dx;
-!             d = 2 * dy - dx;
-!             y = y1;
-!             // Blit
-!             for (x = x1; x <= x2; x++)
-!             {
-!                 putpixel(x, y);
-!                 if (d <= 0)
-!                 {
-!                     d += incE;
-!                 }
-!                 else
-!                 {
-!                     d += incNE;
-!                     y += slope;
-!                 }
-!             }
-!         }
-! 
-! OPTIMIZATION
-! 
-! The problem with this approach is that computers operate relatively slowly on fractional numbers like error and deltaerr; moreover,
-! errors can accumulate over many floating-point additions. Working with integers will be both faster and more accurate. The trick we
-! use is to multiply all the fractional numbers above by deltax, which enables us to express them as integers. The only problem
-! remaining is the constant 0.5?to deal with this, we change the initialization of the variable error. The new program looks like
-! this:
-! 
-!  function line(x0, x1, y0, y1)
-!      boolean steep := abs(y1 - y0) > abs(x1 - x0)
-!      if steep then
-!          swap(x0, y0)
-!          swap(x1, y1)
-!      if x0 > x1 then
-!          swap(x0, x1)
-!          swap(y0, y1)
-!      int deltax := x1 - x0
-!      int deltay := abs(y1 - y0)
-!      int error := -deltax / 2
-!      int ystep
-!      int y := y0
-!      if y0 < y1 then ystep := 1 else ystep := -1
-!      for x from x0 to x1
-!          if steep then plot(y,x) else plot(x,y)
-!          error := error + deltay
-!          if error > 0 then
-!              y := y + ystep
-!              error := error - deltax
-! 
-! DIFFERENT APPROACH TO THE ALGORITHM
-! 
-! A different approach to the Bresenham algorithm works more from the practical side. It was published by Pitteway ^[1] and confirmed
-! by van Aken ^[2]. Again we first consider a line in the first octant, which means a slope between 0 and 1. Mathematically spoken,
-! we want to draw a line from point (x[1],y[1]) to (x[2],y[2]). The intervals in the two directions are dx=x[2]-x[1] and dy=y[2]-y
-! [1], and the slope is dy/dx. The line equation can be written as y=y[1]+(x-x[1])*dy/dx. In this first octant, we have 0<dy<=dx.
-! 
-! So, when working pixel-wise along this line, we have one "fast" direction, the positive x direction, and a "slow" direction, the
-! positive y direction, where fewer steps have to be done than in the fast one. So the algorithm simply goes like this: a) Always do
-! a single pixel step in the fast direction. b) Every now and then also do a step in the slow direction.
-! 
-! Bresenham's trick is the introduction of an error term, which deals with the decision, when to do also this extra step in the slow
-! direction. The line equation is transformed into 0=dx*(y-y[1])-dy*(x-x[1]), and then the null on the left side is replaced by the
-! error term. A step by 1 in the x direction (variable x) causes a decrement of the error term by one times dy. If the error term
-! gets below zero due to this, it will be increased by one times dx through a step by 1 in the y direction (variable y). Because of
-! dx>=dy, this will render the error term positive again in any case, at least brought back to zero.
-! 
-! You realize a cross-wise subtraction of dy from the error term for any x step and an addition of dx for any y step. This way, the
-! division dy/dx for the slope is dissolved into a number of more elementary operations.
-! 
-! A critical issue is the initialisation of the error term. In this approach here, we simply consider a line with dy=1, so with only
-! one single step in the y direction along the whole line. Of course for the best look of the line, we want this step to happen right
-! in the middle of the line. This leads to initialising the error term to dx/2. (Rounding this term to integers in case of odd dx is
-! no problem.)
-! 
-! This approach comes out a little different from the original, as it avoids the additional factor of 2 on both sides, which has to
-! do with the initialisation.
-! 
-! To generalize this algorithm for all octants, you will again have to do role changes of x and y and consider the different signs of
-! dx and dy.
-! 
-! A simple implementation of this approach is not very elegant, but demonstrates the principle of the algorithm fairly well.
-! 
-!    REM Bresenham algorithm for a line in the first octant in Pseudo Basic
-!    dx = xend-xstart
-!    dy = yend-ystart
-!    REM in first octant, we have 0 < dy <= dx
-! 
-!    REM Initialisations
-!    x = xstart
-!    y = ystart
-!    SETPIXEL x,y
-!    error = dx/2
-! 
-!    REM Pixel loop: always do a step in fast direction, every now and then also one in the slow direction
-!    WHILE x < xend
-!       REM Step in fast direction
-!       x = x + 1
-!       error = error-dy
-!       IF error < 0 THEN
-!          REM Step in slow direction
-!          y = y + 1
-!          error = error + dx
-!          ENDIF
-!       SETPIXEL x,y
-!       WEND
-! 
-! GENERALIZED VERSION FOR THIS APPROACH
-! 
-! This generalized version in BASIC shall be valid for all octants. For this, all signs of the coordinate distances have to be
-! considered, as well as the possible role change of x and y. If these if clauses would all be put into the innermost loop, which
-! would mean a high number of executions, it would considerably increase the time consumption. A more efficient solution tries to put
-! all these case differentiations into the initialisation phase of the procedure before the start of the inner main loop. Then the
-! inner loop will still contain a single if clause for the Bresenham error term.
-! 
-! This version in BASIC introduces a number of abstractions: First the step in the "fast" direction is now considered a parallel step
-! (parallel to one of the coordinate axis), and if additionally a step in the "slow" direction becomes necessary, it becomes a
-! diagonal step. For these cases we can compute variable values during initialisation, in advance, which contain the step widths
-! (including signs) in the coordinate directions and thus achieve the generalization for the eight octants. For example the step
-! width in perpendicular direction to a parallel step is just zero. Secondly the error term is still computed like in the first
-! octant by using the absolute values of the distances. In the innermost loop, no more the step in the fast direction is executed
-! first, but the error term is updated, and only after that the step widths are added to the current coordinate values, depending on
-! whether a parallel or a diagonal step has to be done:
-! 
-!    REM Bresenham algorithm for a line in an arbitrary octant in pseudo Basic
-!    dx = xend-xstart
-!    dy = yend-ystart
-! 
-!    REM Initialisations
-!    adx = ABS(dx): ady = ABS(dy) ' Absolute values of distances
-!    sdx = SGN(dx): sdy = SGN(dy) ' Signum of distances
-! 
-!    IF adx > ady THEN
-!      ' x is fast direction
-!      pdx = sdx: pdy = 0   ' pd. is parallel step
-!      ddx = sdx: ddy = sdy ' dd. is diagonal step
-!      ef  = ady: es  = adx ' error steps fast, slow
-!                 ELSE
-!      ' y is fast direction
-!      pdx = 0  : pdy = sdy ' pd. is parallel step
-!      ddx = sdx: ddy = sdy ' dd. is diagonal step
-!      ef  = adx: es  = ady ' error steps fast, slow
-!      ENDIF
-! 
-!    x = xstart
-!    y = ystart
-!    SETPIXEL x,y
-!    error = es/2
-! 
-!    REM Pixel loop: always a step in fast direction, every now and then also one in slow direction
-!    FOR i=1 TO es          ' es also is the count of pixels zo be drawn
-!       REM update error term
-!       error = error - ef
-!       IF error < 0 THEN
-!          error = error + es ' make error term positive (>=0) again
-!          REM step in both slow and fast direction
-!          x = x + ddx: y = y + ddy ' Diagonal step
-!                    ELSE
-!          REM step in fast direction
-!          x = x + pdx: y = y + pdy ' Parallel step
-!          ENDIF
-!       SETPIXEL x,y
-!       NEXT
-! 
-! RASTERIZATION OF A CIRCLE BY THE BRESENHAM ALGORITHM
-! 
-! The approach for the Circle Variant shown here is also not originally from Bresenham, see again references to Pitteway and van Aken
-! below. The algorithm starts accordingly with the circle equation x?+y?=r?. Again we consider first only the first octant. Here you
-! want to draw a curve which starts at point (r,0) and then proceeds to the top left, up to reaching the angle of 45?.
-! 
-! The "fast" direction here is the y direction. You always do a step in the positive y direction (upwards), and every now and then
-! you also have to do a step in the "slow" direction, the negative x direction.
-! 
-! The frequent computations of squares in the circle equation, trigonometric expressions or square roots can again be avoided by
-! dissolving everything into single steps and recursive computation of the quadratic terms from the preceding ones.
-! 
-! From the circle equation you get to the transformed equation 0=x?+y?-r? with r? to be computed only a single time during
-! initialisation, x?=(xpreceding-1)?=xpreceding?-2*xpreceding+1 (according for y), where x? (or xpreceding?) is kept as an own
-! variable. Additionally you need to add the mid point coordinates when setting a pixel. These frequent integer additions do not
-! limit the performance much, as you spare those square (root) computations in the inner loop in turn. Again the zero in the
-! transformed circle equation is replaced by the error term.
-! 
-! The initialization of the error term is derived from an offset of ? pixel at the start. Until the intersection with the
-! perpendicular line, this leads to an accumulated value of r in the error term, so that this value is used for initialisation.
-! 
-! The following implementation is shown here only for the first octant, and again the other octants need sign changes for x and/or y
-! and the swapping of x and y. An easy expansion for full circles, as it is possible for graphics displays, but not for plotters, is
-! added in the comments.
-! 
-! 
-!    REM Bresenham Algorithm for one eighth of a circle in Pseudo-Basic
-!    REM given: r, xmid, ymid
-!    REM initialisations for the first octant
-!    r2 = r*r : REM single multiplication
-!    x = r
-!    y = 0
-!    error = r
-!    SETPIXEL xmid + x, ymid + y
-! 
-!    REM Pixel loop: always a step in fast direction, every now and then also in slow one
-!    WHILE y <= x
-!       REM step in fast direction (positive y direction)
-!       dy = y*2+1 : REM in Assembler implementation *2 per Shift
-!       y = y+1
-!       error = error-dy
-!       IF error<0 THEN
-!          REM step in slow direction (here the negative x direction)
-!          dx = 1-x*2 : REM in Assembler implementation *2 per Shift
-!          x = x-1
-!          error = error-dx
-!          ENDIF
-!       SETPIXEL  xmid+x, ymid+y
-!       REM If this deals with a screen and not a mechanical plotter,
-!       REM you can cover simultaneously also the other octants:
-!       REM SETPIXEL xmid-x, ymid+y
-!       REM SETPIXEL xmid-x, ymid-y
-!       REM SETPIXEL xmid+x, ymid-y
-!       REM SETPIXEL xmid+y, ymid+x
-!       REM SETPIXEL xmid-y, ymid+x
-!       REM SETPIXEL xmid-y, ymid-x
-!       REM SETPIXEL xmid+y, ymid-x
-!       WEND
-! 
-! A possible implementation of the Bresenham Algorithm for a full circle in C. Here another variable for recursive computation of the
-! quadratic terms is used, which corresponds with the term 2*n+1 above. It just has to be increased by 2 from one step to the next:
-! 
-!  void rasterCircle(int x0, int y0, int radius)
-!  {
-!    int f = 1 - radius;
-!    int ddF_x = 0;
-!    int ddF_y = -2 * radius;
-!    int x = 0;
-!    int y = radius;
-! 
-!    setPixel(x0, y0 + radius);
-!    setPixel(x0, y0 - radius);
-!    setPixel(x0 + radius, y0);
-!    setPixel(x0 - radius, y0);
-! 
-!    while(x < y)
-!    {
-!      if(f >= 0)
-!      {
-!        y--;
-!        ddF_y += 2;
-!        f += ddF_y;
-!      }
-!      x++;
-!      ddF_x += 2;
-!      f += ddF_x + 1;
-!      setPixel(x0 + x, y0 + y);
-!      setPixel(x0 - x, y0 + y);
-!      setPixel(x0 + x, y0 - y);
-!      setPixel(x0 - x, y0 - y);
-!      setPixel(x0 + y, y0 + x);
-!      setPixel(x0 - y, y0 + x);
-!      setPixel(x0 + y, y0 - x);
-!      setPixel(x0 - y, y0 - x);
-!    }
-!  }
-! 
-! Note: There is correlation between this algorithm and the sum of first N odd numbers. Which this one basically does. Sum of N odd
-! numbers, from 1 inclusive, is equal to the square of N ( N squared). See Square number.
-! 
-!  So.
-!  When we compare sum of N odd numbers to this algorithm we have.
-!  ddF_y = -2 * radius       is connected to last member of of sum of N odd numbers.
-!                            This member has index equal to value of radius (integral).
-!                            Since odd number is 2*n + 1 there is 1 handled elsewhere
-!                            or it should be -2*radius - 1
-!  ddF_x = 0                 should be 1. Because difference between two consecutive odd numbers is 2.
-!                            If so f += ddF_y + 1 is f+= ddF_y. Saving one operation.
-!  f = - radius + 1          Initial error equal to half of "bigger" step.
-!                            In case of saving one addition it should be either -radius or -radius + 2.
-!  In any case there should be addition of 1 driven out of outer loop.
-!  So.
-!  f += ddF_y                Adding odd numbers from Nth to 1st.
-!  f += ddF_x                Adding odd numbers from 1st to Nth. 1 is missing because it can be moved outside of loop.
-! 
-! DRAWING INCOMPLETE OCTANTS
-! 
-! The implementations above always only draw complete octants or circles. If you want to draw only a certain arc from an angle ? to
-! an angle ?, you have to implement it in a way to first calculate the x and y coordinates of these end points, where you inevitably
-! have to resort to trigonometric or square root computations (see Methods of computing square roots). Then you run the Bresenham
-! algorithm over the complete octant or circle and set the pixels only if they fall into the wanted interval. After finishing this
-! arc, you can abort the algorithm prematurely.
-! 
-! ELLIPSES
-! 
-! By scaling the drawn x and y values (and horizontal or vertical line expansion, respectively) you can produce even ellipses
-! parallel to the x or y axis. For this, you use the circle algorithm with the smaller ellipse axis as radius and add a value in the
-! other direction, which again is computed through another Bresenham line algorithm increasing from the pole to the equator. As the
-! ellipse has to be elongated into the longer axis direction, you don't set single pixels anymore, but have to draw lines (though
-! simple ones, only horizontal or vertical) from the previous to the next point.
-! 
-! A general ellipse can be derived from such an axis-parallel one by application of a shearing operation on it. Again you use an
-! additional Bresenham line algorithm to compute the offset increasing in one of the axis directions and to let it contribute to
-! every drawn coordinate.
-! 
-! HISTORY
-! 
-! The algorithm was developed by Jack E. Bresenham in 1962 at IBM. In 2001 Bresenham wrote:
-! 
-!     "I was working in the computation lab at IBM's San Jose development lab. A Calcomp plotter had been attached to an IBM 1401 via
-!     the 1407 typewriter console. [The algorithm] was in production use by summer 1962, possibly a month or so earlier. Programs in
-!     those days were freely exchanged among corporations so Calcomp (Jim Newland and Calvin Hefte) had copies. When I returned to
-!     Stanford in Fall 1962, I put a copy in the Stanford comp center library.
-! 
-!     A description of the line drawing routine was accepted for presentation at the 1963 ACM national convention in Denver,
-!     Colorado. It was a year in which no proceedings were published, only the agenda of speakers and topics in an issue of
-!     Communications of the ACM. A person from the IBM Systems Journal asked me after I made my presentation if they could publish
-!     the paper. I happily agreed, and they printed it in 1965."
-! 
-! Bresenham later modified his algorithm to produce circles.
-! 
-! SIMILAR ALGORITHMS
-! 
-! The principle of using an incremental error in place of division operations has other applications in graphics. It is possible to
-! use this technique to calculate the U,V co-ordinates during raster scan of texture mapped polygons. The voxel heightmap
-! software-rendering engines seen in some PC games also used this principle.
-! 
-! REFERENCES
-! 
-!   * "The Bresenham Line-Drawing Algorithm", by Colin Flanagan
-! 
-! Bresenham also published a Run-Slice (as opposed to the Run-Length) computational algorithm.
-! 
-!  1. ^ Pitteway, M.L.V., "Algorithm for Drawing Ellipses or Hyperbolae with a Digital Plotter", Computer J., 10(3) November 1967, pp
-!     282-289
-!  2. ^ Van Aken, J.R., "An Efficient Ellipse Drawing Algorithm", CG&A, 4(9), September 1984, pp 24-35
-! 
-! SEE ALSO
-! 
-!   * Patrick-Gilles Maillot's Thesis an extension of the Bresenham line drawing algorithm to perform 3D hidden lines removal; also
-!     published in MICAD '87 proceedings on CAD/CAM and Computer Graphics, page 591 - ISBN 2-86601-084-1.
-! 
-!   * Xiaolin Wu's line algorithm, a similarly fast method of drawing lines with antialiasing.
-! 
-! EXTERNAL LINKS
-! 
-!   * Analyze Bresenham's line algorithm in an online Javascript IDE
-!   * Basic Graphics Programs
-!   * The Bresenham Line-Drawing Algorithm by Colin Flanagan
-!   * National Institute of Standards and Technology page on Bresenham's algorithm
-!   * Calcomp 563 Incremental Plotter Information
-!   * Bresenham's Original Paper
-!   * Implementations in Java, C, and O Caml at the Code Codex
-! 
-! Retrieved from "http://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm"
+!>
+!!##NAME
+!!      draw_line_single(3fp) - [M_pixel:LINE] Bresenham's line algorithm
+!!      (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine draw_line_single(x1,y1, x2,y2)
+!!    integer,intent(in)            :: x1,y1,x2,y2
+!!
+!!##DESCRIPTION
+!! From Wikipedia, the free encyclopedia
+!!
+!! The Bresenham line algorithm is an algorithm that determines which
+!! points in an n-dimensional raster should be plotted in order to form
+!! a close approximation to a straight line between two given points. It
+!! is commonly used to draw lines on a computer screen, as it uses only
+!! integer addition, subtraction and bit shifting all of which are very
+!! cheap operations in standard computer architectures. It is one of the
+!! earliest algorithms developed in the field of computer graphics.
+!!
+!! Through a minor expansion, the original algorithm for lines can also
+!! be used to draw circles. Also this can be done with simple arithmetic
+!! operations; quadratic or trigonometric expressions can be avoided or
+!! recursively dissolved into simpler steps.
+!!
+!! The mentioned properties make it still an important algorithm, and it
+!! is used among others in plotters, in graphics chips of modern graphics
+!! cards, and in many graphics libraries. As it is so simple, it is not
+!! only implemented in the firmware of such devices, but is also cast into
+!! hardware of those graphics chips.
+!!
+!! To be precise, the label "Bresenham" is today often used for a whole
+!! family of algorithms, which have actually been developed by others, later,
+!! yet in succession of Bresenham and with a similar basic approach. See
+!! deeper references below.
+!!
+!!##CONTENTS
+!!
+!!   * 1 The algorithm
+!!   * 2 Generalization
+!!   * 3 Optimization
+!!   * 4 Different approach to the algorithm
+!!       + 4.1 Generalized version for this approach
+!!   * 5 Circle Variant
+!!       + 5.1 Drawing incomplete octants
+!!       + 5.2 Ellipses
+!!   * 6 History
+!!   * 7 Similar Algorithms
+!!   * 8 References
+!!   * 9 See also
+!!   * 10 External links
+!!
+!! The common conventions that pixel coordinates increase in the down and
+!! right directions and that pixel centers have integer coordinates will
+!! be used. The endpoints of the line are the pixels at (x[0], y[0]) and
+!! (x[1], y[1]), where the first coordinate of the pair is the column and
+!! the second is the row.
+!!
+!! The algorithm will be initially presented only for the octant in which
+!! the segment goes down and to the right (x[0]?x[1] and y[0]?y [1] ) ,
+!! and its horizontal projection x[1] ? x[0] is longer than the vertical
+!! projection y[1] ? y[0] (in other words, the line has a slope less
+!! than 1 and greater than 0.) In this octant, for each column x between
+!! x[0] and x[1], there is exactly one row y (computed by the algorithm)
+!! containing a pixel of the line, while each row between y[0] and y[1]
+!! contains multiple rasterized pixels.
+!!
+!! Bresenham's algorithm chooses the integer y corresponding to the pixel
+!! center that is closest to the ideal (fractional) y for the same x; on
+!! successive columns y can remain the same or increase by 1. The general
+!! equation of the line through the endpoints is given by:
+!!
+!!     y - y_0 = \frac{y_1-y_0}{x_1-x_0} (x-x_0).
+!!
+!! Since we know the column, x, the pixel's row, y, is given by rounding
+!! this quantity to the nearest integer:
+!!
+!!     \frac{y_1-y_0}{x_1-x_0} (x-x_0) + y_0.
+!!
+!! The slope (y[1] ? y[0]) / (x[1] ? x[0]) depends on the endpoint
+!! coordinates only and can be precomputed, and the ideal y for successive
+!! integer values of x can be computed starting from y[0] and repeatedly
+!! adding the slope.
+!!
+!! In practice, the algorithm can track, instead of possibly large y values,
+!! a small error value between ?0.5 and 0.5: the vertical distance between
+!! the rounded and the exact y values for the current x. Each time x is
+!! increased, the error is increased by the slope; if it exceeds 0.5, the
+!! rasterization y is increased by 1 (the line continues on the next lower
+!! row of the raster) and the error is decremented by 1.0.
+!!
+!! In the following pseudocode sample plot(x,y) plots a point and abs
+!! returns absolute value:
+!!
+!!
+!!  function line(x0, x1, y0, y1)
+!!      int deltax := x1 - x0
+!!      int deltay := y1 - y0
+!!      real error := 0
+!!      real deltaerr := deltay / deltax    // Assume deltax != 0 (line is not vertical)
+!!      int y := y0
+!!      for x from x0 to x1
+!!          plot(x,y)
+!!          error := error + deltaerr
+!!          if abs(error) ? 0.5 then
+!!              y := y + 1
+!!              error := error - 1.0
+!!
+!!##GENERALIZATION
+!!
+!! This first version only handles lines that descend to the right. We
+!! would of course like to be able to draw all lines. The first case is
+!! allowing us to draw lines that still slope downwards but head in the
+!! opposite direction. This is a simple matter of swapping the initial
+!! points if x0 > x1. Trickier is determining how to draw lines that go
+!! up. To do this, we check if y[0] ? y[1]; if so, we step y by -1 instead
+!! of 1. Lastly, We still need to generalize the algorithm to drawing lines
+!! in all directions. Up until now we have only been able to draw lines with
+!! a slope less than one. To be able to draw lines with a steeper slope,
+!! we take advantage of the fact that a steep line can be reflected across
+!! the line y=x to obtain a line with a small slope. The effect is to switch
+!! the x and y variables throughout, including switching the parameters to
+!! plot. The code looks like this:
+!!
+!!  function line(x0, x1, y0, y1)
+!!      boolean steep := abs(y1 - y0) > abs(x1 - x0)
+!!      if steep then
+!!          swap(x0, y0)
+!!          swap(x1, y1)
+!!      if x0 > x1 then
+!!          swap(x0, x1)
+!!          swap(y0, y1)
+!!      int deltax := x1 - x0
+!!      int deltay := abs(y1 - y0)
+!!      real error := 0
+!!      real deltaerr := deltay / deltax
+!!      int ystep
+!!      int y := y0
+!!      if y0 < y1 then ystep := 1 else ystep := -1
+!!      for x from x0 to x1
+!!          if steep then plot(y,x) else plot(x,y)
+!!          error := error + deltaerr
+!!          if error ? 0.5 then
+!!              y := y + ystep
+!!              error := error - 1.0
+!!
+!! The function now handles all lines and implements the complete Bresenham's
+!! algorithm. A more standard C code for the algorithm is shown here:
+!!
+!!    void Bresenham(int x1, int y1, int x2, int y2) {
+!!             int slope;
+!!             int dx, dy, incE, incNE, d, x, y;
+!!             // Reverse lines where x1 > x2
+!!             if (x1 > x2)
+!!             {
+!!                 Bresenham(x2, y2, x1, y1);
+!!                 return;
+!!             }
+!!             dx = x2 - x1;
+!!             dy = y2 - y1;
+!!             // Adjust y-increment for negatively sloped lines
+!!             if (dy < 0)
+!!             {
+!!                 slope = -1;
+!!                 dy = -dy;
+!!             }
+!!             else
+!!             {
+!!                 slope = 1;
+!!             }
+!!             // Bresenham constants
+!!             incE = 2 * dy;
+!!             incNE = 2 * dy - 2 * dx;
+!!             d = 2 * dy - dx;
+!!             y = y1;
+!!             // Blit
+!!             for (x = x1; x <= x2; x++)
+!!             {
+!!                 putpixel(x, y);
+!!                 if (d <= 0)
+!!                 {
+!!                     d += incE;
+!!                 }
+!!                 else
+!!                 {
+!!                     d += incNE;
+!!                     y += slope;
+!!                 }
+!!             }
+!!         }
+!!
+!!##OPTIMIZATION
+!!
+!! The problem with this approach is that computers operate relatively
+!! slowly on fractional numbers like error and deltaerr; moreover, errors
+!! can accumulate over many floating-point additions. Working with integers
+!! will be both faster and more accurate. The trick we use is to multiply
+!! all the fractional numbers above by deltax, which enables us to express
+!! them as integers. The only problem remaining is the constant 0.5?to deal
+!! with this, we change the initialization of the variable error. The new
+!! program looks like this:
+!!
+!!  function line(x0, x1, y0, y1)
+!!      boolean steep := abs(y1 - y0) > abs(x1 - x0)
+!!      if steep then
+!!          swap(x0, y0)
+!!          swap(x1, y1)
+!!      if x0 > x1 then
+!!          swap(x0, x1)
+!!          swap(y0, y1)
+!!      int deltax := x1 - x0
+!!      int deltay := abs(y1 - y0)
+!!      int error := -deltax / 2
+!!      int ystep
+!!      int y := y0
+!!      if y0 < y1 then ystep := 1 else ystep := -1
+!!      for x from x0 to x1
+!!          if steep then plot(y,x) else plot(x,y)
+!!          error := error + deltay
+!!          if error > 0 then
+!!              y := y + ystep
+!!              error := error - deltax
+!!
+!!##DIFFERENT APPROACH TO THE ALGORITHM
+!!
+!! A different approach to the Bresenham algorithm works more from the
+!! practical side. It was published by Pitteway ^[1] and confirmed by van
+!! Aken ^[2]. Again we first consider a line in the first octant, which
+!! means a slope between 0 and 1. Mathematically spoken, we want to draw
+!! a line from point (x[1],y[1]) to (x[2],y[2]). The intervals in the
+!! two directions are dx=x[2]-x[1] and dy=y[2]-y [1], and the slope is
+!! dy/dx. The line equation can be written as y=y[1]+(x-x[1])*dy/dx. In
+!! this first octant, we have 0<dy<=dx.
+!!
+!! So, when working pixel-wise along this line, we have one "fast"
+!! direction, the positive x direction, and a "slow" direction, the positive
+!! y direction, where fewer steps have to be done than in the fast one. So
+!! the algorithm simply goes like this: a) Always do a single pixel step
+!! in the fast direction. b) Every now and then also do a step in the
+!! slow direction.
+!!
+!! Bresenham's trick is the introduction of an error term, which deals with
+!! the decision, when to do also this extra step in the slow direction. The
+!! line equation is transformed into 0=dx*(y-y[1])-dy*(x-x[1]), and then
+!! the null on the left side is replaced by the error term. A step by 1 in
+!! the x direction (variable x) causes a decrement of the error term by
+!! one times dy. If the error term gets below zero due to this, it will
+!! be increased by one times dx through a step by 1 in the y direction
+!! (variable y). Because of dx>=dy, this will render the error term positive
+!! again in any case, at least brought back to zero.
+!!
+!! You realize a cross-wise subtraction of dy from the error term for any x
+!! step and an addition of dx for any y step. This way, the division dy/dx
+!! for the slope is dissolved into a number of more elementary operations.
+!!
+!! A critical issue is the initialisation of the error term. In this approach
+!! here, we simply consider a line with dy=1, so with only one single step
+!! in the y direction along the whole line. Of course for the best look
+!! of the line, we want this step to happen right in the middle of the
+!! line. This leads to initialising the error term to dx/2. (Rounding this
+!! term to integers in case of odd dx is no problem.)
+!!
+!! This approach comes out a little different from the original, as it
+!! avoids the additional factor of 2 on both sides, which has to do with
+!! the initialisation.
+!!
+!! To generalize this algorithm for all octants, you will again have to do
+!! role changes of x and y and consider the different signs of dx and dy.
+!!
+!! A simple implementation of this approach is not very elegant, but
+!! demonstrates the principle of the algorithm fairly well.
+!!
+!!    REM Bresenham algorithm for a line in the first octant in Pseudo Basic
+!!    dx = xend-xstart
+!!    dy = yend-ystart
+!!    REM in first octant, we have 0 < dy <= dx
+!!
+!!    REM Initialisations
+!!    x = xstart
+!!    y = ystart
+!!    SETPIXEL x,y
+!!    error = dx/2
+!!
+!!    REM Pixel loop: always do a step in fast direction, every now and then also one in the slow direction
+!!    WHILE x < xend
+!!       REM Step in fast direction
+!!       x = x + 1
+!!       error = error-dy
+!!       IF error < 0 THEN
+!!          REM Step in slow direction
+!!          y = y + 1
+!!          error = error + dx
+!!          ENDIF
+!!       SETPIXEL x,y
+!!       WEND
+!!
+!!##GENERALIZED VERSION FOR THIS APPROACH
+!!
+!! This generalized version in BASIC shall be valid for all octants. For
+!! this, all signs of the coordinate distances have to be considered, as
+!! well as the possible role change of x and y. If these if clauses would
+!! all be put into the innermost loop, which would mean a high number of
+!! executions, it would considerably increase the time consumption. A more
+!! efficient solution tries to put all these case differentiations into the
+!! initialisation phase of the procedure before the start of the inner main
+!! loop. Then the inner loop will still contain a single if clause for the
+!! Bresenham error term.
+!!
+!! This version in BASIC introduces a number of abstractions: First the step
+!! in the "fast" direction is now considered a parallel step (parallel to
+!! one of the coordinate axis), and if additionally a step in the "slow"
+!! direction becomes necessary, it becomes a diagonal step. For these cases
+!! we can compute variable values during initialisation, in advance, which
+!! contain the step widths (including signs) in the coordinate directions
+!! and thus achieve the generalization for the eight octants. For example
+!! the step width in perpendicular direction to a parallel step is just
+!! zero. Secondly the error term is still computed like in the first octant
+!! by using the absolute values of the distances. In the innermost loop,
+!! no more the step in the fast direction is executed first, but the error
+!! term is updated, and only after that the step widths are added to the
+!! current coordinate values, depending on whether a parallel or a diagonal
+!! step has to be done:
+!!
+!!    REM Bresenham algorithm for a line in an arbitrary octant in pseudo Basic
+!!    dx = xend-xstart
+!!    dy = yend-ystart
+!!
+!!    REM Initialisations
+!!    adx = ABS(dx): ady = ABS(dy) ' Absolute values of distances
+!!    sdx = SGN(dx): sdy = SGN(dy) ' Signum of distances
+!!
+!!    IF adx > ady THEN
+!!      ' x is fast direction
+!!      pdx = sdx: pdy = 0   ' pd. is parallel step
+!!      ddx = sdx: ddy = sdy ' dd. is diagonal step
+!!      ef  = ady: es  = adx ' error steps fast, slow
+!!                 ELSE
+!!      ' y is fast direction
+!!      pdx = 0  : pdy = sdy ' pd. is parallel step
+!!      ddx = sdx: ddy = sdy ' dd. is diagonal step
+!!      ef  = adx: es  = ady ' error steps fast, slow
+!!      ENDIF
+!!
+!!    x = xstart
+!!    y = ystart
+!!    SETPIXEL x,y
+!!    error = es/2
+!!
+!!    REM Pixel loop: always a step in fast direction, every now and then also one in slow direction
+!!    FOR i=1 TO es          ' es also is the count of pixels zo be drawn
+!!       REM update error term
+!!       error = error - ef
+!!       IF error < 0 THEN
+!!          error = error + es ' make error term positive (>=0) again
+!!          REM step in both slow and fast direction
+!!          x = x + ddx: y = y + ddy ' Diagonal step
+!!                    ELSE
+!!          REM step in fast direction
+!!          x = x + pdx: y = y + pdy ' Parallel step
+!!          ENDIF
+!!       SETPIXEL x,y
+!!       NEXT
+!!
+!!##RASTERIZATION OF A CIRCLE BY THE BRESENHAM ALGORITHM
+!!
+!! The approach for the Circle Variant shown here is also not originally
+!! from Bresenham, see again references to Pitteway and van Aken below. The
+!! algorithm starts accordingly with the circle equation x?+y?=r?. Again
+!! we consider first only the first octant. Here you want to draw a curve
+!! which starts at point (r,0) and then proceeds to the top left, up to
+!! reaching the angle of 45?.
+!!
+!! The "fast" direction here is the y direction. You always do a step in
+!! the positive y direction (upwards), and every now and then you also have
+!! to do a step in the "slow" direction, the negative x direction.
+!!
+!! The frequent computations of squares in the circle equation, trigonometric
+!! expressions or square roots can again be avoided by dissolving everything
+!! into single steps and recursive computation of the quadratic terms from
+!! the preceding ones.
+!!
+!! From the circle equation you get to the transformed equation
+!! 0=x?+y?-r? with r? to be computed only a single time during
+!! initialisation, x?=(xpreceding-1)?=xpreceding?-2*xpreceding+1 (according
+!! for y), where x? (or xpreceding?) is kept as an own variable. Additionally
+!! you need to add the mid point coordinates when setting a pixel. These
+!! frequent integer additions do not limit the performance much, as you
+!! spare those square (root) computations in the inner loop in turn. Again
+!! the zero in the transformed circle equation is replaced by the error term.
+!!
+!! The initialization of the error term is derived from an offset of ? pixel
+!! at the start. Until the intersection with the perpendicular line, this
+!! leads to an accumulated value of r in the error term, so that this value
+!! is used for initialisation.
+!!
+!! The following implementation is shown here only for the first octant,
+!! and again the other octants need sign changes for x and/or y and the
+!! swapping of x and y. An easy expansion for full circles, as it is possible
+!! for graphics displays, but not for plotters, is added in the comments.
+!!
+!!
+!!    REM Bresenham Algorithm for one eighth of a circle in Pseudo-Basic
+!!    REM given: r, xmid, ymid
+!!    REM initialisations for the first octant
+!!    r2 = r*r : REM single multiplication
+!!    x = r
+!!    y = 0
+!!    error = r
+!!    SETPIXEL xmid + x, ymid + y
+!!
+!!    REM Pixel loop: always a step in fast direction, every now and then also in slow one
+!!    WHILE y <= x
+!!       REM step in fast direction (positive y direction)
+!!       dy = y*2+1 : REM in Assembler implementation *2 per Shift
+!!       y = y+1
+!!       error = error-dy
+!!       IF error<0 THEN
+!!          REM step in slow direction (here the negative x direction)
+!!          dx = 1-x*2 : REM in Assembler implementation *2 per Shift
+!!          x = x-1
+!!          error = error-dx
+!!          ENDIF
+!!       SETPIXEL  xmid+x, ymid+y
+!!       REM If this deals with a screen and not a mechanical plotter,
+!!       REM you can cover simultaneously also the other octants:
+!!       REM SETPIXEL xmid-x, ymid+y
+!!       REM SETPIXEL xmid-x, ymid-y
+!!       REM SETPIXEL xmid+x, ymid-y
+!!       REM SETPIXEL xmid+y, ymid+x
+!!       REM SETPIXEL xmid-y, ymid+x
+!!       REM SETPIXEL xmid-y, ymid-x
+!!       REM SETPIXEL xmid+y, ymid-x
+!!       WEND
+!!
+!! A possible implementation of the Bresenham Algorithm for a full circle
+!! in C. Here another variable for recursive computation of the quadratic
+!! terms is used, which corresponds with the term 2*n+1 above. It just has
+!! to be increased by 2 from one step to the next:
+!!
+!!  void rasterCircle(int x0, int y0, int radius)
+!!  {
+!!    int f = 1 - radius;
+!!    int ddF_x = 0;
+!!    int ddF_y = -2 * radius;
+!!    int x = 0;
+!!    int y = radius;
+!!
+!!    setPixel(x0, y0 + radius);
+!!    setPixel(x0, y0 - radius);
+!!    setPixel(x0 + radius, y0);
+!!    setPixel(x0 - radius, y0);
+!!
+!!    while(x < y)
+!!    {
+!!      if(f >= 0)
+!!      {
+!!        y--;
+!!        ddF_y += 2;
+!!        f += ddF_y;
+!!      }
+!!      x++;
+!!      ddF_x += 2;
+!!      f += ddF_x + 1;
+!!      setPixel(x0 + x, y0 + y);
+!!      setPixel(x0 - x, y0 + y);
+!!      setPixel(x0 + x, y0 - y);
+!!      setPixel(x0 - x, y0 - y);
+!!      setPixel(x0 + y, y0 + x);
+!!      setPixel(x0 - y, y0 + x);
+!!      setPixel(x0 + y, y0 - x);
+!!      setPixel(x0 - y, y0 - x);
+!!    }
+!!  }
+!!
+!! Note: There is correlation between this algorithm and the sum of first
+!! N odd numbers. Which this one basically does. Sum of N odd numbers, from
+!! 1 inclusive, is equal to the square of N ( N squared). See Square number.
+!!
+!!  So.
+!!  When we compare sum of N odd numbers to this algorithm we have.
+!!  ddF_y = -2 * radius       is connected to last member of of sum of N odd numbers.
+!!                            This member has index equal to value of radius (integral).
+!!                            Since odd number is 2*n + 1 there is 1 handled elsewhere
+!!                            or it should be -2*radius - 1
+!!  ddF_x = 0                 should be 1. Because difference between two consecutive odd numbers is 2.
+!!                            If so f += ddF_y + 1 is f+= ddF_y. Saving one operation.
+!!  f = - radius + 1          Initial error equal to half of "bigger" step.
+!!                            In case of saving one addition it should be either -radius or -radius + 2.
+!!  In any case there should be addition of 1 driven out of outer loop.
+!!  So.
+!!  f += ddF_y                Adding odd numbers from Nth to 1st.
+!!  f += ddF_x                Adding odd numbers from 1st to Nth. 1 is missing because it can be moved outside of loop.
+!!
+!!##DRAWING INCOMPLETE OCTANTS
+!!
+!! The implementations above always only draw complete octants or circles. If
+!! you want to draw only a certain arc from an angle ? to an angle ?, you
+!! have to implement it in a way to first calculate the x and y coordinates
+!! of these end points, where you inevitably have to resort to trigonometric
+!! or square root computations (see Methods of computing square roots). Then
+!! you run the Bresenham algorithm over the complete octant or circle
+!! and set the pixels only if they fall into the wanted interval. After
+!! finishing this arc, you can abort the algorithm prematurely.
+!!
+!!##ELLIPSES
+!!
+!! By scaling the drawn x and y values (and horizontal or vertical line
+!! expansion, respectively) you can produce even ellipses parallel to the
+!! x or y axis. For this, you use the circle algorithm with the smaller
+!! ellipse axis as radius and add a value in the other direction, which
+!! again is computed through another Bresenham line algorithm increasing
+!! from the pole to the equator. As the ellipse has to be elongated into
+!! the longer axis direction, you don't set single pixels anymore, but
+!! have to draw lines (though simple ones, only horizontal or vertical)
+!! from the previous to the next point.
+!!
+!! A general ellipse can be derived from such an axis-parallel one by
+!! application of a shearing operation on it. Again you use an additional
+!! Bresenham line algorithm to compute the offset increasing in one of the
+!! axis directions and to let it contribute to every drawn coordinate.
+!!
+!!##HISTORY
+!!
+!! The algorithm was developed by Jack E. Bresenham in 1962 at IBM. In 2001
+!! Bresenham wrote:
+!!
+!!     "I was working in the computation lab at IBM's San Jose development
+!!     lab. A Calcomp plotter had been attached to an IBM 1401 via the
+!!     1407 typewriter console. [The algorithm] was in production use by
+!!     summer 1962, possibly a month or so earlier. Programs in those days
+!!     were freely exchanged among corporations so Calcomp (Jim Newland and
+!!     Calvin Hefte) had copies. When I returned to Stanford in Fall 1962,
+!!     I put a copy in the Stanford comp center library.
+!!
+!!     A description of the line drawing routine was accepted for
+!!     presentation at the 1963 ACM national convention in Denver,
+!!     Colorado. It was a year in which no proceedings were published, only
+!!     the agenda of speakers and topics in an issue of Communications of
+!!     the ACM. A person from the IBM Systems Journal asked me after I made
+!!     my presentation if they could publish the paper. I happily agreed,
+!!     and they printed it in 1965."
+!!
+!! Bresenham later modified his algorithm to produce circles.
+!!
+!!##SIMILAR ALGORITHMS
+!!
+!! The principle of using an incremental error in place of division
+!! operations has other applications in graphics. It is possible to use
+!! this technique to calculate the U,V co-ordinates during raster scan of
+!! texture mapped polygons. The voxel heightmap software-rendering engines
+!! seen in some PC games also used this principle.
+!!
+!!##REFERENCES
+!!
+!!   * "The Bresenham Line-Drawing Algorithm", by Colin Flanagan
+!!
+!! Bresenham also published a Run-Slice (as opposed to the Run-Length) computational algorithm.
+!!
+!!  1. ^ Pitteway, M.L.V., "Algorithm for Drawing Ellipses or Hyperbolae with a Digital Plotter", Computer J., 10(3) November 1967, pp
+!!     282-289
+!!  2. ^ Van Aken, J.R., "An Efficient Ellipse Drawing Algorithm", CG&A, 4(9), September 1984, pp 24-35
+!!
+!!##SEE ALSO
+!!
+!!   * Patrick-Gilles Maillot's Thesis an extension of the Bresenham line drawing algorithm to perform 3D hidden lines removal; also
+!!     published in MICAD '87 proceedings on CAD/CAM and Computer Graphics, page 591 - ISBN 2-86601-084-1.
+!!
+!!   * Xiaolin Wu's line algorithm, a similarly fast method of drawing lines with antialiasing.
+!!
+!!##EXTERNAL LINKS
+!!
+!!   * Analyze Bresenham's line algorithm in an online Javascript IDE
+!!   * Basic Graphics Programs
+!!   * The Bresenham Line-Drawing Algorithm by Colin Flanagan
+!!   * National Institute of Standards and Technology page on Bresenham's algorithm
+!!   * Calcomp 563 Incremental Plotter Information
+!!   * Bresenham's Original Paper
+!!   * Implementations in Java, C, and O Caml at the Code Codex
+!!
+!! Retrieved from "http://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm"
 subroutine draw_line_single(x1,y1, x2,y2 )
 
 ! ident_4="@(#)M_pixel::draw_line_single(3fp): draw line between two points in pixel array"
@@ -2160,164 +2260,171 @@ end subroutine draw_line_single
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    hershey(3f) - [M_pixel:TEXT] draw text string as Hershey software vector fonts
-!    (LICENSE:PD
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine hershey(x,y,height,itext,theta,ntext)
-!    character(len=*),intent(in)   :: itext
-!    real,intent(in)               :: x,y
-!    real,intent(in)               :: height
-!    real,intent(in)               :: theta
-!    integer,intent(in)            :: ntext
-! 
-! OPTIONS
-!    X,Y    are the coordinates in inches from the current origin to the
-!           lower left corner of the 1st character to be plotted. If either
-!           is set to 999.0 then saved next character position is used.
-!    HEIGHT is the character height in inches
-!    ITEXT  contains the text to be plotted
-!    THETA  is the positive CCW angle W.R.T. the X-axis
-!    NTEXT  is the number of characters in itext to plot
-!           o If NTEXT.lt.-1 the pen is down to (X,Y) and a single special
-!             centered symbol is plotted. ITEXT must be from CHAR(0) to
-!             CHAR(21).
-!           o If NTEXT.eq.-1 the pen is up to (X,Y) and a single special
-!             centered symbol is plotted. ITEXT must be from CHAR(0) to
-!             CHAR(21).
-!           o if NTEXT=0 a single Simplex Roman character from ITEXT,
-!             left-justified, is plotted.
-!           o if NTEXT.gt.0 NTEXT characters from ITEXT are decoded and
-!             NCHR characters are plotted where NCHR.le.NTEXT to remove
-!             backslashes, command codes, etc.
-! DESCRIPTION
-!    FEATURES:
-!      1) Four HERSHEY letter fonts--SIMPLEX,COMPLEX,ITALIC, and DUPLEX--
-!         are provided in upper and lower case ROMAN
-!      2) Two hershey letter fonts--SIMPLEX and COMPLEX--are provided in
-!         upper and lower case GREEK
-!      3) 47 special mathematical symbols, e.g. integral sign, del... are
-!         provided
-!      4) SUPER- and SUB-scripting is possible within a character string
-!         without separate calls to HERSHEY
-! 
-!    Change of font is made by enclosing the name of the font in upper
-!    case in backslashes, e.g \SIMPLEX\. Three letters suffice to
-!    specify the font. SIMPLEX is the default font on the initial call
-!    to HERSHEY. A font remains in effect until explicitly changed.
-!    SUPER- or SUB-scripting is accomplished by enclosing the expression
-!    to be SUPER- or SUB-scripted in curly brackets and preceding it by
-!    SUP or SUB. the closing curly bracket terminates the
-!    SUPER- or SUB-scripting and returns to normal character plotting.
-!    Note that SUPER- and SUB-script letters are plotted with a
-!    different character size.
-! 
-!    GREEK letters are drawn by enclosing the ENGLISH name of the
-!    letter in backslashes, e.g. \ALPHA\. The case of the first letter
-!    determines the case of the GREEK letter. The closing backslash must
-!    be included.
-! 
-!    Any symbol may be called by enclosing the symbol number+1000 in
-!    backslashes. This is the only way to call some symbols, especially
-!    special mathematical symbols.
-! 
-!   The symbol numbers are
-! 
-!     1-26    upper case ROMAN SIMPLEX
-!    27-52    lower case ROMAN SIMPLEX
-!    53-72    SIMPLEX numbers and symbols
-!    73-96    upper case GREEK SIMPLEX
-!    97-120   lower case GREEK SIMPLEX
-!    121-146  upper case ROMAN COMPLEX
-!    147-172  lower case ROMAN COMPLEX
-!    173-192  COMPLEX numbers and symbols
-!    193-216  upper case GREEK COMPLEX
-!    217-240  lower case GREEK COMPLEX
-!    241-266  upper case ROMAN ITALIC
-!    267-292  lower case ROMAN ITALIC
-!    293-312  ITALIC numbers and symbols
-!    313-338  upper case ROMAN DUPLEX
-!    339-364  lower case ROMAN DUPLEX
-!    365-384  DUPLEX numbers and symbols
-!    385-432  special mathematical symbols
-! 
-!    Additional features added Feb 1982:
-! 
-!    The pen may be moved back to the start point for the previous character
-!    by \BS\. This is useful, for example, in writing integral signs with
-!    limits above and below them.
-! 
-!    Symbol parameters taken from N.M.Wolcott, FORTRAN IV Enhanced Character Graphics, NBS
-! 
-!    A.CHAVE IGPP/UCSD Aug 1981, Modified Feb 1982 by A. Chave, R.L. Parker, and L. Shure
-! 
-!    programmed in FORTRAN-77
-! EXAMPLE
-!   Show all Hershey characters
-! 
-!    program demo_hershey
-!    use M_pixel
-!    use M_writegif_animated, only : write_animated_gif
-!    implicit none
-!    integer,parameter :: isize=600
-!    integer,parameter :: topsym=432
-!    integer           :: movie(1:topsym,0:isize-1,0:isize-1)
-!    integer           :: i
-!    !! set up environment
-!       call prefsize(isize,isize)
-!       call vinit()
-!       call ortho2(-150.0,150.0,-150.0,150.0)
-! 
-!       !! draw all characters using hershey numeric strings
-!       do i=1,topsym
-!          !! draw reference circle and crosshairs
-!          call color(0)
-!          call clear()
-! 
-!          call color(4)
-!          call linewidth(100)
-!          call circle(0.0,0.0,75.0)
-!          call move2(-75.0,0.0)
-!          call draw2(75.0,0.0)
-!          call move2(0.0,-75.0)
-!          call draw2(0.0,75.0)
-! 
-!          call centertext(.true.)
-!          call color(7)
-!          call linewidth(500)
-!          call textang(3.0*i)
-!          call textang(0.0)
-!          call move2(0.0,0.0)
-!          call textsize(150.0,150.0)
-!          call drawstr('\',i+1000,'\',nospace=.true.)
-! 
-!          call centertext(.false.)
-!          call color(1)
-!          call move2(-120.0,120.0)
-!          call textsize(10.0,10.0)
-!          call linewidth(40)
-!          call drawstr(i+1000,' ')
-!          movie(i,:,:)=P_pixel
-!       enddo
-!       call vexit()
-!       !! write to file and display with display(1)
-!       call write_animated_gif('hershey.3m_pixel.gif',movie,P_colormap,delay=40)
-!       !call execute_command_line('display hershey.3m_pixel.gif')
-!    end program demo_hershey
-! 
-! AUTHOR
-!    Derived from the Longlib93 library.
-! LICENSE
-!    Public Domain
-! 
-!    Longlib was written by an employee of a US government contractor and
-!    is in the public domain.
-! 
-!    Changes to modernize and make more portable by John S. Urban are also
-!    placed in the public domain.
+!>
+!!##NAME
+!!    hershey(3f) - [M_pixel:TEXT] draw text string as Hershey software vector fonts
+!!    (LICENSE:PD
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine hershey(x,y,height,itext,theta,ntext)
+!!    character(len=*),intent(in)   :: itext
+!!    real,intent(in)               :: x,y
+!!    real,intent(in)               :: height
+!!    real,intent(in)               :: theta
+!!    integer,intent(in)            :: ntext
+!!
+!!##OPTIONS
+!!    X,Y    are the coordinates in inches from the current origin to the
+!!           lower left corner of the 1st character to be plotted. If either
+!!           is set to 999.0 then saved next character position is used.
+!!    HEIGHT is the character height in inches
+!!    ITEXT  contains the text to be plotted
+!!    THETA  is the positive CCW angle W.R.T. the X-axis
+!!    NTEXT  is the number of characters in itext to plot
+!!           o If NTEXT.lt.-1 the pen is down to (X,Y) and a single special
+!!             centered symbol is plotted. ITEXT must be from CHAR(0) to
+!!             CHAR(21).
+!!           o If NTEXT.eq.-1 the pen is up to (X,Y) and a single special
+!!             centered symbol is plotted. ITEXT must be from CHAR(0) to
+!!             CHAR(21).
+!!           o if NTEXT=0 a single Simplex Roman character from ITEXT,
+!!             left-justified, is plotted.
+!!           o if NTEXT.gt.0 NTEXT characters from ITEXT are decoded and
+!!             NCHR characters are plotted where NCHR.le.NTEXT to remove
+!!             backslashes, command codes, etc.
+!!
+!!##DESCRIPTION
+!!    FEATURES:
+!!      1) Four HERSHEY letter fonts--SIMPLEX,COMPLEX,ITALIC, and DUPLEX--
+!!         are provided in upper and lower case ROMAN
+!!      2) Two hershey letter fonts--SIMPLEX and COMPLEX--are provided in
+!!         upper and lower case GREEK
+!!      3) 47 special mathematical symbols, e.g. integral sign, del... are
+!!         provided
+!!      4) SUPER- and SUB-scripting is possible within a character string
+!!         without separate calls to HERSHEY
+!!
+!!    Change of font is made by enclosing the name of the font in upper
+!!    case in backslashes, e.g \SIMPLEX\. Three letters suffice to
+!!    specify the font. SIMPLEX is the default font on the initial call
+!!    to HERSHEY. A font remains in effect until explicitly changed.
+!!    SUPER- or SUB-scripting is accomplished by enclosing the expression
+!!    to be SUPER- or SUB-scripted in curly brackets and preceding it by
+!!    SUP or SUB. the closing curly bracket terminates the
+!!    SUPER- or SUB-scripting and returns to normal character plotting.
+!!    Note that SUPER- and SUB-script letters are plotted with a
+!!    different character size.
+!!
+!!    GREEK letters are drawn by enclosing the ENGLISH name of the
+!!    letter in backslashes, e.g. \ALPHA\. The case of the first letter
+!!    determines the case of the GREEK letter. The closing backslash must
+!!    be included.
+!!
+!!    Any symbol may be called by enclosing the symbol number+1000 in
+!!    backslashes. This is the only way to call some symbols, especially
+!!    special mathematical symbols.
+!!
+!!   The symbol numbers are
+!!
+!!     1-26    upper case ROMAN SIMPLEX
+!!    27-52    lower case ROMAN SIMPLEX
+!!    53-72    SIMPLEX numbers and symbols
+!!    73-96    upper case GREEK SIMPLEX
+!!    97-120   lower case GREEK SIMPLEX
+!!    121-146  upper case ROMAN COMPLEX
+!!    147-172  lower case ROMAN COMPLEX
+!!    173-192  COMPLEX numbers and symbols
+!!    193-216  upper case GREEK COMPLEX
+!!    217-240  lower case GREEK COMPLEX
+!!    241-266  upper case ROMAN ITALIC
+!!    267-292  lower case ROMAN ITALIC
+!!    293-312  ITALIC numbers and symbols
+!!    313-338  upper case ROMAN DUPLEX
+!!    339-364  lower case ROMAN DUPLEX
+!!    365-384  DUPLEX numbers and symbols
+!!    385-432  special mathematical symbols
+!!
+!!    Additional features added Feb 1982:
+!!
+!!    The pen may be moved back to the start point for the previous character
+!!    by \BS\. This is useful, for example, in writing integral signs with
+!!    limits above and below them.
+!!
+!!    Symbol parameters taken from N.M.Wolcott, FORTRAN IV Enhanced Character Graphics, NBS
+!!
+!!    A. CHAVE IGPP/UCSD Aug 1981, Modified Feb 1982 by A. Chave, R.L. Parker, and L. Shure
+!!
+!!    programmed in FORTRAN-77
+!!
+!!##EXAMPLE
+!!
+!!   Show all Hershey characters
+!!
+!!    program demo_hershey
+!!    use M_pixel
+!!    use M_writegif_animated, only : write_animated_gif
+!!    implicit none
+!!    integer,parameter :: isize=600
+!!    integer,parameter :: topsym=432
+!!    integer           :: movie(1:topsym,0:isize-1,0:isize-1)
+!!    integer           :: i
+!!    !! set up environment
+!!       call prefsize(isize,isize)
+!!       call vinit()
+!!       call ortho2(-150.0,150.0,-150.0,150.0)
+!!
+!!       !! draw all characters using hershey numeric strings
+!!       do i=1,topsym
+!!          !! draw reference circle and crosshairs
+!!          call color(0)
+!!          call clear()
+!!
+!!          call color(4)
+!!          call linewidth(100)
+!!          call circle(0.0,0.0,75.0)
+!!          call move2(-75.0,0.0)
+!!          call draw2(75.0,0.0)
+!!          call move2(0.0,-75.0)
+!!          call draw2(0.0,75.0)
+!!
+!!          call centertext(.true.)
+!!          call color(7)
+!!          call linewidth(500)
+!!          call textang(3.0*i)
+!!          call textang(0.0)
+!!          call move2(0.0,0.0)
+!!          call textsize(150.0,150.0)
+!!          call drawstr('\',i+1000,'\',nospace=.true.)
+!!
+!!          call centertext(.false.)
+!!          call color(1)
+!!          call move2(-120.0,120.0)
+!!          call textsize(10.0,10.0)
+!!          call linewidth(40)
+!!          call drawstr(i+1000,' ')
+!!          movie(i,:,:)=P_pixel
+!!       enddo
+!!       call vexit()
+!!       !! write to file and display with display(1)
+!!       call write_animated_gif('hershey.3m_pixel.gif',&
+!!       & movie,P_colormap,delay=40)
+!!       !call execute_command_line('display hershey.3m_pixel.gif')
+!!    end program demo_hershey
+!!
+!!##AUTHOR
+!!    Derived from the Longlib93 library.
+!!
+!!##LICENSE
+!!    Public Domain
+!!
+!!    Longlib was written by an employee of a US government contractor and
+!!    is in the public domain.
+!!
+!!    Changes to modernize and make more portable by John S. Urban are also
+!!    placed in the public domain.
 subroutine hershey(x,y,height,itext,theta,ntext)
 
 ! ident_5="@(#)M_pixel::hershey(3f): draw text string as Hershey software vector fonts"
@@ -2797,92 +2904,96 @@ END SUBROUTINE CHRCOD
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    strlength(3f) - [M_pixel:TEXT] return length of string
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    function strlength(string)
-!    character(len=*),intent(in)    :: string
-! 
-! DESCRIPTION
-!    Return the length of the string "STRING" in world units.
-! 
-! RETURNS
-!    STRLENGTH  length of string using current font size
-! 
-! EXAMPLE
-!   Sample Program:
-! 
-!    program demo_strlength
-!    use :: M_pixel
-!    use :: M_writegif, only : writegif
-!    implicit none
-!    real    :: left
-!    real    :: baseline
-!    integer :: icolor=0
-!    real    :: texth=10.0
-!       !! set up drawing surface
-!       call prefsize(800, 400)
-!       call vinit()
-!       call viewport(0.0, 800.0, 400.0, 0.0)
-!       call ortho2(-100.0, 300.0, -100.0, 100.0)
-!       call color(7)
-!       call clear()
-!       call linewidth(30)
-!       call textsize(texth, texth)
-!       call xcentertext()
-!       call color(1)
-! 
-!       baseline=85.0
-!       call move2(0.0,baseline)
-!       call drawstr('If I Can Stop One Heart')
-!       baseline= baseline-texth*1.20
-!       call move2(0.0,baseline)
-!       call drawstr('by Emily Dickinson')
-!       call centertext(.false.)
-! 
-!       texth=8.5
-!       baseline=baseline-texth*1.50
-!       call textsize(texth, texth)
-!       left=-90.0
-! 
-!       call nextline('If I can stop one heart from breaking,')
-!       call nextline('I shall not live in vain;')
-!       call nextline('If I can ease one life the aching,')
-!       call nextline('Or cool one pain,')
-!       call nextline('Or help one fainting robin')
-!       call nextline('Unto his nest again,')
-!       call nextline('I shall not live in vain.')
-! 
-!       call writegif('strlength.3m_pixel.gif',P_pixel,P_colormap)
-!       call execute_command_line('display strlength.3m_pixel.gif')
-!       call vexit()
-!    contains
-!    subroutine nextline(string)
-!    character(len=*) :: string
-!    real :: xx
-!    !! reduce some duplicate code; very specific to this example
-!       call color(icolor)
-!       baseline=baseline-texth*1.5    ! move down before drawing line
-!       call makepoly()
-!       xx=strlength(string)
-!       call rect(left,baseline-texth*0.3,left+xx,baseline+texth)
-!       call closepoly()
-!       call color(7)
-!       call move2(left, baseline)
-!       call drawstr(string)    ! draw string
-!       icolor=icolor+1         ! set pen color
-!    end subroutine nextline
-! 
-!    end program demo_strlength
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
-!
+!>
+!!##NAME
+!!    strlength(3f) - [M_pixel:TEXT] return length of string
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    function strlength(string)
+!!    character(len=*),intent(in)    :: string
+!!
+!!##DESCRIPTION
+!!    Return the length of the string "STRING" in world units.
+!!
+!!##RETURNS
+!!    STRLENGTH  length of string using current font size
+!!
+!!##EXAMPLE
+!!
+!!   Sample Program:
+!!
+!!    program demo_strlength
+!!    use :: M_pixel
+!!    use :: M_writegif, only : writegif
+!!    implicit none
+!!    real    :: left
+!!    real    :: baseline
+!!    integer :: icolor=0
+!!    real    :: texth=10.0
+!!       !! set up drawing surface
+!!       call prefsize(800, 400)
+!!       call vinit()
+!!       call viewport(0.0, 800.0, 400.0, 0.0)
+!!       call ortho2(-100.0, 300.0, -100.0, 100.0)
+!!       call color(7)
+!!       call clear()
+!!       call linewidth(30)
+!!       call textsize(texth, texth)
+!!       call xcentertext()
+!!       call color(1)
+!!
+!!       baseline=85.0
+!!       call move2(0.0,baseline)
+!!       call drawstr('If I Can Stop One Heart')
+!!       baseline= baseline-texth*1.20
+!!       call move2(0.0,baseline)
+!!       call drawstr('by Emily Dickinson')
+!!       call centertext(.false.)
+!!
+!!       texth=8.5
+!!       baseline=baseline-texth*1.50
+!!       call textsize(texth, texth)
+!!       left=-90.0
+!!
+!!       call nextline('If I can stop one heart from breaking,')
+!!       call nextline('I shall not live in vain;')
+!!       call nextline('If I can ease one life the aching,')
+!!       call nextline('Or cool one pain,')
+!!       call nextline('Or help one fainting robin')
+!!       call nextline('Unto his nest again,')
+!!       call nextline('I shall not live in vain.')
+!!
+!!       call writegif('strlength.3m_pixel.gif',P_pixel,P_colormap)
+!!       call execute_command_line('display strlength.3m_pixel.gif')
+!!       call vexit()
+!!    contains
+!!    subroutine nextline(string)
+!!    character(len=*) :: string
+!!    real :: xx
+!!    !! reduce some duplicate code; very specific to this example
+!!       call color(icolor)
+!!       baseline=baseline-texth*1.5    ! move down before drawing line
+!!       call makepoly()
+!!       xx=strlength(string)
+!!       call rect(left,baseline-texth*0.3,left+xx,baseline+texth)
+!!       call closepoly()
+!!       call color(7)
+!!       call move2(left, baseline)
+!!       call drawstr(string)    ! draw string
+!!       icolor=icolor+1         ! set pen color
+!!    end subroutine nextline
+!!
+!!    end program demo_strlength
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 function strlength(string)
 
 ! ident_8="@(#)M_pixel::strlength: length of string using current font size"
@@ -2907,34 +3018,39 @@ end function strlength
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    justfy(3f) - [M_pixel:TEXT] return lengths used to justify a string when calling hershey
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine justfy(s, height, text, ntext)
-!    real,intent(out)               :: s(4)
-!    real,intent(in)                :: height
-!    character(len=*),intent(in)    :: text
-!    integer,intent(in)             :: ntext
-! 
-! DESCRIPTION
-!    Given the text string TEXT with NTEXT characters, height HEIGHT, this routine
-!    gives 4 distances in inches, all from the left end of the string -
-! 
-!    o S(1)  to the left edge of the 1st nonblank character
-!    o S(2)  to the center of the string, blanks removed from the ends
-!    o S(3)  to the right edge of the last nonblank character
-!    o S(4)  to the right edge of the last character of the string.
-! 
-! EXAMPLE
-! 
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    justfy(3f) - [M_pixel:TEXT] return lengths used to justify a string when calling hershey
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine justfy(s, height, text, ntext)
+!!    real,intent(out)               :: s(4)
+!!    real,intent(in)                :: height
+!!    character(len=*),intent(in)    :: text
+!!    integer,intent(in)             :: ntext
+!!
+!!##DESCRIPTION
+!!    Given the text string TEXT with NTEXT characters, height HEIGHT,
+!!    this routine gives 4 distances in inches, all from the left end of
+!!    the string -
+!!
+!!    o S(1)  to the left edge of the 1st nonblank character
+!!    o S(2)  to the center of the string, blanks removed from the ends
+!!    o S(3)  to the right edge of the last nonblank character
+!!    o S(4)  to the right edge of the last character of the string.
+!!
+!!##EXAMPLE
+!!
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine justfy(s, height, text, ntext)
 
 ! ident_9="@(#)M_pixel::justfy(3f): calculate values for justifying Hershey fonts called by hershey(3f)"
@@ -3004,52 +3120,57 @@ end subroutine justfy
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    polyline2(3f) - [M_pixel] - draw an unclosed polyline in the XY plane
-!    (LICENSE:PD)
-! SYNOPSIS
-!        subroutine polyline2(arrx,arry)
-! 
-!           integer,intent(in)          :: arrx(:)
-!           integer,intent(in),optional :: arry(:)
-! 
-! DESCRIPTION
-!        Given either a single array composed of pairs <x(i),y(i)> of
-!        values defining points or an X and Y array move to first point
-!        and draw to remaining points using current line style.
-! 
-! OPTIONS
-!        ARRX   If ARRY is present, an array of X values
-! 
-!        ARRY   An optional array of Y values
-! 
-! EXAMPLE
-!   Sample program:
-! 
-!    program demo_polyline2
-!    use M_pixel
-!    use M_writegif, only : writegif
-!    implicit none
-!    integer :: transparent=0
-!    integer :: ipaws
-!       call prefsize(300,300)
-!       call vinit(' ')
-!       call ortho2(-2.0,2.0,-2.0,2.0)
-!       call color(2)
-!       call linewidth(100)
-!       call polyline2([-0.5,-0.5, -0.5,+0.5, +0.5,+0.5, +0.5,-0.5])
-!       call color(4)
-!       call polyline2( [-1,-1,+1,+1,-1] , &  ! X values
-!       & [-1,+1,+1,-1,-1] )    ! Y values
-!        ! write gif with a transparent background
-!       call writegif('polyline2.3m_pixel.gif',P_pixel,P_ColorMap,transparent)
-!       call vexit()
-!    end program demo_polyline2
-! 
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    polyline2(3f) - [M_pixel:DRAW] - draw an unclosed polyline in the XY plane
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!        subroutine polyline2(arrx,arry)
+!!
+!!           integer,intent(in)          :: arrx(:)
+!!           integer,intent(in),optional :: arry(:)
+!!
+!!##DESCRIPTION
+!!        Given either a single array composed of pairs <x(i),y(i)> of
+!!        values defining points or an X and Y array move to first point
+!!        and draw to remaining points using current line style.
+!!
+!!##OPTIONS
+!!        ARRX   If ARRY is present, an array of X values
+!!
+!!        ARRY   An optional array of Y values
+!!
+!!##EXAMPLE
+!!
+!!   Sample program:
+!!
+!!    program demo_polyline2
+!!    use M_pixel
+!!    use M_writegif, only : writegif
+!!    implicit none
+!!    integer :: transparent=0
+!!    integer :: ipaws
+!!       call prefsize(300,300)
+!!       call vinit(' ')
+!!       call ortho2(-2.0,2.0,-2.0,2.0)
+!!       call color(2)
+!!       call linewidth(100)
+!!       call polyline2([-0.5,-0.5, -0.5,+0.5, +0.5,+0.5, +0.5,-0.5])
+!!       call color(4)
+!!       call polyline2( [-1,-1,+1,+1,-1] , &  ! X values
+!!       & [-1,+1,+1,-1,-1] )    ! Y values
+!!        ! write gif with a transparent background
+!!       call writegif('polyline2.3m_pixel.gif',P_pixel,P_ColorMap,transparent)
+!!       call vexit()
+!!    end program demo_polyline2
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine polyline2(x,y)
 !-!use :: M_anything, only : anyscalar_to_real
 class(*),intent(in)          :: x(:)
@@ -3089,49 +3210,54 @@ end subroutine polyline2
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    clear(3f) - [M_pixel] clear background to current color or specified color index
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine clear(indx)
-!    integer,intent(in),optional :: indx
-! 
-! DESCRIPTION
-!    Clears the screen to the current color or to color specified
-! 
-! OPTIONS
-!    INDX   color index to set pixel array to. Optional
-! 
-! EXAMPLE
-!   Sample program
-! 
-!    program demo_clear
-!    use :: M_pixel
-!    use :: M_writegif, only : writegif
-!    implicit none
-!    real,parameter :: x=400.0, y=400.0
-!       call prefsize(int(x), int(y)) ! set up drawing surface
-!       call vinit()
-!       call color(1)
-!       call linewidth(300)
-!       ! clear a circle and rectangle in default window and viewport
-!       call rect(0.0,0.0,x,y)
-!       call circle(x/2.0,y/2.0,x/2.0)
-!       ! now clear screen to current color
-!       call color(3)
-!       call clear()
-!       ! gif should be blank
-!       call writegif('clear.3m_pixel.gif',P_pixel,P_colormap)
-!       call execute_command_line('display clear.3m_pixel.gif')
-!       call vexit()
-!    end program demo_clear
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    clear(3f) - [M_pixel] clear background to current color or specified color index
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine clear(indx)
+!!    integer,intent(in),optional :: indx
+!!
+!!##DESCRIPTION
+!!    Clears the screen to the current color or to color specified
+!!
+!!##OPTIONS
+!!    INDX   color index to set pixel array to. Optional
+!!
+!!##EXAMPLE
+!!
+!!   Sample program
+!!
+!!    program demo_clear
+!!    use :: M_pixel
+!!    use :: M_writegif, only : writegif
+!!    implicit none
+!!    real,parameter :: x=400.0, y=400.0
+!!       call prefsize(int(x), int(y)) ! set up drawing surface
+!!       call vinit()
+!!       call color(1)
+!!       call linewidth(300)
+!!       ! clear a circle and rectangle in default window and viewport
+!!       call rect(0.0,0.0,x,y)
+!!       call circle(x/2.0,y/2.0,x/2.0)
+!!       ! now clear screen to current color
+!!       call color(3)
+!!       call clear()
+!!       ! gif should be blank
+!!       call writegif('clear.3m_pixel.gif',P_pixel,P_colormap)
+!!       call execute_command_line('display clear.3m_pixel.gif')
+!!       call vexit()
+!!    end program demo_clear
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine clear(indx)
 
 ! ident_10="@(#)M_pixel::clear(3f): set background color all to specified color index"
@@ -3159,59 +3285,62 @@ end subroutine if_init
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    arc(3f) - [M_pixel:ARCS] draw an arc using current line width and color
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine arc(x, y, radius, startang, endang)
-!    real,intent(in) :: x
-!    real,intent(in) :: y
-!    real,intent(in) :: radius
-!    real,intent(in) :: startang
-!    real,intent(in) :: endang
-! 
-! DESCRIPTION
-! 
-!    Draw an arc. x, y, and radius are values in world units.
-! 
-!    Angles are in degrees, positive measured counterclockwise from the
-!    +X axis. The current position after the arc is drawn is at the end
-!    of the arc.
-! 
-! OPTIONS
-!    X,Y        Coordinates for the center of the circle
-!    RADIUS     Radius of the circle
-!    STARTANG   Start angle
-!    ENDANG     End angle
-! 
-! EXAMPLE
-!   Sample program:
-! 
-!    program demo_arc
-!    use M_pixel
-!    use M_writegif, only : writegif
-!    implicit none
-!    integer  :: transparent=0
-!       call prefsize(600,240)
-!       call vinit()
-!       call ortho2(0.0,60.0,0.0,24.0)
-!       call linewidth(400)
-!       call color(1)
-!       call arc(16.0,12.0,12.0,90.0,270.0)
-!       call color(2)
-!       call arc(44.0,12.0,12.0,-90.0,90.0)
-!       ! write gif with a transparent background
-!       call writegif('arc.3m_pixel.gif',P_pixel,P_ColorMap,transparent)
-!       call vexit()
-!    end program demo_arc
-! 
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    arc(3f) - [M_pixel:ARCS] draw an arc using current line width and color
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine arc(x, y, radius, startang, endang)
+!!    real,intent(in) :: x
+!!    real,intent(in) :: y
+!!    real,intent(in) :: radius
+!!    real,intent(in) :: startang
+!!    real,intent(in) :: endang
+!!
+!!##DESCRIPTION
+!!    Draw an arc. x, y, and radius are values in world units.
+!!
+!!    Angles are in degrees, positive measured counterclockwise from the
+!!    +X axis. The current position after the arc is drawn is at the end
+!!    of the arc.
+!!
+!!##OPTIONS
+!!    X,Y        Coordinates for the center of the circle
+!!    RADIUS     Radius of the circle
+!!    STARTANG   Start angle
+!!    ENDANG     End angle
+!!
+!!##EXAMPLE
+!!
+!!   Sample program:
+!!
+!!    program demo_arc
+!!    use M_pixel
+!!    use M_writegif, only : writegif
+!!    implicit none
+!!    integer  :: transparent=0
+!!       call prefsize(600,240)
+!!       call vinit()
+!!       call ortho2(0.0,60.0,0.0,24.0)
+!!       call linewidth(400)
+!!       call color(1)
+!!       call arc(16.0,12.0,12.0,90.0,270.0)
+!!       call color(2)
+!!       call arc(44.0,12.0,12.0,-90.0,90.0)
+!!       ! write gif with a transparent background
+!!       call writegif('arc.3m_pixel.gif',P_pixel,P_ColorMap,transparent)
+!!       call vexit()
+!!    end program demo_arc
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine arc(x,y,radius,startang,endang)
 
 ! ident_12="@(#)M_pixel::arc(3f): draw a arc using current line width and color"
@@ -3248,62 +3377,66 @@ end subroutine arc
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    circle(3f) - [M_pixel:ARCS] draw a circle using current line width and color
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine circle(x,y,radius)
-!    real,intent(in) :: x
-!    real,intent(in) :: y
-!    real,intent(in) :: radius
-! 
-! DESCRIPTION
-!    Draw a circle using the current line width and color into the pixel array.
-!    Units are in world coordinates.
-! 
-! OPTIONS
-!    X,Y        Coordinates for the center of the circle
-!    RADIUS     Radius of the circle
-! 
-! EXAMPLE
-!   Sample program:
-! 
-!    program demo_circle
-!    use M_pixel
-!    use M_writegif, only : writegif
-!    implicit none
-!       !! set up drawing surface
-!       call prefsize(400,400)
-!       call vinit()
-!       call ortho2(left=-100.0, right=100.0, bottom=-100.0, top=100.0)
-!       call color(3)
-!       call clear()
-!       call color(4)
-!       call linewidth(200)
-!       !! draw some circles
-!       call circle(0.0, 0.0, 90.0)
-!       call color(1)
-!       call circle(0.0, 0.0, 40.0)
-!       call color(2)
-!       call circle(-25.0, 25.0, 20.0)
-!       call circle(-25.0,-25.0, 20.0)
-!       call circle( 25.0, 25.0, 20.0)
-!       call circle( 25.0,-25.0, 20.0)
-!       !! render the pixel map
-!       call writegif('circle.3m_pixel.gif',P_pixel,P_colormap)
-!       !! display the graphic assuming display(1) is available
-!       call execute_command_line('display circle.3m_pixel.gif')
-!       !! exit graphics mode
-!       call vexit()
-!    end program demo_circle
-! 
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    circle(3f) - [M_pixel:ARCS] draw a circle using current line width and color
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine circle(x,y,radius)
+!!    real,intent(in) :: x
+!!    real,intent(in) :: y
+!!    real,intent(in) :: radius
+!!
+!!##DESCRIPTION
+!!    Draw a circle using the current line width and color into the pixel
+!!    array. Units are in world coordinates.
+!!
+!!##OPTIONS
+!!    X,Y        Coordinates for the center of the circle
+!!    RADIUS     Radius of the circle
+!!
+!!##EXAMPLE
+!!
+!!   Sample program:
+!!
+!!    program demo_circle
+!!    use M_pixel
+!!    use M_writegif, only : writegif
+!!    implicit none
+!!       !! set up drawing surface
+!!       call prefsize(400,400)
+!!       call vinit()
+!!       call ortho2(left=-100.0, right=100.0, bottom=-100.0, top=100.0)
+!!       call color(3)
+!!       call clear()
+!!       call color(4)
+!!       call linewidth(200)
+!!       !! draw some circles
+!!       call circle(0.0, 0.0, 90.0)
+!!       call color(1)
+!!       call circle(0.0, 0.0, 40.0)
+!!       call color(2)
+!!       call circle(-25.0, 25.0, 20.0)
+!!       call circle(-25.0,-25.0, 20.0)
+!!       call circle( 25.0, 25.0, 20.0)
+!!       call circle( 25.0,-25.0, 20.0)
+!!       !! render the pixel map
+!!       call writegif('circle.3m_pixel.gif',P_pixel,P_colormap)
+!!       !! display the graphic assuming display(1) is available
+!!       call execute_command_line('display circle.3m_pixel.gif')
+!!       !! exit graphics mode
+!!       call vexit()
+!!    end program demo_circle
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine circle(x,y,radius)
 
 ! ident_13="@(#)M_pixel::circle(3f): draw a circle using current line width and color"
@@ -3336,59 +3469,65 @@ end subroutine circle
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    linewidth(3f) - [M_pixel] set linewidth
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine linewidth(iwidth)
-!    integer iwidth
-! 
-! DESCRIPTION
-!    Set the current line width in units of 1/10,000 of the X size of the display surface
-! EXAMPLE
-!   Sample program:
-! 
-!    program demo_linewidth
-!    use M_pixel,    only : prefsize, vinit, ortho2, clear, P_pixel, P_colormap
-!    use M_pixel,    only : move2, draw2, vexit, color, linewidth
-!    use M_writegif, only : writegif
-!    use M_pixel,    only : d2r, polar_to_cartesian
-!    implicit none
-!    integer :: i
-!    real    :: x,y,r,a,b,theta
-!    ! The Archimedean spiral is the locus of points corresponding
-!    ! to the locations over time of a point moving away from a
-!    ! fixed point with a constant speed along a line which rotates
-!    ! with constant angular velocity.
-!    !    r=a+b*theta
-!    ! Changing the parameter a will turn the spiral,
-!    ! while b controls the distance between successive turnings.
-!       call prefsize(401,401)
-!       call vinit('')
-!       call ortho2(-150.0,150.0,-150.0,150.0)
-!       call clear()
-!       call move2(0.0,0.0)
-!       call color(2)
-!       a=0.0
-!       b=2.0
-!       do i=0,360*10,5
-!          theta=d2r(i)
-!          r=a+b*theta
-!          call polar_to_cartesian(r,theta,x,y)
-!          call linewidth(i/5/3)
-!          call draw2(x,y)
-!       enddo
-!       call writegif('linewidth.3m_pixel.gif',P_pixel,P_colormap)
-!       call vexit()
-!    end program demo_linewidth
-! 
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    linewidth(3f) - [M_pixel] set linewidth
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine linewidth(iwidth)
+!!    integer iwidth
+!!
+!!##DESCRIPTION
+!!    Set the current line width in units of 1/10,000 of the X size of the
+!!    display surface
+!!
+!!##EXAMPLE
+!!
+!!   Sample program:
+!!
+!!    program demo_linewidth
+!!    use M_pixel,    only : prefsize, vinit, ortho2, clear, P_pixel, P_colormap
+!!    use M_pixel,    only : move2, draw2, vexit, color, linewidth
+!!    use M_writegif, only : writegif
+!!    use M_pixel,    only : d2r, polar_to_cartesian
+!!    implicit none
+!!    integer :: i
+!!    real    :: x,y,r,a,b,theta
+!!    ! The Archimedean spiral is the locus of points corresponding
+!!    ! to the locations over time of a point moving away from a
+!!    ! fixed point with a constant speed along a line which rotates
+!!    ! with constant angular velocity.
+!!    !    r=a+b*theta
+!!    ! Changing the parameter a will turn the spiral,
+!!    ! while b controls the distance between successive turnings.
+!!       call prefsize(401,401)
+!!       call vinit('')
+!!       call ortho2(-150.0,150.0,-150.0,150.0)
+!!       call clear()
+!!       call move2(0.0,0.0)
+!!       call color(2)
+!!       a=0.0
+!!       b=2.0
+!!       do i=0,360*10,5
+!!          theta=d2r(i)
+!!          r=a+b*theta
+!!          call polar_to_cartesian(r,theta,x,y)
+!!          call linewidth(i/5/3)
+!!          call draw2(x,y)
+!!       enddo
+!!       call writegif('linewidth.3m_pixel.gif',P_pixel,P_colormap)
+!!       call vexit()
+!!    end program demo_linewidth
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine linewidth(iwidth)
 
 ! ident_14="@(#)M_pixel::linewidth(3f): set line width for lines drawn in pixel image"
@@ -3401,74 +3540,79 @@ end subroutine linewidth
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    color(3f) - [M_pixel:COLOR] set current color index
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine color(col)
-!    integer,intent(in) :: col
-! 
-! DESCRIPTION
-!    Set the current color. The standard colors are as follows:
-! 
-!       black  =  0  red      =  1  green  =  2  yellow  =  3
-!       blue   =  4  magenta  =  5  cyan   =  6  white   =  7
-! 
-! OPTION
-!     COL  A color number from 0 to 255. To define additional
-!          colors see mapcolor(3f).
-! 
-! EXAMPLE
-!   Sample program:
-! 
-!     program demo_color
-!     use M_pixel
-!     use M_writegif, only : writegif
-!     implicit none
-!     real    :: b=0.5
-!     real    :: y1,y2,ym,x1,x2
-!     real    :: width=50.0/8.0,width2
-!     integer :: i
-!        !! set up long bar as plotting area
-!        call prefsize(1000,200)
-!        call vinit()
-!        call ortho2(-25.0-b, 25.0+b, -5.0-b, 5.0+b)
-!        call textsize( 3.5, 4.0)
-!        call font('DUPLEX')
-!        call centertext(.true.)
-!        call linewidth(90)
-!        y1=-5
-!        y2=5
-!        ym=0
-!        x1=-25+.05*width
-!        ! draw colored rectangle and a circle and label center of circle
-!        ! and repeat from colors 0 to 7.
-!        width2=width*0.95
-!        do i=0,7
-!           call color(i)
-!           x2=x1+width2
-!           call makepoly()
-!           call rect(x1,y1,x2,y2)
-!           call closepoly()
-!           call color(i+1)
-!           call move2((x1+x2)/2.0,ym)
-!           call drawstr(i)     ! convert number to string and draw it
-!           call circle((x1+x2)/2.0, ym, (x2-x1)/2.10)
-!           x1=x1+width
-!        enddo
-!        ! write plot as GIF file
-!        call writegif('color.3m_pixel.gif',P_pixel,P_colormap)
-!        call vexit()
-!        ! use system to display GIF file
-!        call execute_command_line('display color.3m_pixel.gif')
-!     end program demo_color
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    color(3f) - [M_pixel:COLOR] set current color index
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine color(col)
+!!    integer,intent(in) :: col
+!!
+!!##DESCRIPTION
+!!    Set the current color. The standard colors are as follows:
+!!
+!!       black  =  0  red      =  1  green  =  2  yellow  =  3
+!!       blue   =  4  magenta  =  5  cyan   =  6  white   =  7
+!!
+!!##OPTION
+!!     COL  A color number from 0 to 255. To define additional
+!!          colors see mapcolor(3f).
+!!
+!!##EXAMPLE
+!!
+!!   Sample program:
+!!
+!!     program demo_color
+!!     use M_pixel
+!!     use M_writegif, only : writegif
+!!     implicit none
+!!     real    :: b=0.5
+!!     real    :: y1,y2,ym,x1,x2
+!!     real    :: width=50.0/8.0,width2
+!!     integer :: i
+!!        !! set up long bar as plotting area
+!!        call prefsize(1000,200)
+!!        call vinit()
+!!        call ortho2(-25.0-b, 25.0+b, -5.0-b, 5.0+b)
+!!        call textsize( 3.5, 4.0)
+!!        call font('DUPLEX')
+!!        call centertext(.true.)
+!!        call linewidth(90)
+!!        y1=-5
+!!        y2=5
+!!        ym=0
+!!        x1=-25+.05*width
+!!        ! draw colored rectangle and a circle and label center of circle
+!!        ! and repeat from colors 0 to 7.
+!!        width2=width*0.95
+!!        do i=0,7
+!!           call color(i)
+!!           x2=x1+width2
+!!           call makepoly()
+!!           call rect(x1,y1,x2,y2)
+!!           call closepoly()
+!!           call color(i+1)
+!!           call move2((x1+x2)/2.0,ym)
+!!           call drawstr(i)     ! convert number to string and draw it
+!!           call circle((x1+x2)/2.0, ym, (x2-x1)/2.10)
+!!           x1=x1+width
+!!        enddo
+!!        ! write plot as GIF file
+!!        call writegif('color.3m_pixel.gif',P_pixel,P_colormap)
+!!        call vexit()
+!!        ! use system to display GIF file
+!!        call execute_command_line('display color.3m_pixel.gif')
+!!     end program demo_color
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine color(icolor)
 
 ! ident_15="@(#)M_pixel::color(3f): set current color for lines drawn in pixel image"
@@ -3479,184 +3623,188 @@ end subroutine color
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!     mapcolor(3f) - [M_pixel:COLOR] set a color index using RGB values
-!     (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine mapcolor(indx, red, green, blue)
-!    integer indx, red, green, blue
-! 
-! DESCRIPTION
-!    Set the color map index indx to the color represented by (red, green, blue).
-!    rgb values are in the range of 0 to 255.
-! 
-! OPTIONS
-!    INDX    color index number, in range 0 to 255
-!    RED     red component of color being defined, in range 0 to 255
-!    GREEN   green component of color being defined, in range 0 to 255
-!    BLUE    blue component of color being defined, in range 0 to 255
-! 
-! EXAMPLE
-!  Color wheel example:
-! 
-!    !     good program to exercise color tables, and look at differences
-!    !     when actual output device has a color table that is dynamic,
-!    !     or only has a small color table (a frame in this program takes
-!    !     at least SLICES*RINGS colors to produce accurately).
-!    !
-!    program demo_mapcolor
-!    use M_pixel
-!    use m_pixel, only: hue
-!    use M_writegif, only : writegif
-!    use M_pixel,    only : cosd, sind
-!    use M_writegif_animated, only : write_animated_gif
-!    implicit none
-!    character(len=4096)  :: filename
-!    real                 :: lightstep
-!    integer              :: ii,iframe
-!    integer,parameter    :: SLICES=30
-!    integer,parameter    :: RINGS=  8
-!    real                 :: LIGHTNESS
-!    integer,parameter    :: BOX=1200
-!    integer              :: movie(1:19,0:box-1,0:box-1)
-!       call prefsize(BOX,BOX)
-!       call vinit(' ')
-!       call color(0)
-!       call clear()
-!       call color(7)
-!       call page(-110./2.,85./2.,-110./2.,110./2.)
-!       LIGHTNESS=100.0
-!       lightstep=-5
-!       do ii=1,19
-!          iframe=ii
-!          call color(0)
-!          call clear()
-!          call color(7)
-!          call wheel()
-!          write(filename,'("mapcolor.3_",i3.3,".gif")')int(LIGHTNESS)
-!          call writegif(filename,P_pixel,P_colormap)
-!          movie(ii,:,:)=P_pixel
-!          LIGHTNESS=LIGHTNESS+LIGHTSTEP
-!       enddo
-!       call write_animated_gif('mapcolor.3m_pixel.gif',movie,P_colormap,delay=40)
-!       call vexit()
-!    contains
-!    !=======================================================================--------
-!    subroutine wheel() ! draw an entire wheel
-!       character(len=40) :: inline
-!       real              :: hue_val
-!       integer           :: ii
-!       call textang(0.0)
-!       call color(7)
-!       call textsize(5.0,6.0)
-!       call font('times.r')
-!       call move2(0.0,103.0/2.0)
-!       call centertext(.true.)
-!       call linewidth(30)
-!       call drawstr('COLOR WHEEL')
-!       call linewidth(0)
-!       call textsize( 2.5,2.5)
-!       call font('futura.l')
-!       call move2(0.0,90.0/2.0)
-!       write(inline,'("lightness=",f6.2)')LIGHTNESS
-!       call linewidth(30)
-!       call drawstr(inline)
-!       call linewidth(0)
-!       call textsize(1.5,1.5)
-!       hue_val=0
-!       do ii=SLICES, 1,-1
-!          call slice(hue_val)
-!       enddo
-!       call centertext(.false.)
-!    end subroutine wheel
-!    !=======================================================================--------
-!    subroutine slice(hue_val) ! draw a slice
-!    integer           :: buffer
-!    real              :: hue_val, ang_inc
-!    character(len=40) :: inline
-!    real              :: step
-!    real              :: X1, X2, X3, X4
-!    real              :: Y1, Y2, Y3, Y4
-!    !
-!    integer           :: maxcolors, current_color
-!    integer           :: ir, ig, ib
-!    real              :: r,g,b
-!    real              :: saturation
-!    !
-!    integer           :: status
-!    integer           :: icount
-!    real              :: angle1, angle2
-!    real              :: radius1, radius2, radius3, radius4
-!    !
-!    integer,save      :: color_count=0
-!    !
-!       buffer=8
-!       ANG_INC=360.0/SLICES
-!       angle1=hue_val-ANG_INC/2
-!       angle2=angle1+ANG_INC
-!       saturation=100
-!       radius1=32
-!       radius3=radius1+4
-!       radius4=radius1+7
-!       ! draw tic from wheel to start of angle label
-!       call color(7)
-!       call linewidth(40)
-!       call move2( radius1*cosd(hue_val), radius1*sind(hue_val) )
-!       call draw2( radius3*cosd(hue_val), radius3*sind(hue_val) )
-!       ! draw degree label at tic
-!       call textang(hue_val)
-!       call move2( radius4*cosd(hue_val), radius4*sind(hue_val) )
-!       write(inline,'(i0)')nint(hue_val)
-!       call linewidth(20)
-!       call drawstr(inline)
-!       call linewidth(0)
-!       step=radius1/(RINGS)
-!       radius2=radius1-step
-!       ! draw a chunk in a slice
-!       MAXCOLORS=(256)-buffer
-!       do icount=RINGS+1,2,-1
-!          CURRENT_COLOR=MOD(color_count,MAXCOLORS)+buffer  ! add buffer to leave base colors alone
-!          color_count=color_count+1
-!          ! fancy mapcolor
-!          call hue("hls",hue_val,LIGHTNESS,saturation,"rgb",r,g,b,status)
-!          ir=int(r*255.0/100.0+0.50)
-!          ig=int(g*255.0/100.0+0.50)
-!          ib=int(b*255.0/100.0+0.50)
-!          call mapcolor(CURRENT_COLOR,ir,ig,ib)
-!          call color(CURRENT_COLOR)
-!          !
-!          X1=cosd(angle1)*radius2
-!          Y1=sind(angle1)*radius2
-!          X2=cosd(angle1)*radius1
-!          Y2=sind(angle1)*radius1
-!          !
-!          X3=cosd(angle2)*radius2
-!          Y3=sind(angle2)*radius2
-!          X4=cosd(angle2)*radius1
-!          Y4=sind(angle2)*radius1
-!          !
-!          call makepoly()
-!          call move2(X1,Y1)
-!          call draw2(X2,Y2)
-!          call draw2(X4,Y4)
-!          call draw2(X3,Y3)
-!          call closepoly()
-!          !
-!          saturation=saturation-100.0/RINGS
-!          radius1=radius2
-!          radius2=radius1-step
-!       enddo
-!       hue_val=hue_val+ANG_INC
-!    end subroutine slice
-!    end program demo_mapcolor
-! 
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!     mapcolor(3f) - [M_pixel:COLOR] set a color index using RGB values
+!!     (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine mapcolor(indx, red, green, blue)
+!!    integer indx, red, green, blue
+!!
+!!##DESCRIPTION
+!!    Set the color map index indx to the color represented by (red,
+!!    green, blue). rgb values are in the range of 0 to 255.
+!!
+!!##OPTIONS
+!!    INDX    color index number, in range 0 to 255
+!!    RED     red component of color being defined, in range 0 to 255
+!!    GREEN   green component of color being defined, in range 0 to 255
+!!    BLUE    blue component of color being defined, in range 0 to 255
+!!
+!!##EXAMPLE
+!!
+!!  Color wheel example:
+!!
+!!    !     good program to exercise color tables, and look at differences
+!!    !     when actual output device has a color table that is dynamic,
+!!    !     or only has a small color table (a frame in this program takes
+!!    !     at least SLICES*RINGS colors to produce accurately).
+!!    !
+!!    program demo_mapcolor
+!!    use M_pixel
+!!    use m_pixel, only: hue
+!!    use M_writegif, only : writegif
+!!    use M_pixel,    only : cosd, sind
+!!    use M_writegif_animated, only : write_animated_gif
+!!    implicit none
+!!    character(len=4096)  :: filename
+!!    real                 :: lightstep
+!!    integer              :: ii,iframe
+!!    integer,parameter    :: SLICES=30
+!!    integer,parameter    :: RINGS=  8
+!!    real                 :: LIGHTNESS
+!!    integer,parameter    :: BOX=1200
+!!    integer              :: movie(1:19,0:box-1,0:box-1)
+!!       call prefsize(BOX,BOX)
+!!       call vinit(' ')
+!!       call color(0)
+!!       call clear()
+!!       call color(7)
+!!       call page(-110./2.,85./2.,-110./2.,110./2.)
+!!       LIGHTNESS=100.0
+!!       lightstep=-5
+!!       do ii=1,19
+!!          iframe=ii
+!!          call color(0)
+!!          call clear()
+!!          call color(7)
+!!          call wheel()
+!!          write(filename,'("mapcolor.3_",i3.3,".gif")')int(LIGHTNESS)
+!!          call writegif(filename,P_pixel,P_colormap)
+!!          movie(ii,:,:)=P_pixel
+!!          LIGHTNESS=LIGHTNESS+LIGHTSTEP
+!!       enddo
+!!       call write_animated_gif('mapcolor.3m_pixel.gif',movie,P_colormap,delay=40)
+!!       call vexit()
+!!    contains
+!!    !=======================================================================--------
+!!    subroutine wheel() ! draw an entire wheel
+!!       character(len=40) :: inline
+!!       real              :: hue_val
+!!       integer           :: ii
+!!       call textang(0.0)
+!!       call color(7)
+!!       call textsize(5.0,6.0)
+!!       call font('times.r')
+!!       call move2(0.0,103.0/2.0)
+!!       call centertext(.true.)
+!!       call linewidth(30)
+!!       call drawstr('COLOR WHEEL')
+!!       call linewidth(0)
+!!       call textsize( 2.5,2.5)
+!!       call font('futura.l')
+!!       call move2(0.0,90.0/2.0)
+!!       write(inline,'("lightness=",f6.2)')LIGHTNESS
+!!       call linewidth(30)
+!!       call drawstr(inline)
+!!       call linewidth(0)
+!!       call textsize(1.5,1.5)
+!!       hue_val=0
+!!       do ii=SLICES, 1,-1
+!!          call slice(hue_val)
+!!       enddo
+!!       call centertext(.false.)
+!!    end subroutine wheel
+!!    !=======================================================================--------
+!!    subroutine slice(hue_val) ! draw a slice
+!!    integer           :: buffer
+!!    real              :: hue_val, ang_inc
+!!    character(len=40) :: inline
+!!    real              :: step
+!!    real              :: X1, X2, X3, X4
+!!    real              :: Y1, Y2, Y3, Y4
+!!    !
+!!    integer           :: maxcolors, current_color
+!!    integer           :: ir, ig, ib
+!!    real              :: r,g,b
+!!    real              :: saturation
+!!    !
+!!    integer           :: status
+!!    integer           :: icount
+!!    real              :: angle1, angle2
+!!    real              :: radius1, radius2, radius3, radius4
+!!    !
+!!    integer,save      :: color_count=0
+!!    !
+!!       buffer=8
+!!       ANG_INC=360.0/SLICES
+!!       angle1=hue_val-ANG_INC/2
+!!       angle2=angle1+ANG_INC
+!!       saturation=100
+!!       radius1=32
+!!       radius3=radius1+4
+!!       radius4=radius1+7
+!!       ! draw tic from wheel to start of angle label
+!!       call color(7)
+!!       call linewidth(40)
+!!       call move2( radius1*cosd(hue_val), radius1*sind(hue_val) )
+!!       call draw2( radius3*cosd(hue_val), radius3*sind(hue_val) )
+!!       ! draw degree label at tic
+!!       call textang(hue_val)
+!!       call move2( radius4*cosd(hue_val), radius4*sind(hue_val) )
+!!       write(inline,'(i0)')nint(hue_val)
+!!       call linewidth(20)
+!!       call drawstr(inline)
+!!       call linewidth(0)
+!!       step=radius1/(RINGS)
+!!       radius2=radius1-step
+!!       ! draw a chunk in a slice
+!!       MAXCOLORS=(256)-buffer
+!!       do icount=RINGS+1,2,-1
+!!          CURRENT_COLOR=MOD(color_count,MAXCOLORS)+buffer  ! add buffer to leave base colors alone
+!!          color_count=color_count+1
+!!          ! fancy mapcolor
+!!          call hue("hls",hue_val,LIGHTNESS,saturation,"rgb",r,g,b,status)
+!!          ir=int(r*255.0/100.0+0.50)
+!!          ig=int(g*255.0/100.0+0.50)
+!!          ib=int(b*255.0/100.0+0.50)
+!!          call mapcolor(CURRENT_COLOR,ir,ig,ib)
+!!          call color(CURRENT_COLOR)
+!!          !
+!!          X1=cosd(angle1)*radius2
+!!          Y1=sind(angle1)*radius2
+!!          X2=cosd(angle1)*radius1
+!!          Y2=sind(angle1)*radius1
+!!          !
+!!          X3=cosd(angle2)*radius2
+!!          Y3=sind(angle2)*radius2
+!!          X4=cosd(angle2)*radius1
+!!          Y4=sind(angle2)*radius1
+!!          !
+!!          call makepoly()
+!!          call move2(X1,Y1)
+!!          call draw2(X2,Y2)
+!!          call draw2(X4,Y4)
+!!          call draw2(X3,Y3)
+!!          call closepoly()
+!!          !
+!!          saturation=saturation-100.0/RINGS
+!!          radius1=radius2
+!!          radius2=radius1-step
+!!       enddo
+!!       hue_val=hue_val+ANG_INC
+!!    end subroutine slice
+!!    end program demo_mapcolor
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine mapcolor(indx,red,green,blue)
 
 ! ident_16="@(#)M_pixel::mapcolor(3f): set a color index using RGB values"
@@ -3681,69 +3829,74 @@ end subroutine mapcolor
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!     circleprecision(3f) - [M_pixel:ARCS] set number of line segments used to approximate a circle
-!     (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine circleprecision(nsegs)
-!    integer   :: nsegs
-! 
-! DESCRIPTION
-!    Set the number of line segments making up a circle. Default is
-!    currently 60. The number of segments in an arc or sector is calculated
-!    from the variable "nsegs" according to the span of the arc or sector.
-! 
-! OPTIONS
-!    NSEGS   number of line segments making up a circle
-! 
-! EXAMPLE
-!   Sample program:
-! 
-!    program demo_circleprecision
-!    use M_pixel
-!    use M_writegif, only : writegif
-!    implicit none
-!    real              :: b=0.5
-!    real              :: y1,y2,ym,x1,x2
-!    real              :: width=50.0/8.0,width2
-!    integer,parameter :: ivals(*)=[3,5,7,10,20,30,60,100]
-!    integer           :: i
-!       !! set up long bar as plotting area
-!       call prefsize(1000,200)
-!       call vinit()
-!       call ortho2(-25.0-b, 25.0+b, -5.0-b, 5.0+b)
-!       call textsize( 2.5/2.0, 3.0/2.0)
-!       call font('DUPLEX')
-!       call centertext(.true.)
-!       call linewidth(30)
-!       call color(2)
-!       y1=-5
-!       y2=5
-!       ym=0
-!       x1=-25+.05*width
-!       ! draw colored rectangle and a circle and label center of circle repeat
-!       width2=width*0.95
-!       do i=1,size(ivals)
-!          x2=x1+width2
-!          call move2((x1+x2)/2.0,ym)
-!          call circleprecision(ivals(i))
-!          call drawstr(ivals(i))     ! convert number to string and draw it
-!          call circle((x1+x2)/2.0, ym, (x2-x1)/2.10)
-!          x1=x1+width
-!       enddo
-!       ! write plot as GIF file
-!       call writegif('circleprecision.3m_pixel.gif',P_pixel,P_colormap)
-!       call vexit()
-!       ! use system to display GIF file
-!       call execute_command_line('display circleprecision.3m_pixel.gif')
-!    end program demo_circleprecision
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!     circleprecision(3f) - [M_pixel:ARCS] set number of line segments used to approximate a circle
+!!     (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine circleprecision(nsegs)
+!!    integer   :: nsegs
+!!
+!!##DESCRIPTION
+!!    Set the number of line segments making up a circle. Default is
+!!    currently 60. The number of segments in an arc or sector is calculated
+!!    from the variable "nsegs" according to the span of the arc or sector.
+!!
+!!##OPTIONS
+!!    NSEGS   number of line segments making up a circle
+!!
+!!##EXAMPLE
+!!
+!!   Sample program:
+!!
+!!    program demo_circleprecision
+!!    use M_pixel
+!!    use M_writegif, only : writegif
+!!    implicit none
+!!    real              :: b=0.5
+!!    real              :: y1,y2,ym,x1,x2
+!!    real              :: width=50.0/8.0,width2
+!!    integer,parameter :: ivals(*)=[3,5,7,10,20,30,60,100]
+!!    integer           :: i
+!!       !! set up long bar as plotting area
+!!       call prefsize(1000,200)
+!!       call vinit()
+!!       call ortho2(-25.0-b, 25.0+b, -5.0-b, 5.0+b)
+!!       call textsize( 2.5/2.0, 3.0/2.0)
+!!       call font('DUPLEX')
+!!       call centertext(.true.)
+!!       call linewidth(30)
+!!       call color(2)
+!!       y1=-5
+!!       y2=5
+!!       ym=0
+!!       x1=-25+.05*width
+!!       ! draw colored rectangle and a circle and label center of circle repeat
+!!       width2=width*0.95
+!!       do i=1,size(ivals)
+!!          x2=x1+width2
+!!          call move2((x1+x2)/2.0,ym)
+!!          call circleprecision(ivals(i))
+!!          call drawstr(ivals(i))     ! convert number to string and draw it
+!!          call circle((x1+x2)/2.0, ym, (x2-x1)/2.10)
+!!          x1=x1+width
+!!       enddo
+!!       ! write plot as GIF file
+!!       call writegif('circleprecision.3m_pixel.gif',P_pixel,P_colormap)
+!!       call vexit()
+!!       ! use system to display GIF file
+!!       call execute_command_line('display circleprecision.3m_pixel.gif')
+!!    end program demo_circleprecision
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine circleprecision(nsegs)
 
 ! ident_17="@(#)M_pixel::circleprecision(3f): set number of line segments making up a circle"
@@ -3754,47 +3907,50 @@ end subroutine circleprecision
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    getviewport(3f) - [M_pixel] return viewport in screen pixel coordinates
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine getviewport(left, right, bottom, top)
-!    real,intent(out)    :: left
-!    real,intent(out)    :: right
-!    real,intent(out)    :: bottom
-!    real,intent(out)    :: top
-! 
-! DESCRIPTIONS
-! 
-! Returns the left, right, bottom and top limits of the current viewport
-! in screen coordinates (-1.0 to 1.0).
-! 
-!     Fortran:
-!          subroutine getviewport(left, right, bottom, top)
-!          real left, right, bottom, top
-!    If a pixel array has been declared to be real :: array(600,400)
-! 
-!         o-----> X                         (right=600,top=0)
-!         | #------------------------------------#
-!         | |                                    |
-!         | |                                    |
-!         V |                                    |
-!         Y |                                    |
-!           #------------------------------------#
-!      (left=0,bottom=400)
-! 
-! OPTIONS
-!    LEFT     value for left side
-!    RIGHT    value for right side
-!    BOTTOM   value for bottom side
-!    TOP      value for top side
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    getviewport(3f) - [M_pixel] return viewport in screen pixel coordinates
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine getviewport(left, right, bottom, top)
+!!    real,intent(out)    :: left
+!!    real,intent(out)    :: right
+!!    real,intent(out)    :: bottom
+!!    real,intent(out)    :: top
+!!
+!!##DESCRIPTION
+!! Returns the left, right, bottom and top limits of the current viewport
+!! in screen coordinates (-1.0 to 1.0).
+!!
+!!     Fortran:
+!!          subroutine getviewport(left, right, bottom, top)
+!!          real left, right, bottom, top
+!!    If a pixel array has been declared to be real :: array(600,400)
+!!
+!!         o-----> X                         (right=600,top=0)
+!!         | #------------------------------------#
+!!         | |                                    |
+!!         | |                                    |
+!!         V |                                    |
+!!         Y |                                    |
+!!           #------------------------------------#
+!!      (left=0,bottom=400)
+!!
+!!##OPTIONS
+!!    LEFT     value for left side
+!!    RIGHT    value for right side
+!!    BOTTOM   value for bottom side
+!!    TOP      value for top side
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine getviewport(left,right,bottom,top)
 
 ! ident_18="@(#)M_pixel::getviewport(3f): return viewport in screen pixel coordinates"
@@ -3813,67 +3969,75 @@ end subroutine getviewport
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    viewport(3f) - [M_pixel] Specify which part of the screen to draw in.
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine viewport(left, right, bottom, top)
-!    real,intent(in) :: left, right, bottom, top
-! 
-! DESCRIPTION
-!    Specify which part of the screen to draw in. Left, right, bottom,
-!    and top are real values in screen coordinates (0:n,0:m).
-! 
-!    If a pixel array has been declared to be real :: array(600,400)
-! 
-!         o-----> X                         (right=600,top=0)
-!         | #------------------------------------#
-!         | |                                    |
-!         | |                                    |
-!         V |                                    |
-!         Y |                                    |
-!           #------------------------------------#
-!      (left=0,bottom=400)
-! EXAMPLE
-!    program demo_viewport
-!    use :: M_pixel
-!    use :: M_writegif, only : writegif
-!    implicit none
-!       call prefsize(400, 400) ! set up drawing surface
-!       call vinit()
-!       call color(7)
-!       call linewidth(40)
-!       call clear()
-!       call ortho2(-88.0, 88.0, -88.0, 88.0)
-!       ! draw the same circle, just changing viewport
-! 
-!       call viewport(   0.0, 200.0,   0.0, 200.0 ); call draw_circle(1)
-!       call viewport( 200.0, 400.0,   0.0, 200.0 ); call draw_circle(2)
-!       call viewport(   0.0, 200.0, 200.0, 400.0 ); call draw_circle(3)
-!       call viewport( 200.0, 400.0, 200.0, 400.0 ); call draw_circle(4)
-!       call viewport( 250.0, 350.0, 150.0, 300.0 ); call draw_circle(5)
-! 
-!       call writegif('viewport.3m_pixel.gif',P_pixel,P_colormap)
-!       !call execute_command_line('display viewport.3m_pixel.gif')
-!       call vexit()
-!    contains
-!    subroutine draw_circle(icolor)
-!    integer,intent(in) :: icolor
-!       call color(0)
-!       call rect(-88.0,-88.0,88.0,88.0)
-!       call color(icolor)
-!       call makepoly()
-!       call circle(0.0,0.0,88.0)
-!       call closepoly()
-!    end subroutine draw_circle
-!    end program demo_viewport
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    viewport(3f) - [M_pixel] Specify which part of the screen to draw in.
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine viewport(left, right, bottom, top)
+!!    real,intent(in) :: left, right, bottom, top
+!!
+!!##DESCRIPTION
+!!    Specify which part of the screen to draw in. Left, right, bottom,
+!!    and top are real values in screen coordinates (0:n,0:m).
+!!
+!!    If a pixel array has been declared to be real :: array(600,400)
+!!
+!!         o-----> X                         (right=600,top=0)
+!!         | #------------------------------------#
+!!         | |                                    |
+!!         | |                                    |
+!!         V |                                    |
+!!         Y |                                    |
+!!           #------------------------------------#
+!!      (left=0,bottom=400)
+!!
+!!##EXAMPLE
+!!
+!!  Sample program
+!!
+!!    program demo_viewport
+!!    use :: M_pixel
+!!    use :: M_writegif, only : writegif
+!!    implicit none
+!!       call prefsize(400, 400) ! set up drawing surface
+!!       call vinit()
+!!       call color(7)
+!!       call linewidth(40)
+!!       call clear()
+!!       call ortho2(-88.0, 88.0, -88.0, 88.0)
+!!       ! draw the same circle, just changing viewport
+!!
+!!       call viewport(   0.0, 200.0,   0.0, 200.0 ); call draw_circle(1)
+!!       call viewport( 200.0, 400.0,   0.0, 200.0 ); call draw_circle(2)
+!!       call viewport(   0.0, 200.0, 200.0, 400.0 ); call draw_circle(3)
+!!       call viewport( 200.0, 400.0, 200.0, 400.0 ); call draw_circle(4)
+!!       call viewport( 250.0, 350.0, 150.0, 300.0 ); call draw_circle(5)
+!!
+!!       call writegif('viewport.3m_pixel.gif',P_pixel,P_colormap)
+!!       !call execute_command_line('display viewport.3m_pixel.gif')
+!!       call vexit()
+!!    contains
+!!    subroutine draw_circle(icolor)
+!!    integer,intent(in) :: icolor
+!!       call color(0)
+!!       call rect(-88.0,-88.0,88.0,88.0)
+!!       call color(icolor)
+!!       call makepoly()
+!!       call circle(0.0,0.0,88.0)
+!!       call closepoly()
+!!    end subroutine draw_circle
+!!    end program demo_viewport
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine viewport(left,right,bottom,top)
 
 ! ident_19="@(#)M_pixel::viewport(3f): Specify which part of the screen to draw in."
@@ -3890,21 +4054,26 @@ end subroutine viewport
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    mapping(3fp) - [M_pixel] calculate conversion factors between viewport and world window
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-! 
-! DESCRIPTION
-!    calculate conversion factors between viewport and world window
-! 
-! EXAMPLE
-! 
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    mapping(3fp) - [M_pixel] calculate conversion factors between viewport and world window
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!    subroutine mapping()
+!!
+!!##DESCRIPTION
+!!    calculate conversion factors between viewport and world window
+!!
+!!##EXAMPLE
+!!
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine mapping()
 !-!use M_math,only : invert_4x4
 
@@ -3959,27 +4128,32 @@ end subroutine viewport2world
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    ortho2(3f) - [M_pixel] define the area of the virtual world coordinates to map to the viewport
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine ortho2(left, right, bottom, top)
-!    real,intent(in) :: left, right, bottom, top
-! 
-! DESCRIPTION
-!    Defines the section of the virtual world coordinates to map to the
-!    viewport. All the projection routines define a new transformation
-!    matrix, and consequently the world units. Parallel projections are
-!    defined by ortho2.
-! 
-! EXAMPLE
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    ortho2(3f) - [M_pixel] define the area of the virtual world coordinates to map to the viewport
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine ortho2(left, right, bottom, top)
+!!    real,intent(in) :: left, right, bottom, top
+!!
+!!##DESCRIPTION
+!!    Defines the section of the virtual world coordinates to map to the
+!!    viewport. All the projection routines define a new transformation
+!!    matrix, and consequently the world units. Parallel projections are
+!!    defined by ortho2.
+!!
+!!##EXAMPLE
+!!
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine ortho2(left, right, bottom, top)
 
 ! ident_23="@(#)M_pixel::ortho2(3f): define the area of the virtual world coordinates to map to the viewport"
@@ -3996,27 +4170,31 @@ end subroutine ortho2
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    page(3f) - [M_pixel] define the area of the virtual world coordinates to map to the viewport
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine page(left, right, bottom, top)
-!    real,intent(in) :: left, right, bottom, top
-! 
-! DESCRIPTION
-!    Defines the section of the virtual world coordinates to map to the
-!    viewport. Automatically use the largest viewport that provides one-to-one correspondence between
-!    the window and the viewport.
-! 
-! EXAMPLE
-! 
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    page(3f) - [M_pixel] define the area of the virtual world coordinates to map to the viewport
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine page(left, right, bottom, top)
+!!    real,intent(in) :: left, right, bottom, top
+!!
+!!##DESCRIPTION
+!!    Defines the section of the virtual world coordinates to map to
+!!    the viewport. Automatically use the largest viewport that provides
+!!    one-to-one correspondence between the window and the viewport.
+!!
+!!##EXAMPLE
+!!
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine page(xsmall,xlarge,ysmall,ylarge)
 !use M_journal, only : journal
 
@@ -4122,50 +4300,57 @@ end subroutine page
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    rmove2(3f) - [M_pixel] relative move
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine rmove2(deltax, deltay)
-!    real,intent(in) :: deltax, deltay
-! 
-! DESCRIPTION
-!    Update current position.
-!    Relative move2. deltax and deltay are offsets in world units.
-! OPTIONS
-!    X  new X position
-!    Y  new Y position
-! EXAMPLE
-!   Sample program:
-! 
-!      program demo_rmove2
-!      use M_pixel, only: prefsize, vinit, ortho2, clear
-!      use M_pixel, only: move2, rmove2, rdraw2, vexit
-!      use M_pixel, only: linewidth
-!      use M_pixel, only: P_pixel, P_colormap
-!      use M_writegif, only : writegif
-!      implicit none
-!      integer :: i
-!         call prefsize(500,500)
-!         call vinit()
-!         call ortho2(-110.0,110.0,-110.0,110.0)
-!         call move2(-100.0,-100.0)
-!         call linewidth(70)
-!         do i=1,20
-!            call rmove2(10.0, 0.0)
-!            call rdraw2( 0.0,10.0)
-!         enddo
-!         call writegif('rmove2.3m_pixel.gif',P_pixel,P_colormap)
-!         call  execute_command_line('display rmove2.3m_pixel.gif')
-!         call vexit()
-!      end program demo_rmove2
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    rmove2(3f) - [M_pixel:DRAW] relative move
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine rmove2(deltax, deltay)
+!!    real,intent(in) :: deltax, deltay
+!!
+!!##DESCRIPTION
+!!    Update current position.
+!!    Relative move2. deltax and deltay are offsets in world units.
+!!
+!!##OPTIONS
+!!    X  new X position
+!!    Y  new Y position
+!!
+!!##EXAMPLE
+!!
+!!   Sample program:
+!!
+!!      program demo_rmove2
+!!      use M_pixel, only: prefsize, vinit, ortho2, clear
+!!      use M_pixel, only: move2, rmove2, rdraw2, vexit
+!!      use M_pixel, only: linewidth
+!!      use M_pixel, only: P_pixel, P_colormap
+!!      use M_writegif, only : writegif
+!!      implicit none
+!!      integer :: i
+!!         call prefsize(500,500)
+!!         call vinit()
+!!         call ortho2(-110.0,110.0,-110.0,110.0)
+!!         call move2(-100.0,-100.0)
+!!         call linewidth(70)
+!!         do i=1,20
+!!            call rmove2(10.0, 0.0)
+!!            call rdraw2( 0.0,10.0)
+!!         enddo
+!!         call writegif('rmove2.3m_pixel.gif',P_pixel,P_colormap)
+!!         call  execute_command_line('display rmove2.3m_pixel.gif')
+!!         call vexit()
+!!      end program demo_rmove2
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine rmove2(Xdelta,Ydelta)
 
 ! ident_25="@(#)M_pixel::rmove2(3f): relative move"
@@ -4180,47 +4365,52 @@ end subroutine rmove2
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    move2(3f) - [M_pixel] change current position
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine move2(x, y)
-!    real x, y
-! 
-! DESCRIPTION
-!    Update current position.
-! 
-! OPTIONS
-!    X  new X position
-!    Y  new Y position
-! 
-! EXAMPLE
-!   Sample program:
-! 
-!      program demo_move2
-!      use M_pixel, only : prefsize, vinit, ortho2, clear
-!      use M_pixel, only : move2, draw2, vexit
-!      use M_pixel, only : P_pixel,P_colormap
-!      use M_writegif, only : writegif
-!      implicit none
-!         call prefsize(60,40)
-!         call vinit()
-!         call ortho2(-300.0,300.0,-200.0,200.0)
-!         call clear(0)
-!         call move2(-300.0,-200.0)
-!         call draw2(300.0,200.0)
-!         call move2(300.0,-200.0)
-!         call draw2(-300.0,200.0)
-!         call writegif('move2.3m_pixel.gif',P_pixel,P_colormap)
-!         call vexit()
-!      end program demo_move2
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    move2(3f) - [M_pixel:DRAW] change current position
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine move2(x, y)
+!!    real x, y
+!!
+!!##DESCRIPTION
+!!    Update current position.
+!!
+!!##OPTIONS
+!!    X  new X position
+!!    Y  new Y position
+!!
+!!##EXAMPLE
+!!
+!!   Sample program:
+!!
+!!      program demo_move2
+!!      use M_pixel, only : prefsize, vinit, ortho2, clear
+!!      use M_pixel, only : move2, draw2, vexit
+!!      use M_pixel, only : P_pixel,P_colormap
+!!      use M_writegif, only : writegif
+!!      implicit none
+!!         call prefsize(60,40)
+!!         call vinit()
+!!         call ortho2(-300.0,300.0,-200.0,200.0)
+!!         call clear(0)
+!!         call move2(-300.0,-200.0)
+!!         call draw2(300.0,200.0)
+!!         call move2(300.0,-200.0)
+!!         call draw2(-300.0,200.0)
+!!         call writegif('move2.3m_pixel.gif',P_pixel,P_colormap)
+!!         call vexit()
+!!      end program demo_move2
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine move2(x,y)
 
 ! ident_26="@(#)M_pixel::move2(3f): move current position"
@@ -4234,71 +4424,75 @@ end subroutine move2
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    rdraw2(3f) - [M_pixel] draw from current position to given point
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine rdraw2(x, y)
-!    real,intent(in) :: x, y
-! 
-! DESCRIPTION
-!    Relative draw from current position to specified point using current
-!    color and line width. Updates current position to new point.
-!    (x, y) is a point in world coordinates.
-! 
-! OPTIONS
-!    X  new X position
-!    Y  new Y position
-! 
-! EXAMPLE
-!   Sample program:
-! 
-!      program demo_rdraw2
-!      use M_pixel, only: vinit, prefsize, ortho2,linewidth
-!      use M_pixel, only: clear, move2, rdraw2, vexit,color
-!      use M_pixel, only: P_pixel, P_colormap
-!      use M_writegif, only : writegif
-!      implicit none
-! 
-!         call prefsize(200,200)
-!         call vinit()
-!         call ortho2(-55.0, 55.0, -55.0,  55.0)
-!         call linewidth(400)
-!         call color(7)
-!         call clear()
-! 
-!         call color(1)
-!         call move2(-50.0,0.0)
-!         call square(50.0)
-! 
-!         call linewidth(200)
-!         call color(2)
-!         call move2(  0.0,-50.0)
-!         call square(50.0)
-! 
-!         call writegif('rdraw2.3m_pixel.gif',P_pixel,P_colormap)
-!         call execute_command_line('display rdraw2.3m_pixel.gif')
-!         call vexit()
-! 
-!         contains
-! 
-!         subroutine square(side)
-!         real,intent(in) :: side
-!         call rdraw2( side,   0.0)
-!         call rdraw2(  0.0,  side)
-!         call rdraw2(-side,   0.0)
-!         call rdraw2(  0.0, -side)
-!         end subroutine square
-! 
-!      end program demo_rdraw2
-! 
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    rdraw2(3f) - [M_pixel:DRAW] draw from current position to given point
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine rdraw2(x, y)
+!!    real,intent(in) :: x, y
+!!
+!!##DESCRIPTION
+!!    Relative draw from current position to specified point using current
+!!    color and line width. Updates current position to new point.
+!!    (x, y) is a point in world coordinates.
+!!
+!!##OPTIONS
+!!    X  new X position
+!!    Y  new Y position
+!!
+!!##EXAMPLE
+!!
+!!   Sample program:
+!!
+!!      program demo_rdraw2
+!!      use M_pixel, only: vinit, prefsize, ortho2,linewidth
+!!      use M_pixel, only: clear, move2, rdraw2, vexit,color
+!!      use M_pixel, only: P_pixel, P_colormap
+!!      use M_writegif, only : writegif
+!!      implicit none
+!!
+!!         call prefsize(200,200)
+!!         call vinit()
+!!         call ortho2(-55.0, 55.0, -55.0,  55.0)
+!!         call linewidth(400)
+!!         call color(7)
+!!         call clear()
+!!
+!!         call color(1)
+!!         call move2(-50.0,0.0)
+!!         call square(50.0)
+!!
+!!         call linewidth(200)
+!!         call color(2)
+!!         call move2(  0.0,-50.0)
+!!         call square(50.0)
+!!
+!!         call writegif('rdraw2.3m_pixel.gif',P_pixel,P_colormap)
+!!         call execute_command_line('display rdraw2.3m_pixel.gif')
+!!         call vexit()
+!!
+!!         contains
+!!
+!!         subroutine square(side)
+!!         real,intent(in) :: side
+!!         call rdraw2( side,   0.0)
+!!         call rdraw2(  0.0,  side)
+!!         call rdraw2(-side,   0.0)
+!!         call rdraw2(  0.0, -side)
+!!         end subroutine square
+!!
+!!      end program demo_rdraw2
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine rdraw2(xdelta,ydelta)
 
 ! ident_27="@(#)M_pixel::rdraw2(3f): relative draw"
@@ -4316,74 +4510,78 @@ end subroutine rdraw2
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    draw2(3f) - [M_pixel] draw from current position to given point
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine draw2(x, y)
-!    real,intent(in) :: x, y
-! 
-! DESCRIPTION
-!    Draw from current position to specified point using current
-!    color and line width. Updates current position to new point.
-!    (x, y) is a point in world coordinates.
-! 
-! OPTIONS
-!    X  new X position
-!    Y  new Y position
-! 
-! EXAMPLE
-!   Sample program:
-! 
-!    program demo_draw2
-!    use M_pixel,    only : prefsize, vinit, ortho2, clear
-!    use M_pixel,    only : move2, draw2, vexit, color,linewidth
-!    use M_pixel,    only : P_pixel, P_colormap
-!    use M_writegif, only : writegif
-!    use M_pixel,    only : d2r, polar_to_cartesian
-!    !
-!    ! The Archimedean spiral is the locus of points corresponding
-!    ! to the locations over time of a point moving away from a
-!    ! fixed point with a constant speed along a line which rotates
-!    ! with constant angular velocity.
-!    !    r=A+B*theta
-!    ! Changing the parameter A will turn the spiral,
-!    ! while B controls the distance between successive turnings.
-!    !
-!    implicit none
-!    integer        :: i
-!    real           :: x,y,radius,theta
-!    real,parameter :: rotate=0.0, gap=2.0
-!       call prefsize(400,400)
-!       call vinit('')
-!       call ortho2(-150.0,150.0,-150.0,150.0)
-!       call color(5)
-!       call clear()
-!       call move2(0.0,0.0)
-!       call color(0)
-!       call linewidth(40)
-!       do i=0,360*10,5
-!          theta=d2r(i)
-!          ! equation in polar coordinates
-!          radius=rotate+gap*theta
-!          ! convert polar coordinates to cartesian
-!          call polar_to_cartesian(radius,theta,x,y)
-!          ! draw from current position to end of next segment
-!          call draw2(x,y)
-!       enddo
-!       ! write the pixel map array as a GIF image file
-!       call writegif('draw2.3m_pixel.gif',P_pixel,P_colormap)
-!       ! exit graphics mode
-!       call vexit()
-!    end program demo_draw2
-! 
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    draw2(3f) - [M_pixel:DRAW] draw from current position to given point
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine draw2(x, y)
+!!    real,intent(in) :: x, y
+!!
+!!##DESCRIPTION
+!!    Draw from current position to specified point using current
+!!    color and line width. Updates current position to new point.
+!!    (x, y) is a point in world coordinates.
+!!
+!!##OPTIONS
+!!    X  new X position
+!!    Y  new Y position
+!!
+!!##EXAMPLE
+!!
+!!   Sample program:
+!!
+!!    program demo_draw2
+!!    use M_pixel,    only : prefsize, vinit, ortho2, clear
+!!    use M_pixel,    only : move2, draw2, vexit, color,linewidth
+!!    use M_pixel,    only : P_pixel, P_colormap
+!!    use M_writegif, only : writegif
+!!    use M_pixel,    only : d2r, polar_to_cartesian
+!!    !
+!!    ! The Archimedean spiral is the locus of points corresponding
+!!    ! to the locations over time of a point moving away from a
+!!    ! fixed point with a constant speed along a line which rotates
+!!    ! with constant angular velocity.
+!!    !    r=A+B*theta
+!!    ! Changing the parameter A will turn the spiral,
+!!    ! while B controls the distance between successive turnings.
+!!    !
+!!    implicit none
+!!    integer        :: i
+!!    real           :: x,y,radius,theta
+!!    real,parameter :: rotate=0.0, gap=2.0
+!!       call prefsize(400,400)
+!!       call vinit('')
+!!       call ortho2(-150.0,150.0,-150.0,150.0)
+!!       call color(5)
+!!       call clear()
+!!       call move2(0.0,0.0)
+!!       call color(0)
+!!       call linewidth(40)
+!!       do i=0,360*10,5
+!!          theta=d2r(i)
+!!          ! equation in polar coordinates
+!!          radius=rotate+gap*theta
+!!          ! convert polar coordinates to cartesian
+!!          call polar_to_cartesian(radius,theta,x,y)
+!!          ! draw from current position to end of next segment
+!!          call draw2(x,y)
+!!       enddo
+!!       ! write the pixel map array as a GIF image file
+!!       call writegif('draw2.3m_pixel.gif',P_pixel,P_colormap)
+!!       ! exit graphics mode
+!!       call vexit()
+!!    end program demo_draw2
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine draw2(x,y)
 
 ! ident_28="@(#)M_pixel::draw2(3f): draw a line from current position to specified point"
@@ -4401,62 +4599,69 @@ end subroutine draw2
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    prefsize(3f) - [M_pixel] specify size of pixel array
-!    (LICENSE:PD)
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine prefsize(width, height)
-!    integer width, height
-! 
-! DESCRIPTION
-!    Specify the preferred width and height of the pixel array opened by the *next* vinit(3f).
-!    The pixel array is then available via the M_pixel(3fm) module as variable P_pixel. Note
-!    that the width corresponds to the number of rows in the array, and height to the number
-!    of columns.
-! 
-! OPTIONS
-!    WIDTH   width of pixel array to create when vinit(3f) is called
-!    HEIGHT  height of pixel array to create when vinit(3f) is called
-! 
-! EXAMPLE
-!   Sample program:
-! 
-!      program demo_prefsize
-!      use M_pixel, only: prefsize, vinit, ortho2, clear
-!      use M_pixel, only: move2, draw2, vexit, color
-!      use M_pixel, only : P_pixel,P_colormap
-!      use M_writegif, only : writegif
-!      implicit none
-!         ! make first file with one size
-!         call prefsize(60*2,40*2)
-!         call vinit()
-!         call picture()
-!         call writegif('prefsize.3m_pixel.gif',P_pixel,P_colormap)
-!         call vexit()
-! 
-!         ! make second file with another size
-!         call prefsize(60*3,40*3)
-!         call vinit()
-!         call picture()
-!         call writegif('prefsize_B.3m_pixel.gif',P_pixel,P_colormap)
-!         call vexit()
-!      contains
-!      subroutine picture
-!         call ortho2(-300.0,300.0,-200.0,200.0)
-!         call clear(0)
-!         call color(1)
-!         call move2(-300.0,-200.0)
-!         call draw2(300.0,200.0)
-!         call move2(300.0,-200.0)
-!         call draw2(-300.0,200.0)
-!      end subroutine picture
-!      end program demo_prefsize
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    prefsize(3f) - [M_pixel] specify size of pixel array
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine prefsize(width, height)
+!!    integer width, height
+!!
+!!##DESCRIPTION
+!!    Specify the preferred width and height of the pixel array opened
+!!    by the *next* vinit(3f). The pixel array is then available via
+!!    the M_pixel(3fm) module as variable P_pixel. Note that the width
+!!    corresponds to the number of rows in the array, and height to the
+!!    number of columns.
+!!
+!!##OPTIONS
+!!    WIDTH   width of pixel array to create when vinit(3f) is called
+!!    HEIGHT  height of pixel array to create when vinit(3f) is called
+!!
+!!##EXAMPLE
+!!
+!!   Sample program:
+!!
+!!      program demo_prefsize
+!!      use M_pixel, only: prefsize, vinit, ortho2, clear
+!!      use M_pixel, only: move2, draw2, vexit, color
+!!      use M_pixel, only : P_pixel,P_colormap
+!!      use M_writegif, only : writegif
+!!      implicit none
+!!         ! make first file with one size
+!!         call prefsize(60*2,40*2)
+!!         call vinit()
+!!         call picture()
+!!         call writegif('prefsize.3m_pixel.gif',P_pixel,P_colormap)
+!!         call vexit()
+!!
+!!         ! make second file with another size
+!!         call prefsize(60*3,40*3)
+!!         call vinit()
+!!         call picture()
+!!         call writegif('prefsize_B.3m_pixel.gif',P_pixel,P_colormap)
+!!         call vexit()
+!!      contains
+!!      subroutine picture
+!!         call ortho2(-300.0,300.0,-200.0,200.0)
+!!         call clear(0)
+!!         call color(1)
+!!         call move2(-300.0,-200.0)
+!!         call draw2(300.0,200.0)
+!!         call move2(300.0,-200.0)
+!!         call draw2(-300.0,200.0)
+!!      end subroutine picture
+!!      end program demo_prefsize
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine prefsize(x,y)
 
 ! ident_29="@(#)M_pixel::prefsize(3f): specify size of pixel array"
@@ -4471,49 +4676,54 @@ end subroutine prefsize
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    vexit(3f) - [M_pixel] exit pixel graphics mode
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine vexit()
-! 
-! DESCRIPTION
-!    Used to terminate pixel graphics mode. Does any actions required to terminate
-!    graphics mode including unallocating the module pixel array P_pixel. Required
-!    before calling vinit(3f) more than once.
-! 
-!    Resets the window/terminal (must be the last M_PIXEL routine called).
-! 
-! OPTIONS
-! 
-! EXAMPLE
-!   Sample program:
-! 
-!      program demo_vexit
-!      use M_pixel, only: prefsize, vexit, ortho2, clear
-!      use M_pixel, only: move2, draw2, color, vinit
-!      use M_pixel, only : P_pixel,P_colormap
-!      use M_writegif, only : writegif
-!      implicit none
-!         call prefsize(60,40)
-!         call vinit()
-!         call ortho2(-300.0,300.0,-200.0,200.0)
-!         call clear(0)
-!         call color(1)
-!         call move2(-300.0,-200.0)
-!         call draw2(300.0,200.0)
-!         call move2(300.0,-200.0)
-!         call draw2(-300.0,200.0)
-!         call writegif('vexit.3m_pixel.gif',P_pixel,P_colormap)
-!         call vexit()
-!      end program demo_vexit
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    vexit(3f) - [M_pixel] exit pixel graphics mode
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine vexit()
+!!
+!!##DESCRIPTION
+!!    Used to terminate pixel graphics mode. Does any actions required to
+!!    terminate graphics mode including unallocating the module pixel array
+!!    P_pixel. Required before calling vinit(3f) more than once.
+!!
+!!    Resets the window/terminal (must be the last M_PIXEL routine called).
+!!
+!!##OPTIONS
+!!
+!!##EXAMPLE
+!!
+!!   Sample program:
+!!
+!!      program demo_vexit
+!!      use M_pixel, only: prefsize, vexit, ortho2, clear
+!!      use M_pixel, only: move2, draw2, color, vinit
+!!      use M_pixel, only : P_pixel,P_colormap
+!!      use M_writegif, only : writegif
+!!      implicit none
+!!         call prefsize(60,40)
+!!         call vinit()
+!!         call ortho2(-300.0,300.0,-200.0,200.0)
+!!         call clear(0)
+!!         call color(1)
+!!         call move2(-300.0,-200.0)
+!!         call draw2(300.0,200.0)
+!!         call move2(300.0,-200.0)
+!!         call draw2(-300.0,200.0)
+!!         call writegif('vexit.3m_pixel.gif',P_pixel,P_colormap)
+!!         call vexit()
+!!      end program demo_vexit
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine vexit()
 
 ! ident_30="@(#)M_pixel::vexit(3f): exit pixel array drawing module"
@@ -4527,46 +4737,52 @@ end subroutine vexit
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    vinit(3f) - [M_pixel] initialize pixel graphics module
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!   subroutine vinit()
-! 
-! DESCRIPTION
-!    Initialize the pixel graphics module. The pixel array P_pixel and the colormap
-!    P_ColorMap are directly accessible after the call to allow display or printing
-! 
-! OPTIONS
-! 
-! EXAMPLE
-!   Sample program:
-! 
-!      program demo_vinit
-!      use M_pixel, only    : prefsize, vinit, ortho2, clear
-!      use M_pixel, only    : move2, draw2, vexit, color
-!      use M_pixel, only    : P_pixel, P_colormap
-!      use M_writegif, only : writegif
-!      implicit none
-!         call prefsize(60,40)
-!         call vinit()
-!         call ortho2(-300.0,300.0,-200.0,200.0)
-!         call clear(0)
-!         call color(1)
-!         call move2(-300.0,-200.0)
-!         call draw2(300.0,200.0)
-!         call move2(300.0,-200.0)
-!         call draw2(-300.0,200.0)
-!         call writegif('vinit.3m_pixel.gif',P_pixel,P_colormap)
-!         call vexit()
-!      end program demo_vinit
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    vinit(3f) - [M_pixel] initialize pixel graphics module
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!   subroutine vinit()
+!!
+!!##DESCRIPTION
+!!    Initialize the pixel graphics module. The pixel array P_pixel and the
+!!    colormap P_ColorMap are directly accessible after the call to allow
+!!    display or printing
+!!
+!!##OPTIONS
+!!
+!!##EXAMPLE
+!!
+!!   Sample program:
+!!
+!!      program demo_vinit
+!!      use M_pixel, only    : prefsize, vinit, ortho2, clear
+!!      use M_pixel, only    : move2, draw2, vexit, color
+!!      use M_pixel, only    : P_pixel, P_colormap
+!!      use M_writegif, only : writegif
+!!      implicit none
+!!         call prefsize(60,40)
+!!         call vinit()
+!!         call ortho2(-300.0,300.0,-200.0,200.0)
+!!         call clear(0)
+!!         call color(1)
+!!         call move2(-300.0,-200.0)
+!!         call draw2(300.0,200.0)
+!!         call move2(300.0,-200.0)
+!!         call draw2(-300.0,200.0)
+!!         call writegif('vinit.3m_pixel.gif',P_pixel,P_colormap)
+!!         call vexit()
+!!      end program demo_vinit
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine vinit(string)
 
 ! ident_31="@(#)M_pixel::vinit(3f): initialize pixel array drawing module"
@@ -4624,139 +4840,144 @@ end subroutine vinit
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    makepoly(3f) - [M_pixel:POLYGONS] opens polygon constructed by a series of move-draws and closed by closepoly                  |
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine makepoly()
-! 
-! DESCRIPTION
-!    MAKEPOLY(3f) opens up a polygon which will then be constructed by a series
-!    of move-draws and closed by a CLOSEPOLY(3f).
-! 
-! EXAMPLE
-!  Sample program:
-! 
-!    program demo_makepoly
-!    use :: M_pixel
-!    use :: M_writegif, only : writegif
-!    use :: M_writegif_animated, only : write_animated_gif
-!    implicit none
-!    integer,parameter :: wide=640, tall=640
-!    integer :: rows, xoff, yoff, box_sz
-!    integer :: i20, i30, ncols, nrows, ilines
-!    real    :: bottom, left, sun_radius, planet_radius, planet_offset
-!    character(len=40) :: filename
-!    integer :: movie(300,0:wide-1,0:tall-1)
-!       call prefsize(wide,tall)
-!       call vinit()
-!       call ortho2(0.0, real(wide), 0.0, real(tall) )
-!       ! call linewidth(3) ! really slows down pbm driver because all lines are polygons
-!       call color(7)
-!       call clear()
-!       call color(0)
-!       rows=1
-!       box_sz=MIN(wide,tall)/rows       ! size of biggest box to use and get specified number of rows
-!       nrows = tall/box_sz              ! number of rows of objects to draw
-!       ncols = wide/box_sz              ! number of columns of objects to draw
-!       xoff = (wide - ncols * box_sz)/2 ! initial x offset to begin row at to center drawings
-!       yoff = (tall - nrows * box_sz)/2 ! initial x offset to begin column at to center drawings
-!       sun_radius = 148
-!       planet_radius = 1
-!       do ilines = 1, 300
-!          do i20 = 1, ncols
-!             left = (i20-1)*box_sz+xoff
-!             do i30 = 1, nrows
-!                bottom = (i30-1)*box_sz+yoff
-!                call color(0)
-!             call makepoly()
-!                call rect(left,bottom,left+box_sz,bottom+box_sz)
-!             call closepoly()
-!                planet_offset= sun_radius
-!                   call color(mod(ilines,15)+1)
-!                   call hypoc(left + box_sz/2.0, bottom + box_sz/2.0, &
-!                & sun_radius, planet_radius, planet_offset, &
-!                & box_sz/2.0, ilines,  &
-!                & 0.0, 0.0, 1)
-!             enddo
-!          enddo
-!          movie(ilines,:,:)=P_pixel
-!          write(filename,'("hypoc.",i0,".gif")')ilines
-!          !!call writegif(filename,P_pixel,P_colormap)
-!       enddo
-!       call write_animated_gif('makepoly.3m_pixel.gif',movie,P_colormap,delay=70)
-!       call vexit()
-!    contains
-!    !
-!    !  Make shapes using hypocycloidal curves.
-!    !
-!    subroutine hypoc(xcenter,ycenter,sunr0,planet0,offset0,radius,ilines,ang,angs,ifill)
-!    use M_pixel
-!    implicit none
-!    real,parameter     :: PI= 3.14159265358979323846264338327950288419716939937510
-!    real,intent(in)    :: xcenter, ycenter      ! center of curve
-!    real,intent(in)    :: sunr0,planet0,offset0 ! radii of sun, planet, and planet offset
-!    real,intent(in)    :: radius                ! radius to fit the shape to (no fit if radius is 0)
-!    integer,intent(in) :: ilines                ! number of points to sample along curve
-!    real,intent(in)    :: ang                   ! angle to rotate the shape by, to orientate it.
-!    real,intent(in)    :: angs                  ! angle to start sampling points at; ccw is +; 0 is East
-!    integer,intent(in) :: ifill                 ! 1 make a filled polygon, 2 make a hatched polygon
-!    integer            :: i10
-!    real               :: ang1, con1, con2, factor
-!    real               :: offset, planet, r, sunr, u
-!    real               :: xpoin, xpoin1, ypoin, ypoin1
-!       sunr=sunr0
-!       offset=offset0
-!       planet=planet0
-!       if(ilines.eq.0.0) return
-!       if(planet.eq.0.0) return
-!       if(sunr.eq.0.0)   return
-!       if(radius.ne.0.and.sunr-planet+offset.ne.0)then
-!          factor=radius/(sunr-planet+offset)
-!          sunr=factor*sunr
-!          planet=factor*planet
-!          offset=factor*offset
-!       endif
-!       u=0.0+ang
-!       con1=PI*2.*(sunr/planet)/real(ilines)
-!       con2=(1.0-planet/sunr)*u
-!       xpoin1=(sunr-planet)*cos(planet*u/sunr)+offset*cos(con2)
-!       ypoin1=(sunr-planet)*sin(planet*u/sunr)-offset*sin(con2)
-!       ang1=atan2(ypoin1,xpoin1)+angs
-!       r=sqrt(xpoin1**2+ypoin1**2)
-!       xpoin1=r*cos(ang1)+xcenter
-!       ypoin1=r*sin(ang1)+ycenter
-!       select case(ifill)
-!       case(:0)
-!       case(1:)
-!          call makepoly()
-!       end select
-!       call move2(xpoin1,ypoin1)
-!       do i10=1,ilines
-!          u=con1*i10+ang
-!          con2=(1.0-planet/sunr)*u
-!          if(con2.ge.2**24) con2=amod(con2,PI)
-!          xpoin=(sunr-planet)*cos(planet*u/sunr)+offset*cos(con2)
-!          ypoin=(sunr-planet)*sin(planet*u/sunr)-offset*sin(con2)
-!          ang1=atan2(ypoin,xpoin)+angs
-!          r=sqrt(xpoin**2+ypoin**2)
-!          xpoin=r*cos(ang1)+xcenter
-!          ypoin=r*sin(ang1)+ycenter
-!          call draw2(xpoin,ypoin)
-!       enddo
-!       call draw2(xpoin1,ypoin1)
-!       if(ifill.gt.0)then
-!         call closepoly()
-!       endif
-!    end subroutine hypoc
-!    end program demo_makepoly
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    makepoly(3f) - [M_pixel:POLYGONS] opens polygon constructed by a series of move-draws and closed by closepoly                  |
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine makepoly()
+!!
+!!##DESCRIPTION
+!!    MAKEPOLY(3f) opens up a polygon which will then be constructed by a
+!!    series of move-draws and closed by a CLOSEPOLY(3f).
+!!
+!!##EXAMPLE
+!!
+!!  Sample program:
+!!
+!!    program demo_makepoly
+!!    use :: M_pixel
+!!    use :: M_writegif, only : writegif
+!!    use :: M_writegif_animated, only : write_animated_gif
+!!    implicit none
+!!    integer,parameter :: wide=640, tall=640
+!!    integer :: rows, xoff, yoff, box_sz
+!!    integer :: i20, i30, ncols, nrows, ilines
+!!    real    :: bottom, left, sun_radius, planet_radius, planet_offset
+!!    character(len=40) :: filename
+!!    integer :: movie(300,0:wide-1,0:tall-1)
+!!       call prefsize(wide,tall)
+!!       call vinit()
+!!       call ortho2(0.0, real(wide), 0.0, real(tall) )
+!!       ! call linewidth(3) ! really slows down pbm driver because all lines are polygons
+!!       call color(7)
+!!       call clear()
+!!       call color(0)
+!!       rows=1
+!!       box_sz=MIN(wide,tall)/rows       ! size of biggest box to use and get specified number of rows
+!!       nrows = tall/box_sz              ! number of rows of objects to draw
+!!       ncols = wide/box_sz              ! number of columns of objects to draw
+!!       xoff = (wide - ncols * box_sz)/2 ! initial x offset to begin row at to center drawings
+!!       yoff = (tall - nrows * box_sz)/2 ! initial x offset to begin column at to center drawings
+!!       sun_radius = 148
+!!       planet_radius = 1
+!!       do ilines = 1, 300
+!!          do i20 = 1, ncols
+!!             left = (i20-1)*box_sz+xoff
+!!             do i30 = 1, nrows
+!!                bottom = (i30-1)*box_sz+yoff
+!!                call color(0)
+!!             call makepoly()
+!!                call rect(left,bottom,left+box_sz,bottom+box_sz)
+!!             call closepoly()
+!!                planet_offset= sun_radius
+!!                   call color(mod(ilines,15)+1)
+!!                   call hypoc(left + box_sz/2.0, bottom + box_sz/2.0, &
+!!                & sun_radius, planet_radius, planet_offset, &
+!!                & box_sz/2.0, ilines,  &
+!!                & 0.0, 0.0, 1)
+!!             enddo
+!!          enddo
+!!          movie(ilines,:,:)=P_pixel
+!!          write(filename,'("hypoc.",i0,".gif")')ilines
+!!          !!call writegif(filename,P_pixel,P_colormap)
+!!       enddo
+!!       call write_animated_gif('makepoly.3m_pixel.gif',movie,P_colormap,delay=70)
+!!       call vexit()
+!!    contains
+!!    !
+!!    !  Make shapes using hypocycloidal curves.
+!!    !
+!!    subroutine hypoc(xcenter,ycenter,sunr0,planet0,offset0,radius,ilines,ang,angs,ifill)
+!!    use M_pixel
+!!    implicit none
+!!    real,parameter     :: PI= 3.14159265358979323846264338327950288419716939937510
+!!    real,intent(in)    :: xcenter, ycenter      ! center of curve
+!!    real,intent(in)    :: sunr0,planet0,offset0 ! radii of sun, planet, and planet offset
+!!    real,intent(in)    :: radius                ! radius to fit the shape to (no fit if radius is 0)
+!!    integer,intent(in) :: ilines                ! number of points to sample along curve
+!!    real,intent(in)    :: ang                   ! angle to rotate the shape by, to orientate it.
+!!    real,intent(in)    :: angs                  ! angle to start sampling points at; ccw is +; 0 is East
+!!    integer,intent(in) :: ifill                 ! 1 make a filled polygon, 2 make a hatched polygon
+!!    integer            :: i10
+!!    real               :: ang1, con1, con2, factor
+!!    real               :: offset, planet, r, sunr, u
+!!    real               :: xpoin, xpoin1, ypoin, ypoin1
+!!       sunr=sunr0
+!!       offset=offset0
+!!       planet=planet0
+!!       if(ilines.eq.0.0) return
+!!       if(planet.eq.0.0) return
+!!       if(sunr.eq.0.0)   return
+!!       if(radius.ne.0.and.sunr-planet+offset.ne.0)then
+!!          factor=radius/(sunr-planet+offset)
+!!          sunr=factor*sunr
+!!          planet=factor*planet
+!!          offset=factor*offset
+!!       endif
+!!       u=0.0+ang
+!!       con1=PI*2.*(sunr/planet)/real(ilines)
+!!       con2=(1.0-planet/sunr)*u
+!!       xpoin1=(sunr-planet)*cos(planet*u/sunr)+offset*cos(con2)
+!!       ypoin1=(sunr-planet)*sin(planet*u/sunr)-offset*sin(con2)
+!!       ang1=atan2(ypoin1,xpoin1)+angs
+!!       r=sqrt(xpoin1**2+ypoin1**2)
+!!       xpoin1=r*cos(ang1)+xcenter
+!!       ypoin1=r*sin(ang1)+ycenter
+!!       select case(ifill)
+!!       case(:0)
+!!       case(1:)
+!!          call makepoly()
+!!       end select
+!!       call move2(xpoin1,ypoin1)
+!!       do i10=1,ilines
+!!          u=con1*i10+ang
+!!          con2=(1.0-planet/sunr)*u
+!!          if(con2.ge.2**24) con2=amod(con2,PI)
+!!          xpoin=(sunr-planet)*cos(planet*u/sunr)+offset*cos(con2)
+!!          ypoin=(sunr-planet)*sin(planet*u/sunr)-offset*sin(con2)
+!!          ang1=atan2(ypoin,xpoin)+angs
+!!          r=sqrt(xpoin**2+ypoin**2)
+!!          xpoin=r*cos(ang1)+xcenter
+!!          ypoin=r*sin(ang1)+ycenter
+!!          call draw2(xpoin,ypoin)
+!!       enddo
+!!       call draw2(xpoin1,ypoin1)
+!!       if(ifill.gt.0)then
+!!         call closepoly()
+!!       endif
+!!    end subroutine hypoc
+!!    end program demo_makepoly
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine makepoly()
 
 ! ident_32="@(#)M_pixel::makepoly(3f): opens polygon constructed by a series of move-draws and closed by closepoly"
@@ -4767,22 +4988,25 @@ end subroutine makepoly
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    closepoly(3f) - [M_pixel:POLYGONS] Terminates a polygon opened by makepoly(3f)
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!       subroutine closepoly()
-! 
-! DESCRIPTION
-!    Terminates a polygon opened by MAKEPOLY(3f).
-! 
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    closepoly(3f) - [M_pixel:POLYGONS] Terminates a polygon opened by makepoly(3f)
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!       subroutine closepoly()
+!!
+!!##DESCRIPTION
+!!    Terminates a polygon opened by MAKEPOLY(3f).
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine closepoly()
 
 ! ident_33="@(#)M_pixel::makepoly(3f): terminate a polygon opened by makepoly(3f)"
@@ -4793,45 +5017,49 @@ end subroutine closepoly
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    print_ppm(3f) - [M_pixel] print pixel array as a ppm p3 file
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine print_ppm(filename)
-!    character(len=*),intent(in) :: filename
-! 
-! DESCRIPTION
-!   This driver makes an ASCII P3 portable pixmap file
-! 
-! OPTIONS
-!   FILENAME  name of output file to create or replace
-! 
-! EXAMPLE
-!   Sample program:
-! 
-!      program demo_print_ppm
-!      use M_pixel, only : prefsize,vinit,ortho2,vexit
-!      use M_pixel, only : linewidth,circle,color
-!      use M_pixel, only : print_ppm
-!      implicit none
-!      call prefsize(40,40)
-!      call vinit()
-!      call ortho2(-100.0,100.0,-100.0,100.0)
-!      call linewidth(400)
-!      call circle(0.0,0.0,45.0)
-!      call color(3)
-!      call circle(0.0,0.0,25.0)
-!      call print_ppm('demo_print_ppm.ppm')
-!      call vexit()
-!      end program demo_print_ppm
-! 
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    print_ppm(3f) - [M_pixel:PRINT] print pixel array as a ppm p3 file
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine print_ppm(filename)
+!!    character(len=*),intent(in) :: filename
+!!
+!!##DESCRIPTION
+!!   This driver makes an ASCII P3 portable pixmap file
+!!
+!!##OPTIONS
+!!   FILENAME  name of output file to create or replace
+!!
+!!##EXAMPLE
+!!
+!!   Sample program:
+!!
+!!      program demo_print_ppm
+!!      use M_pixel, only : prefsize,vinit,ortho2,vexit
+!!      use M_pixel, only : linewidth,circle,color
+!!      use M_pixel, only : print_ppm
+!!      implicit none
+!!      call prefsize(40,40)
+!!      call vinit()
+!!      call ortho2(-100.0,100.0,-100.0,100.0)
+!!      call linewidth(400)
+!!      call circle(0.0,0.0,45.0)
+!!      call color(3)
+!!      call circle(0.0,0.0,25.0)
+!!      call print_ppm('demo_print_ppm.ppm')
+!!      call vexit()
+!!      end program demo_print_ppm
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine print_ppm(filename)
 
 ! ident_34="@(#)M_pixel::print_ppm(3f): print pixel array as a P3 PPM file"
@@ -4859,73 +5087,78 @@ end subroutine print_ppm
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!   print_ascii(3f) - [M_pixel] print small pixel array as ASCII text
-!   (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine print_ascii(filename)
-!    character(len=*),intent(in) :: filename
-! 
-! DESCRIPTION
-!   This driver prints the pixmap as a simple ASCII array. It assumes only
-!   single-digit colors are used. It is appropriate for inspecting small pixmaps.
-! 
-! OPTIONS
-!   FILENAME  name of output file. If blank write to stdout.
-! 
-! EXAMPLE
-! 
-!   Sample Program:
-! 
-!    program demo_print_ascii
-!    use M_pixel
-!    implicit none
-!    call prefsize(80,24)
-!    call vinit()
-!    call ortho2(0.0,80.0,0.0,24.0)
-!    call linewidth(400)
-!    call color(1)
-!    call circle(12.0,12.0,6.0)
-!    call color(2)
-!    call circle(72.0,12.0,6.0)
-!    call print_ascii()
-!    call vexit()
-!    end program demo_print_ascii
-! 
-!   Results:
-! 
-!    00000000000000000000000000000000000000000000000000000000000000000000000000000000
-!    00000000000000000000000000000000000000000000000000000000000000000000000000000000
-!    00000000000000000000000000000000000000000000000000000000000000000000000000000000
-!    00000000000000000000000000000000000000000000000000000000000000000000000000000000
-!    00000000000111000000000000000000000000000000000000000000000000000000000000000000
-!    00000000111111110000000000000000000000000000000000000000000000000000022222000000
-!    00000001111111111000000000000000000000000000000000000000000000000002222222220000
-!    00000001111001111100000000000000000000000000000000000000000000000022222222222000
-!    00000011100000011110000000000000000000000000000000000000000000000222200000222200
-!    00000111100000001111000000000000000000000000000000000000000000000222000000022200
-!    00000111000000000111000000000000000000000000000000000000000000002220000000002220
-!    00000111000000000111000000000000000000000000000000000000000000002220000000002220
-!    00000111000000000111000000000000000000000000000000000000000000002220000000002220
-!    00000111000000000111000000000000000000000000000000000000000000002220000000002220
-!    00000111100000001110000000000000000000000000000000000000000000002222000000022220
-!    00000011110000011110000000000000000000000000000000000000000000000222000000022200
-!    00000001111111111100000000000000000000000000000000000000000000000020220002202000
-!    00000000111111111000000000000000000000000000000000000000000000000002222222220000
-!    00000000011111100000000000000000000000000000000000000000000000000000222222200000
-!    00000000000000000000000000000000000000000000000000000000000000000000002220000000
-!    00000000000000000000000000000000000000000000000000000000000000000000000000000000
-!    00000000000000000000000000000000000000000000000000000000000000000000000000000000
-!    00000000000000000000000000000000000000000000000000000000000000000000000000000000
-!    00000000000000000000000000000000000000000000000000000000000000000000000000000000
-! 
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!   print_ascii(3f) - [M_pixel:PRINT] print small pixel array as ASCII text
+!!   (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine print_ascii(filename)
+!!    character(len=*),intent(in) :: filename
+!!
+!!##DESCRIPTION
+!!   This driver prints the pixmap as a simple ASCII array. It assumes
+!!   only single-digit colors are used. It is appropriate for inspecting
+!!   small pixmaps.
+!!
+!!##OPTIONS
+!!   FILENAME  name of output file. If blank write to stdout.
+!!
+!!##EXAMPLE
+!!
+!!
+!!   Sample Program:
+!!
+!!    program demo_print_ascii
+!!    use M_pixel
+!!    implicit none
+!!    call prefsize(80,24)
+!!    call vinit()
+!!    call ortho2(0.0,80.0,0.0,24.0)
+!!    call linewidth(400)
+!!    call color(1)
+!!    call circle(12.0,12.0,6.0)
+!!    call color(2)
+!!    call circle(72.0,12.0,6.0)
+!!    call print_ascii()
+!!    call vexit()
+!!    end program demo_print_ascii
+!!
+!!   Results:
+!!
+!!    00000000000000000000000000000000000000000000000000000000000000000000000000000000
+!!    00000000000000000000000000000000000000000000000000000000000000000000000000000000
+!!    00000000000000000000000000000000000000000000000000000000000000000000000000000000
+!!    00000000000000000000000000000000000000000000000000000000000000000000000000000000
+!!    00000000000111000000000000000000000000000000000000000000000000000000000000000000
+!!    00000000111111110000000000000000000000000000000000000000000000000000022222000000
+!!    00000001111111111000000000000000000000000000000000000000000000000002222222220000
+!!    00000001111001111100000000000000000000000000000000000000000000000022222222222000
+!!    00000011100000011110000000000000000000000000000000000000000000000222200000222200
+!!    00000111100000001111000000000000000000000000000000000000000000000222000000022200
+!!    00000111000000000111000000000000000000000000000000000000000000002220000000002220
+!!    00000111000000000111000000000000000000000000000000000000000000002220000000002220
+!!    00000111000000000111000000000000000000000000000000000000000000002220000000002220
+!!    00000111000000000111000000000000000000000000000000000000000000002220000000002220
+!!    00000111100000001110000000000000000000000000000000000000000000002222000000022220
+!!    00000011110000011110000000000000000000000000000000000000000000000222000000022200
+!!    00000001111111111100000000000000000000000000000000000000000000000020220002202000
+!!    00000000111111111000000000000000000000000000000000000000000000000002222222220000
+!!    00000000011111100000000000000000000000000000000000000000000000000000222222200000
+!!    00000000000000000000000000000000000000000000000000000000000000000000002220000000
+!!    00000000000000000000000000000000000000000000000000000000000000000000000000000000
+!!    00000000000000000000000000000000000000000000000000000000000000000000000000000000
+!!    00000000000000000000000000000000000000000000000000000000000000000000000000000000
+!!    00000000000000000000000000000000000000000000000000000000000000000000000000000000
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine print_ascii(filename)
 use,intrinsic :: iso_fortran_env, only : ERROR_UNIT, INPUT_UNIT, OUTPUT_UNIT
 
@@ -4970,140 +5203,144 @@ end subroutine print_ascii
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!      ppm - portable pixmap file format
-! 
-! DESCRIPTION
-!      The portable pixmap format is a lowest common denominator
-!      color image file format. The definition is as follows:
-! 
-!      - A "magic number" for identifying the file type. A ppm
-!        file's magic number is the two characters "P3".
-! 
-!      - Whitespace (blanks, TABs, CRs, LFs).
-! 
-!      - A width, formatted as ASCII characters in decimal.
-! 
-!      - Whitespace.
-! 
-!      - A height, again in ASCII decimal.
-! 
-!      - Whitespace.
-! 
-!      - The maximum color-component value, again in ASCII decimal.
-! 
-!      - Whitespace.
-! 
-!      - Width * height pixels, each three ASCII decimal values
-!        between 0 and the specified maximum value, starting at the
-!        top-left corner of the pixmap,  proceeding in normal
-!        English reading order. The three values for each pixel
-!        represent red, green, and blue, respectively; a value of 0
-!        means that color is off, and the maximum value means that
-!        color is maxxed out.
-! 
-!      - Characters from a "#" to the next end-of-line are ignored
-!        (comments).
-! 
-!      - No line should be longer than 70 characters.
-! 
-!      Here is an example of a small pixmap in this format:
-!      P3
-!      # feep.ppm
-!      4 4
-!      15
-!       0  0  0    0  0  0    0  0  0   15  0 15
-!       0  0  0    0 15  7    0  0  0    0  0  0
-!       0  0  0    0  0  0    0 15  7    0  0  0
-!      15  0 15    0  0  0    0  0  0    0  0  0
-! 
-!      Programs that read this format should be as lenient as possible,
-!      accepting anything that looks remotely like a pixmap.
-! 
-!      There is also a variant on the format, available by setting
-!      the RAWBITS option at compile time. This variant is
-!      different in the following ways:
-! 
-!      - The "magic number" is "P6" instead of "P3".
-! 
-!      - The pixel values are stored as plain bytes,  instead of
-!        ASCII decimal.
-! 
-!      - Whitespace is not allowed in the pixels area, and only a
-!        single character of whitespace (typically a newline) is
-!        allowed after the maxval.
-! 
-!      - The files are smaller and many times faster to read and
-!        write.
-! 
-!      Note that this raw format can only be used for maxvals less
-!      than or equal to 255. If you use the ppm library and try to
-!      write a file with a larger maxval,  it will automatically
-!      fall back on the slower but more general plain format.
-! 
-! AUTHOR
-!      Copyright (C) 1989, 1991 by Jef Poskanzer.
-! 
-!                  Last change: 27 September 1991
+!>
+!!##NAME
+!!      ppm - portable pixmap file format
+!!
+!!##DESCRIPTION
+!!      The portable pixmap format is a lowest common denominator
+!!      color image file format. The definition is as follows:
+!!
+!!      - A "magic number" for identifying the file type. A ppm
+!!        file's magic number is the two characters "P3".
+!!
+!!      - Whitespace (blanks, TABs, CRs, LFs).
+!!
+!!      - A width, formatted as ASCII characters in decimal.
+!!
+!!      - Whitespace.
+!!
+!!      - A height, again in ASCII decimal.
+!!
+!!      - Whitespace.
+!!
+!!      - The maximum color-component value, again in ASCII decimal.
+!!
+!!      - Whitespace.
+!!
+!!      - Width * height pixels, each three ASCII decimal values
+!!        between 0 and the specified maximum value, starting at the
+!!        top-left corner of the pixmap,  proceeding in normal
+!!        English reading order. The three values for each pixel
+!!        represent red, green, and blue, respectively; a value of 0
+!!        means that color is off, and the maximum value means that
+!!        color is maxxed out.
+!!
+!!      - Characters from a "#" to the next end-of-line are ignored
+!!        (comments).
+!!
+!!      - No line should be longer than 70 characters.
+!!
+!!      Here is an example of a small pixmap in this format:
+!!      P3
+!!      # feep.ppm
+!!      4 4
+!!      15
+!!       0  0  0    0  0  0    0  0  0   15  0 15
+!!       0  0  0    0 15  7    0  0  0    0  0  0
+!!       0  0  0    0  0  0    0 15  7    0  0  0
+!!      15  0 15    0  0  0    0  0  0    0  0  0
+!!
+!!      Programs that read this format should be as lenient as possible,
+!!      accepting anything that looks remotely like a pixmap.
+!!
+!!      There is also a variant on the format, available by setting
+!!      the RAWBITS option at compile time. This variant is
+!!      different in the following ways:
+!!
+!!      - The "magic number" is "P6" instead of "P3".
+!!
+!!      - The pixel values are stored as plain bytes,  instead of
+!!        ASCII decimal.
+!!
+!!      - Whitespace is not allowed in the pixels area, and only a
+!!        single character of whitespace (typically a newline) is
+!!        allowed after the maxval.
+!!
+!!      - The files are smaller and many times faster to read and
+!!        write.
+!!
+!!      Note that this raw format can only be used for maxvals less
+!!      than or equal to 255. If you use the ppm library and try to
+!!      write a file with a larger maxval,  it will automatically
+!!      fall back on the slower but more general plain format.
+!!
+!!##AUTHOR
+!!      Copyright (C) 1989, 1991 by Jef Poskanzer.
+!!
+!!                  Last change: 27 September 1991
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    textsize(3f) - [M_pixel:TEXT] set text size in world units
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine textsize(width, height)
-!    real,intent(in) :: width
-!    real,intent(in) :: height
-! 
-! DESCRIPTION
-! 
-!    Set the maximum size of a character in the current font. Width and height
-!    are values in world units. This only applies to software text. This must
-!    be done after the font being scaled is loaded. To keep text of different
-!    sizes aligned along the same baseline note that you typically need to
-!    subtrace the descender height from the Y position.
-! 
-! EXAMPLE
-!   Sample program:
-! 
-!    program demo_textsize
-!    use M_pixel
-!    use M_writegif, only : writegif
-!    implicit none
-!    integer :: i,ii
-!       !! set up long bar as plotting area
-!       call prefsize(900,150)
-!       call vinit()
-!       call ortho2(-30.0, 30.0, -5.0, 5.0)
-!       call font('DUPLEX')
-!       call move2(-23.0,-4.5)
-!       call color(7)
-!       call textsize(2.0,2.0)
-!       call move2(-27.5,-3.0)
-!       call draw2( 27.5,-3.0)
-!       call move2(-27.5,-3.0)
-!       do i=1,7
-!          ii=nint((i*20)*0.30)
-!          call linewidth(nint(ii*2.35))
-!          call textsize(real(i),real(i))
-!          call color(5)
-!          call drawstr('aA')
-!       enddo
-!       ! write plot as GIF file
-!       call writegif('textsize.3m_pixel.gif',P_pixel,P_colormap)
-!       call vexit()
-!       ! use system to display GIF file
-!       call execute_command_line('display textsize.3m_pixel.gif')
-!    end program demo_textsize
-! 
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    textsize(3f) - [M_pixel:TEXT] set text size in world units
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine textsize(width, height)
+!!    real,intent(in) :: width
+!!    real,intent(in) :: height
+!!
+!!##DESCRIPTION
+!!    Set the maximum size of a character in the current font. Width
+!!    and height are values in world units. This only applies to software
+!!    text. This must be done after the font being scaled is loaded. To keep
+!!    text of different sizes aligned along the same baseline note that you
+!!    typically need to subtrace the descender height from the Y position.
+!!
+!!##EXAMPLE
+!!
+!!   Sample program:
+!!
+!!    program demo_textsize
+!!    use M_pixel
+!!    use M_writegif, only : writegif
+!!    implicit none
+!!    integer :: i,ii
+!!       !! set up long bar as plotting area
+!!       call prefsize(900,150)
+!!       call vinit()
+!!       call ortho2(-30.0, 30.0, -5.0, 5.0)
+!!       call font('DUPLEX')
+!!       call move2(-23.0,-4.5)
+!!       call color(7)
+!!       call textsize(2.0,2.0)
+!!       call move2(-27.5,-3.0)
+!!       call draw2( 27.5,-3.0)
+!!       call move2(-27.5,-3.0)
+!!       do i=1,7
+!!          ii=nint((i*20)*0.30)
+!!          call linewidth(nint(ii*2.35))
+!!          call textsize(real(i),real(i))
+!!          call color(5)
+!!          call drawstr('aA')
+!!       enddo
+!!       ! write plot as GIF file
+!!       call writegif('textsize.3m_pixel.gif',P_pixel,P_colormap)
+!!       call vexit()
+!!       ! use system to display GIF file
+!!       call execute_command_line('display textsize.3m_pixel.gif')
+!!    end program demo_textsize
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine textsize(width,height)
 
 ! ident_36="@(#)M_pixel::textsize(3f): set text size in world units"
@@ -5118,26 +5355,30 @@ end subroutine textsize
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    ycentertext(3f) - [M_pixel:TEXT] set text centering mode on for drawstr(3f) and drawc(3f) in Y direction
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine ycentertext()
-! 
-! DESCRIPTION
-!    Centers text in the Y direction. The text string will be draw so that
-!    its center line is aligned with the current y position. Top
-!    justification and Bottom justification are turned off.
-! 
-! EXAMPLE
-! 
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    ycentertext(3f) - [M_pixel:TEXT] set text centering mode on for drawstr(3f) and drawc(3f) in Y direction
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine ycentertext()
+!!
+!!##DESCRIPTION
+!!    Centers text in the Y direction. The text string will be draw so
+!!    that its center line is aligned with the current y position. Top
+!!    justification and Bottom justification are turned off.
+!!
+!!##EXAMPLE
+!!
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine ycentertext()
 
 ! ident_37="@(#)M_pixel::ycentertext(3f): set text centering mode on for drawstr(3f) and drawc(3f) in Y direction"
@@ -5149,30 +5390,34 @@ end subroutine ycentertext
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    xcentertext(3f) - [M_pixel:TEXT] set text centering mode on for drawstr(3f) and drawc(3f) in X direction
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine xcentertext()
-! 
-! DESCRIPTION
-!    Set text centering mode on in X direction. Y justification is
-!    turned off.
-! 
-!    Centers text in the X direction. The text string will begin at a
-!    point to the notional left of the current position and finish at a
-!    point to the right of the current position. Left justification and
-!    Right justification are turned off.
-! 
-! EXAMPLE
-! 
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    xcentertext(3f) - [M_pixel:TEXT] set text centering mode on for drawstr(3f) and drawc(3f) in X direction
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine xcentertext()
+!!
+!!##DESCRIPTION
+!!    Set text centering mode on in X direction. Y justification is
+!!    turned off.
+!!
+!!    Centers text in the X direction. The text string will begin at a
+!!    point to the notional left of the current position and finish at a
+!!    point to the right of the current position. Left justification and
+!!    Right justification are turned off.
+!!
+!!##EXAMPLE
+!!
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine xcentertext()
 
 ! ident_38="@(#)M_pixel::xcentertext(3f): set text centering mode for drawstr(3f) and drawc(3f) in X direction"
@@ -5184,79 +5429,84 @@ end subroutine xcentertext
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    centertext(3f) - [M_pixel:TEXT] set text centering mode for drawstr(3f) and drawc(3f)
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine centertext(onoff)
-!    logical,intent(in) :: onoff
-! 
-! DESCRIPTION
-!    Set text centering mode on or off. Only approximate in vertical direction.
-! 
-! OPTIONS
-!    ONOFF  set centering mode on or off
-! 
-! EXAMPLE
-!   Sample program:
-! 
-!    program demo_centertext
-!    use :: M_pixel
-!    use :: M_pixel, only : cosd, sind
-!    use :: M_writegif, only : writegif
-!    implicit none
-!    real    :: x1, y1, xx, yy, ang, r
-!    integer :: i, j
-!    !! set up drawing environment
-!    call prefsize(600,600)
-!    call vinit()
-!    call ortho2(-300.0,300.0,-300.0,300.0)
-!    call textsize(8.0,8.0)
-!    call linewidth(30)
-!    x1=-150
-!    y1=-150
-!    do j=1,4
-!       select case(j)
-!       case(1);  call  xcentertext();        x1=-150;  y1=-150;  r=100
-!       case(2);  call  ycentertext();        x1=+150;  y1=-150;  r= 30
-!       case(3);  call  centertext(.true.);   x1=-150;  y1=+150;  r=100
-!       case(4);  call  centertext(.false.);  x1=+150;  y1=+150;  r= 30
-!       end select
-!       !! draw radial lines
-!       call color(1)
-!       do i=1,80
-!          call move2(x1,y1)
-!          call draw2(x1+150.0*cosd(i*12), y1+150.0*sind(i*12))
-!       enddo
-! 
-!       !! draw rotated text
-!       call color(2)
-!       do i=1,30
-!          ang=i*12.0
-!          xx=x1+r*cosd(ang)
-!          yy=y1+r*sind(ang)
-!          call move2(xx,yy)
-!          call textang(ang)
-!          call color(7)
-!          call drawstr('This is angled text')
-!          call color(1)
-!       enddo
-!    enddo
-! 
-!    call  writegif('centertext.3m_pixel.gif',P_pixel,P_colormap)
-!    call  execute_command_line('display centertext.3m_pixel.gif')
-! 
-!    call vexit()
-! 
-!    end program demo_centertext
-! 
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    centertext(3f) - [M_pixel:TEXT] set text centering mode for drawstr(3f) and drawc(3f)
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine centertext(onoff)
+!!    logical,intent(in) :: onoff
+!!
+!!##DESCRIPTION
+!!    Set text centering mode on or off. Only approximate in vertical
+!!    direction.
+!!
+!!##OPTIONS
+!!    ONOFF  set centering mode on or off
+!!
+!!##EXAMPLE
+!!
+!!   Sample program:
+!!
+!!    program demo_centertext
+!!    use :: M_pixel
+!!    use :: M_pixel, only : cosd, sind
+!!    use :: M_writegif, only : writegif
+!!    implicit none
+!!    real    :: x1, y1, xx, yy, ang, r
+!!    integer :: i, j
+!!    !! set up drawing environment
+!!    call prefsize(600,600)
+!!    call vinit()
+!!    call ortho2(-300.0,300.0,-300.0,300.0)
+!!    call textsize(8.0,8.0)
+!!    call linewidth(30)
+!!    x1=-150
+!!    y1=-150
+!!    do j=1,4
+!!       select case(j)
+!!       case(1);  call  xcentertext();        x1=-150;  y1=-150;  r=100
+!!       case(2);  call  ycentertext();        x1=+150;  y1=-150;  r= 30
+!!       case(3);  call  centertext(.true.);   x1=-150;  y1=+150;  r=100
+!!       case(4);  call  centertext(.false.);  x1=+150;  y1=+150;  r= 30
+!!       end select
+!!       !! draw radial lines
+!!       call color(1)
+!!       do i=1,80
+!!          call move2(x1,y1)
+!!          call draw2(x1+150.0*cosd(i*12), y1+150.0*sind(i*12))
+!!       enddo
+!!
+!!       !! draw rotated text
+!!       call color(2)
+!!       do i=1,30
+!!          ang=i*12.0
+!!          xx=x1+r*cosd(ang)
+!!          yy=y1+r*sind(ang)
+!!          call move2(xx,yy)
+!!          call textang(ang)
+!!          call color(7)
+!!          call drawstr('This is angled text')
+!!          call color(1)
+!!       enddo
+!!    enddo
+!!
+!!    call  writegif('centertext.3m_pixel.gif',P_pixel,P_colormap)
+!!    call  execute_command_line('display centertext.3m_pixel.gif')
+!!
+!!    call vexit()
+!!
+!!    end program demo_centertext
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine centertext(onoff)
 
 ! ident_39="@(#)M_pixel::centertext(3f): set text centering mode for drawstr(3f) and drawc(3f)"
@@ -5270,63 +5520,67 @@ end subroutine centertext
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    textang(3f) - [M_pixel:TEXT] set text angle
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine textang(ang)
-!    real,intent(in) :: ang
-! 
-! DESCRIPTION
-!    Set the text angle. This angles strings and chars. This routine only
-!    affects software text.
-! 
-! OPTIONS
-!    ANG   The angle in degrees to draw text with when using drawstr(3f).
-!          Angles are measured counterclockwise with zero degrees at the horizontal
-!          line to the right of the original.
-! 
-! EXAMPLE
-!   Sample program:
-! 
-!    program demo_textang
-!    use :: M_pixel
-!    use :: M_pixel, only : cosd, sind
-!    use :: M_writegif, only : writegif
-!    implicit none
-!    integer :: i
-!    !! set up drawing environment
-!    call prefsize(600,600)
-!    call vinit()
-!    call ortho2(-100.0,100.0,-100.0,100.0)
-!    call textsize(7.0,7.0)
-!    call linewidth(20)
-!    do i=1,30
-!       !! draw radial lines
-!       call color(1)
-!       call move2(0.0,0.0)
-!       call draw2(100.0*cosd(i*12),100.0*sind(i*12))
-!       !! draw rotated text
-!       call color(7)
-!       call move2(30.0*cosd(i*12),30.0*sind(i*12))
-!       call textang(i*12.0)
-!       call drawstr('angled text')
-!    enddo
-! 
-!    call writegif('textang.3m_pixel.gif',P_pixel,P_colormap)
-!    call execute_command_line('display textang.3m_pixel.gif')
-! 
-!    call vexit()
-! 
-!    end program demo_textang
-! 
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    textang(3f) - [M_pixel:TEXT] set text angle
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine textang(ang)
+!!    real,intent(in) :: ang
+!!
+!!##DESCRIPTION
+!!    Set the text angle. This angles strings and chars. This routine only
+!!    affects software text.
+!!
+!!##OPTIONS
+!!    ANG   The angle in degrees to draw text with when using drawstr(3f).
+!!          Angles are measured counterclockwise with zero degrees at the horizontal
+!!          line to the right of the original.
+!!
+!!##EXAMPLE
+!!
+!!   Sample program:
+!!
+!!    program demo_textang
+!!    use :: M_pixel
+!!    use :: M_pixel, only : cosd, sind
+!!    use :: M_writegif, only : writegif
+!!    implicit none
+!!    integer :: i
+!!    !! set up drawing environment
+!!    call prefsize(600,600)
+!!    call vinit()
+!!    call ortho2(-100.0,100.0,-100.0,100.0)
+!!    call textsize(7.0,7.0)
+!!    call linewidth(20)
+!!    do i=1,30
+!!       !! draw radial lines
+!!       call color(1)
+!!       call move2(0.0,0.0)
+!!       call draw2(100.0*cosd(i*12),100.0*sind(i*12))
+!!       !! draw rotated text
+!!       call color(7)
+!!       call move2(30.0*cosd(i*12),30.0*sind(i*12))
+!!       call textang(i*12.0)
+!!       call drawstr('angled text')
+!!    enddo
+!!
+!!    call writegif('textang.3m_pixel.gif',P_pixel,P_colormap)
+!!    call execute_command_line('display textang.3m_pixel.gif')
+!!
+!!    call vexit()
+!!
+!!    end program demo_textang
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine textang(ang)
 
 ! ident_40="@(#)M_pixel::textang(3f): set angle in degrees to draw text at using drawstr(3f)"
@@ -5341,83 +5595,85 @@ end subroutine textang
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    font(3f) - [M_pixel:TEXT] select font style by name
-!    (LICENSE:PD)
-! 
-! SYNOPSIS:
-!  definition:
-! 
-!         subroutine font(fontname)
-!         character(len=*),intent(in) :: fontname
-! 
-! DESCRIPTION
-!    Set the current font. Allowed names are
-! 
-!       o futura.l  SIMPLEX
-!       o futura.m  DUPLEX
-!       o times.r   COMPLEX
-!       o times.i   ITALIC
-! 
-! EXAMPLE
-!   Sample Program:
-! 
-!    program demo_font
-!    use :: M_pixel
-!    use :: M_writegif, only : writegif
-!    implicit none
-!    real    :: left
-!    real    :: baseline=80.0
-!    integer :: icolor=1
-!       !! set up drawing surface
-!       call prefsize(400, 400)
-!       call vinit()
-!       call viewport(0.0, 400.0, 400.0, 0.0)
-!       call ortho2(-100.0, 100.0, -100.0, 100.0)
-!       call color(7)
-!       call clear()
-!       call textsize(10.0, 10.0)
-!       !! place a vertical line along the edge
-!       call color(1)
-!       call move2(-90.0, -90.0)
-!       call draw2(-90.0, 90.0)
-!       !! make a centered title at top a bit bolder and bigger
-!       call xcentertext()
-!       call textsize(13.0, 13.0)
-!       call linewidth(90)
-!       left=0
-!       call nextline('Font Samples')
-!       !! print the font samples
-!       left=-90
-!       call linewidth(0)
-!       call textsize(10.0, 10.0)
-!       call centertext(.false.)
-!       icolor=icolor-1
-!       call nextline('DEFAULT (ie. futura.l)')
-!       icolor=icolor-1
-!       call nextline('now call font(3f) ...')
-!       call nextline('SIMPLEX, or futura.l')
-!       call nextline('COMPLEX, or times.r')
-!       call nextline('ITALIC, or times.i')
-!       call nextline('DUPLEX, or futura.m')
-!       call writegif('font.3m_pixel.gif',P_pixel,P_colormap)
-!       !call execute_command_line('display font.3m_pixel.gif')
-!       call vexit()
-!    contains
-!    subroutine nextline(string)
-!    character(len=*) :: string
-!    !! reduce some duplicate code; very specific to this example
-!    integer :: iend
-!       iend=index(string,',')  ! if comma, assume font name found
-!       if(iend.ne.0)call font(string(:iend-1)) ! change font
-!       icolor=icolor+1         ! set pen color
-!       call color(icolor)
-!       baseline=baseline-20    ! move down before drawing line
-!       call move2(left, baseline)
-!       call drawstr(string)    ! draw string
-!    end subroutine nextline
-! 
-!    end program demo_font
+!>
+!!##NAME
+!!    font(3f) - [M_pixel:TEXT] select font style by name
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS:
+!!  definition:
+!!
+!!         subroutine font(fontname)
+!!         character(len=*),intent(in) :: fontname
+!!
+!!##DESCRIPTION
+!!    Set the current font. Allowed names are
+!!
+!!       o futura.l  SIMPLEX
+!!       o futura.m  DUPLEX
+!!       o times.r   COMPLEX
+!!       o times.i   ITALIC
+!!
+!!##EXAMPLE
+!!
+!!   Sample Program:
+!!
+!!    program demo_font
+!!    use :: M_pixel
+!!    use :: M_writegif, only : writegif
+!!    implicit none
+!!    real    :: left
+!!    real    :: baseline=80.0
+!!    integer :: icolor=1
+!!       !! set up drawing surface
+!!       call prefsize(400, 400)
+!!       call vinit()
+!!       call viewport(0.0, 400.0, 400.0, 0.0)
+!!       call ortho2(-100.0, 100.0, -100.0, 100.0)
+!!       call color(7)
+!!       call clear()
+!!       call textsize(10.0, 10.0)
+!!       !! place a vertical line along the edge
+!!       call color(1)
+!!       call move2(-90.0, -90.0)
+!!       call draw2(-90.0, 90.0)
+!!       !! make a centered title at top a bit bolder and bigger
+!!       call xcentertext()
+!!       call textsize(13.0, 13.0)
+!!       call linewidth(90)
+!!       left=0
+!!       call nextline('Font Samples')
+!!       !! print the font samples
+!!       left=-90
+!!       call linewidth(0)
+!!       call textsize(10.0, 10.0)
+!!       call centertext(.false.)
+!!       icolor=icolor-1
+!!       call nextline('DEFAULT (ie. futura.l)')
+!!       icolor=icolor-1
+!!       call nextline('now call font(3f) ...')
+!!       call nextline('SIMPLEX, or futura.l')
+!!       call nextline('COMPLEX, or times.r')
+!!       call nextline('ITALIC, or times.i')
+!!       call nextline('DUPLEX, or futura.m')
+!!       call writegif('font.3m_pixel.gif',P_pixel,P_colormap)
+!!       !call execute_command_line('display font.3m_pixel.gif')
+!!       call vexit()
+!!    contains
+!!    subroutine nextline(string)
+!!    character(len=*) :: string
+!!    !! reduce some duplicate code; very specific to this example
+!!    integer :: iend
+!!       iend=index(string,',')  ! if comma, assume font name found
+!!       if(iend.ne.0)call font(string(:iend-1)) ! change font
+!!       icolor=icolor+1         ! set pen color
+!!       call color(icolor)
+!!       baseline=baseline-20    ! move down before drawing line
+!!       call move2(left, baseline)
+!!       call drawstr(string)    ! draw string
+!!    end subroutine nextline
+!!
+!!    end program demo_font
 subroutine font(fontname)
 
 ! ident_41="@(#)M_pixel::font(3f): select font style by name"
@@ -5439,64 +5695,69 @@ end subroutine font
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    drawchar(3f) - [M_pixel:TEXT]  Draw a character at the current position
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine drawchar(ch)
-!    character(len=1),intent(in) :: ch
-! 
-! DESCRIPTION
-!    Draw a character at the current position. Uses current line color and thickness and text justification mode.
-! 
-! EXAMPLE
-!   Sample program:
-! 
-!    program demo_drawchar
-!    use M_pixel
-!    use M_writegif_animated, only : write_animated_gif
-!    implicit none
-!    integer,parameter :: isize=600
-!    integer           :: movie(32:124,0:isize-1,0:isize-1)
-!    integer           :: i
-!    !! set up environment
-!    call prefsize(isize,isize)
-!    call vinit()
-!    call ortho2(-100.0,100.0,-100.0,100.0)
-!    call textsize(150.0,150.0)
-!    call centertext(.true.)
-! 
-!    do i=33,124
-!       !! draw reference circle and crosshairs
-!       call linewidth(100)
-!       call color(0)
-!       call clear()
-!       call color(4)
-!       call circle(0.0,0.0,75.0)
-!       call move2(-75.0,0.0)
-!       call draw2(75.0,0.0)
-!       call move2(0.0,-75.0)
-!       call draw2(0.0,75.0)
-!       call color(7)
-!       call linewidth(200)
-!       call textang(3.0*i)
-!       call move2(0.0,0.0)
-!       call drawchar(char(i))
-!       movie(i,:,:)=P_pixel
-!    enddo
-!    call vexit()
-!    !! write to file and display with display(1)
-!    call write_animated_gif('drawchar.3m_pixel.gif',movie,P_colormap)
-!    call execute_command_line('display drawchar.3m_pixel.gif')
-!    end program demo_drawchar
-! 
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    drawchar(3f) - [M_pixel:TEXT]  Draw a character at the current position
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine drawchar(ch)
+!!    character(len=1),intent(in) :: ch
+!!
+!!##DESCRIPTION
+!!    Draw a character at the current position. Uses current line color
+!!    and thickness and text justification mode.
+!!
+!!##EXAMPLE
+!!
+!!   Sample program:
+!!
+!!    program demo_drawchar
+!!    use M_pixel
+!!    use M_writegif_animated, only : write_animated_gif
+!!    implicit none
+!!    integer,parameter :: isize=600
+!!    integer           :: movie(32:124,0:isize-1,0:isize-1)
+!!    integer           :: i
+!!    !! set up environment
+!!    call prefsize(isize,isize)
+!!    call vinit()
+!!    call ortho2(-100.0,100.0,-100.0,100.0)
+!!    call textsize(150.0,150.0)
+!!    call centertext(.true.)
+!!
+!!    do i=33,124
+!!       !! draw reference circle and crosshairs
+!!       call linewidth(100)
+!!       call color(0)
+!!       call clear()
+!!       call color(4)
+!!       call circle(0.0,0.0,75.0)
+!!       call move2(-75.0,0.0)
+!!       call draw2(75.0,0.0)
+!!       call move2(0.0,-75.0)
+!!       call draw2(0.0,75.0)
+!!       call color(7)
+!!       call linewidth(200)
+!!       call textang(3.0*i)
+!!       call move2(0.0,0.0)
+!!       call drawchar(char(i))
+!!       movie(i,:,:)=P_pixel
+!!    enddo
+!!    call vexit()
+!!    !! write to file and display with display(1)
+!!    call write_animated_gif('drawchar.3m_pixel.gif',movie,P_colormap)
+!!    call execute_command_line('display drawchar.3m_pixel.gif')
+!!    end program demo_drawchar
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine drawchar(ch)
 
 ! ident_42="@(#)M_pixel::drawchar(3f): draw text at the current position"
@@ -5509,70 +5770,73 @@ end subroutine drawchar
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    drawstr(3f) - [M_pixel:TEXT]  Draw the text string at the current position
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine drawstr(string)
-!    character(len=*),intent(in) :: string
-! 
-! DESCRIPTION
-!    Draw a text string at the current position. Uses current line color
-!    and thickness and text centering mode.
-! 
-! EXAMPLE
-!  Sample program:
-! 
-!       program demo_drawstr
-!       use M_pixel
-!       use :: M_writegif, only : writegif
-!       implicit none
-!       call prefsize(400,400)
-!       call vinit()
-!       call ortho2(-1.0,1.0,-1.0,1.0)
-!       ! by default the drawing surface is
-!       ! a square ranging from -1 to 1 in both
-!       ! the X and Y axis
-!       write(*,*)D_BLACK, D_GREEN, D_RED
-! 
-!       call color(D_BLACK)    ! set current color to black
-!       call clear()           ! clear to current color
-! 
-!       ! SET COMMON TEXT ATTRIBUTES
-!       call color(D_GREEN)    ! we want to draw in green
-!       call circle(0.0,0.0,1.0)
-!       call font('futura.m')  ! set font
-!       call textsize(0.1,0.1) ! font size
-! 
-!       ! DRAW A STRING
-!       call move2(-1.0, 0.0)
-!       call drawstr('Hello')  ! draw string at current position
-!       ! note that current position is now at end of this string
-! 
-!       ! CHANGE SOME TEXT ATTRIBUTES AGAIN
-!       call linewidth(20)     ! set line width
-!       call color(D_RED)      ! change color
-!       call textang(45.0)     ! change text angle
-! 
-!       call drawstr(' World!')! draw string at current position
-!       !! render pixel array to a file
-!       call writegif('drawstr.3m_pixel.gif',P_pixel,P_colormap)
-!       !! display graphic assuming display(1) is available
-!       call execute_command_line('display drawstr.3m_pixel.gif')
-! 
-!       call vexit()           !  wrap up and exit graphics mode
-! 
-!       end program demo_drawstr
-!   Results:
-! 
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
-!
+!>
+!!##NAME
+!!    drawstr(3f) - [M_pixel:TEXT]  Draw the text string at the current position
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine drawstr(string)
+!!    character(len=*),intent(in) :: string
+!!
+!!##DESCRIPTION
+!!    Draw a text string at the current position. Uses current line color
+!!    and thickness and text centering mode.
+!!
+!!##EXAMPLE
+!!
+!!  Sample program:
+!!
+!!       program demo_drawstr
+!!       use M_pixel
+!!       use :: M_writegif, only : writegif
+!!       implicit none
+!!       call prefsize(400,400)
+!!       call vinit()
+!!       call ortho2(-1.0,1.0,-1.0,1.0)
+!!       ! by default the drawing surface is
+!!       ! a square ranging from -1 to 1 in both
+!!       ! the X and Y axis
+!!       write(*,*)D_BLACK, D_GREEN, D_RED
+!!
+!!       call color(D_BLACK)    ! set current color to black
+!!       call clear()           ! clear to current color
+!!
+!!       ! SET COMMON TEXT ATTRIBUTES
+!!       call color(D_GREEN)    ! we want to draw in green
+!!       call circle(0.0,0.0,1.0)
+!!       call font('futura.m')  ! set font
+!!       call textsize(0.1,0.1) ! font size
+!!
+!!       ! DRAW A STRING
+!!       call move2(-1.0, 0.0)
+!!       call drawstr('Hello')  ! draw string at current position
+!!       ! note that current position is now at end of this string
+!!
+!!       ! CHANGE SOME TEXT ATTRIBUTES AGAIN
+!!       call linewidth(20)     ! set line width
+!!       call color(D_RED)      ! change color
+!!       call textang(45.0)     ! change text angle
+!!
+!!       call drawstr(' World!')! draw string at current position
+!!       !! render pixel array to a file
+!!       call writegif('drawstr.3m_pixel.gif',P_pixel,P_colormap)
+!!       !! display graphic assuming display(1) is available
+!!       call execute_command_line('display drawstr.3m_pixel.gif')
+!!
+!!       call vexit()           !  wrap up and exit graphics mode
+!!
+!!       end program demo_drawstr
+!!   Results:
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine drawstr_(string)
 !-!use :: M_pixel, only : cosd, sind
 
@@ -5667,50 +5931,54 @@ end subroutine drawstr_
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    getgp2(3f) - [M_pixel] Gets the current graphics position in world coords.
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine getgp2(x, y)
-!    real,intent(out) :: x,y
-! 
-! DESCRIPTION
-!    Gets the current graphics position in world coords.
-! 
-! RETURNS
-!    X  X coordinate of current position
-!    Y  Y coordinate of current position
-! 
-! EXAMPLE
-!   Sample program
-! 
-!      program demo_getgp2
-!      use M_pixel
-!      implicit none
-!      real :: X,Y
-!      call prefsize(20,20)
-!      call vinit()
-!      call ortho2(-100.0,100.0,-100.0,100.0)
-!      call move2(0.0,0.0)
-!      call draw2(96.5,98.333)
-! 
-!      call getgp2(X,Y)
-!      write(*,*)'CURRENT POSITION (X,Y)=',X,Y
-! 
-!      call vexit()
-!      end program demo_getgp2
-! 
-!   Results
-! 
-!    CURRENT POSITION (X,Y)=   96.5000000       98.3330002
-! 
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    getgp2(3f) - [M_pixel] Gets the current graphics position in world coords.
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine getgp2(x, y)
+!!    real,intent(out) :: x,y
+!!
+!!##DESCRIPTION
+!!    Gets the current graphics position in world coords.
+!!
+!!##RETURNS
+!!    X  X coordinate of current position
+!!    Y  Y coordinate of current position
+!!
+!!##EXAMPLE
+!!
+!!   Sample program
+!!
+!!      program demo_getgp2
+!!      use M_pixel
+!!      implicit none
+!!      real :: X,Y
+!!      call prefsize(20,20)
+!!      call vinit()
+!!      call ortho2(-100.0,100.0,-100.0,100.0)
+!!      call move2(0.0,0.0)
+!!      call draw2(96.5,98.333)
+!!
+!!      call getgp2(X,Y)
+!!      write(*,*)'CURRENT POSITION (X,Y)=',X,Y
+!!
+!!      call vexit()
+!!      end program demo_getgp2
+!!
+!!   Results
+!!
+!!    CURRENT POSITION (X,Y)=   96.5000000       98.3330002
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine getgp2(x, y)
 
 ! ident_44="@(#)M_pixel::getgp2(3f): get current graphics position"
@@ -5724,23 +5992,26 @@ end subroutine getgp2
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    getdisplaysize(3f) - [M_pixel] Returns the width and height of the device in pixels
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine getdisplaysize(w, h)
-!    real,intent(in) :: w, h
-! 
-! DESCRIPTION
-!    Returns the width and height of the device in pixels in w and h respectively.
-! 
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    getdisplaysize(3f) - [M_pixel] Returns the width and height of the device in pixels
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine getdisplaysize(w, h)
+!!    real,intent(in) :: w, h
+!!
+!!##DESCRIPTION
+!!    Returns the width and height of the device in pixels in w and h
+!!    respectively.
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!##LICENSE
+!!    Public Domain
 subroutine getdisplaysize(w, h)
 
 ! ident_45="@(#)M_pixel::getdisplaysize(3f): Returns the width and height of the device in pixels"
@@ -5754,42 +6025,46 @@ end subroutine getdisplaysize
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    point2(3f) - [M_pixel] Draw a point at x, y
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine point2(x, y)
-!    real,intent(in) :: x, y
-! 
-! DESCRIPTION
-!    Draw a point at x, y. Points are drawn with the current color as
-!    a circle with a diameter equal to the current linewidth.
-! 
-! EXAMPLE
-!   Sample program:
-! 
-!    program demo_point2
-!    use :: M_pixel
-!    use :: M_writegif, only : writegif
-!    implicit none
-!    integer :: i
-!    call vinit()
-!    call color(5)
-!    do i=1,20
-!       call linewidth(50*i)
-!       call point2(real(i*25),real(i*25))
-!    enddo
-!    call writegif('point2.3m_pixel.gif',P_pixel,P_colormap)
-!    call vexit()
-!    end program demo_point2
-! 
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    point2(3f) - [M_pixel:DRAW] Draw a point at x, y
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine point2(x, y)
+!!    real,intent(in) :: x, y
+!!
+!!##DESCRIPTION
+!!    Draw a point at x, y. Points are drawn with the current color as
+!!    a circle with a diameter equal to the current linewidth.
+!!
+!!##EXAMPLE
+!!
+!!   Sample program:
+!!
+!!    program demo_point2
+!!    use :: M_pixel
+!!    use :: M_writegif, only : writegif
+!!    implicit none
+!!    integer :: i
+!!    call vinit()
+!!    call color(5)
+!!    do i=1,20
+!!       call linewidth(50*i)
+!!       call point2(real(i*25),real(i*25))
+!!    enddo
+!!    call writegif('point2.3m_pixel.gif',P_pixel,P_colormap)
+!!    call vexit()
+!!    end program demo_point2
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine point2(x, y)
 
 ! ident_46="@(#)M_pixel::point2(3f): Draw a point at x, y"
@@ -5802,55 +6077,61 @@ end subroutine point2
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    state(3f) - [M_pixel] print graphics state of M_pixel graphics module
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    recursive subroutine state(string)
-!    character(len=*),intent(in),optional :: string
-! 
-! DESCRIPTION
-!    Print the state of the M_pixel graphics module. This is primarily used in
-!    debugging during program development and is not currently in the M_draw library.
-! 
-! OPTIONS
-!    STRING  can have the following values
-!            o all
-!            o default
-!            o colormap
-! 
-! EXAMPLE
-!   Sample program:
-! 
-!    program demo_state
-!    use M_pixel
-!    implicit none
-!       call prefsize(640,400)
-!       call vinit()
-!       call state()
-!       call vexit()
-!    end program demo_state
-!   Results:
-! 
-!    VINIT CALLED:        T
-!    PREFSIZE: WIDTH=         640  HEIGHT=         400
-!    CURRENT POSITION: X=   0.00000000      Y=   0.00000000
-!    LINE WIDTH:                    1
-!    FONT:               SIMPLEX
-!    COLOR NUMBER:                  1
-!    CIRCLE PRECISION:             60
-!    TEXT:               HEIGHT=   10.0000000     WIDTH=   7.00000000     ANGLE=   0.00000000
-!    TEXT JUSTIFICATION: X_CENTER= F Y_CENTER= F
-!    VIEWPORT:           LEFT=   0.00000000     RIGHT=   639.000000     BOTTOM=   399.000000     TOP=   0.00000000
-!    WINDOW:             LEFT=   0.00000000     RIGHT=   640.000000     BOTTOM=   0.00000000     TOP=   400.000000
-! 
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    state(3f) - [M_pixel] print graphics state of M_pixel graphics module
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    recursive subroutine state(string)
+!!    character(len=*),intent(in),optional :: string
+!!
+!!##DESCRIPTION
+!!    Print the state of the M_pixel graphics module. This is primarily
+!!    used in debugging during program development and is not currently in
+!!    the M_draw library.
+!!
+!!##OPTIONS
+!!    STRING  can have the following values
+!!            o all
+!!            o default
+!!            o colormap
+!!
+!!##EXAMPLE
+!!
+!!   Sample program:
+!!
+!!    program demo_state
+!!    use M_pixel
+!!    implicit none
+!!       call prefsize(640,400)
+!!       call vinit()
+!!       call state()
+!!       call vexit()
+!!    end program demo_state
+!!
+!!   Results:
+!!
+!!    VINIT CALLED:        T
+!!    PREFSIZE: WIDTH=         640  HEIGHT=         400
+!!    CURRENT POSITION: X=   0.00000000      Y=   0.00000000
+!!    LINE WIDTH:                    1
+!!    FONT:               SIMPLEX
+!!    COLOR NUMBER:                  1
+!!    CIRCLE PRECISION:             60
+!!    TEXT:               HEIGHT=   10.0000000     WIDTH=   7.00000000     ANGLE=   0.00000000
+!!    TEXT JUSTIFICATION: X_CENTER= F Y_CENTER= F
+!!    VIEWPORT:           LEFT=   0.00000000     RIGHT=   639.000000     BOTTOM=   399.000000     TOP=   0.00000000
+!!    WINDOW:             LEFT=   0.00000000     RIGHT=   640.000000     BOTTOM=   0.00000000     TOP=   400.000000
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 recursive subroutine state(string)
 
 ! ident_47="@(#)M_pixel::state(3f): print graphics state of M_pixel graphics module"
@@ -5894,81 +6175,85 @@ end subroutine state
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
-! NAME
-!    poly2(3f) - [M_pixel:POLYGONS] construct a polygon from an array of points
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!  definition:
-! 
-!    subroutine poly2(n, points)
-!    integer,intent(in) :: n
-!    real,intent(in)    :: points(2, n)
-! 
-! DESCRIPTION
-!    Construct a polygon from an array of points
-! EXAMPLE
-!   Sample program:
-! 
-!    program demo_poly2
-!    use M_pixel
-!    use M_writegif, only : writegif
-!    implicit none
-!    integer :: i, j, icolor
-!    real    :: xx, yy
-!       call prefsize(512,512)
-!       call vinit()
-!       call ortho2(0.0,256.0,0.0,256.0)
-!       call linewidth(1)
-!       ! step thru a series of rectangular cells
-!       icolor=0
-!       xx=0.0
-!       do i=1,16
-!          yy=0.0
-!          do j=1,16
-!             yy=yy+16.0
-!             icolor=icolor+1
-!             call setcolor(icolor,xx,yy)
-!          enddo
-!          xx=xx+16.0
-!       enddo
-!       call writegif('poly2.3m_pixel.gif',P_pixel,P_colormap)
-!       call vexit()
-!    contains
-! 
-!    subroutine setcolor(iset,xx,yy)
-!    use M_pixel,  only : i2s
-!    use M_pixel,  only : color_name2rgb
-!    integer,intent(in) :: iset
-!    real,intent(in)    :: xx,yy
-!    character(len=80)  :: echoname
-!    real               :: points(2,100)
-!    real               :: red, green, blue
-!       if(iset.gt.255)return
-!       ! determine coordinates of next square
-!       points(1:2,1)=[xx,      yy      ]
-!       points(1:2,2)=[xx,      yy+16.0 ]
-!       points(1:2,3)=[xx+16.0, yy+16.0 ]
-!       points(1:2,4)=[xx+16.0, yy      ]
-!       points(1:2,5)=[xx,      yy      ]
-!       ! get some nice RGB values to try from named colors known by M_pixel module
-!       call color_name2rgb(i2s(icolor),red,green,blue,echoname)
-!       if(echoname.eq.'Unknown') return
-!       ! set a color number to the new RGB values
-!       write(*,*)icolor, nint(red*2.55), nint(green*2.55), nint(blue*2.55),trim(echoname)
-!       call mapcolor(icolor, nint(red*2.55), nint(green*2.55), nint(blue*2.55))
-!       ! set to the new color
-!       call color(icolor)
-!       ! fill the rectangle in that color
-!       call poly2(5,points)
-!    end subroutine setcolor
-! 
-!    end program demo_poly2
-! 
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    poly2(3f) - [M_pixel:POLYGONS] construct a polygon from an array of points
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!  definition:
+!!
+!!    subroutine poly2(n, points)
+!!    integer,intent(in) :: n
+!!    real,intent(in)    :: points(2, n)
+!!
+!!##DESCRIPTION
+!!    Construct a polygon from an array of points
+!!
+!!##EXAMPLE
+!!
+!!   Sample program:
+!!
+!!    program demo_poly2
+!!    use M_pixel
+!!    use M_writegif, only : writegif
+!!    implicit none
+!!    integer :: i, j, icolor
+!!    real    :: xx, yy
+!!       call prefsize(512,512)
+!!       call vinit()
+!!       call ortho2(0.0,256.0,0.0,256.0)
+!!       call linewidth(1)
+!!       ! step thru a series of rectangular cells
+!!       icolor=0
+!!       xx=0.0
+!!       do i=1,16
+!!          yy=0.0
+!!          do j=1,16
+!!             yy=yy+16.0
+!!             icolor=icolor+1
+!!             call setcolor(icolor,xx,yy)
+!!          enddo
+!!          xx=xx+16.0
+!!       enddo
+!!       call writegif('poly2.3m_pixel.gif',P_pixel,P_colormap)
+!!       call vexit()
+!!    contains
+!!
+!!    subroutine setcolor(iset,xx,yy)
+!!    use M_pixel,  only : i2s
+!!    use M_pixel,  only : color_name2rgb
+!!    integer,intent(in) :: iset
+!!    real,intent(in)    :: xx,yy
+!!    character(len=80)  :: echoname
+!!    real               :: points(2,100)
+!!    real               :: red, green, blue
+!!       if(iset.gt.255)return
+!!       ! determine coordinates of next square
+!!       points(1:2,1)=[xx,      yy      ]
+!!       points(1:2,2)=[xx,      yy+16.0 ]
+!!       points(1:2,3)=[xx+16.0, yy+16.0 ]
+!!       points(1:2,4)=[xx+16.0, yy      ]
+!!       points(1:2,5)=[xx,      yy      ]
+!!       ! get some nice RGB values to try from named colors known by M_pixel module
+!!       call color_name2rgb(i2s(icolor),red,green,blue,echoname)
+!!       if(echoname.eq.'Unknown') return
+!!       ! set a color number to the new RGB values
+!!       write(*,*)icolor, nint(red*2.55), nint(green*2.55), nint(blue*2.55),trim(echoname)
+!!       call mapcolor(icolor, nint(red*2.55), nint(green*2.55), nint(blue*2.55))
+!!       ! set to the new color
+!!       call color(icolor)
+!!       ! fill the rectangle in that color
+!!       call poly2(5,points)
+!!    end subroutine setcolor
+!!
+!!    end program demo_poly2
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!##LICENSE
+!!    Public Domain
 subroutine poly2(n,points)
 
 ! ident_48="@(#)M_pixel::poly2(3f): construct a polygon from an array of points"
@@ -6640,226 +6925,232 @@ end function anyscalar_to_double
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
 !===================================================================================================================================
 
-! NAME
-!    HUE(3f) - [M_pixel] converts a color's components from one color model to another
-!    (LICENSE:PD)
-! 
-! SYNOPSIS
-!    subroutine hue(modei,clr1i,clr2i,clr3i,modeo,clr1o,clr2o,clr3o,status)
-! 
-!     character(len=*),intent(in) :: modei
-!     character(len=*),intent(in) :: modeo
-!     real,intent(in)             :: clr1i,clr2i,clr3i
-!     real,intent(out)            :: clr1o,clr2o,clr3o
-!     integer,intent(out)         :: status
-! 
-! DESCRIPTION
-!    Basic color models:
-! 
-!     +----------------------------------------------------------+
-!     | valid values for modei and modeo as well as the          |
-!     | corresponding meanings for clr1*, clr2*, and clr3* are:  |
-!     +----------------------------------------------------------+
-!     |model| clr1         |         clr2      |         clr3    |
-!     |-----+--------------+-------------------+-----------------|
-!     |hls  |hue           |lightness          |saturation       |
-!     |-----+--------------+-------------------+-----------------|
-!     |hsl  |hue           |saturation         |lightness        |
-!     |-----+--------------+-------------------+-----------------|
-!     |hvs  |hue           |value              |saturation       |
-!     |-----+--------------+-------------------+-----------------|
-!     |hsv  |hue           |saturation         |value            |
-!     |-----+--------------+-------------------+-----------------|
-!     |rgb  |red           |green              |blue             |
-!     |-----+--------------+-------------------+-----------------|
-!     |cmy  |cyan          |magenta            |yellow           |
-!     |-----+--------------+-------------------+-----------------|
-!     |yiq  |gray scale)   |orange-blue        |purple-green     |
-!     |     |              |chrominance        |chrominance      |
-!     +----------------------------------------------------------+
-! 
-!    *  lightness, value, saturation, red, green, blue, cyan, magenta, and
-!       yellow range from 0 to 100,
-! 
-!       * hue ranges from 0 to 360 degrees,
-!       * y ranges from 0 to 100,
-!       * i ranges from -60 to 60,
-!       * q ranges from -52 to 52
-! 
-!    The STATUS variable can signal the following conditions:
-! 
-!      -1   modei = modeo, so no substantial conversion was done,
-!       1   one of the input color values was outside the allowable range,
-!       2   modei was invalid
-!       3   modeo was invalid
-! 
-! EXAMPLE
-! Sample program
-! 
-!     program demo_hue
-!     use M_pixel, only : hue
-!     implicit none
-!        !                      NAME        RGB(0-255)            HLS(0-100)
-!        call check_name('hls', 'red',      [ 100,  0,    0   ], [ 0,    50,   100 ])
-!        call check_name('hls', 'orange',   [ 100,  65,   0   ], [ 39,   50,   100 ])
-!        call check_name('hls', 'yellow',   [ 100,  100,  0   ], [ 60,   50,   100 ])
-!        call check_name('hls', 'green',    [ 0,    100,  0   ], [ 120,  50,   100 ])
-!        call check_name('hls', 'cyan',     [ 0,    100,  100 ], [ 180,  50,   100 ])
-!        call check_name('hls', 'blue',     [ 0,    0,    100 ], [ 240,  50,   100 ])
-!        call check_name('hls', 'magenta',  [ 100,  0,    100 ], [ 300,  50,   100 ])
-!        call check_name('hls', 'black',    [ 0,    0,    0   ], [ 0,    0,    0   ])
-!        call check_name('hls', 'white',    [ 100,  100,  100 ], [ 0,    100,  0   ])
-!        call check_name('hsv', 'black',    [ 0,    0,    0   ], [ 0,    0,    0   ])
-!        !                      NAME        RGB(0-255)            HSV(0-100)
-!        call check_name('hsv', 'gray50',   [ 50,   50,   50  ], [ 0,    0,    50  ])
-!        call check_name('hsv', 'silver',   [ 75,   75,   75  ], [ 0,    0,    75  ])
-!        call check_name('hsv', 'white',    [ 100,  100,  100 ], [ 0,    0,    100 ])
-!        call check_name('hsv', 'red4',     [ 55,   0,    0   ], [ 0,    100,  55  ])
-!        call check_name('hsv', 'red',      [ 100,  0,    0   ], [ 0,    100,  100 ])
-!        call check_name('hsv', 'olive',    [ 50,   50,   0   ], [ 60,   100,  50  ])
-!        call check_name('hsv', 'yellow',   [ 100,  100,  0   ], [ 60,   100,  100 ])
-!        call check_name('hsv', 'green',    [ 0,    100,  0   ], [ 120,  100,  100 ])
-!        call check_name('hsv', 'lime',     [ 0,    100,  0   ], [ 120,  100,  100 ])
-!        call check_name('hsv', 'teal',     [ 0,    50,   50  ], [ 180,  100,  50  ])
-!        call check_name('hsv', 'cyan',     [ 0,    100,  100 ], [ 180,  100,  100 ])
-!        call check_name('hsv', 'navy',     [ 0,    0,    50  ], [ 240,  100,  50  ])
-!        call check_name('hsv', 'blue',     [ 0,    0,    100 ], [ 240,  100,  100 ])
-!        call check_name('hsv', 'purple',   [ 63,   13,   94  ], [ 277,  87,   94  ])
-!        call check_name('hsv', 'magenta4', [ 55,   0,    55  ], [ 300,  100,  55  ])
-!        call check_name('hsv', 'magenta',  [ 100,  0,    100 ], [ 300,  100,  100 ])
-!        call check_name('hsv', 'maroon',   [ 69,   19,   38  ], [ 338,  73,   69  ])
-!     contains
-!     subroutine check_name(modelout,name,rgb,other)
-!     ! given a color convert to MODELOUT and compare to expected values
-!     character(len=*),intent(in)   :: name
-!     integer,intent(in)            :: rgb(3), other(3)
-!     character(len=*),intent(in)   :: modelout
-!        real                       :: val1,val2,val3
-!        integer                    :: status
-!        ! convert RGB values to MODELOUT values
-!        call hue('rgb',REAL(rgb(1)),REAL(rgb(2)),REAL(rgb(3)),modelout,val1,val2,val3,status)
-!           write(*,*)'COLOR '//trim(name)
-!           write(*,*)'EXPECTED '//modelout//' ====>',other
-!           write(*,*)'RETURNED '//modelout//' ====>',int([val1+0.5,val2+0.5,val3+0.5])
-!           write(*,*)'STATUS ==========>',status
-!     end subroutine check_name
-!     end program demo_hue
-! 
-!    Results:
-! 
-!     COLOR red
-!     EXPECTED hls ====>           0          50         100
-!     RETURNED hls ====>           0          50         100
-!     STATUS ==========>           0
-!     COLOR orange
-!     EXPECTED hls ====>          39          50         100
-!     RETURNED hls ====>          39          50         100
-!     STATUS ==========>           0
-!     COLOR yellow
-!     EXPECTED hls ====>          60          50         100
-!     RETURNED hls ====>          60          50         100
-!     STATUS ==========>           0
-!     COLOR green
-!     EXPECTED hls ====>         120          50         100
-!     RETURNED hls ====>         120          50         100
-!     STATUS ==========>           0
-!     COLOR cyan
-!     EXPECTED hls ====>         180          50         100
-!     RETURNED hls ====>         180          50         100
-!     STATUS ==========>           0
-!     COLOR blue
-!     EXPECTED hls ====>         240          50         100
-!     RETURNED hls ====>         240          50         100
-!     STATUS ==========>           0
-!     COLOR magenta
-!     EXPECTED hls ====>         300          50         100
-!     RETURNED hls ====>         300          50         100
-!     STATUS ==========>           0
-!     COLOR black
-!     EXPECTED hls ====>           0           0           0
-!     RETURNED hls ====>           0           0           0
-!     STATUS ==========>           0
-!     COLOR white
-!     EXPECTED hls ====>           0         100           0
-!     RETURNED hls ====>           0         100           0
-!     STATUS ==========>           0
-!     COLOR black
-!     EXPECTED hsv ====>           0           0           0
-!     RETURNED hsv ====>           0           0           0
-!     STATUS ==========>           0
-!     COLOR gray50
-!     EXPECTED hsv ====>           0           0          50
-!     RETURNED hsv ====>           0           0          50
-!     STATUS ==========>           0
-!     COLOR silver
-!     EXPECTED hsv ====>           0           0          75
-!     RETURNED hsv ====>           0           0          75
-!     STATUS ==========>           0
-!     COLOR white
-!     EXPECTED hsv ====>           0           0         100
-!     RETURNED hsv ====>           0           0         100
-!     STATUS ==========>           0
-!     COLOR red4
-!     EXPECTED hsv ====>           0         100          55
-!     RETURNED hsv ====>           0         100          55
-!     STATUS ==========>           0
-!     COLOR red
-!     EXPECTED hsv ====>           0         100         100
-!     RETURNED hsv ====>           0         100         100
-!     STATUS ==========>           0
-!     COLOR olive
-!     EXPECTED hsv ====>          60         100          50
-!     RETURNED hsv ====>          60         100          50
-!     STATUS ==========>           0
-!     COLOR yellow
-!     EXPECTED hsv ====>          60         100         100
-!     RETURNED hsv ====>          60         100         100
-!     STATUS ==========>           0
-!     COLOR green
-!     EXPECTED hsv ====>         120         100         100
-!     RETURNED hsv ====>         120         100         100
-!     STATUS ==========>           0
-!     COLOR lime
-!     EXPECTED hsv ====>         120         100         100
-!     RETURNED hsv ====>         120         100         100
-!     STATUS ==========>           0
-!     COLOR teal
-!     EXPECTED hsv ====>         180         100          50
-!     RETURNED hsv ====>         180         100          50
-!     STATUS ==========>           0
-!     COLOR cyan
-!     EXPECTED hsv ====>         180         100         100
-!     RETURNED hsv ====>         180         100         100
-!     STATUS ==========>           0
-!     COLOR navy
-!     EXPECTED hsv ====>         240         100          50
-!     RETURNED hsv ====>         240         100          50
-!     STATUS ==========>           0
-!     COLOR blue
-!     EXPECTED hsv ====>         240         100         100
-!     RETURNED hsv ====>         240         100         100
-!     STATUS ==========>           0
-!     COLOR purple
-!     EXPECTED hsv ====>         277          87          94
-!     RETURNED hsv ====>         277          86          94
-!     STATUS ==========>           0
-!     COLOR magenta4
-!     EXPECTED hsv ====>         300         100          55
-!     RETURNED hsv ====>         300         100          55
-!     STATUS ==========>           0
-!     COLOR magenta
-!     EXPECTED hsv ====>         300         100         100
-!     RETURNED hsv ====>         300         100         100
-!     STATUS ==========>           0
-!     COLOR maroon
-!     EXPECTED hsv ====>         338          73          69
-!     RETURNED hsv ====>         337          72          69
-!     STATUS ==========>           0
-! 
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!    HUE(3f) - [M_pixel:COLOR] converts a color's components from one color model to another
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!    subroutine hue(modei,clr1i,clr2i,clr3i,modeo,clr1o,clr2o,clr3o,status)
+!!
+!!     character(len=*),intent(in) :: modei
+!!     character(len=*),intent(in) :: modeo
+!!     real,intent(in)             :: clr1i,clr2i,clr3i
+!!     real,intent(out)            :: clr1o,clr2o,clr3o
+!!     integer,intent(out)         :: status
+!!
+!!##DESCRIPTION
+!!    Basic color models:
+!!
+!!     +----------------------------------------------------------+
+!!     | valid values for modei and modeo as well as the          |
+!!     | corresponding meanings for clr1*, clr2*, and clr3* are:  |
+!!     +----------------------------------------------------------+
+!!     |model| clr1         |         clr2      |         clr3    |
+!!     |-----+--------------+-------------------+-----------------|
+!!     |hls  |hue           |lightness          |saturation       |
+!!     |-----+--------------+-------------------+-----------------|
+!!     |hsl  |hue           |saturation         |lightness        |
+!!     |-----+--------------+-------------------+-----------------|
+!!     |hvs  |hue           |value              |saturation       |
+!!     |-----+--------------+-------------------+-----------------|
+!!     |hsv  |hue           |saturation         |value            |
+!!     |-----+--------------+-------------------+-----------------|
+!!     |rgb  |red           |green              |blue             |
+!!     |-----+--------------+-------------------+-----------------|
+!!     |cmy  |cyan          |magenta            |yellow           |
+!!     |-----+--------------+-------------------+-----------------|
+!!     |yiq  |gray scale)   |orange-blue        |purple-green     |
+!!     |     |              |chrominance        |chrominance      |
+!!     +----------------------------------------------------------+
+!!
+!!    *  lightness, value, saturation, red, green, blue, cyan, magenta, and
+!!       yellow range from 0 to 100,
+!!
+!!       * hue ranges from 0 to 360 degrees,
+!!       * y ranges from 0 to 100,
+!!       * i ranges from -60 to 60,
+!!       * q ranges from -52 to 52
+!!
+!!    The STATUS variable can signal the following conditions:
+!!
+!!      -1   modei = modeo, so no substantial conversion was done,
+!!       1   one of the input color values was outside the allowable range,
+!!       2   modei was invalid
+!!       3   modeo was invalid
+!!
+!!##EXAMPLE
+!!
+!! Sample program
+!!
+!!     program demo_hue
+!!     use M_pixel, only : hue
+!!     implicit none
+!!        !                      NAME       RGB(0-255)            HLS(0-100)
+!!        call check_name('hls','red',      [ 100, 0,   0   ],[ 0,   50,  100 ])
+!!        call check_name('hls','orange',   [ 100, 65,  0   ],[ 39,  50,  100 ])
+!!        call check_name('hls','yellow',   [ 100, 100, 0   ],[ 60,  50,  100 ])
+!!        call check_name('hls','green',    [ 0,   100, 0   ],[ 120, 50,  100 ])
+!!        call check_name('hls','cyan',     [ 0,   100, 100 ],[ 180, 50,  100 ])
+!!        call check_name('hls','blue',     [ 0,   0,   100 ],[ 240, 50,  100 ])
+!!        call check_name('hls','magenta',  [ 100, 0,   100 ],[ 300, 50,  100 ])
+!!        call check_name('hls','black',    [ 0,   0,   0   ],[ 0,   0,   0   ])
+!!        call check_name('hls','white',    [ 100, 100, 100 ],[ 0,   100, 0   ])
+!!        call check_name('hsv','black',    [ 0,   0,   0   ],[ 0,   0,   0   ])
+!!        !                      NAME        RGB(0-255)            HSV(0-100)
+!!        call check_name('hsv','gray50',   [ 50,  50,  50  ],[ 0,   0,   50  ])
+!!        call check_name('hsv','silver',   [ 75,  75,  75  ],[ 0,   0,   75  ])
+!!        call check_name('hsv','white',    [ 100, 100, 100 ],[ 0,   0,   100 ])
+!!        call check_name('hsv','red4',     [ 55,  0,   0   ],[ 0,   100, 55  ])
+!!        call check_name('hsv','red',      [ 100, 0,   0   ],[ 0,   100, 100 ])
+!!        call check_name('hsv','olive',    [ 50,  50,  0   ],[ 60,  100, 50  ])
+!!        call check_name('hsv','yellow',   [ 100, 100, 0   ],[ 60,  100, 100 ])
+!!        call check_name('hsv','green',    [ 0,   100, 0   ],[ 120, 100, 100 ])
+!!        call check_name('hsv','lime',     [ 0,   100, 0   ],[ 120, 100, 100 ])
+!!        call check_name('hsv','teal',     [ 0,   50,  50  ],[ 180, 100, 50  ])
+!!        call check_name('hsv','cyan',     [ 0,   100, 100 ],[ 180, 100, 100 ])
+!!        call check_name('hsv','navy',     [ 0,   0,   50  ],[ 240, 100, 50  ])
+!!        call check_name('hsv','blue',     [ 0,   0,   100 ],[ 240, 100, 100 ])
+!!        call check_name('hsv','purple',   [ 63,  13,  94  ],[ 277, 87,  94  ])
+!!        call check_name('hsv','magenta4', [ 55,  0,   55  ],[ 300, 100, 55  ])
+!!        call check_name('hsv','magenta',  [ 100, 0,   100 ],[ 300, 100, 100 ])
+!!        call check_name('hsv','maroon',   [ 69,  19,  38  ],[ 338, 73,  69  ])
+!!     contains
+!!     subroutine check_name(modelout,name,rgb,other)
+!!     ! given a color convert to MODELOUT and compare to expected values
+!!     character(len=*),intent(in)   :: name
+!!     integer,intent(in)            :: rgb(3), other(3)
+!!     character(len=*),intent(in)   :: modelout
+!!        real                       :: val1,val2,val3
+!!        integer                    :: status
+!!        ! convert RGB values to MODELOUT values
+!!        call hue('rgb',REAL(rgb(1)),REAL(rgb(2)),REAL(rgb(3)), &
+!!        & modelout,val1,val2,val3,status)
+!!           write(*,*)'COLOR '//trim(name)
+!!           write(*,*)'EXPECTED '//modelout//' ====>',other
+!!           write(*,*)'RETURNED '//modelout//' ====>', &
+!!           & int([val1+0.5,val2+0.5,val3+0.5])
+!!           write(*,*)'STATUS ==========>',status
+!!     end subroutine check_name
+!!     end program demo_hue
+!!
+!!    Results:
+!!
+!!     COLOR red
+!!     EXPECTED hls ====>           0          50         100
+!!     RETURNED hls ====>           0          50         100
+!!     STATUS ==========>           0
+!!     COLOR orange
+!!     EXPECTED hls ====>          39          50         100
+!!     RETURNED hls ====>          39          50         100
+!!     STATUS ==========>           0
+!!     COLOR yellow
+!!     EXPECTED hls ====>          60          50         100
+!!     RETURNED hls ====>          60          50         100
+!!     STATUS ==========>           0
+!!     COLOR green
+!!     EXPECTED hls ====>         120          50         100
+!!     RETURNED hls ====>         120          50         100
+!!     STATUS ==========>           0
+!!     COLOR cyan
+!!     EXPECTED hls ====>         180          50         100
+!!     RETURNED hls ====>         180          50         100
+!!     STATUS ==========>           0
+!!     COLOR blue
+!!     EXPECTED hls ====>         240          50         100
+!!     RETURNED hls ====>         240          50         100
+!!     STATUS ==========>           0
+!!     COLOR magenta
+!!     EXPECTED hls ====>         300          50         100
+!!     RETURNED hls ====>         300          50         100
+!!     STATUS ==========>           0
+!!     COLOR black
+!!     EXPECTED hls ====>           0           0           0
+!!     RETURNED hls ====>           0           0           0
+!!     STATUS ==========>           0
+!!     COLOR white
+!!     EXPECTED hls ====>           0         100           0
+!!     RETURNED hls ====>           0         100           0
+!!     STATUS ==========>           0
+!!     COLOR black
+!!     EXPECTED hsv ====>           0           0           0
+!!     RETURNED hsv ====>           0           0           0
+!!     STATUS ==========>           0
+!!     COLOR gray50
+!!     EXPECTED hsv ====>           0           0          50
+!!     RETURNED hsv ====>           0           0          50
+!!     STATUS ==========>           0
+!!     COLOR silver
+!!     EXPECTED hsv ====>           0           0          75
+!!     RETURNED hsv ====>           0           0          75
+!!     STATUS ==========>           0
+!!     COLOR white
+!!     EXPECTED hsv ====>           0           0         100
+!!     RETURNED hsv ====>           0           0         100
+!!     STATUS ==========>           0
+!!     COLOR red4
+!!     EXPECTED hsv ====>           0         100          55
+!!     RETURNED hsv ====>           0         100          55
+!!     STATUS ==========>           0
+!!     COLOR red
+!!     EXPECTED hsv ====>           0         100         100
+!!     RETURNED hsv ====>           0         100         100
+!!     STATUS ==========>           0
+!!     COLOR olive
+!!     EXPECTED hsv ====>          60         100          50
+!!     RETURNED hsv ====>          60         100          50
+!!     STATUS ==========>           0
+!!     COLOR yellow
+!!     EXPECTED hsv ====>          60         100         100
+!!     RETURNED hsv ====>          60         100         100
+!!     STATUS ==========>           0
+!!     COLOR green
+!!     EXPECTED hsv ====>         120         100         100
+!!     RETURNED hsv ====>         120         100         100
+!!     STATUS ==========>           0
+!!     COLOR lime
+!!     EXPECTED hsv ====>         120         100         100
+!!     RETURNED hsv ====>         120         100         100
+!!     STATUS ==========>           0
+!!     COLOR teal
+!!     EXPECTED hsv ====>         180         100          50
+!!     RETURNED hsv ====>         180         100          50
+!!     STATUS ==========>           0
+!!     COLOR cyan
+!!     EXPECTED hsv ====>         180         100         100
+!!     RETURNED hsv ====>         180         100         100
+!!     STATUS ==========>           0
+!!     COLOR navy
+!!     EXPECTED hsv ====>         240         100          50
+!!     RETURNED hsv ====>         240         100          50
+!!     STATUS ==========>           0
+!!     COLOR blue
+!!     EXPECTED hsv ====>         240         100         100
+!!     RETURNED hsv ====>         240         100         100
+!!     STATUS ==========>           0
+!!     COLOR purple
+!!     EXPECTED hsv ====>         277          87          94
+!!     RETURNED hsv ====>         277          86          94
+!!     STATUS ==========>           0
+!!     COLOR magenta4
+!!     EXPECTED hsv ====>         300         100          55
+!!     RETURNED hsv ====>         300         100          55
+!!     STATUS ==========>           0
+!!     COLOR magenta
+!!     EXPECTED hsv ====>         300         100         100
+!!     RETURNED hsv ====>         300         100         100
+!!     STATUS ==========>           0
+!!     COLOR maroon
+!!     EXPECTED hsv ====>         338          73          69
+!!     RETURNED hsv ====>         337          72          69
+!!     STATUS ==========>           0
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !===================================================================================================================================
@@ -7000,11 +7291,11 @@ integer :: status
    endif
    l=l*100.0
    s=s*100.0
-   if(h .lt.   0.0 ) h = 0.0   !---- Eliminate any roundoff that exceeds the limits (or hide formula bug!)
+   if(h .lt. 0.0 ) h = 0.0   !---- Eliminate any roundoff that exceeds the limits (or hide formula bug!)
    if(h .gt. 360.0 ) h = 360.0 !---- Eliminate any roundoff that exceeds the limits (or hide formula bug!)
-   if(l .lt.   0.0 ) l=0.0
+   if(l .lt. 0.0 ) l=0.0
    if(l .gt. 100.0 ) l = 100.0
-   if(s .lt.   0.0 ) s=0.0
+   if(s .lt. 0.0 ) s=0.0
    if(s .gt. 100.0 ) s = 100.0
 end subroutine rgbhls
 !===================================================================================================================================
@@ -7062,11 +7353,11 @@ real             :: clrmax,clrmin,clrdel,rr,gg,bb
    v=v*100.0
    s=s*100.0
    if(h .gt. 360.0 ) h = 360.0 !---- Eliminate any roundoff that exceeds the limits (or hide formula bug!)
-   if(h .lt.   0.0 ) h =   0.0 !---- Eliminate any roundoff that exceeds the limits (or hide formula bug!)
+   if(h .lt. 0.0 ) h =   0.0 !---- Eliminate any roundoff that exceeds the limits (or hide formula bug!)
    if(v .gt. 100.0 ) v = 100.0 !---- Eliminate any roundoff that exceeds the limits (or hide formula bug!)
-   if(v .lt.   0.0 ) v =   0.0 !---- Eliminate any roundoff that exceeds the limits (or hide formula bug!)
+   if(v .lt. 0.0 ) v =   0.0 !---- Eliminate any roundoff that exceeds the limits (or hide formula bug!)
    if(s .gt. 100.0 ) s = 100.0 !---- Eliminate any roundoff that exceeds the limits (or hide formula bug!)
-   if(s .lt.   0.0 ) s =   0.0 !---- Eliminate any roundoff that exceeds the limits (or hide formula bug!)
+   if(s .lt. 0.0 ) s =   0.0 !---- Eliminate any roundoff that exceeds the limits (or hide formula bug!)
 end subroutine rgbhvs
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
@@ -7266,7 +7557,7 @@ real,intent(out) :: r,g,b
 integer          :: status
 !
 !----    i don't believe that this is an exhaustive test of value ranges
-!        for yiq.  for example yiq=(100.0,60.0,52.0) when converted to
+!        for yiq. for example yiq=(100.0,60.0,52.0) when converted to
 !        rgb produces values greater than 100!?
 !
       if(i .lt. -60.0 .or. i .gt.  60.0) status = 1
@@ -7317,59 +7608,62 @@ end subroutine rgbyiq
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !===================================================================================================================================
-! NAME
-!     closest_color_name(3f) - [M_pixel] returns the closest name for the given RGB values.
-!     (LICENSE:PD)
-! SYNOPSIS
-!    subroutine closest_color_name(r,g,b,closestname)
-! 
-!     real,intent(in)               :: r,g,b
-!     character(len=20),intent(out) :: closestname
-! DESCRIPTION
-! 
-!     closest_color_name() returns the closest name for the given RGB values.
-!     Most X11 Windows color names are supported.
-! 
-! OPTIONS
-! 
-!     R   red component, range of 0 to 100
-!     G   green component, range of 0 to 100
-!     B   blue component, range of 0 to 100
-! 
-! RETURNS
-! 
-!     CLOSESTNAME   name of color found closest to given RGB value</li>
-! 
-! EXAMPLE
-! 
-!    Sample program
-! 
-!        program demo_closest_color_name
-!        use M_pixel, only : closest_color_name
-!        implicit none
-!        character(len=100) :: string ! at least 20 characters
-!           string=' '
-! 
-!           call closest_color_name(100.0,  0.0,  0.0,string)
-!           write(*,*)trim(string)
-! 
-!           call closest_color_name(  0.0,100.0,  0.0,string)
-!           write(*,*)trim(string)
-! 
-!           call closest_color_name(  0.0,  0.0,100.0,string)
-!           write(*,*)trim(string)
-! 
-!        end program demo_closest_color_name
-! 
-!    Results:
-! 
-!        red
-!        green
-!        blue
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!     closest_color_name(3f) - [M_pixel:COLOR] returns the closest name for the
+!!     given RGB values.
+!!     (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!    subroutine closest_color_name(r,g,b,closestname)
+!!
+!!     real,intent(in)               :: r,g,b
+!!     character(len=20),intent(out) :: closestname
+!!
+!!##DESCRIPTION
+!!     closest_color_name() returns the closest name for the given RGB
+!!     values. Most X11 Windows color names are supported.
+!!
+!!##OPTIONS
+!!     R   red component, range of 0 to 100
+!!     G   green component, range of 0 to 100
+!!     B   blue component, range of 0 to 100
+!!
+!!##RETURNS
+!!     CLOSESTNAME   name of color found closest to given RGB value</li>
+!!
+!!##EXAMPLE
+!!
+!!    Sample program
+!!
+!!        program demo_closest_color_name
+!!        use M_pixel, only : closest_color_name
+!!        implicit none
+!!        character(len=100) :: string ! at least 20 characters
+!!           string=' '
+!!
+!!           call closest_color_name(100.0,  0.0,  0.0,string)
+!!           write(*,*)trim(string)
+!!
+!!           call closest_color_name(  0.0,100.0,  0.0,string)
+!!           write(*,*)trim(string)
+!!
+!!           call closest_color_name(  0.0,  0.0,100.0,string)
+!!           write(*,*)trim(string)
+!!
+!!        end program demo_closest_color_name
+!!
+!!    Results:
+!!
+!!        red
+!!        green
+!!        blue
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 SUBROUTINE closest_color_name(r,g,b,closestname)
 
 ! ident_67="@(#)M_pixel::closest_color_name(3f): given RGB values, try to find closest named color"
@@ -7396,53 +7690,57 @@ end SUBROUTINE closest_color_name
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !===================================================================================================================================
-! NAME
-!     COLOR_NAME2RGB(3f) - [M_pixel] returns the RGB values in the range 0 to 100 for a given known color name.
-!     (LICENSE:PD)
-! SYNOPSIS
-! 
-!    subroutine color_name2rgb(name,r,g,b,echoname)
-! 
-!     character(len=20),intent(in)   :: name
-!     real,intent(out)               :: r,g,b
-!     character(len=20),intent(out)  :: echoname
-! 
-! DESCRIPTION
-! 
-!     COLOR_NAME2RGB() returns the RGB values in the range 0 to 100 for a given known color name.
-!     Most X11 Windows color names are supported. If the name is not found, ECHONAME is set to
-!     "Unknown".
-! 
-! EXAMPLE
-! 
-!    A sample program:
-! 
-!     program demo_color_name2rgb
-!     use M_pixel, only : hue, color_name2rgb
-!     implicit none
-!     !
-!     ! list colors known to colorname2rgb(3f) & corresponding RGB values
-!     !
-!     character(len=20) :: name
-!     character(len=20) :: echoname
-!     real              :: red,green,blue
-!     integer           :: i
-!     TRYALL: do i=1,10000
-!        ! weird little thing where the color names have aliases that are numeric strings
-!        write(name,'(i0)')i
-!        ! get the RGB values and English name of the color
-!        call color_name2rgb(name,red,green,blue,echoname)
-!        ! the last color name is "Unknown" so the loop should exit
-!        if(echoname.eq.'Unknown')exit TRYALL
-!        ! display the English name and RGB values for the name
-!        write(*,*)echoname,int([red,green,blue])
-!     enddo TRYALL
-!     !write(*,*)'Number of colors found is ',i-1
-!     end program demo_color_name2rgb
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!     COLOR_NAME2RGB(3f) - [M_pixel:COLOR] returns the RGB values in the range 0 to 100 for a given known color name.
+!!     (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!    subroutine color_name2rgb(name,r,g,b,echoname)
+!!
+!!     character(len=20),intent(in)   :: name
+!!     real,intent(out)               :: r,g,b
+!!     character(len=20),intent(out)  :: echoname
+!!
+!!##DESCRIPTION
+!!     COLOR_NAME2RGB() returns the RGB values in the range 0 to 100
+!!     for a given known color name. Most X11 Windows color names are
+!!     supported. If the name is not found, ECHONAME is set to "Unknown".
+!!
+!!##EXAMPLE
+!!
+!!    A sample program:
+!!
+!!     program demo_color_name2rgb
+!!     use M_pixel, only : hue, color_name2rgb
+!!     implicit none
+!!     !
+!!     ! list colors known to colorname2rgb(3f) & corresponding RGB values
+!!     !
+!!     character(len=20) :: name
+!!     character(len=20) :: echoname
+!!     real              :: red,green,blue
+!!     integer           :: i
+!!     TRYALL: do i=1,10000
+!!        ! weird little thing where the color names have aliases
+!!        ! that are numeric strings
+!!        write(name,'(i0)')i
+!!        ! get the RGB values and English name of the color
+!!        call color_name2rgb(name,red,green,blue,echoname)
+!!        ! the last color name is "Unknown" so the loop should exit
+!!        if(echoname.eq.'Unknown')exit TRYALL
+!!        ! display the English name and RGB values for the name
+!!        write(*,*)echoname,int([red,green,blue])
+!!     enddo TRYALL
+!!     !write(*,*)'Number of colors found is ',i-1
+!!     end program demo_color_name2rgb
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine color_name2rgb(name,r,g,b,echoname)
 
 ! ident_68="@(#)M_pixel::color_name2rgb(3f): given a color name, return rgb color values in range 0 to 100"
@@ -8047,57 +8345,60 @@ end function lower
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !===================================================================================================================================
-! NAME
-!     polar_to_cartesian(3f) - [M_pixel:TRIGONOMETRY] convert polar coordinates to Cartesian coordinates
-!     (LICENSE:PD)
-! SYNOPSIS
-!    subroutine polar_to_cartesian(radius,inclination,x,y)
-! 
-!     real,intent(in) :: radius,inclination
-!     real,intent(out)  :: x,y
-! 
-! DESCRIPTION
-! 
-!     Convert polar coordinate <radius, inclination > with
-!     angles in radians to cartesian point <X,Y> using the formulas
-! 
-!       x=radius*cos(inclination)
-!       y=radius*sin(inclination)
-! 
-! OPTIONS
-! 
-!    RADIUS       The radial distance from the origin (O) to the point (P)
-!    INCLINATION  The INCLINATION angle in radians between the inclination reference direction
-!                 (x-axis) and the orthogonal projection of the line OP of the
-!                 reference plane (x-y plane).
-! 
-! RESULTS
-! 
-!    X  The distance along the x-axis
-!    Y  The distance along the y-axis
-! 
-! EXAMPLES
-!   examples of usage
-! 
-!    program demo_polar_to_cartesian
-!    use M_pixel, only : polar_to_cartesian
-!    implicit none
-!    real    :: x,y
-!    real    :: r,i
-!    !!integer :: ios
-! 
-!     !!INFINITE: do
-!     !!   write(*,advance='no')'Enter radius and inclination(in radians):'
-!     !!   read(*,*,iostat=ios) r, i
-!     !!   if(ios.ne.0)exit INFINITE
-!        call polar_to_cartesian(r,i,x,y)
-!        write(*,*)'x=',x,' y=',y,'radius=',r,'inclination=',i
-!     !!enddo INFINITE
-!    end program demo_polar_to_cartesian
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!>
+!!##NAME
+!!     polar_to_cartesian(3f) - [M_pixel:TRIGONOMETRY] convert polar coordinates to Cartesian coordinates
+!!     (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!    subroutine polar_to_cartesian(radius,inclination,x,y)
+!!
+!!     real,intent(in) :: radius,inclination
+!!     real,intent(out)  :: x,y
+!!
+!!##DESCRIPTION
+!!     Convert polar coordinate <radius, inclination > with
+!!     angles in radians to cartesian point <X,Y> using the formulas
+!!
+!!       x=radius*cos(inclination)
+!!       y=radius*sin(inclination)
+!!
+!!##OPTIONS
+!!    RADIUS       The radial distance from the origin (O) to the point (P)
+!!    INCLINATION  The INCLINATION angle in radians between the inclination
+!!                 reference direction (x-axis) and the orthogonal projection
+!!                 of the line OP of the reference plane (x-y plane).
+!!
+!!##RESULTS
+!!    X  The distance along the x-axis
+!!    Y  The distance along the y-axis
+!!
+!!##EXAMPLES
+!!
+!!   examples of usage
+!!
+!!    program demo_polar_to_cartesian
+!!    use M_pixel, only : polar_to_cartesian
+!!    implicit none
+!!    real    :: x,y
+!!    real    :: r,i
+!!    !!integer :: ios
+!!
+!!     !!INFINITE: do
+!!     !!   write(*,advance='no')'Enter radius and inclination(in radians):'
+!!     !!   read(*,*,iostat=ios) r, i
+!!     !!   if(ios.ne.0)exit INFINITE
+!!        call polar_to_cartesian(r,i,x,y)
+!!        write(*,*)'x=',x,' y=',y,'radius=',r,'inclination=',i
+!!     !!enddo INFINITE
+!!    end program demo_polar_to_cartesian
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!
+!!##LICENSE
+!!    Public Domain
 subroutine polar_to_cartesian(radius,inclination,x,y)
 implicit none
 ! ident_70="@(#)M_pixel::polar_to_cartesian(3f): convert polar coordinates to cartesian coordinates"
@@ -8111,42 +8412,54 @@ real,intent(out)  :: x,y
       y=radius*sin(inclination)
    endif
 end subroutine polar_to_cartesian
-! NAME
-!    d2r(3f) - [M_pixel:TRIGONOMETRY] convert degrees to radians
-!    (LICENSE:PD)
-! SYNOPSIS
-!    elemental real function d2r(degrees)
-! 
-!     class(*),intent(in) :: radians
-! DESCRIPTION
-!    Converts degrees to radians using the formula:
-! 
-!     radians=real(degrees*acos(-1.0d0)/180.d0)
-! OPTIONS
-!    degrees    any standard scalar value supported by anyscalar_to_real(3f).
-!               This includes REAL, INTEGER, DOUBLEPRECISION, ... .
-! EXAMPLE
-!   Sample program
-! 
-!    program demo_d2r
-!    use M_pixel, only :  d2r
-!    implicit none
-!       write(*,*)'With REAL array input    ', d2r([0.0,45.0,90.0,135.0,180.0])
-!       write(*,*)'With INTEGER array input ', d2r([0,  45,  90,  135,  180  ])
-!       write(*,*)'With DOUBLEPRECISION     ', &
-!       & d2r(0.0d0),d2r(45.0d0),d2r(90.0d0),d2r(135.0d0),d2r(180.0d0)
-!    end program demo_d2r
-! 
-!   Results
-! 
-!    With REAL array input    0.00000 0.785398185 1.57079637 2.35619450 3.14159274
-!    With INTEGER array input 0.00000 0.785398185 1.57079637 2.35619450 3.14159274
-!    With DOUBLEPRECISION     0.00000 0.785398185 1.57079637 2.35619450 3.14159274
-! 
-! AUTHOR
-!    John S. Urban
-! LICENSE
-!    Public Domain
+!===================================================================================================================================
+!()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
+!===================================================================================================================================
+!>
+!!##NAME
+!!    d2r(3f) - [M_pixel:TRIGONOMETRY] convert degrees to radians
+!!    (LICENSE:PD)
+!!
+!!##SYNOPSIS
+!!
+!!    elemental real function d2r(degrees)
+!!
+!!     class(*),intent(in) :: radians
+!!##DESCRIPTION
+!!    Converts degrees to radians using the formula:
+!!
+!!     radians=real(degrees*acos(-1.0d0)/180.d0)
+!!##OPTIONS
+!!    degrees    any standard scalar value supported by anyscalar_to_real(3f).
+!!               This includes REAL, INTEGER, DOUBLEPRECISION, ... .
+!!##EXAMPLE
+!!
+!!   Sample program
+!!
+!!    program demo_d2r
+!!    use M_pixel, only :  d2r
+!!    implicit none
+!!       write(*,*)'With REAL array input    ', &
+!!        & d2r([0.0,45.0,90.0,135.0,180.0])
+!!       write(*,*)'With INTEGER array input ', &
+!!        & d2r([0,  45,  90,  135,  180  ])
+!!       write(*,*)'With DOUBLEPRECISION     ', &
+!!        & d2r(0.0d0),d2r(45.0d0),d2r(90.0d0),d2r(135.0d0),d2r(180.0d0)
+!!    end program demo_d2r
+!!
+!!   Results
+!!
+!!    With REAL array input    0.00000 0.785398185 1.57079637
+!!    2.35619450 3.14159274
+!!    With INTEGER array input 0.00000 0.785398185 1.57079637
+!!    2.35619450 3.14159274
+!!    With DOUBLEPRECISION     0.00000 0.785398185 1.57079637
+!!    2.35619450 3.14159274
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!##LICENSE
+!!    Public Domain
 !-----------------------------------------------------------------------------------------------------------------------------------
 elemental real function d2r_r(degrees)
 

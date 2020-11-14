@@ -1,3 +1,4 @@
+# TOML file for fpm as described at https://github.com/fortran-lang/fpm/blob/master/manifest-reference.md
 name = "M_pixel"
 version = "0.1.0"
 license = "Public Domain"
@@ -26,208 +27,208 @@ description = "basic vector drawing into a pixel graphics format"
    name="no"
    main="circle_animated.f90"
 [[test]]
-   source-dir="test/demos/arc"
+   source-dir="demos"
    name="arc"
    main="arc.f90"
 [[test]]
-   source-dir="test/demos/centertext"
+   source-dir="demos"
    name="centertext"
    main="centertext.f90"
 [[test]]
-   source-dir="test/demos/circle"
+   source-dir="demos"
    name="circle"
    main="circle.f90"
 [[test]]
-   source-dir="test/demos/circleprecision"
+   source-dir="demos"
    name="circleprecision"
    main="circleprecision.f90"
 #[[test]]
-#   source-dir="test/demos/clear"
+#   source-dir="demos"
 #   name="clear"
 #   main="clear.f90"
 #[[test]]
-#   source-dir="test/demos/closepoly"
+#   source-dir="demos"
 #   name="closepoly"
 #   main="closepoly.f90"
 [[test]]
-   source-dir="test/demos/color"
+   source-dir="demos"
    name="color"
    main="color.f90"
 [[test]]
-   source-dir="test/demos/draw2"
+   source-dir="demos"
    name="draw2"
    main="draw2.f90"
 [[test]]
-   source-dir="test/demos/drawchar"
+   source-dir="demos"
    name="drawchar"
    main="drawchar.f90"
 [[test]]
-   source-dir="test/demos/drawstr"
+   source-dir="demos"
    name="drawstr"
    main="drawstr.f90"
 [[test]]
-   source-dir="test/demos/font"
+   source-dir="demos"
    name="font"
    main="font.f90"
 #[[test]]
-#   source-dir="test/demos/getdisplaysize"
+#   source-dir="demos"
 #   name="getdisplaysize"
 #   main="getdisplaysize.f90"
 [[test]]
-   source-dir="test/demos/getgp2"
+   source-dir="demos"
    name="getgp2"
    main="getgp2.f90"
 #[[test]]
-#   source-dir="test/demos/getviewport"
+#   source-dir="demos"
 #   name="getviewport"
 #   main="getviewport.f90"
 [[test]]
-   source-dir="test/demos/hershey"
+   source-dir="demos"
    name="hershey"
    main="hershey.f90"
 #[[test]]
-#   source-dir="test/demos/justfy"
+#   source-dir="demos"
 #   name="justfy"
 #   main="justfy.f90"
 #[[test]]
-#   source-dir="test/demos/line"
+#   source-dir="demos"
 #   name="line"
 #   main="line.f90"
 [[test]]
-   source-dir="test/demos/linewidth"
+   source-dir="demos"
    name="linewidth"
    main="linewidth.f90"
 [[test]]
-   source-dir="test/demos/makepoly"
+   source-dir="demos"
    name="makepoly"
    main="makepoly.f90"
 [[test]]
-   source-dir="test/demos/mapcolor"
+   source-dir="demos"
    name="mapcolor"
    main="mapcolor.f90"
 [[test]]
-   source-dir="test/demos/move2"
+   source-dir="demos"
    name="move2"
    main="move2.f90"
 [[test]]
-   source-dir="test/demos/M_pixel"
+   source-dir="demos"
    name="M_pixel"
    main="M_pixel.f90"
 #[[test]]
-#   source-dir="test/demos/ortho2"
+#   source-dir="demos"
 #   name="ortho2"
 #   main="ortho2.f90"
 #[[test]]
-#   source-dir="test/demos/page"
+#   source-dir="demos"
 #   name="page"
 #   main="page.f90"
 [[test]]
-   source-dir="test/demos/point2"
+   source-dir="demos"
    name="point2"
    main="point2.f90"
 [[test]]
-   source-dir="test/demos/poly2"
+   source-dir="demos"
    name="poly2"
    main="poly2.f90"
 [[test]]
-   source-dir="test/demos/polyline2"
+   source-dir="demos"
    name="polyline2"
    main="polyline2.f90"
 [[test]]
-   source-dir="test/demos/prefsize"
+   source-dir="demos"
    name="prefsize"
    main="prefsize.f90"
 [[test]]
-   source-dir="test/demos/print_ascii"
+   source-dir="demos"
    name="print_ascii"
    main="print_ascii.f90"
 [[test]]
-   source-dir="test/demos/print_ppm"
+   source-dir="demos"
    name="print_ppm"
    main="print_ppm.f90"
 [[test]]
-   source-dir="test/demos/rdraw2"
+   source-dir="demos"
    name="rdraw2"
    main="rdraw2.f90"
 [[test]]
-   source-dir="test/demos/rect"
+   source-dir="demos"
    name="rect"
    main="rect.f90"
 [[test]]
-   source-dir="test/demos/rmove2"
+   source-dir="demos"
    name="rmove2"
    main="rmove2.f90"
 [[test]]
-   source-dir="test/demos/state"
+   source-dir="demos"
    name="state"
    main="state.f90"
 [[test]]
-   source-dir="test/demos/strlength"
+   source-dir="demos"
    name="strlength"
    main="strlength.f90"
 [[test]]
-   source-dir="test/demos/textang"
+   source-dir="demos"
    name="textang"
    main="textang.f90"
 [[test]]
-   source-dir="test/demos/textsize"
+   source-dir="demos"
    name="textsize"
    main="textsize.f90"
 [[test]]
-   source-dir="test/demos/vexit"
+   source-dir="demos"
    name="vexit"
    main="vexit.f90"
 #[[test]]
-#   source-dir="test/demos/viewport"
+#   source-dir="demos"
 #   name="viewport"
 #   main="viewport.f90"
 [[test]]
-   source-dir="test/demos/vinit"
+   source-dir="demos"
    name="vinit"
    main="vinit.f90"
 #[[test]]
-#   source-dir="test/demos/xcentertext"
+#   source-dir="demos"
 #   name="xcentertext"
 #   main="xcentertext.f90"
 #[[test]]
-#   source-dir="test/demos/ycentertext"
+#   source-dir="demos"
 #   name="ycentertext"
 #   main="ycentertext.f90"
 [[test]]
-   source-dir="test/demos/readgif"
+   source-dir="demos"
    name="readgif"
    main="readgif.f90"
 [[test]]
-   source-dir="test/demos/write_animated_gif"
+   source-dir="demos"
    name="write_animated_gif"
    main="write_animated_gif.f90"
 #[[test]]
-#   source-dir="test/demos/write_animated_gif.3m_writegif_animated"
+#   source-dir="demos"
 #   name="write_animated_gif.3m_writegif_animated"
 #   main="write_animated_gif.3m_writegif_animated.f90"
 [[test]]
-   source-dir="test/demos/writegif"
+   source-dir="demos"
    name="writegif"
    main="writegif.f90"
 [[test]]
-   source-dir="test/demos/closest_color_name"
+   source-dir="demos"
    name="closest_color_name"
    main="closest_color_name.f90"
 [[test]]
-   source-dir="test/demos/color_name2rgb"
+   source-dir="demos"
    name="color_name2rgb"
    main="color_name2rgb.f90"
 [[test]]
-   source-dir="test/demos/hue"
+   source-dir="demos"
    name="hue"
    main="hue.f90"
 [[test]]
-   source-dir="test/demos/d2r"
+   source-dir="demos"
    name="d2r"
    main="d2r.f90"
 [[test]]
-   source-dir="test/demos/polar_to_cartesian"
-   name="test/demos/polar_to_cartesian"
+   source-dir="demos"
+   name="demos/polar_to_cartesian"
    main="polar_to_cartesian.f90"
 #[[test]]
 #   source-dir="test/gif"

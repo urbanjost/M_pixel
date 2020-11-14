@@ -1,6 +1,0 @@
-<map id="m_pixel::print_ppm" name="m_pixel::print_ppm">
-<area shape="rect" id="node2" href="$namespacem__pixel.html#a6c23c2779e54da4ac7505cfb816cc2b1" title="m_pixel::if_init" alt="" coords="201,5,320,32"/>
-<area shape="rect" id="node3" href="$namespacem__pixel.html#ac03ca8f23fdadb60599b6ea4dc87a6d9" title="m_pixel::vinit" alt="" coords="368,5,479,32"/>
-<area shape="rect" id="node4" href="$namespacem__pixel.html#a84c841de62fc0addddeff305c4ede9d4" title="m_pixel::mapping" alt="" coords="527,5,665,32"/>
-<area shape="rect" id="node5" href="$namespacem__pixel.html#a630b892544962a88d91b1ab983dc5649" title="m_pixel::invert_4x4" alt="" coords="713,5,864,32"/>
-</map>

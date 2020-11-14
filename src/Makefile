@@ -18,42 +18,42 @@ NULL=
 #   ../test_suite_M_pixel.f90 
 #
 PROGFILES = \
+   ../app/slices/pixel_slices.f90 \
    ../test/gif/circle_illusion/circle_illusion.f90 \
    ../test/no/circle_animated.f90 \
-   ../app/slices/pixel_slices.f90 \
-   ../test/demos/arc/arc.f90 \
-   ../test/demos/centertext/centertext.f90 \
-   ../test/demos/circle/circle.f90 \
-   ../test/demos/circleprecision/circleprecision.f90 \
-   ../test/demos/color/color.f90 \
-   ../test/demos/draw2/draw2.f90 \
-   ../test/demos/drawchar/drawchar.f90 \
-   ../test/demos/drawstr/drawstr.f90 \
-   ../test/demos/font/font.f90 \
-   ../test/demos/getgp2/getgp2.f90 \
-   ../test/demos/hershey/hershey.f90 \
-   ../test/demos/linewidth/linewidth.f90 \
-   ../test/demos/makepoly/makepoly.f90 \
-   ../test/demos/mapcolor/mapcolor.f90 \
-   ../test/demos/move2/move2.f90 \
-   ../test/demos/M_pixel/M_pixel.f90 \
-   ../test/demos/point2/point2.f90 \
-   ../test/demos/poly2/poly2.f90 \
-   ../test/demos/polyline2/polyline2.f90 \
-   ../test/demos/prefsize/prefsize.f90 \
-   ../test/demos/print_ascii/print_ascii.f90 \
-   ../test/demos/print_ppm/print_ppm.f90 \
-   ../test/demos/rdraw2/rdraw2.f90 \
-   ../test/demos/rect/rect.f90 \
-   ../test/demos/rmove2/rmove2.f90 \
-   ../test/demos/state/state.f90 \
-   ../test/demos/strlength/strlength.f90 \
-   ../test/demos/textang/textang.f90 \
-   ../test/demos/textsize/textsize.f90 \
-   ../test/demos/vexit/vexit.f90 \
-   ../test/demos/vinit/vinit.f90 \
-   ../test/demos/readgif/readgif.f90 \
-   ../test/demos/writegif/writegif.f90 \
+   ../demos/arc.f90 \
+   ../demos/centertext.f90 \
+   ../demos/circle.f90 \
+   ../demos/circleprecision.f90 \
+   ../demos/color.f90 \
+   ../demos/draw2.f90 \
+   ../demos/drawchar.f90 \
+   ../demos/drawstr.f90 \
+   ../demos/font.f90 \
+   ../demos/getgp2.f90 \
+   ../demos/hershey.f90 \
+   ../demos/linewidth.f90 \
+   ../demos/makepoly.f90 \
+   ../demos/mapcolor.f90 \
+   ../demos/move2.f90 \
+   ../demos/M_pixel.f90 \
+   ../demos/point2.f90 \
+   ../demos/poly2.f90 \
+   ../demos/polyline2.f90 \
+   ../demos/prefsize.f90 \
+   ../demos/print_ascii.f90 \
+   ../demos/print_ppm.f90 \
+   ../demos/rdraw2.f90 \
+   ../demos/rect.f90 \
+   ../demos/rmove2.f90 \
+   ../demos/state.f90 \
+   ../demos/strlength.f90 \
+   ../demos/textang.f90 \
+   ../demos/textsize.f90 \
+   ../demos/vexit.f90 \
+   ../demos/vinit.f90 \
+   ../demos/readgif.f90 \
+   ../demos/writegif.f90 \
 $(NULL)
 
 PROG = ${PROGFILES:.f90=}
@@ -90,6 +90,7 @@ help:
 run: $(PROG)
 	# run everything
 	echo $? |xargs -n 1|xargs -iXX time XX
+	mv *.gif *.ppm ../docs/images/
 
 .PHONY: doxygen
 doxygen: 

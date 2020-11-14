@@ -1,6 +1,5 @@
 function loadthem(){
 append("M_pixel.3m_pixel.html");
-
 append("arc.3m_pixel.html");
 append("centertext.3m_pixel.html");
 append("circle.3m_pixel.html");
@@ -47,13 +46,4 @@ append("viewport.3m_pixel.html");
 append("vinit.3m_pixel.html");
 append("xcentertext.3m_pixel.html");
 append("ycentertext.3m_pixel.html");
-
-/*
-append("dl_slices.3.html");
-append("pixel_slice.3.html");
-append("huegif.1.html");
-*/
-append("writegif.3m_writegif.html");
-append("write_animated_gif.3m_writegif_animated.html");
-append("readgif.3m_readgif.html");
 }

@@ -1,7 +1,0 @@
-<map id="m_writegif_animated::write_animated_gif" name="m_writegif_animated::write_animated_gif">
-<area shape="rect" id="node2" href="$M__writegif__animated_8f90.html#a795066c06f318c8d4ba41430b6826567" title="char2" alt="" coords="215,5,274,32"/>
-<area shape="rect" id="node3" href="$M__writegif__animated_8f90.html#aa30b256c6cb90f13a18e32768d35696b" title="giflzw" alt="" coords="215,56,275,83"/>
-<area shape="rect" id="node4" href="$M__writegif__animated_8f90.html#a83cb0569b0e010d8ad27afd1b4cd945e" title="flushbuffer" alt="" coords="456,56,547,83"/>
-<area shape="rect" id="node5" href="$M__writegif__animated_8f90.html#acd7274fbac8690a12be91b542378a4eb" title="inittable" alt="" coords="327,56,403,83"/>
-<area shape="rect" id="node6" href="$M__writegif__animated_8f90.html#ac5c0245eea61f109cbf3ce5bbf38981b" title="slicewrite" alt="" coords="323,107,408,133"/>
-</map>

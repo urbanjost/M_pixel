@@ -1,9 +1,9 @@
 'mainpage.txt
 /**
-     @mainpage M_pixel Fortran Library
+         @mainpage M_pixel Fortran Library
 
-     @section Introduction
+         @section Introduction
       Draw simple vector graphics into a pixel array
 
-     @image html html/images/M_pixel.gif
+         @image html html/images/M_pixel.gif
 */'

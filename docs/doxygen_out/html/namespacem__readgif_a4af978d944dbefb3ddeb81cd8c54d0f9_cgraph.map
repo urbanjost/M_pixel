@@ -1,7 +1,0 @@
-<map id="m_readgif::read_image" name="m_readgif::read_image">
-<area shape="rect" id="node2" href="$namespacem__readgif.html#ae01d3edbe9e15bf4dd33070581e26fee" title="m_readgif::io_error" alt="" coords="873,18,1019,45"/>
-<area shape="rect" id="node3" href="$namespacem__readgif.html#a314e657d0662360266bac5702a657ef1" title="m_readgif::lzw_read_byte" alt="" coords="227,45,417,72"/>
-<area shape="rect" id="node6" href="$namespacem__readgif.html#a272a4dbcc1419d3d103db4c50b757805" title="m_readgif::read_buf" alt="" coords="869,73,1023,100"/>
-<area shape="rect" id="node4" href="$namespacem__readgif.html#a027fedbf7ba68763483988c1aa6d2cea" title="m_readgif::get_code" alt="" coords="465,20,620,46"/>
-<area shape="rect" id="node5" href="$namespacem__readgif.html#ace6e51d0293107696bd1482348414a43" title="m_readgif::get_data\l_block" alt="" coords="668,38,821,79"/>
-</map>

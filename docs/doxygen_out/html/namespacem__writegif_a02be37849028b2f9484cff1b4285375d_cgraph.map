@@ -1,8 +1,0 @@
-<map id="m_writegif::writegif" name="m_writegif::writegif">
-<area shape="rect" id="node2" href="$namespacem__writegif.html#a79ebbfd4c7df8520a82c75c3a62f0c96" title="m_writegif::char2" alt="" coords="215,5,351,32"/>
-<area shape="rect" id="node3" href="$namespacem__writegif.html#a13c09be69495f4ba21ecb7c134216a17" title="m_writegif::giflzw" alt="" coords="213,56,352,83"/>
-<area shape="rect" id="node7" href="$namespacem__writegif.html#adb045213dd61508ad7dc7e5640fde67d" title="m_writegif::open_for\l_write" alt="" coords="204,107,361,149"/>
-<area shape="rect" id="node4" href="$namespacem__writegif.html#a48c5ca5487be9dbe565c0d4f8aa02d0d" title="m_writegif::flushbuffer" alt="" coords="620,56,789,83"/>
-<area shape="rect" id="node5" href="$namespacem__writegif.html#aed61b15f90188ddf39b71aa0c73a82a8" title="m_writegif::inittable" alt="" coords="413,56,568,83"/>
-<area shape="rect" id="node6" href="$namespacem__writegif.html#a27e0ec2c6e05428641179bf35762adb7" title="m_writegif::slicewrite" alt="" coords="409,107,572,133"/>
-</map>

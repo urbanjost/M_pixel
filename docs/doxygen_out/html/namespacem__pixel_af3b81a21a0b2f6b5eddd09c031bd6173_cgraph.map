@@ -1,6 +1,0 @@
-<map id="m_pixel::clear" name="m_pixel::clear">
-<area shape="rect" id="node2" href="$namespacem__pixel.html#a6c23c2779e54da4ac7505cfb816cc2b1" title="m_pixel::if_init" alt="" coords="168,5,287,32"/>
-<area shape="rect" id="node3" href="$namespacem__pixel.html#ac03ca8f23fdadb60599b6ea4dc87a6d9" title="m_pixel::vinit" alt="" coords="335,5,445,32"/>
-<area shape="rect" id="node4" href="$namespacem__pixel.html#a84c841de62fc0addddeff305c4ede9d4" title="m_pixel::mapping" alt="" coords="493,5,632,32"/>
-<area shape="rect" id="node5" href="$namespacem__pixel.html#a630b892544962a88d91b1ab983dc5649" title="m_pixel::invert_4x4" alt="" coords="680,5,831,32"/>
-</map>
