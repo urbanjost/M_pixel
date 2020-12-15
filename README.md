@@ -13,8 +13,19 @@ map as well.
 ## BUILDING THE MODULES
      git clone https://github.com/urbanjost/M_pixel.git
      cd M_pixel/src
-     # change Makefile if not using gfortran(1)
-     make
+     # change Makefile if not using one of the listed compilers
+     
+     # for gfortran
+     make clean
+     make F90=gfortran gfortran
+     
+     # for ifort
+     make clean
+     make F90=ifort ifort
+
+     # for nvfortran
+     make clean
+     make F90=nvfortran nvfortran
 
 This will compile the Fortran and basic example programs that exercise
 the routines.
