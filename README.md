@@ -41,7 +41,7 @@ the routines.
 ## ADDITIONAL DIRECTORY DESCRIPTIONS
 There are 
    - manpages in [docs/manpages.tgz](docs/manpages.tgz) and [docs/manpages.zip](docs/manpages.zip)
-   - demo programs in the demos/ directory
+   - demo programs in the example/ directory
    - applications in the app/ directory
 
 ## UNIT TESTS
