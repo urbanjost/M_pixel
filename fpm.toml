@@ -12,7 +12,21 @@ description = "basic vector drawing into a pixel graphics format"
    source-dir="app/slices"
    main="pixel_slices.f90"
 
+#[[test]]
+#   name="no"
+#   source-dir="test/no"
+#   main="circle_animated.f90"
+
 [[test]]
-   name="no"
-   source-dir="test/no"
-   main="circle_animated.f90"
+name="test_suite_M_pixel"
+source-dir="test/same"
+main="test_suite_M_pixel.f90"
+[test.dependencies]
+M_msg = { git = "https://github.com/urbanjost/M_msg.git" }
+
+[[test]]
+name="test_suite_M_pixel_slices"
+source-dir="test/same"
+main="test_suite_M_pixel_slices.f90"
+[test.dependencies]
+M_msg = { git = "https://github.com/urbanjost/M_msg.git" }
