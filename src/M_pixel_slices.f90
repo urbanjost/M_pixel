@@ -16,7 +16,7 @@ module M_pixel_slices
 !!                     & xt,nxt,xs,xe,nmx,nnx,mlx,tsx,ndx,smx,
 !!                     & yt,nyt,      nmy,nny,mly,tsy,ndy,smy,
 !!                     & zt,nzt,zs,ze,nmz,nnz,mlz,tsz,ndz,smz,
-!!                     & lt;dm,dx,ic)
+!!                     & dm,dx,ic,maxsize)
 !!
 !!##DESCRIPTION
 !!    dl_slices is a simple 3-d surface plotting routine. A 3-d surface is
@@ -138,6 +138,8 @@ module M_pixel_slices
 !!                    ic(4):  color for axis exponents
 !!                    ic(5):  color index for lower plot surface (return)
 !!                    ic(6):  color index for upper plot surface (return)
+!!
+!!        maxsize     optional maximum number of points.
 !!
 !!##EXAMPLE
 !!

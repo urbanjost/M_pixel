@@ -6,6 +6,9 @@ author = "John S. Urban"
 maintainer = "urbanjost@comcast.net"
 copyright = "2020 John Urban"
 description = "basic vector drawing into a pixel graphics format"
+categories = ["graphics"]
+keywords = ["fortran", "pixel", "draw", "plot", "graphics" ]
+homepage = "https://github.com/urbanjost/M_pixel.git"
 
 [[executable]]
    name="slices"
