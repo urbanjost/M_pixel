@@ -1,4 +1,4 @@
-     program demo_print_ascii
+     program demo_print_ansi
      use M_pixel
      implicit none
      call prefsize(80,24)
@@ -9,6 +9,6 @@
         call circle(12.0,12.0,6.0)
         call color(2)
         call circle(72.0,12.0,6.0)
-        call print_ascii()
+        call print_ansi()
         call vexit()
-     end program demo_print_ascii
+     end program demo_print_ansi

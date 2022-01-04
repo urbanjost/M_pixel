@@ -1,4 +1,4 @@
-$DOCUMENT COMMENT -file pixel_slice.3m_pixel.man
+$BLOCK COMMENT -file pixel_slice.3m_pixel.man
 NAME
    pixel_slice(3f) - [M_pixel] simplified call of DL_SLICES(3f) to make a plot of a 3-d surface
    (LICENSE:PD)
@@ -6,13 +6,13 @@ NAME
 SYNOPSIS
   subroutine pixel_SLICE(surfdat,kix,kiz,nx,nz,a0,b0)
 
-   real,intent(in)     :: SURFDAT(kix,kiz) 
-   integer,intent(in)  :: kix              
+   real,intent(in)     :: SURFDAT(kix,kiz)
+   integer,intent(in)  :: kix
    integer,intent(in)  :: kiz
-   integer,intent(in)  :: nx               
+   integer,intent(in)  :: nx
    integer,intent(in)  :: nz
-   real,intent(in)     :: a0               
-   real,intent(in)     :: b0               
+   real,intent(in)     :: a0
+   real,intent(in)     :: b0
 
 DESCRIPTION
    Simplified call to DL_SLICES(3f) to make a plot of a 3-d surface
@@ -30,7 +30,7 @@ AUTHOR
    John S. Urban
 LICENSE
    Public Domain
-$DOCUMENT END
+$BLOCK
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 subroutine pixel_SLICE(surfdat,kix,kiz,nx,nz,a0,b0)
    use M_pixel
