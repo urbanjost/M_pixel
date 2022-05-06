@@ -59,6 +59,7 @@ LDFLAGS :=
 # (-O1 and more).
 gfortran: F90=gfortran
 gfortran: F90FLAGS := -g -O -Wall -std=f2018 -Wextra -Wno-maybe-uninitialized -Wno-uninitialized
+gfortran: F90FLAGS := -g -O -Wall -Wextra -Wno-maybe-uninitialized -Wno-uninitialized
 gfortran: all
 	@echo built with $(F90)
 

@@ -126,19 +126,19 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 0.9% of total for procedures.">42 statements</a>
+    title=" 1.0% of total for procedures.">44 statements</a>
      </li> 
      
      
      
-    <li><i class="fa fa-code"></i><a href="../src/M_pixel.f90"> Source File</a></li>
+    <li><i class="fa fa-code"></i><a href="../src/M_pixel.F90"> Source File</a></li>
      
      
   </ul>
   <ol class="breadcrumb in-well text-right">
   
     
-     <li><a href='../sourcefile/m_pixel.f90.html'>M_pixel.f90</a></li>
+     <li><a href='../sourcefile/m_pixel.f90.html'>M_pixel.F90</a></li>
     
      <li><a href='../module/m_pixel.html'>M_pixel</a></li>
     
@@ -173,7 +173,7 @@
       
       <a class="list-group-item" href="../proc/justfy.html#variable-factor~2">factor</a>
       
-      <a class="list-group-item" href="../proc/justfy.html#variable-i~6">i</a>
+      <a class="list-group-item" href="../proc/justfy.html#variable-i~8">i</a>
       
       <a class="list-group-item" href="../proc/justfy.html#variable-ipower">ipower</a>
       
@@ -292,7 +292,7 @@ integer,intent(in)             :: ntext
   
 <tr>
   
-  <td><span class="anchor" id="variable-s~2"></span>real,</td>
+  <td><span class="anchor" id="variable-s~3"></span>real,</td>
   <td>intent(out)</td>
   <td></td>
   
@@ -370,7 +370,7 @@ integer,intent(in)             :: ntext
       
       <a class="list-group-item" href="../proc/justfy.html#variable-factor~2">factor</a>
       
-      <a class="list-group-item" href="../proc/justfy.html#variable-i~6">i</a>
+      <a class="list-group-item" href="../proc/justfy.html#variable-i~8">i</a>
       
       <a class="list-group-item" href="../proc/justfy.html#variable-ipower">ipower</a>
       
@@ -458,7 +458,7 @@ integer,intent(in)             :: ntext
   
 <tr>
   
-  <td><span class="anchor" id="variable-i~6"></span>integer,</td>
+  <td><span class="anchor" id="variable-i~8"></span>integer,</td>
   
   <td>public</td>
   <td></td><td>::</td>
@@ -649,16 +649,18 @@ integer,intent(in)             :: ntext
 <span class="c">!  sum the widths of the remaining text, recalling that trailing blanks</span>
 <span class="c">!  were lopped off by chrcod.</span>
       <span class="n">oldwid</span><span class="o">=</span><span class="mf">0.0</span>
-      <span class="k">do </span><span class="n">i</span><span class="o">=</span><span class="n">lead</span><span class="p">,</span><span class="n">P_nchr</span>
-         <span class="n">l</span><span class="o">=</span><span class="n">P_ichr</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-         <span class="k">if</span> <span class="p">(</span><span class="n">l</span><span class="p">.</span><span class="n">lt</span><span class="p">.</span><span class="mi">1000</span><span class="p">)</span> <span class="k">then</span>
-<span class="k">           </span><span class="n">oldwid</span><span class="o">=</span><span class="n">width</span><span class="p">(</span><span class="n">l</span><span class="p">)</span><span class="o">*</span><span class="nb">scale</span>
-<span class="nb">           </span><span class="n">s</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">=</span><span class="n">s</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="n">oldwid</span>
-         <span class="k">endif</span>
-<span class="k">         if</span><span class="p">(</span><span class="n">l</span><span class="p">.</span><span class="n">eq</span><span class="p">.</span><span class="mi">1000</span><span class="p">)</span><span class="n">s</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">=</span><span class="n">s</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="mf">0.0</span><span class="o">*</span><span class="nb">scale</span>
-<span class="nb">         </span><span class="k">if</span><span class="p">(</span><span class="n">l</span><span class="p">.</span><span class="n">ge</span><span class="p">.</span><span class="mi">100</span><span class="mf">1.</span><span class="nb">and</span><span class="p">.</span><span class="n">l</span><span class="p">.</span><span class="n">le</span><span class="p">.</span><span class="mi">1003</span><span class="p">)</span><span class="nb">scale</span><span class="o">=</span><span class="nb">scale</span><span class="o">*</span><span class="n">factor</span><span class="o">**</span><span class="n">ipower</span><span class="p">(</span><span class="n">l</span><span class="o">-</span><span class="mi">1000</span><span class="p">)</span>
-         <span class="k">if</span><span class="p">(</span><span class="n">l</span><span class="p">.</span><span class="n">eq</span><span class="p">.</span><span class="mi">1004</span><span class="p">)</span><span class="n">s</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">=</span><span class="n">s</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">-</span><span class="n">oldwid</span>
-      <span class="k">enddo</span>
+      <span class="k">if</span><span class="p">(</span><span class="n">lead</span><span class="p">.</span><span class="n">ne</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span><span class="k">then</span>
+<span class="k">         do </span><span class="n">i</span><span class="o">=</span><span class="n">lead</span><span class="p">,</span><span class="n">P_nchr</span>
+            <span class="n">l</span><span class="o">=</span><span class="n">P_ichr</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">l</span><span class="p">.</span><span class="n">lt</span><span class="p">.</span><span class="mi">1000</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">              </span><span class="n">oldwid</span><span class="o">=</span><span class="n">width</span><span class="p">(</span><span class="n">l</span><span class="p">)</span><span class="o">*</span><span class="nb">scale</span>
+<span class="nb">              </span><span class="n">s</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">=</span><span class="n">s</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="n">oldwid</span>
+            <span class="k">endif</span>
+<span class="k">            if</span><span class="p">(</span><span class="n">l</span><span class="p">.</span><span class="n">eq</span><span class="p">.</span><span class="mi">1000</span><span class="p">)</span><span class="n">s</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">=</span><span class="n">s</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="mf">0.0</span><span class="o">*</span><span class="nb">scale</span>
+<span class="nb">            </span><span class="k">if</span><span class="p">(</span><span class="n">l</span><span class="p">.</span><span class="n">ge</span><span class="p">.</span><span class="mi">100</span><span class="mf">1.</span><span class="nb">and</span><span class="p">.</span><span class="n">l</span><span class="p">.</span><span class="n">le</span><span class="p">.</span><span class="mi">1003</span><span class="p">)</span><span class="nb">scale</span><span class="o">=</span><span class="nb">scale</span><span class="o">*</span><span class="n">factor</span><span class="o">**</span><span class="n">ipower</span><span class="p">(</span><span class="n">l</span><span class="o">-</span><span class="mi">1000</span><span class="p">)</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">l</span><span class="p">.</span><span class="n">eq</span><span class="p">.</span><span class="mi">1004</span><span class="p">)</span><span class="n">s</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">=</span><span class="n">s</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">-</span><span class="n">oldwid</span>
+         <span class="k">enddo</span>
+<span class="k">      endif</span>
 <span class="c">!</span>
 <span class="c">!  add on width of surplus trailing blanks.</span>
       <span class="n">s</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">=</span><span class="n">s</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="mf">0.0</span><span class="o">*</span><span class="nb">scale</span><span class="o">*</span><span class="p">(</span><span class="n">ntxt</span><span class="o">-</span><span class="n">P_nchr</span><span class="p">)</span>
@@ -688,7 +690,7 @@ integer,intent(in)             :: ntext
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2022-05-04 21:45  
+             on 2022-05-06 09:12  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> M_pixel was developed by John S. Urban</p></div>

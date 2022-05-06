@@ -3105,16 +3105,18 @@ subroutine justfy(s, height, text, ntext)
 !  sum the widths of the remaining text, recalling that trailing blanks
 !  were lopped off by chrcod.
       oldwid=0.0
-      do i=lead,P_nchr
-         l=P_ichr(i)
-         if (l.lt.1000) then
-           oldwid=width(l)*scale
-           s(3)=s(3) + oldwid
-         endif
-         if(l.eq.1000)s(3)=s(3)+20.0*scale
-         if(l.ge.1001.and.l.le.1003)scale=scale*factor**ipower(l-1000)
-         if(l.eq.1004)s(3)=s(3)-oldwid
-      enddo
+      if(lead.ne.0)then
+         do i=lead,P_nchr
+            l=P_ichr(i)
+            if (l.lt.1000) then
+              oldwid=width(l)*scale
+              s(3)=s(3) + oldwid
+            endif
+            if(l.eq.1000)s(3)=s(3)+20.0*scale
+            if(l.ge.1001.and.l.le.1003)scale=scale*factor**ipower(l-1000)
+            if(l.eq.1004)s(3)=s(3)-oldwid
+         enddo
+      endif
 !
 !  add on width of surplus trailing blanks.
       s(4)=s(3)+20.0*scale*(ntxt-P_nchr)

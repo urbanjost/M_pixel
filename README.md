@@ -30,17 +30,18 @@ map as well.
 This will compile the Fortran and basic example programs that exercise
 the routines.
 
-## USER DOCUMENTATION
+## DOCUMENTATION   ![docs](docs/images/docs.gif)
+### USER 
    - an [index](https://urbanjost.github.io/M_pixel/man3.html) to
-     the individual manpages in HTML form
+     the individual man-pages in HTML form
 
    - A single page that uses javascript to combine all the HTML
-     descriptions of the manpages is at 
+     descriptions of the man-pages is at 
      [BOOK_M_pixel](https://urbanjost.github.io/M_pixel/BOOK_M_pixel.html).
 
 ## ADDITIONAL DIRECTORY DESCRIPTIONS
 There are 
-   - manpages in [docs/manpages.tgz](docs/manpages.tgz) and [docs/manpages.zip](docs/manpages.zip)
+   - man-pages in [docs/manpages.tgz](docs/manpages.tgz) and [docs/manpages.zip](docs/manpages.zip)
    - demo programs in the example/ directory
    - applications in the app/ directory
 

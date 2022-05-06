@@ -570,6 +570,8 @@ real,parameter :: tpi= 3.141592654
          maxsize_local=204800
       endif
 
+      if(allocated(h))deallocate(h)
+      if(allocated(p))deallocate(p)
       allocate(h(maxsize_local,2))
       allocate(p(maxsize_local,2))
 !
