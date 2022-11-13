@@ -1,6 +1,7 @@
 !>
 !!##NAME
-!!    writegif(3f) - [M_writegif] Codes pixel-map with palette into GIF format. Optional transparent color
+!!    writegif(3f) - [M_writegif] Codes pixel-map with palette into GIF
+!!                   format. Optional transparent color
 !!    (LICENSE:PD)
 !!##SYNOPSIS
 !!
@@ -53,8 +54,10 @@
 !!
 !!##AUTHOR
 !!    o Version 1.01, 1999 August: Written by Jos Bergervoet
-!!    o Version 2, 2008 Jan 28: Modified by Clive Page to use stream I/O, array as colourmap.
-!!    o Version 3, 2017 July 6: Modified by John Urban to make it easier to use with M_PIXEL(3f) module.
+!!    o Version 2, 2008 Jan 28: Modified by Clive Page to use stream I/O,
+!!      array as colourmap.
+!!    o Version 3, 2017 July 6: Modified by John Urban to make it easier
+!!      to use with M_PIXEL(3f) module.
 !!##LICENSE
 !!    Public Domain.
 !>
@@ -72,7 +75,7 @@
 module M_writegif
 implicit none         !  Check all declarations
 
-! ident_1="@(#)This module can write a GIF file in GIF89 format from raster data"
+! ident_1="@(#) This module can write a GIF file in GIF89 format from raster data"
 
 private               !  bin_io is used private, no transfer to main program
 public  :: writegif   !  Writes GIF89 image, given pixel array and color map

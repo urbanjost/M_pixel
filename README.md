@@ -7,7 +7,7 @@ graphics library that emulates a subset of the M_draw vector graphics
 library. It is supplemented with additional modules that read and write
 GIF files, including animated GIFs.
 
-The user may supplemment the routines by directly manipulating the pixel
+The user may supplement the routines by directly manipulating the pixel
 map as well.
 
 ## BUILDING THE MODULES

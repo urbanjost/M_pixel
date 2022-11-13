@@ -1,6 +1,7 @@
 !>
 !!##NAME
-!!    M_pixel(3f) - [M_pixel::INTRO] module for drawing into a pixel array with 2D vector operations
+!!    M_pixel(3f) - [M_pixel::INTRO] module for drawing into a pixel array
+!!                  with 2D vector operations
 !!    (LICENSE:PD)
 !!
 !!##SYNOPSIS
@@ -26,11 +27,12 @@
 !!    use :: M_pixel, only : hue
 !!
 !!    ! Differences between M_pixel and M_draw and M_draw-related procedures:
-!!    !    hershey(3f) and justfy(3f) do not exist in M_draw and might be replaced
-!!    !    and the same font names are not available
-!!    !    print_ansi, print_ascii(3f) and print_ppm|p3|p6(3f) do not exist in M_draw
-!!    !    state(3f) does not exist in M_draw
-!!    !    viewport is in terms of pixels, not range -1.0 to 1.0
+!!    !  o  hershey(3f) and justfy(3f) do not exist in M_draw and might be
+!!    !     replaced and the same font names are not available
+!!    !  o  print_ansi, print_ascii(3f) and print_ppm|p3|p6(3f) do not
+!!    !     exist in M_draw
+!!    !  -  state(3f) does not exist in M_draw
+!!    !  -  viewport is in terms of pixels, not range -1.0 to 1.0
 !!
 !!   Module variables
 !!
@@ -1502,7 +1504,7 @@ contains
 !!    Public Domain
 subroutine rect(x1,y1, x2,y2)
 
-! ident_1="@(#)M_pixel::rect(3f): draw line rectangle given two opposite corners"
+! ident_1="@(#) M_pixel rect(3f) draw line rectangle given two opposite corners"
 
 !
 !  x1,y1 ############ x2,y1
@@ -1550,7 +1552,7 @@ end subroutine rect
 !!    Public Domain
 subroutine line(x1,y1, x2,y2 )
 
-! ident_2="@(#)M_pixel::line(3f): draw line between two points applying line width and color"
+! ident_2="@(#) M_pixel line(3f) draw line between two points applying line width and color"
 
 real,intent(in)  :: x1,y1,x2,y2
 
@@ -1613,7 +1615,7 @@ end subroutine line
 !==================================================================================================================================!
 subroutine swapcoord(p1, p2)
 
-! ident_3="@(#)M_pixel::swapcoor(3fp): swap two coordinates (integers)"
+! ident_3="@(#) M_pixel swapcoor(3fp) swap two coordinates (integers)"
 
     integer, intent(inout) :: p1, p2
     integer :: t
@@ -2209,7 +2211,7 @@ end subroutine swapcoord
 !! Retrieved from "http://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm"
 subroutine draw_line_single(x1,y1, x2,y2 )
 
-! ident_4="@(#)M_pixel::draw_line_single(3fp): draw line between two points in pixel array"
+! ident_4="@(#) M_pixel draw_line_single(3fp) draw line between two points in pixel array"
 
 integer,intent(in)            :: x1,y1,x2,y2
 
@@ -2268,7 +2270,8 @@ end subroutine draw_line_single
 !==================================================================================================================================!
 !>
 !!##NAME
-!!    hershey(3f) - [M_pixel:TEXT] draw text string as Hershey software vector fonts
+!!    hershey(3f) - [M_pixel:TEXT] draw text string as Hershey software
+!!                  vector fonts
 !!    (LICENSE:PD
 !!
 !!##SYNOPSIS
@@ -2359,9 +2362,11 @@ end subroutine draw_line_single
 !!    by \BS\. This is useful, for example, in writing integral signs with
 !!    limits above and below them.
 !!
-!!    Symbol parameters taken from N.M.Wolcott, FORTRAN IV Enhanced Character Graphics, NBS
+!!    Symbol parameters taken from N.M.Wolcott, FORTRAN IV Enhanced Character
+!!    Graphics, NBS
 !!
-!!    A. CHAVE IGPP/UCSD Aug 1981, Modified Feb 1982 by A. Chave, R.L. Parker, and L. Shure
+!!    A. CHAVE IGPP/UCSD Aug 1981, Modified Feb 1982 by A. Chave,
+!!    R.L. Parker, and L. Shure
 !!
 !!    programmed in FORTRAN-77
 !!
@@ -2433,7 +2438,7 @@ end subroutine draw_line_single
 !!    placed in the public domain.
 subroutine hershey(x,y,height,itext,theta,ntext)
 
-! ident_5="@(#)M_pixel::hershey(3f): draw text string as Hershey software vector fonts"
+! ident_5="@(#) M_pixel hershey(3f) draw text string as Hershey software vector fonts"
 
       character(len=*),intent(in)   :: itext
       real,intent(in)               :: x,y
@@ -2630,7 +2635,7 @@ end subroutine hershey
 !==================================================================================================================================!
 subroutine hstylus(xi,yi,ipen)
 
-! ident_6="@(#)M_pixel::hstylus(3fp): move to new current position(CP) or draw from CP to new position and update CP"
+! ident_6="@(#) M_pixel hstylus(3fp) move to new current position(CP) or draw from CP to new position and update CP"
 
 real,intent(in)    :: xi,yi
 integer,intent(in) :: ipen
@@ -2654,7 +2659,7 @@ end subroutine hstylus
 !==================================================================================================================================!
 subroutine chrcod(text,ntext)
 
-! ident_7="@(#)M_pixel::chrcod(3fp): return symbol numbers or formatting codes for a text string"
+! ident_7="@(#) M_pixel chrcod(3fp) return symbol numbers or formatting codes for a text string"
 
 !  Given text string in text, NTEXT characters
 !  returns P_ICHR containing P_NCHR symbol numbers or codes for
@@ -3002,7 +3007,7 @@ END SUBROUTINE CHRCOD
 !!    Public Domain
 function strlength(string)
 
-! ident_8="@(#)M_pixel::strlength: length of string using current font size"
+! ident_8="@(#) M_pixel strlength length of string using current font size"
 
 character(len=*),intent(in)    :: string
 real                           :: strlength
@@ -3026,7 +3031,8 @@ end function strlength
 !==================================================================================================================================!
 !>
 !!##NAME
-!!    justfy(3f) - [M_pixel:TEXT] return lengths used to justify a string when calling hershey
+!!    justfy(3f) - [M_pixel:TEXT] return lengths used to justify a string
+!!                 when calling hershey
 !!    (LICENSE:PD)
 !!
 !!##SYNOPSIS
@@ -3059,7 +3065,7 @@ end function strlength
 !!    Public Domain
 subroutine justfy(s, height, text, ntext)
 
-! ident_9="@(#)M_pixel::justfy(3f): calculate values for justifying Hershey fonts called by hershey(3f)"
+! ident_9="@(#) M_pixel justfy(3f) calculate values for justifying Hershey fonts called by hershey(3f)"
 
 !  Given the text string TEXT with NTEXT characters, height HEIGHT, this routine
 !  gives 4 distances in inches, all from the left end of the string -
@@ -3220,7 +3226,8 @@ end subroutine polyline2
 !==================================================================================================================================!
 !>
 !!##NAME
-!!    clear(3f) - [M_pixel] clear background to current color or specified color index
+!!    clear(3f) - [M_pixel] clear background to current color or specified
+!!                color index
 !!    (LICENSE:PD)
 !!
 !!##SYNOPSIS
@@ -3268,7 +3275,7 @@ end subroutine polyline2
 !!    Public Domain
 subroutine clear(indx)
 
-! ident_10="@(#)M_pixel::clear(3f): set background color all to specified color index"
+! ident_10="@(#) M_pixel clear(3f) set background color all to specified color index"
 
 integer,intent(in),optional :: indx
 call if_init()
@@ -3357,7 +3364,7 @@ end subroutine clear
 !!    Public Domain
 elemental impure subroutine pixel(row,column,indx)
 
-! ident_11="@(#)M_pixel::pixel(3f): set background color all to specified color index"
+! ident_11="@(#) M_pixel pixel(3f) set background color all to specified color index"
 
 integer,intent(in)          :: row
 integer,intent(in)          :: column
@@ -3378,7 +3385,7 @@ end subroutine pixel
 !==================================================================================================================================!
 subroutine if_init()
 
-! ident_12="@(#)M_pixel::if_init(3f): check if pixel graphics library has been initialized"
+! ident_12="@(#) M_pixel if_init(3f) check if pixel graphics library has been initialized"
 
    if(.not.P_VINIT_CALLED)then
       write(*,*)'*draw_line_single* WARNING: P_vinit(3f) was not called'
@@ -3446,7 +3453,7 @@ end subroutine if_init
 !!    Public Domain
 subroutine arc(x,y,radius,startang,endang)
 
-! ident_13="@(#)M_pixel::arc(3f): draw a arc using current line width and color"
+! ident_13="@(#) M_pixel arc(3f) draw a arc using current line width and color"
 
 real,intent(in) :: x,y
 real,intent(in) :: radius
@@ -3542,7 +3549,7 @@ end subroutine arc
 !!    Public Domain
 subroutine circle(x,y,radius)
 
-! ident_14="@(#)M_pixel::circle(3f): draw a circle using current line width and color"
+! ident_14="@(#) M_pixel circle(3f) draw a circle using current line width and color"
 
 real,intent(in) :: x
 real,intent(in) :: y
@@ -3633,7 +3640,7 @@ end subroutine circle
 !!    Public Domain
 subroutine linewidth(iwidth)
 
-! ident_15="@(#)M_pixel::linewidth(3f): set line width for lines drawn in pixel image"
+! ident_15="@(#) M_pixel linewidth(3f) set line width for lines drawn in pixel image"
 
 integer,intent(in) :: iwidth
    real            :: xwidth
@@ -3718,7 +3725,7 @@ end subroutine linewidth
 !!    Public Domain
 subroutine color(icolor)
 
-! ident_16="@(#)M_pixel::color(3f): set current color for lines drawn in pixel image"
+! ident_16="@(#) M_pixel color(3f) set current color for lines drawn in pixel image"
 
 integer,intent(in) :: icolor
    P_COLOR_INDEX=icolor
@@ -3794,7 +3801,6 @@ end subroutine color
 !!       call write_animated_gif('mapcolor.3m_pixel.gif',movie,P_colormap,delay=40)
 !!       call vexit()
 !!    contains
-!!    !=======================================================================--------
 !!    subroutine wheel() ! draw an entire wheel
 !!       character(len=40) :: inline
 !!       real              :: hue_val
@@ -3822,7 +3828,6 @@ end subroutine color
 !!       enddo
 !!       call centertext(.false.)
 !!    end subroutine wheel
-!!    !=======================================================================--------
 !!    subroutine slice(hue_val) ! draw a slice
 !!    integer           :: buffer
 !!    real              :: hue_val, ang_inc
@@ -3868,7 +3873,8 @@ end subroutine color
 !!       ! draw a chunk in a slice
 !!       MAXCOLORS=(256)-buffer
 !!       do icount=RINGS+1,2,-1
-!!          CURRENT_COLOR=MOD(color_count,MAXCOLORS)+buffer  ! add buffer to leave base colors alone
+!!          ! add buffer to leave base colors alone
+!!          CURRENT_COLOR=MOD(color_count,MAXCOLORS)+buffer
 !!          color_count=color_count+1
 !!          ! fancy mapcolor
 !!          call hue("hls",hue_val,LIGHTNESS,saturation,"rgb",r,g,b,status)
@@ -3910,7 +3916,7 @@ end subroutine color
 !!    Public Domain
 subroutine mapcolor(indx,red,green,blue)
 
-! ident_17="@(#)M_pixel::mapcolor(3f): set a color index using RGB values"
+! ident_17="@(#) M_pixel mapcolor(3f) set a color index using RGB values"
 
 integer,intent(in) :: indx
 integer,intent(in) :: red
@@ -3934,7 +3940,8 @@ end subroutine mapcolor
 !==================================================================================================================================!
 !>
 !!##NAME
-!!     circleprecision(3f) - [M_pixel:ARCS] set number of line segments used to approximate a circle
+!!     circleprecision(3f) - [M_pixel:ARCS] set number of line segments
+!!                           used to approximate a circle
 !!     (LICENSE:PD)
 !!
 !!##SYNOPSIS
@@ -4002,7 +4009,7 @@ end subroutine mapcolor
 !!    Public Domain
 subroutine circleprecision(nsegs)
 
-! ident_18="@(#)M_pixel::circleprecision(3f): set number of line segments making up a circle"
+! ident_18="@(#) M_pixel circleprecision(3f) set number of line segments making up a circle"
 
 integer,intent(in) :: nsegs
    P_nsegs=nsegs
@@ -4056,7 +4063,7 @@ end subroutine circleprecision
 !!    Public Domain
 subroutine getviewport(left,right,bottom,top)
 
-! ident_19="@(#)M_pixel::getviewport(3f): return viewport in screen pixel coordinates"
+! ident_19="@(#) M_pixel getviewport(3f) return viewport in screen pixel coordinates"
 
 real,intent(out)    :: left
 real,intent(out)    :: right
@@ -4143,7 +4150,7 @@ end subroutine getviewport
 !!    Public Domain
 subroutine viewport(left,right,bottom,top)
 
-! ident_20="@(#)M_pixel::viewport(3f): Specify which part of the screen to draw in."
+! ident_20="@(#) M_pixel viewport(3f) Specify which part of the screen to draw in."
 
 real,intent(in) :: left, right, bottom, top
 
@@ -4159,7 +4166,8 @@ end subroutine viewport
 !==================================================================================================================================!
 !>
 !!##NAME
-!!    mapping(3fp) - [M_pixel] calculate conversion factors between viewport and world window
+!!    mapping(3fp) - [M_pixel] calculate conversion factors between viewport
+!!                   and world window
 !!    (LICENSE:PD)
 !!
 !!##SYNOPSIS
@@ -4180,7 +4188,7 @@ end subroutine viewport
 subroutine mapping()
 !-!use M_math,only : invert_4x4
 
-! ident_21="@(#)M_pixel::mapping(3fp): calculate conversion factors between viewport and world window"
+! ident_21="@(#) M_pixel mapping(3fp) calculate conversion factors between viewport and world window"
 
    real, dimension(4,4) :: viewport,viewport_inv
    real, dimension(4)   :: window, factors
@@ -4205,7 +4213,7 @@ end subroutine mapping
 !==================================================================================================================================!
 subroutine world2viewport(xw,yw,xv,yv)
 
-! ident_22="@(#)M_pixel::world2viewport(3fp): convert world coordinates to viewports"
+! ident_22="@(#) M_pixel world2viewport(3fp) convert world coordinates to viewports"
 
 real,intent(in)  :: xw,yw
 real,intent(out) :: xv,yv
@@ -4219,7 +4227,7 @@ end subroutine world2viewport
 !==================================================================================================================================!
 subroutine viewport2world(xv,yv,xw,yw)
 
-! ident_23="@(#)M_pixel::viewport2world(3fp): convert viewport to world coordinates"
+! ident_23="@(#) M_pixel viewport2world(3fp) convert viewport to world coordinates"
 
 real,intent(in)  :: xv,yv
 real,intent(out) :: xw,yw
@@ -4233,7 +4241,8 @@ end subroutine viewport2world
 !==================================================================================================================================!
 !>
 !!##NAME
-!!    ortho2(3f) - [M_pixel] define the area of the virtual world coordinates to map to the viewport
+!!    ortho2(3f) - [M_pixel] define the area of the virtual world coordinates
+!!                 to map to the viewport
 !!    (LICENSE:PD)
 !!
 !!##SYNOPSIS
@@ -4259,7 +4268,7 @@ end subroutine viewport2world
 !!    Public Domain
 subroutine ortho2(left, right, bottom, top)
 
-! ident_24="@(#)M_pixel::ortho2(3f): define the area of the virtual world coordinates to map to the viewport"
+! ident_24="@(#) M_pixel ortho2(3f) define the area of the virtual world coordinates to map to the viewport"
 
 real,intent(in) :: left, right, bottom, top ! Define x (left, right), and y (bottom, top) clipping planes.
 
@@ -4275,7 +4284,8 @@ end subroutine ortho2
 !==================================================================================================================================!
 !>
 !!##NAME
-!!    page(3f) - [M_pixel] define the area of the virtual world coordinates to map to the viewport
+!!    page(3f) - [M_pixel] define the area of the virtual world coordinates
+!!               to map to the viewport
 !!    (LICENSE:PD)
 !!
 !!##SYNOPSIS
@@ -4301,7 +4311,7 @@ end subroutine ortho2
 subroutine page(xsmall,xlarge,ysmall,ylarge)
 !use M_journal, only : journal
 
-! ident_25="@(#)M_pixel::page(3f): given a window size, find and set to largest accommodating viewport"
+! ident_25="@(#) M_pixel page(3f) given a window size find and set to largest accommodating viewport"
 
 real,intent(in) :: xsmall
 real,intent(in) :: xlarge
@@ -4456,7 +4466,7 @@ end subroutine page
 !!    Public Domain
 subroutine rmove2(Xdelta,Ydelta)
 
-! ident_26="@(#)M_pixel::rmove2(3f): relative move"
+! ident_26="@(#) M_pixel rmove2(3f) relative move"
 
 real,intent(in) :: Xdelta
 real,intent(in) :: Ydelta
@@ -4516,7 +4526,7 @@ end subroutine rmove2
 !!    Public Domain
 subroutine move2(x,y)
 
-! ident_27="@(#)M_pixel::move2(3f): move current position"
+! ident_27="@(#) M_pixel move2(3f) move current position"
 
 real,intent(in) :: x,y
 
@@ -4598,7 +4608,7 @@ end subroutine move2
 !!    Public Domain
 subroutine rdraw2(xdelta,ydelta)
 
-! ident_28="@(#)M_pixel::rdraw2(3f): relative draw"
+! ident_28="@(#) M_pixel rdraw2(3f) relative draw"
 
 real,intent(in) :: xdelta
 real,intent(in) :: ydelta
@@ -4687,7 +4697,7 @@ end subroutine rdraw2
 !!    Public Domain
 subroutine draw2(x,y)
 
-! ident_29="@(#)M_pixel::draw2(3f): draw a line from current position to specified point"
+! ident_29="@(#) M_pixel draw2(3f) draw a line from current position to specified point"
 
 real,intent(in) :: x
 real,intent(in) :: y
@@ -4767,7 +4777,7 @@ end subroutine draw2
 !!    Public Domain
 subroutine prefsize(x,y)
 
-! ident_30="@(#)M_pixel::prefsize(3f): specify size of pixel array"
+! ident_30="@(#) M_pixel prefsize(3f) specify size of pixel array"
 
 integer,intent(in) :: x
 integer,intent(in) :: y
@@ -4829,7 +4839,7 @@ end subroutine prefsize
 !!    Public Domain
 subroutine vexit()
 
-! ident_31="@(#)M_pixel::vexit(3f): exit pixel array drawing module"
+! ident_31="@(#) M_pixel vexit(3f) exit pixel array drawing module"
 
    if(allocated(P_pixel))then
       deallocate(P_Pixel)
@@ -4888,7 +4898,7 @@ end subroutine vexit
 !!    Public Domain
 subroutine vinit(string)
 
-! ident_32="@(#)M_pixel::vinit(3f): initialize pixel array drawing module"
+! ident_32="@(#) M_pixel vinit(3f) initialize pixel array drawing module"
 
 character(len=*),optional :: string
 
@@ -4945,7 +4955,8 @@ end subroutine vinit
 !==================================================================================================================================!
 !>
 !!##NAME
-!!    makepoly(3f) - [M_pixel:POLYGONS] opens polygon constructed by a series of move-draws and closed by closepoly                  |
+!!    makepoly(3f) - [M_pixel:POLYGONS] opens polygon constructed by a
+!!                   series of move-draws and closed by closepoly
 !!    (LICENSE:PD)
 !!
 !!##SYNOPSIS
@@ -4976,16 +4987,20 @@ end subroutine vinit
 !!       call prefsize(wide,tall)
 !!       call vinit()
 !!       call ortho2(0.0, real(wide), 0.0, real(tall) )
-!!       ! call linewidth(3) ! really slows down pbm driver because all lines are polygons
+!!       ! call linewidth(3) Note:
+!!       ! really slows down pbm driver because all lines are polygons
 !!       call color(7)
 !!       call clear()
 !!       call color(0)
 !!       rows=1
-!!       box_sz=MIN(wide,tall)/rows       ! size of biggest box to use and get specified number of rows
+!!       box_sz=MIN(wide,tall)/rows       ! size of biggest box to use
+!!                                        ! and get specified number of rows
 !!       nrows = tall/box_sz              ! number of rows of objects to draw
 !!       ncols = wide/box_sz              ! number of columns of objects to draw
-!!       xoff = (wide - ncols * box_sz)/2 ! initial x offset to begin row at to center drawings
-!!       yoff = (tall - nrows * box_sz)/2 ! initial x offset to begin column at to center drawings
+!!       xoff = (wide - ncols * box_sz)/2 ! initial x offset to begin row at
+!!                                        ! to center drawings
+!!       yoff = (tall - nrows * box_sz)/2 ! initial x offset to begin column
+!!                                        ! at to center drawings
 !!       sun_radius = 148
 !!       planet_radius = 1
 !!       do ilines = 1, 300
@@ -5009,23 +5024,31 @@ end subroutine vinit
 !!          write(filename,'("hypoc.",i0,".gif")')ilines
 !!          !!call writegif(filename,P_pixel,P_colormap)
 !!       enddo
-!!       call write_animated_gif('makepoly.3m_pixel.gif',movie,P_colormap,delay=70)
+!!       call write_animated_gif('makepoly.3m_pixel.gif',&
+!!               movie,P_colormap,delay=70)
 !!       call vexit()
 !!    contains
 !!    !
 !!    !  Make shapes using hypocycloidal curves.
 !!    !
-!!    subroutine hypoc(xcenter,ycenter,sunr0,planet0,offset0,radius,ilines,ang,angs,ifill)
+!!    subroutine hypoc(xcenter,ycenter,sunr0,planet0,offset0,&
+!!                    radius,ilines,ang,angs,ifill)
 !!    use M_pixel
 !!    implicit none
-!!    real,parameter     :: PI= 3.14159265358979323846264338327950288419716939937510
+!!    real,parameter     :: PI=3.14159265358979323846264338327950288419716939937510
 !!    real,intent(in)    :: xcenter, ycenter      ! center of curve
-!!    real,intent(in)    :: sunr0,planet0,offset0 ! radii of sun, planet, and planet offset
-!!    real,intent(in)    :: radius                ! radius to fit the shape to (no fit if radius is 0)
-!!    integer,intent(in) :: ilines                ! number of points to sample along curve
-!!    real,intent(in)    :: ang                   ! angle to rotate the shape by, to orientate it.
-!!    real,intent(in)    :: angs                  ! angle to start sampling points at; ccw is +; 0 is East
-!!    integer,intent(in) :: ifill                 ! 1 make a filled polygon, 2 make a hatched polygon
+!!    real,intent(in)    :: sunr0,planet0,offset0 ! radii of sun, planet,
+!!                                                ! and planet offset
+!!    real,intent(in)    :: radius                ! radius to fit the shape to
+!!                                                ! (no fit if radius is 0)
+!!    integer,intent(in) :: ilines                ! number of points to sample
+!!                                                ! along curve
+!!    real,intent(in)    :: ang                   ! angle to rotate the shape by,
+!!                                                ! to orientate it.
+!!    real,intent(in)    :: angs                  ! angle to start sampling points
+!!                                                ! at; ccw is +; 0 is East
+!!    integer,intent(in) :: ifill                 ! 1 make a filled polygon,
+!!                                                ! 2 make a hatched polygon
 !!    integer            :: i10
 !!    real               :: ang1, con1, con2, factor
 !!    real               :: offset, planet, r, sunr, u
@@ -5083,7 +5106,7 @@ end subroutine vinit
 !!    Public Domain
 subroutine makepoly()
 
-! ident_33="@(#)M_pixel::makepoly(3f): opens polygon constructed by a series of move-draws and closed by closepoly"
+! ident_33="@(#) M_pixel makepoly(3f) opens polygon constructed by a series of move-draws and closed by closepoly"
 
    P_inpolygon=.true.
    P_polyvertex=1
@@ -5093,7 +5116,8 @@ end subroutine makepoly
 !==================================================================================================================================!
 !>
 !!##NAME
-!!    closepoly(3f) - [M_pixel:POLYGONS] Terminates a polygon opened by makepoly(3f)
+!!    closepoly(3f) - [M_pixel:POLYGONS] Terminates a polygon opened by
+!!                    makepoly(3f)
 !!    (LICENSE:PD)
 !!
 !!##SYNOPSIS
@@ -5112,7 +5136,7 @@ end subroutine makepoly
 !!    Public Domain
 subroutine closepoly()
 
-! ident_34="@(#)M_pixel::makepoly(3f): terminate a polygon opened by makepoly(3f)"
+! ident_34="@(#) M_pixel makepoly(3f) terminate a polygon opened by makepoly(3f)"
 
    P_inpolygon=.false.
    call poly2(P_polyvertex-1,P_polypoints)
@@ -5166,7 +5190,7 @@ end subroutine closepoly
 !!    Public Domain
 subroutine print_ppm(filename)
 
-! ident_35="@(#)M_pixel::print_ppm(3f): print pixel array as a P6 PPM file, appending to any existing file"
+! ident_35="@(#) M_pixel print_ppm(3f) print pixel array as a P6 PPM file appending to any existing file"
 
 character(len=*),intent(in) :: filename
 integer                     :: lun,ios
@@ -5234,7 +5258,7 @@ end subroutine print_ppm
 !!##LICENSE
 !!    Public Domain
 subroutine print_p6(filename)
-! ident_36="@(#)M_pixel::print_p6(3f): print pixel array as a P6 PPM file, replacing any existing file"
+! ident_36="@(#) M_pixel print_p6(3f) print pixel array as a P6 PPM file replacing any existing file"
 
 character(len=*),intent(in) :: filename
 integer                     :: lun,ios
@@ -5256,7 +5280,7 @@ character(len=4096)         :: message
 end subroutine print_p6
 !==================================================================================================================================!
 subroutine output_ppm(lun)
-! ident_37="@(#)M_pixel::output_ppm(3f): print pixel array as a PPM file"
+! ident_37="@(#) M_pixel output_ppm(3f) print pixel array as a PPM file"
 integer,intent(in)  :: lun
 integer             :: ios
 integer             :: i, j
@@ -5333,7 +5357,7 @@ end function num2bytes2
 !!    Public Domain
 subroutine print_p3(filename)
 
-! ident_38="@(#)M_pixel::print_p3(3f): print pixel array as a P3 PPM file"
+! ident_38="@(#) M_pixel print_p3(3f) print pixel array as a P3 PPM file"
 
 character(len=*),intent(in) :: filename
 
@@ -5408,7 +5432,7 @@ end subroutine print_p3
 subroutine print_ansi(filename)
 use,intrinsic :: iso_fortran_env, only : ERROR_UNIT, INPUT_UNIT, OUTPUT_UNIT
 
-! ident_39="@(#)M_pixel::print_ansi(3f): print pixel array as an ASCII block of text"
+! ident_39="@(#) M_pixel print_ansi(3f) print pixel array as an ASCII block of text"
 
 character(len=*),intent(in),optional  :: filename
 character(len=1024)                   :: message
@@ -5480,44 +5504,44 @@ end subroutine print_ansi
 !!    program demo_print_ascii
 !!    use M_pixel
 !!    implicit none
-!!    call prefsize(80,24)
+!!    call prefsize(65,24)
 !!       call vinit()
-!!       call ortho2(0.0,80.0,0.0,24.0)
+!!       call ortho2(0.0,65.0,0.0,24.0)
 !!       call linewidth(400)
 !!       call color(1)
 !!       call circle(12.0,12.0,6.0)
 !!       call color(2)
-!!       call circle(72.0,12.0,6.0)
+!!       call circle(55.0,12.0,6.0)
 !!       call print_ascii()
 !!       call vexit()
 !!    end program demo_print_ascii
 !!
 !!   Results:
 !!
-!!    00000000000000000000000000000000000000000000000000000000000000000000000000000000
-!!    00000000000000000000000000000000000000000000000000000000000000000000000000000000
-!!    00000000000000000000000000000000000000000000000000000000000000000000000000000000
-!!    00000000000000000000000000000000000000000000000000000000000000000000000000000000
-!!    00000000000111000000000000000000000000000000000000000000000000000000000000000000
-!!    00000000111111110000000000000000000000000000000000000000000000000000022222000000
-!!    00000001111111111000000000000000000000000000000000000000000000000002222222220000
-!!    00000001111001111100000000000000000000000000000000000000000000000022222222222000
-!!    00000011100000011110000000000000000000000000000000000000000000000222200000222200
-!!    00000111100000001111000000000000000000000000000000000000000000000222000000022200
-!!    00000111000000000111000000000000000000000000000000000000000000002220000000002220
-!!    00000111000000000111000000000000000000000000000000000000000000002220000000002220
-!!    00000111000000000111000000000000000000000000000000000000000000002220000000002220
-!!    00000111000000000111000000000000000000000000000000000000000000002220000000002220
-!!    00000111100000001110000000000000000000000000000000000000000000002222000000022220
-!!    00000011110000011110000000000000000000000000000000000000000000000222000000022200
-!!    00000001111111111100000000000000000000000000000000000000000000000020220002202000
-!!    00000000111111111000000000000000000000000000000000000000000000000002222222220000
-!!    00000000011111100000000000000000000000000000000000000000000000000000222222200000
-!!    00000000000000000000000000000000000000000000000000000000000000000000002220000000
-!!    00000000000000000000000000000000000000000000000000000000000000000000000000000000
-!!    00000000000000000000000000000000000000000000000000000000000000000000000000000000
-!!    00000000000000000000000000000000000000000000000000000000000000000000000000000000
-!!    00000000000000000000000000000000000000000000000000000000000000000000000000000000
+!!    00000000000000000000000000000000000000000000000000000000000000000
+!!    00000000000000000000000000000000000000000000000000000000000000000
+!!    00000000000000000000000000000000000000000000000000000000000000000
+!!    00000000000000000000000000000000000000000000000000000000000000000
+!!    00000000000000000000000000000000000000000000000000000000000000000
+!!    00000000000011100000000000000000000000000000000000000000000000000
+!!    00000000001111111000000000000000000000000000000000000222222000000
+!!    00000000011101111100000000000000000000000000000000022222222200000
+!!    00000000100000011010000000000000000000000000000000220000022220000
+!!    00000001100000000110000000000000000000000000000002200000002220000
+!!    00000011000000000111000000000000000000000000000002000000000202000
+!!    00000011000000000111000000000000000000000000000022000000000022000
+!!    00000011000000000011000000000000000000000000000022000000000022000
+!!    00000011000000000011000000000000000000000000000022000000000022000
+!!    00000011100000000110000000000000000000000000000020200000000022000
+!!    00000011100000000110000000000000000000000000000002200000000220000
+!!    00000001011000001100000000000000000000000000000002022000000200000
+!!    00000000111111111000000000000000000000000000000000222220222000000
+!!    00000000011111100000000000000000000000000000000000022222220000000
+!!    00000000000000000000000000000000000000000000000000000222000000000
+!!    00000000000000000000000000000000000000000000000000000000000000000
+!!    00000000000000000000000000000000000000000000000000000000000000000
+!!    00000000000000000000000000000000000000000000000000000000000000000
+!!    00000000000000000000000000000000000000000000000000000000000000000
 !!
 !!##AUTHOR
 !!    John S. Urban
@@ -5527,7 +5551,7 @@ end subroutine print_ansi
 subroutine print_ascii(filename)
 use,intrinsic :: iso_fortran_env, only : ERROR_UNIT, INPUT_UNIT, OUTPUT_UNIT
 
-! ident_40="@(#)M_pixel::print_ascii(3f): print pixel array as an ASCII block of text"
+! ident_40="@(#) M_pixel print_ascii(3f) print pixel array as an ASCII block of text"
 
 character(len=*),intent(in),optional  :: filename
 character(len=1024)                   :: message
@@ -5708,7 +5732,7 @@ end subroutine print_ascii
 !!    Public Domain
 subroutine textsize(width,height)
 
-! ident_41="@(#)M_pixel::textsize(3f): set text size in world units"
+! ident_41="@(#) M_pixel textsize(3f) set text size in world units"
 
 real,intent(in) :: width
 real,intent(in) :: height
@@ -5722,7 +5746,8 @@ end subroutine textsize
 !==================================================================================================================================!
 !>
 !!##NAME
-!!    ycentertext(3f) - [M_pixel:TEXT] set text centering mode on for drawstr(3f) and drawc(3f) in Y direction
+!!    ycentertext(3f) - [M_pixel:TEXT] set text centering mode on for
+!!                      drawstr(3f) and drawc(3f) in Y direction
 !!    (LICENSE:PD)
 !!
 !!##SYNOPSIS
@@ -5746,7 +5771,7 @@ end subroutine textsize
 !!    Public Domain
 subroutine ycentertext()
 
-! ident_42="@(#)M_pixel::ycentertext(3f): set text centering mode on for drawstr(3f) and drawc(3f) in Y direction"
+! ident_42="@(#) M_pixel ycentertext(3f) set text centering mode on for drawstr(3f) and drawc(3f) in Y direction"
 
    P_X_centertext=.false.
    P_Y_centertext=.true.
@@ -5757,7 +5782,8 @@ end subroutine ycentertext
 !==================================================================================================================================!
 !>
 !!##NAME
-!!    xcentertext(3f) - [M_pixel:TEXT] set text centering mode on for drawstr(3f) and drawc(3f) in X direction
+!!    xcentertext(3f) - [M_pixel:TEXT] set text centering mode on for
+!!                      drawstr(3f) and drawc(3f) in X direction
 !!    (LICENSE:PD)
 !!
 !!##SYNOPSIS
@@ -5785,7 +5811,7 @@ end subroutine ycentertext
 !!    Public Domain
 subroutine xcentertext()
 
-! ident_43="@(#)M_pixel::xcentertext(3f): set text centering mode for drawstr(3f) and drawc(3f) in X direction"
+! ident_43="@(#) M_pixel xcentertext(3f) set text centering mode for drawstr(3f) and drawc(3f) in X direction"
 
    P_X_CENTERTEXT=.true.
    P_Y_centertext=.false.
@@ -5796,7 +5822,8 @@ end subroutine xcentertext
 !==================================================================================================================================!
 !>
 !!##NAME
-!!    centertext(3f) - [M_pixel:TEXT] set text centering mode for drawstr(3f) and drawc(3f)
+!!    centertext(3f) - [M_pixel:TEXT] set text centering mode for drawstr(3f)
+!!                     and drawc(3f)
 !!    (LICENSE:PD)
 !!
 !!##SYNOPSIS
@@ -5874,7 +5901,7 @@ end subroutine xcentertext
 !!    Public Domain
 subroutine centertext(onoff)
 
-! ident_44="@(#)M_pixel::centertext(3f): set text centering mode for drawstr(3f) and drawc(3f)"
+! ident_44="@(#) M_pixel centertext(3f) set text centering mode for drawstr(3f) and drawc(3f)"
 
 logical,intent(in) :: onoff
 
@@ -5903,8 +5930,8 @@ end subroutine centertext
 !!
 !!##OPTIONS
 !!    ANG   The angle in degrees to draw text with when using drawstr(3f).
-!!          Angles are measured counterclockwise with zero degrees at the horizontal
-!!          line to the right of the original.
+!!          Angles are measured counterclockwise with zero degrees at the
+!!          horizontal line to the right of the original.
 !!
 !!##EXAMPLE
 !!
@@ -5948,7 +5975,7 @@ end subroutine centertext
 !!    Public Domain
 subroutine textang(ang)
 
-! ident_45="@(#)M_pixel::textang(3f): set angle in degrees to draw text at using drawstr(3f)"
+! ident_45="@(#) M_pixel textang(3f) set angle in degrees to draw text at using drawstr(3f)"
 
 real,intent(in) :: ang
 
@@ -6041,7 +6068,7 @@ end subroutine textang
 !!    end program demo_font
 subroutine font(fontname)
 
-! ident_46="@(#)M_pixel::font(3f): select font style by name"
+! ident_46="@(#) M_pixel font(3f) select font style by name"
 
 character(len=*),intent(in) :: fontname
       select case(fontname)
@@ -6125,7 +6152,7 @@ end subroutine font
 !!    Public Domain
 subroutine drawchar(ch)
 
-! ident_47="@(#)M_pixel::drawchar(3f): draw text at the current position"
+! ident_47="@(#) M_pixel drawchar(3f) draw text at the current position"
 
 character(len=1),intent(in) :: ch
 
@@ -6205,7 +6232,7 @@ end subroutine drawchar
 subroutine drawstr_(string)
 !-!use :: M_pixel, only : cosd, sind
 
-! ident_48="@(#)M_pixel::drawstr(3f): draw text at the current position"
+! ident_48="@(#) M_pixel drawstr(3f) draw text at the current position"
 
 character(len=*),intent(in)  :: string
 character(len=:),allocatable :: fontstring
@@ -6346,7 +6373,7 @@ end subroutine drawstr_
 !!    Public Domain
 subroutine getgp2(x, y)
 
-! ident_49="@(#)M_pixel::getgp2(3f): get current graphics position"
+! ident_49="@(#) M_pixel getgp2(3f) get current graphics position"
 
 real,intent(out) :: x, y
 
@@ -6359,7 +6386,8 @@ end subroutine getgp2
 !==================================================================================================================================!
 !>
 !!##NAME
-!!    getdisplaysize(3f) - [M_pixel] Returns the width and height of the device in pixels
+!!    getdisplaysize(3f) - [M_pixel] Returns the width and height of the
+!!                         device in pixels
 !!    (LICENSE:PD)
 !!
 !!##SYNOPSIS
@@ -6379,7 +6407,7 @@ end subroutine getgp2
 !!    Public Domain
 subroutine getdisplaysize(w, h)
 
-! ident_50="@(#)M_pixel::getdisplaysize(3f): Returns the width and height of the device in pixels"
+! ident_50="@(#) M_pixel getdisplaysize(3f) Returns the width and height of the device in pixels"
 
 real,intent(out) :: w, h
 
@@ -6432,7 +6460,7 @@ end subroutine getdisplaysize
 !!    Public Domain
 subroutine point2(x, y)
 
-! ident_51="@(#)M_pixel::point2(3f): Draw a point at x, y"
+! ident_51="@(#) M_pixel point2(3f) Draw a point at x y"
 
 real,intent(in) :: x, y
 
@@ -6487,10 +6515,10 @@ end subroutine point2
 !!    FONT:               SIMPLEX
 !!    COLOR NUMBER:                  1
 !!    CIRCLE PRECISION:             60
-!!    TEXT:               HEIGHT=   10.0000000     WIDTH=   7.00000000     ANGLE=   0.00000000
+!!    TEXT:               HEIGHT=   10.000  WIDTH= 7.0000 ANGLE= 0.0000
 !!    TEXT JUSTIFICATION: X_CENTER= F Y_CENTER= F
-!!    VIEWPORT:           LEFT=   0.00000000     RIGHT=   639.000000     BOTTOM=   399.000000     TOP=   0.00000000
-!!    WINDOW:             LEFT=   0.00000000     RIGHT=   640.000000     BOTTOM=   0.00000000     TOP=   400.000000
+!!    VIEWPORT:           LEFT=   0.0000  RIGHT= 639.00 BOTTOM= 399.00 TOP= 0.0000
+!!    WINDOW:             LEFT=   0.0000  RIGHT= 640.00 BOTTOM= 0.0000 TOP= 400.00
 !!
 !!##AUTHOR
 !!    John S. Urban
@@ -6499,10 +6527,11 @@ end subroutine point2
 !!    Public Domain
 recursive subroutine state(string)
 
-! ident_52="@(#)M_pixel::state(3f): print graphics state of M_pixel graphics module"
+! ident_52="@(#) M_pixel state(3f) print graphics state of M_pixel graphics module"
 
 character(len=*),intent(in),optional :: string
 character(len=40)         :: string_local
+character(len=*),parameter :: g='(*(g0))'
 integer :: i
 
 if(present(string))then
@@ -6519,20 +6548,20 @@ case ('all')
    call state('default')
 !-----------------------------------------------------------------------------------------------------------------------------------
 case ('colormap','color')
-write(*,*)'COLOR MAP:          ',new_line('n'),(i,P_COLORMAP(:,i),new_line('n'),i=0,255)
+write(*,g)'COLOR MAP:          ',new_line('n'),(i,P_COLORMAP(:,i),new_line('n'),i=0,255)
 !-----------------------------------------------------------------------------------------------------------------------------------
 case default
-write(*,*)'VINIT CALLED:       ',P_VINIT_CALLED
-write(*,*)'PREFSIZE: WIDTH=',P_VIEWPORT_WIDTH,' HEIGHT=',P_VIEWPORT_HEIGHT
-write(*,*)'CURRENT POSITION: X=',P_X,' Y=',P_Y
-write(*,*)'LINE WIDTH:         ',P_WIDTH
-write(*,*)'FONT:               ',P_FONT
-write(*,*)'COLOR NUMBER:       ',P_COLOR_INDEX
-write(*,*)'CIRCLE PRECISION:   ',P_NSEGS
-write(*,*)'TEXT:               ','HEIGHT=',P_TEXT_HEIGHT,'WIDTH=',P_TEXT_WIDTH,'ANGLE=',P_TEXT_ANGLE
-write(*,*)'TEXT JUSTIFICATION: ','X_CENTER=',P_X_CENTERTEXT,'Y_CENTER=',P_Y_CENTERTEXT
-write(*,*)'VIEWPORT:           ','LEFT=',P_VIEWPORT_LEFT,'RIGHT=',P_VIEWPORT_RIGHT,'BOTTOM=',P_VIEWPORT_BOTTOM,'TOP=',P_VIEWPORT_TOP
-write(*,*)'WINDOW:             ','LEFT=',P_WINDOW_LEFT,'RIGHT=',P_WINDOW_RIGHT,'BOTTOM=',P_WINDOW_BOTTOM,'TOP=',P_WINDOW_TOP
+write(*,g)'VINIT CALLED:       ',P_VINIT_CALLED
+write(*,g)'PREFSIZE: WIDTH=    ',P_VIEWPORT_WIDTH,' HEIGHT=',P_VIEWPORT_HEIGHT
+write(*,g)'CURRENT POSITION: X=',P_X,' Y=',P_Y
+write(*,g)'LINE WIDTH:         ',P_WIDTH
+write(*,g)'FONT:               ',P_FONT
+write(*,g)'COLOR NUMBER:       ',P_COLOR_INDEX
+write(*,g)'CIRCLE PRECISION:   ',P_NSEGS
+write(*,g)'TEXT:               ','HEIGHT=',P_TEXT_HEIGHT,'WIDTH=',P_TEXT_WIDTH,'ANGLE=',P_TEXT_ANGLE
+write(*,g)'TEXT JUSTIFICATION: ','X_CENTER=',P_X_CENTERTEXT,'Y_CENTER=',P_Y_CENTERTEXT
+write(*,g)'VIEWPORT:           ','LEFT=',P_VIEWPORT_LEFT,'RIGHT=',P_VIEWPORT_RIGHT,'BOTTOM=',P_VIEWPORT_BOTTOM,'TOP=',P_VIEWPORT_TOP
+write(*,g)'WINDOW:             ','LEFT=',P_WINDOW_LEFT,'RIGHT=',P_WINDOW_RIGHT,'BOTTOM=',P_WINDOW_BOTTOM,'TOP=',P_WINDOW_TOP
 !-----------------------------------------------------------------------------------------------------------------------------------
 end select
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -6601,11 +6630,12 @@ end subroutine state
 !!       points(1:2,3)=[xx+16.0, yy+16.0 ]
 !!       points(1:2,4)=[xx+16.0, yy      ]
 !!       points(1:2,5)=[xx,      yy      ]
-!!       ! get some nice RGB values to try from named colors known by M_pixel module
+!!       ! get some nice RGB values to try from named colors known by M_pixel
 !!       call color_name2rgb(i2s(icolor),red,green,blue,echoname)
 !!       if(echoname.eq.'Unknown') return
 !!       ! set a color number to the new RGB values
-!!       write(*,*)icolor, nint(red*2.55), nint(green*2.55), nint(blue*2.55),trim(echoname)
+!!       write(*,*)icolor, nint(red*2.55), nint(green*2.55), nint(blue*2.55),&
+!!              & trim(echoname)
 !!       call mapcolor(icolor, nint(red*2.55), nint(green*2.55), nint(blue*2.55))
 !!       ! set to the new color
 !!       call color(icolor)
@@ -6621,7 +6651,7 @@ end subroutine state
 !!    Public Domain
 subroutine poly2(n,points)
 
-! ident_53="@(#)M_pixel::poly2(3f): construct a polygon from an array of points"
+! ident_53="@(#) M_pixel poly2(3f) construct a polygon from an array of points"
 
 integer,intent(in) :: n
 real,intent(in)    :: points(2, n)
@@ -6643,7 +6673,7 @@ end subroutine poly2
 !==================================================================================================================================!
 subroutine vflush()
 
-! ident_54="@(#)M_pixel::vflush(3f): flush current page"
+! ident_54="@(#) M_pixel vflush(3f) flush current page"
 
 end subroutine vflush
 !==================================================================================================================================!
@@ -6651,7 +6681,7 @@ end subroutine vflush
 !==================================================================================================================================!
 subroutine PPM_DRAW_FILL_LINE(xstart,ystart,x,y)
 
-! ident_55="@(#)M_pixel::PPM_DRAW_FILL_LINE(3fp): draws a line across a graphics array"
+! ident_55="@(#) M_pixel PPM_DRAW_FILL_LINE(3fp) draws a line across a graphics array"
 
 integer,intent(in) :: xstart,ystart
 integer,intent(in) :: x,y
@@ -6717,7 +6747,7 @@ end subroutine PPM_DRAW_FILL_LINE
 !===================================================================================================================================
 subroutine PPM_draw_thick_line(inx1,iny1,inx2, iny2)
 
-! ident_56="@(#)M_pixel::PPM_DRAW_THICK_LINE(3fp): draw line from current pixel graphics position to (x, y) using polygons for line thickness"
+! ident_56="@(#) M_pixel PPM_DRAW_THICK_LINE(3fp) draw line from current pixel graphics position to (x y) using polygons for line thickness"
 
 integer,intent(in) :: inx1,iny1,inx2,iny2
    integer         :: cosine, sine
@@ -6803,7 +6833,7 @@ end function PPM_YINTERCEPT
 subroutine PPM_SOLID_FILL(x,y,n)
 !-!use M_sort, only : sort_shell
 
-! ident_57="@(#)M_pixel::PPM_SOLID_FILL(3fp): fill polygon of n points that are in viewport coordinates"
+! ident_57="@(#) M_pixel PPM_SOLID_FILL(3fp) fill polygon of n points that are in viewport coordinates"
 
 integer,intent(in) :: n
 integer,intent(in) :: x(0:n-1)
@@ -6870,7 +6900,7 @@ end subroutine PPM_SOLID_FILL
 !===================================================================================================================================
 subroutine PPM_ENDCAP_CIRCLE(x, y)
 
-! ident_58="@(#)M_pixel::PPM_ENDCAP_CIRCLE(3fp): Draw a circle on thick line segment end point"
+! ident_58="@(#) M_pixel PPM_ENDCAP_CIRCLE(3fp) Draw a circle on thick line segment end point"
 
 integer,intent(in) :: x
 integer,intent(in) :: y
@@ -7113,7 +7143,7 @@ end subroutine msg_one
 !===================================================================================================================================
 elemental real function cosd(angle_in_degrees)
 
-! ident_59="@(#)M_pixel::cosd(3f): cos(3f) with degrees as input instead of radians"
+! ident_59="@(#) M_pixel cosd(3f) cos(3f) with degrees as input instead of radians"
 
 class(*),intent(in) :: angle_in_degrees
 real                :: angle_in_degrees_local
@@ -7123,7 +7153,7 @@ end function cosd
 !-----------------------------------------------------------------------------------------------------------------------------------
 elemental real function sind(angle_in_degrees)
 
-! ident_60="@(#)M_pixel::sind(3f): sin(3f) with degrees as input instead of radians"
+! ident_60="@(#) M_pixel sind(3f) sin(3f) with degrees as input instead of radians"
 
 class(*),intent(in)  :: angle_in_degrees
 real                 :: angle_in_degrees_local
@@ -7210,7 +7240,7 @@ end subroutine journal
 !===================================================================================================================================
 function i2s(ivalue) result(outstr)
 
-! ident_61="@(#)M_strings::i2s(3fp): private function returns string given integer value"
+! ident_61="@(#) M_strings i2s(3fp) private function returns string given integer value"
 
 integer,intent(in)           :: ivalue                         ! input value to convert to a string
 character(len=:),allocatable :: outstr                         ! output string to generate
@@ -7224,7 +7254,7 @@ end function i2s
 subroutine sort_shell_integers_hl(iarray)
 ! Copyright (C) 1989,1996 John S. Urban;  all rights reserved
 
-! ident_62="@(#)M_sort::sort_shell_integers_hl(3fp):sort integer array using Shell sort (high to low)"
+! ident_62="@(#) M_sort sort_shell_integers_hl(3fp) sort integer array using Shell sort (high to low)"
 
 integer,intent(inout)      :: iarray(:)  ! input/output array
 integer                    :: n          ! number of elements in input array (iarray)
@@ -7292,7 +7322,8 @@ end function anyscalar_to_double
 
 !>
 !!##NAME
-!!    HUE(3f) - [M_pixel:COLOR] converts a color's components from one color model to another
+!!    HUE(3f) - [M_pixel:COLOR] converts color components from one color
+!!              model to another
 !!    (LICENSE:PD)
 !!
 !!##SYNOPSIS
@@ -7668,7 +7699,7 @@ end subroutine rgbhls
 !===================================================================================================================================
 subroutine rgbhvs(r0,g0,b0,h,v,s,status)
 
-! ident_63="@(#)M_pixel::rgbhvs(3fp): given red,green,blue calculate hue,saturation,value components"
+! ident_63="@(#) M_pixel rgbhvs(3fp) given red green blue calculate hue saturation value components"
 
 !---- this procedure calculates a hue, saturation, value equivalent for a
 !     color given in red, green, & blue components.
@@ -7729,7 +7760,7 @@ end subroutine rgbhvs
 !===================================================================================================================================
 subroutine cmyrgb(c,m,y,r,g,b,status)
 
-! ident_64="@(#)M_pixel::cmyrgb(3fp): given cyan,magenta,yellow calculate red,green,blue components"
+! ident_64="@(#) M_pixel cmyrgb(3fp) given cyan magenta yellow calculate red green blue components"
 
 ! given  : r, g, b each as a value of 0 to 100
 ! desired: c, m, y each as a value of 0 to 100
@@ -7748,7 +7779,7 @@ end subroutine cmyrgb
 !===================================================================================================================================
 subroutine rgbcmy(r,g,b,c,m,y,status)
 
-! ident_65="@(#)M_pixel::rgbcmy(3fp): given red,green,blue calculate cyan,magenta,yellow components"
+! ident_65="@(#) M_pixel rgbcmy(3fp) given red green blue calculate cyan magenta yellow components"
 
 !     given  : r, g, b each as a value of 0 to 100
 !     desired: c, m, y each as a value of 0 to 100
@@ -7768,7 +7799,7 @@ end subroutine rgbcmy
 !===================================================================================================================================
 subroutine rgbmono(rr,rg,rb,ri,status)
 
-! ident_66="@(#)M_pixel::rgbmono(3f): convert RGB colors to a reasonable grayscale"
+! ident_66="@(#) M_pixel rgbmono(3f) convert RGB colors to a reasonable grayscale"
 
 ! monochrome devices that support intensity can have intensity calculated from the specified Red, Green, Blue
 ! intensities as 0.30*R + 0.59*G + 0.11*B, as in US color television systems, NTSC encoding.
@@ -7788,7 +7819,7 @@ end subroutine rgbmono
 !===================================================================================================================================
 real function rgbval(clr1,clr2,h)
 
-! ident_67="@(#)M_pixel::rgbval(3fp): ensure a value is in the appropriate range and quadrant"
+! ident_67="@(#) M_pixel rgbval(3fp) ensure a value is in the appropriate range and quadrant"
 
 real    :: clr1,clr2
 real    :: h
@@ -7826,7 +7857,7 @@ end function rgbval
 !===================================================================================================================================
 subroutine hlsrgb(H,L,S,R,G,B,status)
 
-! ident_68="@(#)M_pixel::hlsrgb(3fp): convert HLS(hue,lightness,saturation) values to RGB components"
+! ident_68="@(#) M_pixel hlsrgb(3fp) convert HLS(hue lightness saturation) values to RGB components"
 
 !     given  : hue as a value of 0 to 360 degrees.
 !     .        lightness and saturation each as a value of 0 to 100.
@@ -7863,7 +7894,7 @@ end subroutine hlsrgb
 !===================================================================================================================================
 subroutine hvsrgb(h,v,s,r,g,b,status)
 
-! ident_69="@(#)M_pixel::hvsrgb(3fp): given hue,saturation,value calculate red,green,blue components"
+! ident_69="@(#) M_pixel hvsrgb(3fp) given hue saturation value calculate red green blue components"
 
 !     given  : hue as value of 0 to 360 degrees.
 !     .        saturation and value each as a value of 0 to 100.
@@ -7915,7 +7946,7 @@ end subroutine hvsrgb
 !===================================================================================================================================
 subroutine yiqrgb(y,i,q,r,g,b,status)
 
-! ident_70="@(#)M_pixel::yiqrgb(3fp): convert luma,orange-blue chrominance,purple-green chrominance to RGB"
+! ident_70="@(#) M_pixel yiqrgb(3fp) convert luma orange-blue chrominance purple-green chrominance to RGB"
 
 real,intent(in)  :: y,i,q
 real,intent(out) :: r,g,b
@@ -7951,7 +7982,7 @@ end subroutine yiqrgb
 !===================================================================================================================================
 subroutine rgbyiq(r,g,b,y,i,q,status)
 
-! ident_71="@(#)M_pixel::rgbyiq(3fp): convert RGB to luma,orange-blue chrominance,purple-green chrominance"
+! ident_71="@(#) M_pixel rgbyiq(3fp) convert RGB to luma orange-blue chrominance purple-green chrominance"
 
 real,intent(in)  :: r,g,b
 real,intent(out) :: y,i,q
@@ -7975,8 +8006,8 @@ end subroutine rgbyiq
 !===================================================================================================================================
 !>
 !!##NAME
-!!     closest_color_name(3f) - [M_pixel:COLOR] returns the closest name for the
-!!     given RGB values.
+!!     closest_color_name(3f) - [M_pixel:COLOR] returns the closest name
+!!     for the given RGB values.
 !!     (LICENSE:PD)
 !!
 !!##SYNOPSIS
@@ -8031,7 +8062,7 @@ end subroutine rgbyiq
 !!    Public Domain
 SUBROUTINE closest_color_name(r,g,b,closestname)
 
-! ident_72="@(#)M_pixel::closest_color_name(3f): given RGB values, try to find closest named color"
+! ident_72="@(#) M_pixel closest_color_name(3f) given RGB values try to find closest named color"
 
 real,intent(in)               :: r,g,b
 character(len=*),intent(out) :: closestname
@@ -8057,7 +8088,8 @@ end SUBROUTINE closest_color_name
 !===================================================================================================================================
 !>
 !!##NAME
-!!     COLOR_NAME2RGB(3f) - [M_pixel:COLOR] returns the RGB values in the range 0 to 100 for a given known color name.
+!!     COLOR_NAME2RGB(3f) - [M_pixel:COLOR] returns the RGB values in the
+!!                          range 0 to 100 for a given known color name.
 !!     (LICENSE:PD)
 !!
 !!##SYNOPSIS
@@ -8108,7 +8140,7 @@ end SUBROUTINE closest_color_name
 !!    Public Domain
 subroutine color_name2rgb(name,r,g,b,echoname)
 
-! ident_73="@(#)M_pixel::color_name2rgb(3f): given a color name, return rgb color values in range 0 to 100"
+! ident_73="@(#) M_pixel color_name2rgb(3f) given a color name return rgb color values in range 0 to 100"
 
 character(len=*),intent(in)            :: name
 real,intent(out)                       :: r,g,b
@@ -8693,7 +8725,7 @@ END SUBROUTINE color_name2rgb
 !===================================================================================================================================
 elemental pure function lower(str) result (string)
 
-! ident_74="@(#)M_strings::lower(3f): Changes a string to lowercase"
+! ident_74="@(#) M_strings lower(3f) Changes a string to lowercase"
 
 character(*), intent(In)     :: str
 character(len(str))          :: string
@@ -8712,7 +8744,8 @@ end function lower
 !===================================================================================================================================
 !>
 !!##NAME
-!!     polar_to_cartesian(3f) - [M_pixel:TRIGONOMETRY] convert polar coordinates to Cartesian coordinates
+!!     polar_to_cartesian(3f) - [M_pixel:TRIGONOMETRY] convert polar
+!!                              coordinates to Cartesian coordinates
 !!     (LICENSE:PD)
 !!
 !!##SYNOPSIS
@@ -8766,7 +8799,7 @@ end function lower
 !!    Public Domain
 subroutine polar_to_cartesian(radius,inclination,x,y)
 implicit none
-! ident_75="@(#)M_pixel::polar_to_cartesian(3f): convert polar coordinates to cartesian coordinates"
+! ident_75="@(#) M_pixel polar_to_cartesian(3f) convert polar coordinates to cartesian coordinates"
 real,intent(in) :: radius,inclination
 real,intent(out)  :: x,y
    if(radius.eq.0)then
@@ -8828,7 +8861,7 @@ end subroutine polar_to_cartesian
 !-----------------------------------------------------------------------------------------------------------------------------------
 elemental real function d2r_r(degrees)
 
-! ident_76="@(#)M_pixel::d2r_r(3f): Convert degrees to radians"
+! ident_76="@(#) M_pixel d2r_r(3f) Convert degrees to radians"
 
 doubleprecision,parameter :: RADIAN=57.2957795131d0 ! degrees
 real,intent(in)           :: degrees                ! input degrees to convert to radians
@@ -8837,7 +8870,7 @@ end function d2r_r
 !-----------------------------------------------------------------------------------------------------------------------------------
 elemental doubleprecision function d2r_d(degrees)
 
-! ident_77="@(#)M_pixel::d2r_d(3f): Convert degrees to radians"
+! ident_77="@(#) M_pixel d2r_d(3f) Convert degrees to radians"
 
 doubleprecision,parameter :: RADIAN=57.2957795131d0 ! degrees
 doubleprecision,intent(in) :: degrees               ! input degrees to convert to radians
@@ -8846,7 +8879,7 @@ end function d2r_d
 !-----------------------------------------------------------------------------------------------------------------------------------
 elemental doubleprecision function d2r_i(idegrees)
 
-! ident_78="@(#)M_pixel::d2r_i(3f): Convert degrees to radians"
+! ident_78="@(#) M_pixel d2r_i(3f) Convert degrees to radians"
 
 doubleprecision,parameter :: RADIAN=57.2957795131d0 ! degrees
 integer,intent(in) :: idegrees                      ! input degrees to convert to radians
