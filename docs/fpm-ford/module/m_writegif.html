@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="description" content="M_pixel module">
+    <meta name="author" content="John S. Urban" >
+    <link rel="icon" href="../favicon.png">
+
+    <title>M_writegif &ndash; M_pixel</title>
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/pygments.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/local.css" rel="stylesheet">
+    <link  href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <script src="../js/jquery-2.1.3.min.js"></script>
+    <script src="../js/svg-pan-zoom.min.js"></script>
+
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../index.html">M_pixel </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="dropdown hidden-xs visible-sm visible-md hidden-lg">
+              <a href="#" class="dropdown-toggle"
+              data-toggle="dropdown" role="button"
+              aria-haspopup="true"
+     aria-expanded="false">Contents <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li><a href="../lists/files.html">Source Files</a></li>
+            <li><a href="../lists/modules.html">Modules</a></li>
+            <li><a href="../lists/procedures.html">Procedures</a></li>
+                   <li><a href="../lists/types.html">Derived Types</a></li>
+       
+            </ul>
+        
+            </li>
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/files.html">Source Files</a></li>
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/modules.html">Modules</a></li>
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/procedures.html">Procedures</a></li>
+                             <li class="visible-xs hidden-sm visible-lg"><a href="../lists/types.html">Derived Types</a></li>
+          </ul>
+        <form action="../search.html" class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
+        </div>
+<!--
+        <button type="submit" class="btn btn-default">Submit</button>
+-->
+        </form>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+  <div class="row">
+    <h1>M_writegif 
+    <small>Module</small>
+    </h1>
+    <div class="row">
+  <div class="col-lg-12">
+<div class="well well-sm">
+  <ul class="list-inline" style="margin-bottom:0px;display:inline">
+     <li><i class="fa fa-list-ol"></i>
+       <a data-toggle="tooltip"
+    data-placement="bottom" data-html="true"
+    title=" 2.5% of total for modules and submodules.">184 statements</a>
+     </li> 
+    <li><i class="fa fa-code"></i><a href="../src/M_writegif.f90"> Source File</a></li>
+  </ul>
+  <ol class="breadcrumb in-well text-right">
+     <li><a href='../sourcefile/m_writegif.f90.html'>M_writegif.f90</a></li>
+     <li class="active">M_writegif</li>
+  </ol>
+</div>
+</div>
+</div>
+<script>
+  $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+  })
+</script>
+
+  </div>
+  
+  <div class="row">
+    <div class="col-md-3 hidden-xs hidden-sm visible-md visible-lg">
+    <div id="sidebar">
+  <h3>Contents</h3>
+ 
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#subs-0">Subroutines</a></h3></div>
+  <div class="list-group">
+    <div id="subs-0" class="panel-collapse collapse">
+      <a class="list-group-item" href="../module/m_writegif.html#proc-writegif">writegif</a>
+    </div>
+  </div>
+</div>
+
+</div>
+
+    </div>
+    
+    <div class="col-md-9" id='text'>
+    <h2 id="name">NAME</h2>
+<div class="codehilite"><pre><span></span><code><span class="n">writegif</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_writegif</span><span class="o">]</span><span class="w"> </span><span class="n">Codes</span><span class="w"> </span><span class="n">pixel</span><span class="o">-</span><span class="k">map</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">palette</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">GIF</span><span class="w"></span>
+<span class="w">               </span><span class="nf">format</span><span class="p">.</span><span class="w"> </span><span class="n">Optional</span><span class="w"> </span><span class="n">transparent</span><span class="w"> </span><span class="n">color</span><span class="w"></span>
+<span class="p">(</span><span class="nl">LICENSE</span><span class="p">:</span><span class="n">PD</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+
+<h2 id="synopsis">SYNOPSIS</h2>
+<p>subroutine writegif (FileName, Pixel, ColorMap, Transparent)</p>
+<div class="codehilite"><pre><span></span><code>character(len=*), intent(in)         :: FileName
+integer, intent(in), dimension(:,:)  :: Pixel
+integer, intent(in), dimension(:,0:) :: ColorMap
+integer, intent(in), optional        :: Transparent
+</code></pre></div>
+
+<h2 id="description">DESCRIPTION</h2>
+<div class="codehilite"><pre><span></span><code>Write GIF file from pixel array and color map.
+</code></pre></div>
+
+<h2 id="options">OPTIONS</h2>
+<div class="codehilite"><pre><span></span><code><span class="nv">FileName</span>       <span class="nv">file</span> <span class="nv">to</span> <span class="nv">create</span> <span class="nv">or</span> <span class="nv">replace</span>
+<span class="nv">Pixel</span>          <span class="nv">Pixel</span> <span class="nv">values</span> <span class="mi">0</span> <span class="nv">to</span> <span class="nv">ncol</span>
+<span class="nv">ColorMap</span>       <span class="nv">Color</span> <span class="nv">map</span> <span class="ss">(</span><span class="nv">RGB</span> <span class="mi">0</span>:<span class="mi">255</span> <span class="k">for</span> <span class="nv">colours</span> <span class="mi">0</span>:<span class="nv">ncol</span><span class="ss">)</span>
+<span class="nv">Transparent</span>    <span class="nv">Optional</span>
+</code></pre></div>
+
+<h2 id="example">EXAMPLE</h2>
+<p>Sample call:</p>
+<div class="codehilite"><pre><span></span><code><span class="nv">program</span> <span class="nv">demo_writegif</span>
+<span class="nv">use</span> <span class="nv">M_writegif</span>, <span class="nv">only</span> : <span class="nv">writegif</span>
+<span class="nv">integer</span>  :: <span class="nv">Pixel</span><span class="ss">(</span><span class="mi">100</span>,<span class="mi">100</span><span class="ss">)</span>
+<span class="nv">integer</span>  :: <span class="nv">Transparent</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="nv">integer</span>  :: <span class="nv">ColorMap</span> <span class="ss">(</span><span class="mi">3</span>,<span class="mi">0</span>:<span class="mi">7</span><span class="ss">)</span>
+<span class="nv">colormap</span><span class="ss">(</span>:,<span class="mi">0</span><span class="ss">)</span><span class="o">=</span>[<span class="mi">255</span>,<span class="mi">255</span>,<span class="mi">255</span>]
+<span class="nv">colormap</span><span class="ss">(</span>:,<span class="mi">1</span><span class="ss">)</span><span class="o">=</span>[<span class="mi">255</span>,  <span class="mi">0</span>,  <span class="mi">0</span>]
+<span class="nv">colormap</span><span class="ss">(</span>:,<span class="mi">2</span><span class="ss">)</span><span class="o">=</span>[  <span class="mi">0</span>,<span class="mi">255</span>,  <span class="mi">0</span>]
+<span class="nv">colormap</span><span class="ss">(</span>:,<span class="mi">3</span><span class="ss">)</span><span class="o">=</span>[  <span class="mi">0</span>,  <span class="mi">0</span>,<span class="mi">255</span>]
+<span class="nv">colormap</span><span class="ss">(</span>:,<span class="mi">4</span><span class="ss">)</span><span class="o">=</span>[<span class="mi">255</span>,<span class="mi">255</span>,  <span class="mi">0</span>]
+<span class="nv">colormap</span><span class="ss">(</span>:,<span class="mi">5</span><span class="ss">)</span><span class="o">=</span>[<span class="mi">255</span>,  <span class="mi">0</span>,<span class="mi">255</span>]
+<span class="nv">colormap</span><span class="ss">(</span>:,<span class="mi">6</span><span class="ss">)</span><span class="o">=</span>[  <span class="mi">0</span>,<span class="mi">255</span>,<span class="mi">255</span>]
+<span class="nv">colormap</span><span class="ss">(</span>:,<span class="mi">7</span><span class="ss">)</span><span class="o">=</span>[  <span class="mi">0</span>,  <span class="mi">0</span>,  <span class="mi">0</span>]
+
+<span class="o">!</span> <span class="nv">put</span> <span class="nv">some</span> <span class="nv">colored</span> <span class="nv">boxes</span> <span class="nv">into</span> <span class="nv">pixmap</span>
+<span class="nv">pixel</span><span class="ss">(</span>:,:<span class="ss">)</span><span class="o">=</span><span class="mi">0</span>
+<span class="nv">pixel</span><span class="ss">(</span><span class="mi">1</span>:<span class="mi">80</span>,<span class="mi">1</span>:<span class="mi">80</span><span class="ss">)</span><span class="o">=</span><span class="mi">1</span>
+<span class="nv">pixel</span><span class="ss">(</span><span class="mi">11</span>:<span class="mi">20</span>,<span class="mi">11</span>:<span class="mi">20</span><span class="ss">)</span><span class="o">=</span><span class="mi">2</span>
+<span class="nv">pixel</span><span class="ss">(</span><span class="mi">21</span>:<span class="mi">40</span>,<span class="mi">21</span>:<span class="mi">40</span><span class="ss">)</span><span class="o">=</span><span class="mi">3</span>
+
+<span class="o">!</span> <span class="nv">write</span> <span class="nv">gif</span> <span class="nv">with</span> <span class="nv">a</span> <span class="nv">transparent</span> <span class="nv">background</span>
+<span class="k">call</span> <span class="nl">writegif</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">boxes_t.gif</span><span class="s1">&#39;</span>,<span class="nv">pixel</span>,<span class="nv">ColorMap</span>,<span class="nv">Transparent</span><span class="ss">)</span>
+
+<span class="o">!</span> <span class="nv">change</span> <span class="nv">background</span> <span class="nv">color</span> <span class="nv">and</span> <span class="nv">write</span> <span class="nv">standard</span> <span class="nv">gif</span> <span class="nv">file</span>
+<span class="nv">where</span> <span class="ss">(</span><span class="nv">pixel</span>.<span class="nv">eq</span>.<span class="mi">0</span><span class="ss">)</span> <span class="nv">pixel</span><span class="o">=</span><span class="mi">4</span>
+<span class="k">call</span> <span class="nl">writegif</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">boxes.gif</span><span class="s1">&#39;</span>,<span class="nv">pixel</span>,<span class="nv">ColorMap</span><span class="ss">)</span>
+
+<span class="k">end</span> <span class="nv">program</span> <span class="nv">demo_writegif</span>
+</code></pre></div>
+
+<h2 id="author">AUTHOR</h2>
+<div class="codehilite"><pre><span></span><code>o Version 1.01, 1999 August: Written by Jos Bergervoet
+o Version 2, 2008 Jan 28: Modified by Clive Page to use stream I/O,
+  array as colourmap.
+o Version 3, 2017 July 6: Modified by John Urban to make it easier
+  to use with M_PIXEL(3f) module.
+</code></pre></div>
+
+<h2 id="license">LICENSE</h2>
+<div class="codehilite"><pre><span></span><code>Public Domain.
+</code></pre></div>
+
+<p>PRODUCT:        CLI library utilities and examples
+ PROGRAM:        M_writegif(3f)
+ DESCRIPTION:    This module can write a GIF file in GIF89 format from raster data</p>
+<h2 id="version-101-19990808">VERSION:        1.01, 19990808</h2>
+<p>AUTHOR:         Jos Bergervoet</p>
+<h2 id="version-200-20080128">VERSION:        2.00, 20080128</h2>
+<p>AUTHOR:         version by [[Clive Page]] makes use of Fortran stream I/O, array as colourmap</p>
+<h2 id="version-300-20170706">VERSION:        3.00, 20170706</h2>
+<p>AUTHOR:         Modified by John Urban to make it easier to use with M_PIXEL(3f) module.
+ LICENSE:        Public Domain. This is free software: you are free to change and redistribute it.
+                 There is NO WARRANTY, to the extent permitted by law.</p>
+    
+    
+    <br>
+
+    <section class="visible-xs visible-sm hidden-md">
+      <h3>Contents</h3>
+ 
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#subs-1">Subroutines</a></h3></div>
+  <div class="list-group">
+    <div id="subs-1" class="panel-collapse collapse">
+      <a class="list-group-item" href="../module/m_writegif.html#proc-writegif">writegif</a>
+    </div>
+  </div>
+</div>
+
+    </section>
+    <br class="visible-xs visible-sm hidden-md">
+
+
+    
+    
+
+    
+    
+
+    <section>
+    <h2>Subroutines</h2>
+      <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="proc-writegif"></span><h3>public subroutine <a href='../proc/writegif.html'>writegif</a>(FileName, Pixel, ColorMap, Transparent)</h3></div>
+  <div class="panel-body">
+       
+<p>print *,&rsquo;image size&rsquo;, nx, ny, &lsquo; colours&rsquo;, maxincol</p>
+    
+<h4>Arguments</h4>      <table class="table table-striped varlist">
+<thead><tr><th>Type</th><th>Intent</th><th>Optional</th><th>Attributes</th><th></th><th>Name</th><th></th></thead>
+<tbody>
+<tr>
+  <td><span class="anchor" ></span>character(len=*),</td>
+<td>intent(in)</td>
+  <td></td>  <td></td><td>::</td>
+  <td><strong>FileName</strong></td><td></td>
+</tr>
+<tr>
+  <td><span class="anchor" ></span>integer,</td>
+<td>intent(in),</td>
+  <td></td>  <td>dimension(:,:)</td><td>::</td>
+  <td><strong>Pixel</strong></td><td></td>
+</tr>
+<tr>
+  <td><span class="anchor" ></span>integer,</td>
+<td>intent(in),</td>
+  <td></td>  <td>dimension(:,0:)</td><td>::</td>
+  <td><strong>ColorMap</strong></td><td></td>
+</tr>
+<tr>
+  <td><span class="anchor" ></span>integer,</td>
+<td>intent(in),</td>
+  <td>optional</td>  <td></td><td>::</td>
+  <td><strong>Transparent</strong></td><td></td>
+</tr>
+</tbody>
+</table>
+
+
+  </div>
+  </div>
+
+    </section>    
+    <br>
+    
+    </div>
+  </div>
+
+    <hr>    
+    </div> <!-- /container -->
+    <footer>
+      <div class="container">
+      <div class="row">
+        <div class="col-xs-6 col-md-6"><p>M_pixel was developed by John S. Urban<br>&copy; 2022 
+</p>
+        </div>
+        <div class="col-xs-6 col-md-6">
+          <p class="text-right">
+            Documentation generated by 
+            <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
+ on 2022-11-13 15:39            </p>
+        </div>
+      </div>
+      <br>
+      </div> <!-- /container -->    
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+<!--
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+-->
+    <script src="../js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../js/ie10-viewport-bug-workaround.js"></script>
+
+    <!-- MathJax JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } },
+        jax: ['input/TeX','input/MathML','output/HTML-CSS'],
+        extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']
+      });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script src="../tipuesearch/tipuesearch_content.js"></script>
+    <script src="../tipuesearch/tipuesearch_set.js"></script>
+    <script src="../tipuesearch/tipuesearch.js"></script>
+    
+  </body>
+</html>
