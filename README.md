@@ -39,6 +39,14 @@ the routines.
      descriptions of the man-pages is at 
      [BOOK_M_pixel](https://urbanjost.github.io/M_pixel/BOOK_M_pixel.html).
 
+   - [CHANGELOG](docs/CHANGELOG.md) provides a history of significant changes
+### DEVELOPER 
+   - [ford(1) output](https://urbanjost.github.io/M_pixel/fpm-ford/index.html).
+<!--
+   - [doxygen(1) output](https://urbanjost.github.io/M_pixel/doxygen_out/html/index.html).
+-->
+   - [github action status](docs/STATUS.md) 
+
 ## ADDITIONAL DIRECTORY DESCRIPTIONS
 There are 
    - man-pages in [docs/manpages.tgz](docs/manpages.tgz) and [docs/manpages.zip](docs/manpages.zip)

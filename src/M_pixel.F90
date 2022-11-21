@@ -14,7 +14,7 @@
 !!    use :: M_pixel, only : color,     mapcolor,        clear,      draw2
 !!    use :: M_pixel, only : circle,    circleprecision, arc,        getviewport
 !!    use :: M_pixel, only : viewport,  ortho2,          rmove2
-!!    use :: M_pixel, only : line,      linewidth,       polyline2,  move2
+!!    use :: M_pixel, only : line,      linewidth,       polyline2
 !!    use :: M_pixel, only : move2,     draw2,           prefsize,   vinit
 !!    use :: M_pixel, only : textang,   textsize,        drawstr,    getgp2
 !!    use :: M_pixel, only : vflush,    page,            point2,     getdisplaysize
@@ -3742,7 +3742,7 @@ end subroutine color
 !!
 !!  definition:
 !!
-!!    subroutine mapcolor(indx, red, green, blue)
+!!    elemental impure subroutine mapcolor(indx, red, green, blue)
 !!    integer indx, red, green, blue
 !!
 !!##DESCRIPTION
@@ -3914,7 +3914,7 @@ end subroutine color
 !!
 !!##LICENSE
 !!    Public Domain
-subroutine mapcolor(indx,red,green,blue)
+elemental impure subroutine mapcolor(indx,red,green,blue)
 
 ! ident_17="@(#) M_pixel mapcolor(3f) set a color index using RGB values"
 
@@ -4546,7 +4546,7 @@ end subroutine move2
 !!
 !!  definition:
 !!
-!!    subroutine rdraw2(x, y)
+!!    elemental impure subroutine rdraw2(x, y)
 !!    real,intent(in) :: x, y
 !!
 !!##DESCRIPTION
@@ -4606,7 +4606,7 @@ end subroutine move2
 !!
 !!##LICENSE
 !!    Public Domain
-subroutine rdraw2(xdelta,ydelta)
+elemental impure subroutine rdraw2(xdelta,ydelta)
 
 ! ident_28="@(#) M_pixel rdraw2(3f) relative draw"
 
@@ -4632,7 +4632,7 @@ end subroutine rdraw2
 !!
 !!  definition:
 !!
-!!    subroutine draw2(x, y)
+!!    elemental impure subroutine draw2(x, y)
 !!    real,intent(in) :: x, y
 !!
 !!##DESCRIPTION
@@ -4695,7 +4695,7 @@ end subroutine rdraw2
 !!
 !!##LICENSE
 !!    Public Domain
-subroutine draw2(x,y)
+elemental impure subroutine draw2(x,y)
 
 ! ident_29="@(#) M_pixel draw2(3f) draw a line from current position to specified point"
 
@@ -6427,7 +6427,7 @@ end subroutine getdisplaysize
 !!
 !!  definition:
 !!
-!!    subroutine point2(x, y)
+!!    elemental impure subroutine point2(x, y)
 !!    real,intent(in) :: x, y
 !!
 !!##DESCRIPTION
@@ -6458,7 +6458,7 @@ end subroutine getdisplaysize
 !!
 !!##LICENSE
 !!    Public Domain
-subroutine point2(x, y)
+elemental impure subroutine point2(x, y)
 
 ! ident_51="@(#) M_pixel point2(3f) Draw a point at x y"
 
