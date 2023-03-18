@@ -50,7 +50,7 @@ the routines.
 ## ADDITIONAL DIRECTORY DESCRIPTIONS
 There are 
    - man-pages in [docs/manpages.tgz](docs/manpages.tgz) and [docs/manpages.zip](docs/manpages.zip)
-   - demo programs in the example/ directory
+   - demo programs in the [example/](example/) directory
    - applications in the app/ directory
 
 ## UNIT TESTS
