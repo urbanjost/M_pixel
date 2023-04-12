@@ -70,6 +70,14 @@ subroutine pixel_SLICE(surfdat,kix,kiz,nx,nz,a0,b0)
 !-----------------------------------------------------------------------------------------------------------------------------------
    integer           :: ICOL(255)
    character(len=80) :: XT,YT,ZT                    ! axis titles
+   real              :: a
+   real              :: b
+   integer           :: i
+   integer           :: ix
+   integer           :: iz
+   integer           :: iflag
+   integer           :: iax
+   real              :: xh, yh, zh
 !-----------------------------------------------------------------------------------------------------------------------------------
    a=a0                                             ! mutable copy of parameter A
    b=b0                                             ! mutable copy of parameter B
