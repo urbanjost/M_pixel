@@ -1,4 +1,4 @@
-# TOML file for fpm as described at https://github.com/fortran-lang/fpm/blob/master/manifest-reference.md
+# TOML file for fpm as described at https://fpm.fortran-lang.org/en/spec/manifest.html
 name = "M_pixel"
 version = "0.1.0"
 license = "Public Domain"
@@ -11,6 +11,7 @@ keywords = ["fortran", "pixel", "draw", "plot", "graphics" ]
 homepage = "https://github.com/urbanjost/M_pixel.git"
 
 [build]
+#module-naming = true
 
 # pre-version8 compatibility
 [fortran]
@@ -33,11 +34,11 @@ name="test_suite_M_pixel"
 source-dir="test/same"
 main="test_suite_M_pixel.f90"
 [test.dependencies]
-M_msg = { git = "https://github.com/urbanjost/M_msg.git" }
+M_framework = { git = "https://github.com/urbanjost/M_framework.git" }
 
 [[test]]
 name="test_suite_M_pixel_slices"
 source-dir="test/same"
 main="test_suite_M_pixel_slices.f90"
 [test.dependencies]
-M_msg = { git = "https://github.com/urbanjost/M_msg.git" }
+M_framework = { git = "https://github.com/urbanjost/M_framework.git" }

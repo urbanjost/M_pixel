@@ -91,7 +91,7 @@
            offset=factor*offset
         endif
         u=0.0+ang
-        con1=PI*2.*(sunr/planet)/real(ilines)
+        con1=PI*2.0*(sunr/planet)/real(ilines)
         con2=(1.0-planet/sunr)*u
         xpoin1=(sunr-planet)*cos(planet*u/sunr)+offset*cos(con2)
         ypoin1=(sunr-planet)*sin(planet*u/sunr)-offset*sin(con2)
