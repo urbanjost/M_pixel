@@ -1,6 +1,6 @@
 program plottests
-use :: m_pixel
-use :: m_writegif_animated, only : write_animated_gif
+use :: M_pixel
+use :: M_pixel__writegif_animated, only : write_animated_gif
 implicit none
 integer,parameter  :: xx=600, yy=600 ! pixel array size
 integer            :: movie(171,0:xx-1,0:yy-1)

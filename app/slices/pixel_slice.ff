@@ -34,7 +34,7 @@ $BLOCK
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 subroutine pixel_SLICE(surfdat,kix,kiz,nx,nz,a0,b0)
    use M_pixel
-   use :: M_pixel_slices, only : dl_slices, dl_init, dl_symbol
+   use :: M_pixel__slices, only : dl_slices, dl_init, dl_symbol
 $@(#) M_pixel::pixel_slice(3f): simplified call of dl_slices to plot a 3d-surface
 !-----------------------------------------------------------------------------------------------------------------------------------
    real,intent(in)              :: SURFDAT(kix,kiz) ! array of y values

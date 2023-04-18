@@ -1463,7 +1463,7 @@ contains
 !!
 !!    program demo_rect
 !!    use M_pixel
-!!    use M_writegif, only : writegif
+!!    use M_pixel__writegif, only : writegif
 !!    implicit none
 !!       integer :: i
 !!

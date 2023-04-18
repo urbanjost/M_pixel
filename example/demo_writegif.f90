@@ -1,5 +1,5 @@
      program demo_writegif
-     use M_writegif, only : writegif
+     use M_pixel__writegif, only : writegif
      integer  :: Pixel(100,100)
      integer  :: Transparent = 0
      integer  :: ColorMap (3,0:7)

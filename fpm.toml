@@ -11,7 +11,7 @@ keywords = ["fortran", "pixel", "draw", "plot", "graphics" ]
 homepage = "https://github.com/urbanjost/M_pixel.git"
 
 [build]
-#module-naming = true
+module-naming = true
 
 # pre-version8 compatibility
 [fortran]
@@ -37,8 +37,8 @@ main="test_suite_M_pixel.f90"
 M_framework = { git = "https://github.com/urbanjost/M_framework.git" }
 
 [[test]]
-name="test_suite_M_pixel_slices"
+name="test_suite_M_pixel__slices"
 source-dir="test/same"
-main="test_suite_M_pixel_slices.f90"
+main="test_suite_M_pixel__slices.f90"
 [test.dependencies]
 M_framework = { git = "https://github.com/urbanjost/M_framework.git" }

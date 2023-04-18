@@ -1,6 +1,6 @@
         program demo_readgif
-        use M_readgif, only : readgif
-        use M_writegif, only : writegif
+        use M_pixel__readgif, only : readgif
+        use M_pixel__writegif, only : writegif
         implicit none
         character(len=*),parameter :: filename='boxes.gif'
         integer                    :: num_image=1

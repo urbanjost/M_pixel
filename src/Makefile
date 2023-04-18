@@ -42,8 +42,8 @@ PROGFILES = \
 $(NULL)
 
 PROG = ${PROGFILES:.f90=}
-SRCS  =  M_pixel.f90  M_readgif.f90  M_writegif_animated.f90  M_writegif.f90  M_pixel_slices.f90
-OBJS  =  M_pixel.o    M_readgif.o    M_writegif_animated.o    M_writegif.o    M_pixel_slices.o
+SRCS  =  M_pixel.f90  M_pixel__readgif.f90  M_pixel__writegif_animated.f90  M_pixel__writegif.f90  M_pixel__slices.f90
+OBJS  =  M_pixel.o    M_pixel__readgif.o    M_pixel__writegif_animated.o    M_pixel__writegif.o    M_pixel__slices.o
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 # platform-specific values you will probably change
 # 
@@ -91,7 +91,7 @@ clean:
 	$(F90) $(F90FLAGS) -c $<
 .PHONY: help
 help:
-	: all     '-- build M_CLI2 module'
+	: all     '-- build M_pixel module'
 	: run     '-- run manpage demo programs'
 	: man     '-- show all manpages as text'
 	: clean   '-- clean directory of object files and executables'

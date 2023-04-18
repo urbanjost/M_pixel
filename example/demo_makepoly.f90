@@ -1,7 +1,7 @@
      program demo_makepoly
      use :: M_pixel
-     use :: M_writegif, only : writegif
-     use :: M_writegif_animated, only : write_animated_gif
+     use :: M_pixel__writegif, only : writegif
+     use :: M_pixel__writegif_animated, only : write_animated_gif
      implicit none
      integer,parameter :: wide=640, tall=640
      integer :: rows, xoff, yoff, box_sz
@@ -49,7 +49,7 @@
            write(filename,'("hypoc.",i0,".gif")')ilines
            !!call writegif(filename,P_pixel,P_colormap)
         enddo
-        call write_animated_gif('makepoly.3m_pixel.gif',&
+        call write_animated_gif('makepoly.3M_pixel.gif',&
                 movie,P_colormap,delay=70)
         call vexit()
      contains

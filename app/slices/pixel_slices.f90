@@ -2,7 +2,7 @@
 program plottests
 use M_pixel, only : prefsize, vinit, vexit
 use :: M_pixel, only : p_pixel, p_colormap
-use :: m_writegif_animated, only : write_animated_gif
+use :: M_pixel__writegif_animated, only : write_animated_gif
 implicit none
 integer,parameter   :: ix=34
 integer,parameter   :: iz=45
@@ -58,7 +58,7 @@ integer             :: ia1=0,ia2=88,ia3=2,ib1=1,ib2=90,ib3=15,iasz,ibsz
 end program plottests
 subroutine pixel_SLICE(surfdat,kix,kiz,nx,nz,a0,b0)
    use M_pixel
-   use :: M_pixel_slices, only : dl_slices, dl_init, dl_symbol
+   use :: M_pixel__slices, only : dl_slices, dl_init, dl_symbol
 !-----------------------------------------------------------------------------------------------------------------------------------
    real,intent(in)              :: SURFDAT(kix,kiz) ! array of y values
    integer,intent(in)           :: kix              ! x dimension of surfdat array
