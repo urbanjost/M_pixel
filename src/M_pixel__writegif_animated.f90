@@ -1,6 +1,6 @@
 !>
 !!##NAME
-!!    write_animated_gif(3f) - [M_writegif_animated] Codes pixel-maps with
+!!    write_animated_gif(3f) - [M_pixel__writegif_animated] Codes pixel-maps with
 !!    palette into animated GIF format. Optional transparent color
 !!
 !!##SYNOPSIS
@@ -40,7 +40,7 @@
 !!    !    make-a-circle-illusion-animation)
 !!    !
 !!    use, intrinsic :: iso_fortran_env, only: wp=>real64
-!!    use M_writegif_animated, only : write_animated_gif
+!!    use M_pixel__writegif_animated, only : write_animated_gif
 !!    implicit none
 !!    !
 !!    logical,parameter :: new = .true.
@@ -252,7 +252,7 @@
 !   * Jacob Williams, 7/27/2014. Refactored, updated, added ability to export animated gifs.
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
-    module M_writegif_animated
+    module M_pixel__writegif_animated
     implicit none
     private
 
@@ -606,5 +606,5 @@ end subroutine flushbuffer
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
 !===================================================================================================================================
-    end module M_writegif_animated
+    end module M_pixel__writegif_animated
 !-----------------------------------------------------------------------------------------------------------------------------------

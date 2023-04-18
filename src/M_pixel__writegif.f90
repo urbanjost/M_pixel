@@ -1,6 +1,6 @@
 !>
 !!##NAME
-!!    writegif(3f) - [M_writegif] Codes pixel-map with palette into GIF
+!!    writegif(3f) - [M_pixel__writegif] Codes pixel-map with palette into GIF
 !!                   format. Optional transparent color
 !!    (LICENSE:PD)
 !!##SYNOPSIS
@@ -24,7 +24,7 @@
 !!   Sample call:
 !!
 !!    program demo_writegif
-!!    use M_writegif, only : writegif
+!!    use M_pixel__writegif, only : writegif
 !!    integer  :: Pixel(100,100)
 !!    integer  :: Transparent = 0
 !!    integer  :: ColorMap (3,0:7)
@@ -62,7 +62,7 @@
 !!    Public Domain.
 !>
 !! PRODUCT:        CLI library utilities and examples
-!! PROGRAM:        M_writegif(3f)
+!! PROGRAM:        M_pixel__writegif(3f)
 !! DESCRIPTION:    This module can write a GIF file in GIF89 format from raster data
 !!##VERSION:        1.01, 19990808
 !! AUTHOR:         Jos Bergervoet
@@ -72,7 +72,7 @@
 !! AUTHOR:         Modified by John Urban to make it easier to use with M_PIXEL(3f) module.
 !! LICENSE:        Public Domain. This is free software: you are free to change and redistribute it.
 !!                 There is NO WARRANTY, to the extent permitted by law.
-module M_writegif
+module M_pixel__writegif
 implicit none         !  Check all declarations
 
 ! ident_1="@(#) This module can write a GIF file in GIF89 format from raster data"
@@ -320,4 +320,4 @@ end subroutine writegif
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
 !===================================================================================================================================
-end module M_writegif
+end module M_pixel__writegif

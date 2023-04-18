@@ -1,5 +1,5 @@
 ! ==================================================================================================================================
-module M_pixel_slices
+module M_pixel__slices
 !
 ! This module intentionally duplicates graphics routines used in other high-level routines so that the DL_SLICES routine
 ! is essentially self-contained except for very low-level external graphics functions. This is so this routine can be
@@ -7,7 +7,7 @@ module M_pixel_slices
 !
 !>
 !!##NAME
-!!    dl_slices(3f) - [M_pixel_slices] basic 3-d surface plotting routine
+!!    dl_slices(3f) - [M_pixel__slices] basic 3-d surface plotting routine
 !!
 !!##SYNOPSIS
 !!
@@ -148,8 +148,8 @@ module M_pixel_slices
 !!    !     WRITTEN BY: DGL, LAST REVISED ON  5-JAN-1994 10:31:18.86
 !!    !                 JSU,                 19-JUL-2005
 !!     use M_pixel
-!!     use M_writegif_animated, only : write_animated_gif
-!!     use :: M_pixel_slices, only : dl_slices, dl_init, dl_symbol
+!!     use M_pixel__writegif_animated, only : write_animated_gif
+!!     use :: M_pixel__slices, only : dl_slices, dl_init, dl_symbol
 !!     implicit none
 !!       integer,parameter  :: ix=35
 !!       integer,parameter  :: iz=45
@@ -371,8 +371,8 @@ module M_pixel_slices
 !!    enddo
 !!    !
 !!    call vexit()    ! close up plot package
-!!    call write_animated_gif('dl_slices.3m_pixel.gif',movie,p_colormap,delay=5)
-!!    !call execute_system_command('display dl_slices.3m_pixel.gif')
+!!    call write_animated_gif('dl_slices.3M_pixel.gif',movie,p_colormap,delay=5)
+!!    !call execute_system_command('display dl_slices.3M_pixel.gif')
 !!    end program demo_dl_slices
 !!    !
 implicit none
@@ -1797,7 +1797,7 @@ end subroutine dl_range
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
 subroutine dl_color(ic)
-use m_pixel
+use M_pixel
 implicit none
 integer :: ic
    if (ic.ge.0) then
@@ -1859,7 +1859,7 @@ end subroutine dl_viewport
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
 subroutine dl_width(ic)
-use m_pixel
+use M_pixel
 implicit none
 integer :: ic
    call linewidth(ic)
@@ -1932,7 +1932,7 @@ subroutine dl_plot(xplot0,yplot0,iselect0)
 !      -      -       5: pick pen up at last point and flush
 !                  ????: ANY OTHER VALUE OF ISELECT0 IS TREATED AS A NOP
 ! *************************************************************************
-use m_pixel
+use M_pixel
 implicit none
 integer :: iselect0
 integer :: ivta
@@ -2016,7 +2016,7 @@ subroutine dl_init(xmax0,ymax0,vpx,vpy,zom)
 !     VPX,VPY -------------- COORDINATES OF BOTTOM LEFT ORIGIN
 !     ZOM   ---------------- ZOOM FACTOR
 !
-use m_pixel
+use M_pixel
 implicit none
 real :: vpx
 real :: vpy
@@ -2502,4 +2502,4 @@ end function dl_inbox
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
 !===================================================================================================================================
-end module M_pixel_slices
+end module M_pixel__slices

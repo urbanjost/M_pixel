@@ -14,7 +14,7 @@
 !!    use :: M_pixel, only : color,     mapcolor,        clear,      draw2
 !!    use :: M_pixel, only : circle,    circleprecision, arc,        getviewport
 !!    use :: M_pixel, only : viewport,  ortho2,          rmove2
-!!    use :: M_pixel, only : line,      linewidth,       polyline2,  move2
+!!    use :: M_pixel, only : line,      linewidth,       polyline2
 !!    use :: M_pixel, only : move2,     draw2,           prefsize,   vinit
 !!    use :: M_pixel, only : textang,   textsize,        drawstr,    getgp2
 !!    use :: M_pixel, only : vflush,    page,            point2,     getdisplaysize
@@ -197,7 +197,11 @@ type, bind(C) :: MATRIX
    real(KIND=C_FLOAT),dimension(4,4) :: ARRAY
 end type MATRIX
 !==================================================================================================================================!
-real,parameter      :: PI=3.14159265358979323844
+real,parameter            :: PI32=3.14159265358979323844
+doubleprecision,parameter :: pi                 = 3.14159265358979323846264338327950288419716939937510d0
+doubleprecision,parameter :: Deg_Per_Rad        = 57.2957795130823208767981548d0
+doubleprecision,parameter :: Rad_Per_Deg        = 0.01745329251994329576923691d0
+doubleprecision,parameter :: degrees_to_radians = PI/180.0d0
 ! Global Graphics State
 logical,save :: P_VINIT_CALLED=.false.
 real,save    :: P_X=0.0, P_Y=0.0      ! current position
@@ -1424,9 +1428,6 @@ data (ssymbc(j), j=121, 128)/ 340900061, 342982656, 470623971, 347187226, 464594
 
 data isstar /1, 5, 11, 14, 17, 20, 24, 27, 30, 35, 38, 45, 50, 53, 55, 60, 63, 70, 81, 98, 113, 123/
 !----------------------------------------------------------------------------------------------------------------------------------!
-real,parameter :: &
-   PI_D               = 3.14159265358979323846264338327950288419716939937510d0,   &
-   degrees_to_radians = PI_D / 180.0D+00
    interface d2r
       module procedure d2r_d
       module procedure d2r_r
@@ -1462,7 +1463,7 @@ contains
 !!
 !!    program demo_rect
 !!    use M_pixel
-!!    use M_writegif, only : writegif
+!!    use M_pixel__writegif, only : writegif
 !!    implicit none
 !!       integer :: i
 !!
@@ -3742,7 +3743,7 @@ end subroutine color
 !!
 !!  definition:
 !!
-!!    subroutine mapcolor(indx, red, green, blue)
+!!    elemental impure subroutine mapcolor(indx, red, green, blue)
 !!    integer indx, red, green, blue
 !!
 !!##DESCRIPTION
@@ -3914,7 +3915,7 @@ end subroutine color
 !!
 !!##LICENSE
 !!    Public Domain
-subroutine mapcolor(indx,red,green,blue)
+elemental impure subroutine mapcolor(indx,red,green,blue)
 
 ! ident_17="@(#) M_pixel mapcolor(3f) set a color index using RGB values"
 
@@ -4546,7 +4547,7 @@ end subroutine move2
 !!
 !!  definition:
 !!
-!!    subroutine rdraw2(x, y)
+!!    elemental impure subroutine rdraw2(x, y)
 !!    real,intent(in) :: x, y
 !!
 !!##DESCRIPTION
@@ -4606,7 +4607,7 @@ end subroutine move2
 !!
 !!##LICENSE
 !!    Public Domain
-subroutine rdraw2(xdelta,ydelta)
+elemental impure subroutine rdraw2(xdelta,ydelta)
 
 ! ident_28="@(#) M_pixel rdraw2(3f) relative draw"
 
@@ -4632,7 +4633,7 @@ end subroutine rdraw2
 !!
 !!  definition:
 !!
-!!    subroutine draw2(x, y)
+!!    elemental impure subroutine draw2(x, y)
 !!    real,intent(in) :: x, y
 !!
 !!##DESCRIPTION
@@ -4695,7 +4696,7 @@ end subroutine rdraw2
 !!
 !!##LICENSE
 !!    Public Domain
-subroutine draw2(x,y)
+elemental impure subroutine draw2(x,y)
 
 ! ident_29="@(#) M_pixel draw2(3f) draw a line from current position to specified point"
 
@@ -5066,7 +5067,7 @@ end subroutine vinit
 !!          offset=factor*offset
 !!       endif
 !!       u=0.0+ang
-!!       con1=PI*2.*(sunr/planet)/real(ilines)
+!!       con1=PI*2.0*(sunr/planet)/real(ilines)
 !!       con2=(1.0-planet/sunr)*u
 !!       xpoin1=(sunr-planet)*cos(planet*u/sunr)+offset*cos(con2)
 !!       ypoin1=(sunr-planet)*sin(planet*u/sunr)-offset*sin(con2)
@@ -6427,7 +6428,7 @@ end subroutine getdisplaysize
 !!
 !!  definition:
 !!
-!!    subroutine point2(x, y)
+!!    elemental impure subroutine point2(x, y)
 !!    real,intent(in) :: x, y
 !!
 !!##DESCRIPTION
@@ -6458,7 +6459,7 @@ end subroutine getdisplaysize
 !!
 !!##LICENSE
 !!    Public Domain
-subroutine point2(x, y)
+elemental impure subroutine point2(x, y)
 
 ! ident_51="@(#) M_pixel point2(3f) Draw a point at x y"
 
@@ -6770,7 +6771,7 @@ integer,intent(in) :: inx1,iny1,inx2,iny2
    call PPM_ENDCAP_CIRCLE(inx1,iny1)
    call PPM_ENDCAP_CIRCLE(inx2,iny2)
 
-   angle=atan2(real(iny2-iny1),real(inx2-inx1)) + PI/2.0
+   angle=atan2(real(iny2-iny1),real(inx2-inx1)) + PI32/2.0
    cosine=nint((P_WIDTH/2.0)*cos(angle))
    sine=nint((P_WIDTH/2.0)*sin(angle))
 
@@ -8863,27 +8864,24 @@ elemental real function d2r_r(degrees)
 
 ! ident_76="@(#) M_pixel d2r_r(3f) Convert degrees to radians"
 
-doubleprecision,parameter :: RADIAN=57.2957795131d0 ! degrees
 real,intent(in)           :: degrees                ! input degrees to convert to radians
-   d2r_r=dble(degrees)/RADIAN                       ! do the unit conversion
+   d2r_r=dble(degrees)/Deg_Per_Rad                  ! do the unit conversion
 end function d2r_r
 !-----------------------------------------------------------------------------------------------------------------------------------
 elemental doubleprecision function d2r_d(degrees)
 
 ! ident_77="@(#) M_pixel d2r_d(3f) Convert degrees to radians"
 
-doubleprecision,parameter :: RADIAN=57.2957795131d0 ! degrees
 doubleprecision,intent(in) :: degrees               ! input degrees to convert to radians
-   d2r_d=degrees/RADIAN                             ! do the unit conversion
+   d2r_d=degrees/Deg_Per_Rad                        ! do the unit conversion
 end function d2r_d
 !-----------------------------------------------------------------------------------------------------------------------------------
 elemental doubleprecision function d2r_i(idegrees)
 
 ! ident_78="@(#) M_pixel d2r_i(3f) Convert degrees to radians"
 
-doubleprecision,parameter :: RADIAN=57.2957795131d0 ! degrees
 integer,intent(in) :: idegrees                      ! input degrees to convert to radians
-   d2r_i=dble(idegrees)/RADIAN                      ! do the unit conversion
+   d2r_i=nint(dble(idegrees)/Deg_Per_Rad)           ! do the unit conversion
 end function d2r_i
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!

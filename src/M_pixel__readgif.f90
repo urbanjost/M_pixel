@@ -1,6 +1,6 @@
 !>
 !!##NAME
-!!    readgif(3f) - [M_readgif] read a GIF file
+!!    readgif(3f) - [M_pixel__readgif] read a GIF file
 !!    (LICENSE:PD)
 !!
 !!##SYNOPSIS
@@ -30,8 +30,8 @@
 !!    Sample program:
 !!
 !!       program demo_readgif
-!!       use M_readgif, only : readgif
-!!       use M_writegif, only : writegif
+!!       use M_pixel__readgif, only : readgif
+!!       use M_pixel__writegif, only : writegif
 !!       implicit none
 !!       character(len=*),parameter :: filename='boxes.gif'
 !!       integer                    :: num_image=1
@@ -79,7 +79,7 @@
 !!    of types Gif87a and Gif89 (and maybe others). The code comes from
 !!    various authors, see comments below. This version was put together
 !!    by Clive Page who has put it into the public domain.
-module M_readgif
+module M_pixel__readgif
 ! readgif2.f90   cgp 2010 Aug 28
 ! Original code from: http://it.geocities.com/butonoj/doc/gif-io/gifio.htm (now a dead link)
 public :: readgif
@@ -736,4 +736,4 @@ integer :: rslt
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
 !===================================================================================================================================
-end module M_readgif
+end module M_pixel__readgif
