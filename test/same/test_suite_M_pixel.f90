@@ -3,17 +3,12 @@
 !===================================================================================================================================
 program runtest
 use M_framework__msg
-use M_framework__verify, only : unit_check_command, unit_check_keep_going, unit_check_level
 use M_framework__verify, only : unit_check_start,unit_check,unit_check_done,unit_check_good,unit_check_bad,unit_check_msg
-use M_framework__verify, only : unit_check_level
 use M_pixel
 use,intrinsic :: ISO_FORTRAN_ENV, only : int8,int16,int32,int64,real32,real64,real128
 implicit none
 integer(kind=int64) :: answer
 integer(kind=int64) :: expected
-   unit_check_command=''
-   unit_check_keep_going=.true.
-   unit_check_level=0
    write(*,*)'CHECK RESULTS HAVE NOT CHANGED'
    call test_suite_M_pixel()
 contains
