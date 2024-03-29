@@ -8,7 +8,7 @@
 !!
 !!   Module procedures
 !!
-!!    use M_writegif, only : writegif
+!!    use M_pixel__writegif, only : writegif
 !!
 !!    use :: M_pixel, only : drawchar,  rect,            rdraw2,     strlength
 !!    use :: M_pixel, only : color,     mapcolor,        clear,      draw2
@@ -61,7 +61,7 @@
 !!
 !!    program demo_M_pixel
 !!    use M_pixel
-!!    use M_writegif, only :  writegif
+!!    use M_pixel__writegif, only :  writegif
 !!    use M_pixel,    only : cosd, sind
 !!    implicit none
 !!
@@ -132,7 +132,7 @@
 !!       ! change background color directly
 !!       where (P_pixel.eq.0) P_pixel=9
 !!       ! write standard gif file
-!!       call writegif('M_pixel.3m_pixel.gif',P_pixel,P_ColorMap)
+!!       call writegif('M_pixel.3M_pixel.gif',P_pixel,P_ColorMap)
 !!
 !!    contains
 !!
@@ -1488,10 +1488,10 @@ contains
 !!       enddo
 !!
 !!       !! render pixel array to a file
-!!       call writegif('rect.3m_pixel.gif',P_pixel,P_colormap)
+!!       call writegif('rect.3M_pixel.gif',P_pixel,P_colormap)
 !!
 !!       !! display graphic assuming display(1) is available
-!!       call execute_command_line('display rect.3m_pixel.gif')
+!!       call execute_command_line('display rect.3M_pixel.gif')
 !!
 !!       !! wrap up graphics
 !!       call vexit()
@@ -2377,7 +2377,7 @@ end subroutine draw_line_single
 !!
 !!    program demo_hershey
 !!    use M_pixel
-!!    use M_writegif_animated, only : write_animated_gif
+!!    use M_pixel__writegif_animated, only : write_animated_gif
 !!    implicit none
 !!    integer,parameter :: isize=600
 !!    integer,parameter :: topsym=432
@@ -2421,9 +2421,9 @@ end subroutine draw_line_single
 !!       enddo
 !!       call vexit()
 !!       !! write to file and display with display(1)
-!!       call write_animated_gif('hershey.3m_pixel.gif',&
+!!       call write_animated_gif('hershey.3M_pixel.gif',&
 !!       & movie,P_colormap,delay=40)
-!!       !call execute_command_line('display hershey.3m_pixel.gif')
+!!       !call execute_command_line('display hershey.3M_pixel.gif')
 !!    end program demo_hershey
 !!
 !!##AUTHOR
@@ -2940,7 +2940,7 @@ END SUBROUTINE CHRCOD
 !!
 !!    program demo_strlength
 !!    use :: M_pixel
-!!    use :: M_writegif, only : writegif
+!!    use :: M_pixel__writegif, only : writegif
 !!    implicit none
 !!    real    :: left
 !!    real    :: baseline
@@ -2979,8 +2979,8 @@ END SUBROUTINE CHRCOD
 !!       call nextline('Unto his nest again,')
 !!       call nextline('I shall not live in vain.')
 !!
-!!       call writegif('strlength.3m_pixel.gif',P_pixel,P_colormap)
-!!       call execute_command_line('display strlength.3m_pixel.gif')
+!!       call writegif('strlength.3M_pixel.gif',P_pixel,P_colormap)
+!!       call execute_command_line('display strlength.3M_pixel.gif')
 !!       call vexit()
 !!    contains
 !!    subroutine nextline(string)
@@ -3163,7 +3163,7 @@ end subroutine justfy
 !!
 !!    program demo_polyline2
 !!    use M_pixel
-!!    use M_writegif, only : writegif
+!!    use M_pixel__writegif, only : writegif
 !!    implicit none
 !!    integer :: transparent=0
 !!    integer :: ipaws
@@ -3177,7 +3177,7 @@ end subroutine justfy
 !!       call polyline2( [-1,-1,+1,+1,-1] , &  ! X values
 !!       & [-1,+1,+1,-1,-1] )    ! Y values
 !!        ! write gif with a transparent background
-!!       call writegif('polyline2.3m_pixel.gif',P_pixel,P_ColorMap,transparent)
+!!       call writegif('polyline2.3M_pixel.gif',P_pixel,P_ColorMap,transparent)
 !!       call vexit()
 !!    end program demo_polyline2
 !!
@@ -3187,7 +3187,7 @@ end subroutine justfy
 !!##LICENSE
 !!    Public Domain
 subroutine polyline2(x,y)
-!-!use :: M_anything, only : anyscalar_to_real
+!-!use :: M_pixel, only : anyscalar_to_real
 class(*),intent(in)          :: x(:)
 class(*),intent(in),optional :: y(:)
 real,allocatable             :: arrx(:)
@@ -3250,7 +3250,7 @@ end subroutine polyline2
 !!
 !!    program demo_clear
 !!    use :: M_pixel
-!!    use :: M_writegif, only : writegif
+!!    use :: M_pixel__writegif, only : writegif
 !!    implicit none
 !!    real,parameter :: x=400.0, y=400.0
 !!       call prefsize(int(x), int(y)) ! set up drawing surface
@@ -3264,8 +3264,8 @@ end subroutine polyline2
 !!       call color(3)
 !!       call clear()
 !!       ! gif should be blank
-!!       call writegif('clear.3m_pixel.gif',P_pixel,P_colormap)
-!!       call execute_command_line('display clear.3m_pixel.gif')
+!!       call writegif('clear.3M_pixel.gif',P_pixel,P_colormap)
+!!       call execute_command_line('display clear.3M_pixel.gif')
 !!       call vexit()
 !!    end program demo_clear
 !!
@@ -3431,7 +3431,7 @@ end subroutine if_init
 !!
 !!    program demo_arc
 !!    use M_pixel
-!!    use M_writegif, only : writegif
+!!    use M_pixel__writegif, only : writegif
 !!    implicit none
 !!    integer  :: transparent=0
 !!       call prefsize(600,240)
@@ -3443,7 +3443,7 @@ end subroutine if_init
 !!       call color(2)
 !!       call arc(44.0,12.0,12.0,-90.0,90.0)
 !!       ! write gif with a transparent background
-!!       call writegif('arc.3m_pixel.gif',P_pixel,P_ColorMap,transparent)
+!!       call writegif('arc.3M_pixel.gif',P_pixel,P_ColorMap,transparent)
 !!       call vexit()
 !!    end program demo_arc
 !!
@@ -3516,7 +3516,7 @@ end subroutine arc
 !!
 !!    program demo_circle
 !!    use M_pixel
-!!    use M_writegif, only : writegif
+!!    use M_pixel__writegif, only : writegif
 !!    implicit none
 !!       !! set up drawing surface
 !!       call prefsize(400,400)
@@ -3536,9 +3536,9 @@ end subroutine arc
 !!       call circle( 25.0, 25.0, 20.0)
 !!       call circle( 25.0,-25.0, 20.0)
 !!       !! render the pixel map
-!!       call writegif('circle.3m_pixel.gif',P_pixel,P_colormap)
+!!       call writegif('circle.3M_pixel.gif',P_pixel,P_colormap)
 !!       !! display the graphic assuming display(1) is available
-!!       call execute_command_line('display circle.3m_pixel.gif')
+!!       call execute_command_line('display circle.3M_pixel.gif')
 !!       !! exit graphics mode
 !!       call vexit()
 !!    end program demo_circle
@@ -3603,7 +3603,7 @@ end subroutine circle
 !!    program demo_linewidth
 !!    use M_pixel,    only : prefsize, vinit, ortho2, clear, P_pixel, P_colormap
 !!    use M_pixel,    only : move2, draw2, vexit, color, linewidth
-!!    use M_writegif, only : writegif
+!!    use M_pixel__writegif, only : writegif
 !!    use M_pixel,    only : d2r, polar_to_cartesian
 !!    implicit none
 !!    integer :: i
@@ -3630,7 +3630,7 @@ end subroutine circle
 !!          call linewidth(i/5/3)
 !!          call draw2(x,y)
 !!       enddo
-!!       call writegif('linewidth.3m_pixel.gif',P_pixel,P_colormap)
+!!       call writegif('linewidth.3M_pixel.gif',P_pixel,P_colormap)
 !!       call vexit()
 !!    end program demo_linewidth
 !!
@@ -3679,7 +3679,7 @@ end subroutine linewidth
 !!
 !!     program demo_color
 !!     use M_pixel
-!!     use M_writegif, only : writegif
+!!     use M_pixel__writegif, only : writegif
 !!     implicit none
 !!     real    :: b=0.5
 !!     real    :: y1,y2,ym,x1,x2
@@ -3713,10 +3713,10 @@ end subroutine linewidth
 !!           x1=x1+width
 !!        enddo
 !!        ! write plot as GIF file
-!!        call writegif('color.3m_pixel.gif',P_pixel,P_colormap)
+!!        call writegif('color.3M_pixel.gif',P_pixel,P_colormap)
 !!        call vexit()
 !!        ! use system to display GIF file
-!!        call execute_command_line('display color.3m_pixel.gif')
+!!        call execute_command_line('display color.3M_pixel.gif')
 !!     end program demo_color
 !!
 !!##AUTHOR
@@ -3767,10 +3767,10 @@ end subroutine color
 !!    !
 !!    program demo_mapcolor
 !!    use M_pixel
-!!    use m_pixel, only: hue
-!!    use M_writegif, only : writegif
+!!    use M_pixel, only: hue
+!!    use M_pixel__writegif, only : writegif
 !!    use M_pixel,    only : cosd, sind
-!!    use M_writegif_animated, only : write_animated_gif
+!!    use M_pixel__writegif_animated, only : write_animated_gif
 !!    implicit none
 !!    character(len=4096)  :: filename
 !!    real                 :: lightstep
@@ -3799,7 +3799,7 @@ end subroutine color
 !!          movie(ii,:,:)=P_pixel
 !!          LIGHTNESS=LIGHTNESS+LIGHTSTEP
 !!       enddo
-!!       call write_animated_gif('mapcolor.3m_pixel.gif',movie,P_colormap,delay=40)
+!!       call write_animated_gif('mapcolor.3M_pixel.gif',movie,P_colormap,delay=40)
 !!       call vexit()
 !!    contains
 !!    subroutine wheel() ! draw an entire wheel
@@ -3966,7 +3966,7 @@ end subroutine mapcolor
 !!
 !!    program demo_circleprecision
 !!    use M_pixel
-!!    use M_writegif, only : writegif
+!!    use M_pixel__writegif, only : writegif
 !!    implicit none
 !!    real              :: b=0.5
 !!    real              :: y1,y2,ym,x1,x2
@@ -3997,10 +3997,10 @@ end subroutine mapcolor
 !!          x1=x1+width
 !!       enddo
 !!       ! write plot as GIF file
-!!       call writegif('circleprecision.3m_pixel.gif',P_pixel,P_colormap)
+!!       call writegif('circleprecision.3M_pixel.gif',P_pixel,P_colormap)
 !!       call vexit()
 !!       ! use system to display GIF file
-!!       call execute_command_line('display circleprecision.3m_pixel.gif')
+!!       call execute_command_line('display circleprecision.3M_pixel.gif')
 !!    end program demo_circleprecision
 !!
 !!##AUTHOR
@@ -4113,7 +4113,7 @@ end subroutine getviewport
 !!
 !!    program demo_viewport
 !!    use :: M_pixel
-!!    use :: M_writegif, only : writegif
+!!    use :: M_pixel__writegif, only : writegif
 !!    implicit none
 !!       call prefsize(400, 400) ! set up drawing surface
 !!       call vinit()
@@ -4129,8 +4129,8 @@ end subroutine getviewport
 !!       call viewport( 200.0, 400.0, 200.0, 400.0 ); call draw_circle(4)
 !!       call viewport( 250.0, 350.0, 150.0, 300.0 ); call draw_circle(5)
 !!
-!!       call writegif('viewport.3m_pixel.gif',P_pixel,P_colormap)
-!!       !call execute_command_line('display viewport.3m_pixel.gif')
+!!       call writegif('viewport.3M_pixel.gif',P_pixel,P_colormap)
+!!       !call execute_command_line('display viewport.3M_pixel.gif')
 !!       call vexit()
 !!    contains
 !!    subroutine draw_circle(icolor)
@@ -4443,7 +4443,7 @@ end subroutine page
 !!      use M_pixel, only: move2, rmove2, rdraw2, vexit
 !!      use M_pixel, only: linewidth
 !!      use M_pixel, only: P_pixel, P_colormap
-!!      use M_writegif, only : writegif
+!!      use M_pixel__writegif, only : writegif
 !!      implicit none
 !!      integer :: i
 !!         call prefsize(500,500)
@@ -4455,8 +4455,8 @@ end subroutine page
 !!            call rmove2(10.0, 0.0)
 !!            call rdraw2( 0.0,10.0)
 !!         enddo
-!!         call writegif('rmove2.3m_pixel.gif',P_pixel,P_colormap)
-!!         call  execute_command_line('display rmove2.3m_pixel.gif')
+!!         call writegif('rmove2.3M_pixel.gif',P_pixel,P_colormap)
+!!         call  execute_command_line('display rmove2.3M_pixel.gif')
 !!         call vexit()
 !!      end program demo_rmove2
 !!
@@ -4506,7 +4506,7 @@ end subroutine rmove2
 !!      use M_pixel, only : prefsize, vinit, ortho2, clear
 !!      use M_pixel, only : move2, draw2, vexit
 !!      use M_pixel, only : P_pixel,P_colormap
-!!      use M_writegif, only : writegif
+!!      use M_pixel__writegif, only : writegif
 !!      implicit none
 !!         call prefsize(60,40)
 !!         call vinit()
@@ -4516,7 +4516,7 @@ end subroutine rmove2
 !!         call draw2(300.0,200.0)
 !!         call move2(300.0,-200.0)
 !!         call draw2(-300.0,200.0)
-!!         call writegif('move2.3m_pixel.gif',P_pixel,P_colormap)
+!!         call writegif('move2.3M_pixel.gif',P_pixel,P_colormap)
 !!         call vexit()
 !!      end program demo_move2
 !!
@@ -4567,7 +4567,7 @@ end subroutine move2
 !!      use M_pixel, only: vinit, prefsize, ortho2,linewidth
 !!      use M_pixel, only: clear, move2, rdraw2, vexit,color
 !!      use M_pixel, only: P_pixel, P_colormap
-!!      use M_writegif, only : writegif
+!!      use M_pixel__writegif, only : writegif
 !!      implicit none
 !!
 !!         call prefsize(200,200)
@@ -4586,8 +4586,8 @@ end subroutine move2
 !!         call move2(  0.0,-50.0)
 !!         call square(50.0)
 !!
-!!         call writegif('rdraw2.3m_pixel.gif',P_pixel,P_colormap)
-!!         call execute_command_line('display rdraw2.3m_pixel.gif')
+!!         call writegif('rdraw2.3M_pixel.gif',P_pixel,P_colormap)
+!!         call execute_command_line('display rdraw2.3M_pixel.gif')
 !!         call vexit()
 !!
 !!         contains
@@ -4653,7 +4653,7 @@ end subroutine rdraw2
 !!    use M_pixel,    only : prefsize, vinit, ortho2, clear
 !!    use M_pixel,    only : move2, draw2, vexit, color,linewidth
 !!    use M_pixel,    only : P_pixel, P_colormap
-!!    use M_writegif, only : writegif
+!!    use M_pixel__writegif, only : writegif
 !!    use M_pixel,    only : d2r, polar_to_cartesian
 !!    !
 !!    ! The Archimedean spiral is the locus of points corresponding
@@ -4686,7 +4686,7 @@ end subroutine rdraw2
 !!          call draw2(x,y)
 !!       enddo
 !!       ! write the pixel map array as a GIF image file
-!!       call writegif('draw2.3m_pixel.gif',P_pixel,P_colormap)
+!!       call writegif('draw2.3M_pixel.gif',P_pixel,P_colormap)
 !!       ! exit graphics mode
 !!       call vexit()
 !!    end program demo_draw2
@@ -4744,20 +4744,20 @@ end subroutine draw2
 !!      use M_pixel, only: prefsize, vinit, ortho2, clear
 !!      use M_pixel, only: move2, draw2, vexit, color
 !!      use M_pixel, only : P_pixel,P_colormap
-!!      use M_writegif, only : writegif
+!!      use M_pixel__writegif, only : writegif
 !!      implicit none
 !!         ! make first file with one size
 !!         call prefsize(60*2,40*2)
 !!         call vinit()
 !!         call picture()
-!!         call writegif('prefsize.3m_pixel.gif',P_pixel,P_colormap)
+!!         call writegif('prefsize.3M_pixel.gif',P_pixel,P_colormap)
 !!         call vexit()
 !!
 !!         ! make second file with another size
 !!         call prefsize(60*3,40*3)
 !!         call vinit()
 !!         call picture()
-!!         call writegif('prefsize_B.3m_pixel.gif',P_pixel,P_colormap)
+!!         call writegif('prefsize_B.3M_pixel.gif',P_pixel,P_colormap)
 !!         call vexit()
 !!      contains
 !!      subroutine picture
@@ -4818,7 +4818,7 @@ end subroutine prefsize
 !!      use M_pixel, only: prefsize, vexit, ortho2, clear
 !!      use M_pixel, only: move2, draw2, color, vinit
 !!      use M_pixel, only : P_pixel,P_colormap
-!!      use M_writegif, only : writegif
+!!      use M_pixel__writegif, only : writegif
 !!      implicit none
 !!         call prefsize(60,40)
 !!         call vinit()
@@ -4829,7 +4829,7 @@ end subroutine prefsize
 !!         call draw2(300.0,200.0)
 !!         call move2(300.0,-200.0)
 !!         call draw2(-300.0,200.0)
-!!         call writegif('vexit.3m_pixel.gif',P_pixel,P_colormap)
+!!         call writegif('vexit.3M_pixel.gif',P_pixel,P_colormap)
 !!         call vexit()
 !!      end program demo_vexit
 !!
@@ -4877,7 +4877,7 @@ end subroutine vexit
 !!      use M_pixel, only    : prefsize, vinit, ortho2, clear
 !!      use M_pixel, only    : move2, draw2, vexit, color
 !!      use M_pixel, only    : P_pixel, P_colormap
-!!      use M_writegif, only : writegif
+!!      use M_pixel__writegif, only : writegif
 !!      implicit none
 !!         call prefsize(60,40)
 !!         call vinit()
@@ -4888,7 +4888,7 @@ end subroutine vexit
 !!         call draw2(300.0,200.0)
 !!         call move2(300.0,-200.0)
 !!         call draw2(-300.0,200.0)
-!!         call writegif('vinit.3m_pixel.gif',P_pixel,P_colormap)
+!!         call writegif('vinit.3M_pixel.gif',P_pixel,P_colormap)
 !!         call vexit()
 !!      end program demo_vinit
 !!
@@ -4976,8 +4976,8 @@ end subroutine vinit
 !!
 !!    program demo_makepoly
 !!    use :: M_pixel
-!!    use :: M_writegif, only : writegif
-!!    use :: M_writegif_animated, only : write_animated_gif
+!!    use :: M_pixel__writegif, only : writegif
+!!    use :: M_pixel__writegif_animated, only : write_animated_gif
 !!    implicit none
 !!    integer,parameter :: wide=640, tall=640
 !!    integer :: rows, xoff, yoff, box_sz
@@ -5025,7 +5025,7 @@ end subroutine vinit
 !!          write(filename,'("hypoc.",i0,".gif")')ilines
 !!          !!call writegif(filename,P_pixel,P_colormap)
 !!       enddo
-!!       call write_animated_gif('makepoly.3m_pixel.gif',&
+!!       call write_animated_gif('makepoly.3M_pixel.gif',&
 !!               movie,P_colormap,delay=70)
 !!       call vexit()
 !!    contains
@@ -5698,7 +5698,7 @@ end subroutine print_ascii
 !!
 !!    program demo_textsize
 !!    use M_pixel
-!!    use M_writegif, only : writegif
+!!    use M_pixel__writegif, only : writegif
 !!    implicit none
 !!    integer :: i,ii
 !!       !! set up long bar as plotting area
@@ -5720,10 +5720,10 @@ end subroutine print_ascii
 !!          call drawstr('aA')
 !!       enddo
 !!       ! write plot as GIF file
-!!       call writegif('textsize.3m_pixel.gif',P_pixel,P_colormap)
+!!       call writegif('textsize.3M_pixel.gif',P_pixel,P_colormap)
 !!       call vexit()
 !!       ! use system to display GIF file
-!!       call execute_command_line('display textsize.3m_pixel.gif')
+!!       call execute_command_line('display textsize.3M_pixel.gif')
 !!    end program demo_textsize
 !!
 !!##AUTHOR
@@ -5848,7 +5848,7 @@ end subroutine xcentertext
 !!    program demo_centertext
 !!    use :: M_pixel
 !!    use :: M_pixel, only : cosd, sind
-!!    use :: M_writegif, only : writegif
+!!    use :: M_pixel__writegif, only : writegif
 !!    implicit none
 !!    real    :: x1, y1, xx, yy, ang, r
 !!    integer :: i, j
@@ -5888,8 +5888,8 @@ end subroutine xcentertext
 !!       enddo
 !!    enddo
 !!
-!!    call  writegif('centertext.3m_pixel.gif',P_pixel,P_colormap)
-!!    call  execute_command_line('display centertext.3m_pixel.gif')
+!!    call  writegif('centertext.3M_pixel.gif',P_pixel,P_colormap)
+!!    call  execute_command_line('display centertext.3M_pixel.gif')
 !!
 !!    call vexit()
 !!
@@ -5941,7 +5941,7 @@ end subroutine centertext
 !!    program demo_textang
 !!    use :: M_pixel
 !!    use :: M_pixel, only : cosd, sind
-!!    use :: M_writegif, only : writegif
+!!    use :: M_pixel__writegif, only : writegif
 !!    implicit none
 !!    integer :: i
 !!    !! set up drawing environment
@@ -5962,8 +5962,8 @@ end subroutine centertext
 !!       call drawstr('angled text')
 !!    enddo
 !!
-!!    call writegif('textang.3m_pixel.gif',P_pixel,P_colormap)
-!!    call execute_command_line('display textang.3m_pixel.gif')
+!!    call writegif('textang.3M_pixel.gif',P_pixel,P_colormap)
+!!    call execute_command_line('display textang.3M_pixel.gif')
 !!
 !!    call vexit()
 !!
@@ -6013,7 +6013,7 @@ end subroutine textang
 !!
 !!    program demo_font
 !!    use :: M_pixel
-!!    use :: M_writegif, only : writegif
+!!    use :: M_pixel__writegif, only : writegif
 !!    implicit none
 !!    real    :: left
 !!    real    :: baseline=80.0
@@ -6049,8 +6049,8 @@ end subroutine textang
 !!       call nextline('COMPLEX, or times.r')
 !!       call nextline('ITALIC, or times.i')
 !!       call nextline('DUPLEX, or futura.m')
-!!       call writegif('font.3m_pixel.gif',P_pixel,P_colormap)
-!!       !call execute_command_line('display font.3m_pixel.gif')
+!!       call writegif('font.3M_pixel.gif',P_pixel,P_colormap)
+!!       !call execute_command_line('display font.3M_pixel.gif')
 !!       call vexit()
 !!    contains
 !!    subroutine nextline(string)
@@ -6110,7 +6110,7 @@ end subroutine font
 !!
 !!    program demo_drawchar
 !!    use M_pixel
-!!    use M_writegif_animated, only : write_animated_gif
+!!    use M_pixel__writegif_animated, only : write_animated_gif
 !!    implicit none
 !!    integer,parameter :: isize=600
 !!    integer           :: movie(32:124,0:isize-1,0:isize-1)
@@ -6142,8 +6142,8 @@ end subroutine font
 !!    enddo
 !!    call vexit()
 !!    !! write to file and display with display(1)
-!!    call write_animated_gif('drawchar.3m_pixel.gif',movie,P_colormap)
-!!    call execute_command_line('display drawchar.3m_pixel.gif')
+!!    call write_animated_gif('drawchar.3M_pixel.gif',movie,P_colormap)
+!!    call execute_command_line('display drawchar.3M_pixel.gif')
 !!    end program demo_drawchar
 !!
 !!##AUTHOR
@@ -6185,7 +6185,7 @@ end subroutine drawchar
 !!
 !!       program demo_drawstr
 !!       use M_pixel
-!!       use :: M_writegif, only : writegif
+!!       use :: M_pixel__writegif, only : writegif
 !!       implicit none
 !!       call prefsize(400,400)
 !!       call vinit()
@@ -6216,9 +6216,9 @@ end subroutine drawchar
 !!
 !!       call drawstr(' World!')! draw string at current position
 !!       !! render pixel array to a file
-!!       call writegif('drawstr.3m_pixel.gif',P_pixel,P_colormap)
+!!       call writegif('drawstr.3M_pixel.gif',P_pixel,P_colormap)
 !!       !! display graphic assuming display(1) is available
-!!       call execute_command_line('display drawstr.3m_pixel.gif')
+!!       call execute_command_line('display drawstr.3M_pixel.gif')
 !!
 !!       call vexit()           !  wrap up and exit graphics mode
 !!
@@ -6247,12 +6247,8 @@ character(len=:),allocatable :: fontstring
    !   o S(2)  to the center of the string, blanks removed from the ends
    !   o S(3)  to the right edge of the last nonblank character
    !   o S(4)  to the right edge of the last character of the string.
-   !  XCENTER            * \
-   !                   *     \
-   !                 *         *
-   !               *         *   \
-   !             *\        *       \
-   !           *    \    *          *
+   !  XCENTER            *    !                   *        !                 *         *
+   !               *         *      !             *\        *          !           *    \    *          *
    !         *        \*          *
    !       *         *  \       *        X2=X1-S(2)*COSD(P_TEXT_ANGLE)
    !       \       *      \   *          Y2=Y1-S(2)*SIND(P_TEXT_ANGLE)
@@ -6263,12 +6259,8 @@ character(len=:),allocatable :: fontstring
    !                *  X2,Y2==================
    !
    !
-   !  YCENTER            * \
-   !                   *     \
-   !                 *         *
-   !               *         *   \
-   !             *\        *       \
-   !           *    \    *          *
+   !  YCENTER            *    !                   *        !                 *         *
+   !               *         *      !             *\        *          !           *    \    *          *
    !         *        \* X1,Y1    *
    !       *         *  \       *        X2=X1+P_TEXT_HEIGHT/2.0*COSD(P_TEXT_ANGLE+90)
    !       \       *      \   *          Y2=Y1-P_TEXT_HEIGHT/2.0*SIND(P_TEXT_ANGLE+90)
@@ -6278,12 +6270,8 @@ character(len=:),allocatable :: fontstring
    !              \   *    P_TEXT_ANGLE
    !                *  =======================
    !
-   !  CENTER             * \
-   !                   *     \
-   !                 *         *
-   !               *         *   \
-   !             *\        *       \
-   !           *    \    *          *
+   !  CENTER             *    !                   *        !                 *         *
+   !               *         *      !             *\        *          !           *    \    *          *
    !         *        \* X1,Y1    *
    !       *         *  \       *        X2=X1+S(2)*COSD(P_TEXT_ANGLE+90)
    !       \       *      \   *          Y2=Y1-S(2)*SIND(P_TEXT_ANGLE+90)
@@ -6441,7 +6429,7 @@ end subroutine getdisplaysize
 !!
 !!    program demo_point2
 !!    use :: M_pixel
-!!    use :: M_writegif, only : writegif
+!!    use :: M_pixel__writegif, only : writegif
 !!    implicit none
 !!    integer :: i
 !!    call vinit()
@@ -6450,7 +6438,7 @@ end subroutine getdisplaysize
 !!       call linewidth(50*i)
 !!       call point2(real(i*25),real(i*25))
 !!    enddo
-!!    call writegif('point2.3m_pixel.gif',P_pixel,P_colormap)
+!!    call writegif('point2.3M_pixel.gif',P_pixel,P_colormap)
 !!    call vexit()
 !!    end program demo_point2
 !!
@@ -6592,7 +6580,7 @@ end subroutine state
 !!
 !!    program demo_poly2
 !!    use M_pixel
-!!    use M_writegif, only : writegif
+!!    use M_pixel__writegif, only : writegif
 !!    implicit none
 !!    integer :: i, j, icolor
 !!    real    :: xx, yy
@@ -6612,7 +6600,7 @@ end subroutine state
 !!          enddo
 !!          xx=xx+16.0
 !!       enddo
-!!       call writegif('poly2.3m_pixel.gif',P_pixel,P_colormap)
+!!       call writegif('poly2.3M_pixel.gif',P_pixel,P_colormap)
 !!       call vexit()
 !!    contains
 !!
@@ -6755,11 +6743,8 @@ integer,intent(in) :: inx1,iny1,inx2,iny2
    real            :: angle
    !
    !               *  P2
-   !             *   \
-   !           *       \
-   !         *         * inx2,iny2
-   !   P1  *         *    \
-   !       \       *        \ P3
+   !             *      !           *          !         *         * inx2,iny2
+   !   P1  *         *       !       \       *        \ P3
    !         \   *          *
    ! inx1,iny1 *          *
    !            \       *
@@ -6924,7 +6909,7 @@ end subroutine PPM_ENDCAP_CIRCLE
 !===================================================================================================================================
 !>
 !!##NAME
-!!    drawstr(3f) - [M_msg] converts any standard scalar type to a string and prints it
+!!    drawstr(3f) - [M_pixel] converts any standard scalar type to a string and prints it
 !!    (LICENSE:PD)
 !!
 !!##SYNOPSIS
@@ -7002,7 +6987,7 @@ subroutine msg_scalar(generic0, generic1, generic2, generic3, generic4, generic5
                   & sep)
 implicit none
 
-! ident_2="@(#)M_msg::msg_scalar(3fp): writes a message to a string composed of any standard scalar types"
+! ident_2="@(#)M_pixel::msg_scalar(3fp): writes a message to a string composed of any standard scalar types"
 
 class(*),intent(in),optional  :: generic0, generic1, generic2, generic3, generic4
 class(*),intent(in),optional  :: generic5, generic6, generic7, generic8, generic9
@@ -7075,7 +7060,7 @@ end subroutine msg_scalar
 subroutine msg_one(generic0,generic1, generic2, generic3, generic4, generic5, generic6, generic7, generic8, generic9,sep)
 implicit none
 
-! ident_3="@(#)M_msg::msg_one(3fp): writes a message to a string composed of any standard one dimensional types"
+! ident_3="@(#)M_pixel::msg_one(3fp): writes a message to a string composed of any standard one dimensional types"
 
 class(*),intent(in)           :: generic0(:)
 class(*),intent(in),optional  :: generic1(:), generic2(:), generic3(:), generic4(:), generic5(:)
@@ -7168,7 +7153,7 @@ pure elemental function anyscalar_to_real(valuein) result(r_out)
 use, intrinsic :: iso_fortran_env, only : error_unit !! ,input_unit,output_unit
 implicit none
 
-! ident_5="@(#)M_anything::anyscalar_to_real(3f): convert integer or real parameter of any kind to real"
+! ident_5="@(#)M_pixel::anyscalar_to_real(3f): convert integer or real parameter of any kind to real"
 
 class(*),intent(in) :: valuein
 real                :: r_out
@@ -7241,7 +7226,7 @@ end subroutine journal
 !===================================================================================================================================
 function i2s(ivalue) result(outstr)
 
-! ident_61="@(#) M_strings i2s(3fp) private function returns string given integer value"
+! ident_61="@(#) M_pixel i2s(3fp) private function returns string given integer value"
 
 integer,intent(in)           :: ivalue                         ! input value to convert to a string
 character(len=:),allocatable :: outstr                         ! output string to generate
@@ -7288,7 +7273,7 @@ pure elemental function anyscalar_to_double(valuein) result(d_out)
 use, intrinsic :: iso_fortran_env, only : error_unit !! ,input_unit,output_unit
 implicit none
 
-! ident_4="@(#)M_anything::anyscalar_to_double(3f): convert integer or real parameter of any kind to doubleprecision"
+! ident_4="@(#)M_pixel::anyscalar_to_double(3f): convert integer or real parameter of any kind to doubleprecision"
 
 class(*),intent(in)       :: valuein
 doubleprecision           :: d_out
@@ -7314,7 +7299,7 @@ doubleprecision,parameter :: big=huge(0.0d0)
    !   d_out=dble(valuein)
    class default
      d_out=0.0d0
-     !!stop '*M_anything::anyscalar_to_double: unknown type'
+     !!stop '*M_pixel::anyscalar_to_double: unknown type'
    end select
 end function anyscalar_to_double
 !===================================================================================================================================
@@ -8726,7 +8711,7 @@ END SUBROUTINE color_name2rgb
 !===================================================================================================================================
 elemental pure function lower(str) result (string)
 
-! ident_74="@(#) M_strings lower(3f) Changes a string to lowercase"
+! ident_74="@(#) M_pixel lower(3f) Changes a string to lowercase"
 
 character(*), intent(In)     :: str
 character(len(str))          :: string

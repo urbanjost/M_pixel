@@ -1,3 +1,5 @@
+<!-- -*- mode: jinja2 -*- -->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,77 +12,53 @@
 
     <title>mapcolor &ndash; M_pixel</title>
 
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="../css/pygments.css" rel="stylesheet">
     <link href="../css/font-awesome.min.css" rel="stylesheet">
     <link href="../css/local.css" rel="stylesheet">
       <link  href="../tipuesearch/tipuesearch.css" rel="stylesheet">
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
-
-         <script src="../js/jquery-2.1.3.min.js"></script>
-         <script src="../js/svg-pan-zoom.min.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="../js/svg-pan-zoom.min.js"></script>
   </head>
 
   <body>
 
     <!-- Fixed navbar -->
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
+    <div class="container-fluid mb-sm-4 mb-xl-2">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
           <a class="navbar-brand" href="../index.html">M_pixel </a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="dropdown hidden-xs visible-sm visible-md hidden-lg">
-              <a href="#" class="dropdown-toggle"
-                 data-toggle="dropdown" role="button"
-                 aria-haspopup="true"
-                 aria-expanded="false">
-                 Contents <span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu">
-                    <li><a href="../lists/files.html">Source Files</a></li>
-                  <li><a href="../lists/modules.html">Modules</a></li>
-                  <li><a href="../lists/procedures.html">Procedures</a></li>
-                  <li><a href="../lists/types.html">Derived Types</a></li>
-              </ul>
-            </li>
-                <li class="visible-xs hidden-sm visible-lg">
-                  <a href="../lists/files.html">Source Files</a>
+          <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar"
+                  aria-expanded="false" aria-controls="navbar" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon">
+          </button>
+
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="../lists/files.html">Source Files</a>
+                  </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/modules.html">Modules</a>
                 </li>
-              <li class="visible-xs hidden-sm visible-lg">
-                <a href="../lists/modules.html">Modules</a>
-              </li>
-              <li class="visible-xs hidden-sm visible-lg">
-                <a href="../lists/procedures.html">Procedures</a>
-              </li>
-              <li class="visible-xs hidden-sm visible-lg">
-                <a href="../lists/types.html">Derived Types</a>
-              </li>
-          </ul>
-            <form action="../search.html" class="navbar-form navbar-right" role="search">
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/procedures.html">Procedures</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/types.html">Derived Types</a>
+                </li>
+            </ul>
+              <div class="d-flex align-items-end flex-grow-1">
+                <form action="../search.html" role="search" class="ms-auto">
+                  <input type="text" class="form-control" aria-label="Search" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
+                </form>
               </div>
-              <!--
-                  <button type="submit" class="btn btn-default">Submit</button>
-                  -->
-            </form>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
+          </div><!--/.nav-collapse -->
+        </div>
+      </nav>
+    </div>
 
     <div class="container">
   <div class="row">
@@ -88,33 +66,37 @@
       <small>Subroutine</small>
       
     </h1>
-      <div class="row" id="info-bar">
-    <div class="col-lg-12">
-      <div class="well well-sm">
+      <div class="container p-2 mb-4 bg-light border rounded-3">
+    <div class="row align-items-center justify-content-between" id="info-bar">
+      <div class="col">
         <ul class="list-inline" style="margin-bottom:0px;display:inline">
 
-          <li id="statements"><i class="fa fa-list-ol"></i>
-            <a data-toggle="tooltip"
-               data-placement="bottom" data-html="true"
-               title=" 0.3% of total for procedures.">15 statements</a>
-          </li>
+            <li class="list-inline-item" id="statements"><i class="fa fa-list-ol"></i>
+              <a data-bs-toggle="tooltip"
+                 data-bs-placement="bottom" data-html="true"
+                 title=" 0.3% of total for procedures.">15 statements</a>
+            </li>
 
-            <li id="source-file">
+            <li class="list-inline-item" id="source-file">
               <i class="fa fa-code"></i>
               <a href="../src/M_pixel.F90"> Source File</a>
             </li>
         </ul>
-        <ol class="breadcrumb in-well text-right">
-              <li><a href='../sourcefile/m_pixel.f90.html'>M_pixel.F90</a></li>
-              <li><a href='../module/m_pixel.html'>M_pixel</a></li>
-          <li class="active">mapcolor</li>
-        </ol>
+      </div>
+      <div class="col">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb justify-content-end mb-0">
+                <li class="breadcrumb-item"><a href='../sourcefile/m_pixel.f90.html'>M_pixel.F90</a></li>
+                <li class="breadcrumb-item"><a href='../module/m_pixel.html'>M_pixel</a></li>
+            <li class="breadcrumb-item active" aria-current="page">mapcolor</li>
+          </ol>
+        </nav>
       </div>
     </div>
   </div>
   <script>
     $(function () {
-    $('[data-toggle="tooltip"]').tooltip()
+    $('[data-bs-toggle="tooltip"]').tooltip()
     })
   </script>
 
@@ -143,8 +125,9 @@
   
   
   
-    <div class="panel panel-primary">
-      <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
+  
+    <div class="card card-primary">
+      <div class="card-header text-left"><h3 class="card-title">Source Code</h3></div>
       <div class="list-group">
         <a class="list-group-item" href="../proc/mapcolor.html#src">mapcolor</a>
       </div>
@@ -185,155 +168,155 @@ BLUE    blue component of color being defined, in range 0 to 255
 
 <h2 id="example">EXAMPLE</h2>
 <p>Color wheel example:</p>
-<div class="codehilite"><pre><span></span><code><span class="o">!</span>     <span class="nv">good</span> <span class="nv">program</span> <span class="nv">to</span> <span class="nv">exercise</span> <span class="nv">color</span> <span class="nv">tables</span>, <span class="nv">and</span> <span class="nv">look</span> <span class="nv">at</span> <span class="nv">differences</span>
-<span class="o">!</span>     <span class="nv">when</span> <span class="nv">actual</span> <span class="nv">output</span> <span class="nv">device</span> <span class="nv">has</span> <span class="nv">a</span> <span class="nv">color</span> <span class="nv">table</span> <span class="nv">that</span> <span class="nv">is</span> <span class="nv">dynamic</span>,
-<span class="o">!</span>     <span class="nv">or</span> <span class="nv">only</span> <span class="nv">has</span> <span class="nv">a</span> <span class="nv">small</span> <span class="nv">color</span> <span class="nv">table</span> <span class="ss">(</span><span class="nv">a</span> <span class="nv">frame</span> <span class="nv">in</span> <span class="nv">this</span> <span class="nv">program</span> <span class="nv">takes</span>
-<span class="o">!</span>     <span class="nv">at</span> <span class="nv">least</span> <span class="nv">SLICES</span><span class="o">*</span><span class="nv">RINGS</span> <span class="nv">colors</span> <span class="nv">to</span> <span class="nv">produce</span> <span class="nv">accurately</span><span class="ss">)</span>.
-<span class="o">!</span>
-<span class="nv">program</span> <span class="nv">demo_mapcolor</span>
-<span class="nv">use</span> <span class="nv">M_pixel</span>
-<span class="nv">use</span> <span class="nv">m_pixel</span>, <span class="nv">only</span>: <span class="nv">hue</span>
-<span class="nv">use</span> <span class="nv">M_writegif</span>, <span class="nv">only</span> : <span class="nv">writegif</span>
-<span class="nv">use</span> <span class="nv">M_pixel</span>,    <span class="nv">only</span> : <span class="nv">cosd</span>, <span class="nv">sind</span>
-<span class="nv">use</span> <span class="nv">M_writegif_animated</span>, <span class="nv">only</span> : <span class="nv">write_animated_gif</span>
-<span class="nv">implicit</span> <span class="nv">none</span>
-<span class="nv">character</span><span class="ss">(</span><span class="nv">len</span><span class="o">=</span><span class="mi">4096</span><span class="ss">)</span>  :: <span class="nv">filename</span>
-<span class="nv">real</span>                 :: <span class="nv">lightstep</span>
-<span class="nv">integer</span>              :: <span class="nv">ii</span>,<span class="nv">iframe</span>
-<span class="nv">integer</span>,<span class="nv">parameter</span>    :: <span class="nv">SLICES</span><span class="o">=</span><span class="mi">30</span>
-<span class="nv">integer</span>,<span class="nv">parameter</span>    :: <span class="nv">RINGS</span><span class="o">=</span>  <span class="mi">8</span>
-<span class="nv">real</span>                 :: <span class="nv">LIGHTNESS</span>
-<span class="nv">integer</span>,<span class="nv">parameter</span>    :: <span class="nv">BOX</span><span class="o">=</span><span class="mi">1200</span>
-<span class="nv">integer</span>              :: <span class="nv">movie</span><span class="ss">(</span><span class="mi">1</span>:<span class="mi">19</span>,<span class="mi">0</span>:<span class="nv">box</span><span class="o">-</span><span class="mi">1</span>,<span class="mi">0</span>:<span class="nv">box</span><span class="o">-</span><span class="mi">1</span><span class="ss">)</span>
-   <span class="k">call</span> <span class="nl">prefsize</span><span class="ss">(</span><span class="nv">BOX</span>,<span class="nv">BOX</span><span class="ss">)</span>
-   <span class="k">call</span> <span class="nl">vinit</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s"> </span><span class="s1">&#39;</span><span class="ss">)</span>
-   <span class="k">call</span> <span class="nl">color</span><span class="ss">(</span><span class="mi">0</span><span class="ss">)</span>
-   <span class="k">call</span> <span class="nl">clear</span><span class="ss">()</span>
-   <span class="k">call</span> <span class="nl">color</span><span class="ss">(</span><span class="mi">7</span><span class="ss">)</span>
-   <span class="k">call</span> <span class="nl">page</span><span class="ss">(</span><span class="o">-</span><span class="mi">110</span>.<span class="o">/</span><span class="mi">2</span>.,<span class="mi">85</span>.<span class="o">/</span><span class="mi">2</span>.,<span class="o">-</span><span class="mi">110</span>.<span class="o">/</span><span class="mi">2</span>.,<span class="mi">110</span>.<span class="o">/</span><span class="mi">2</span>.<span class="ss">)</span>
-   <span class="nv">LIGHTNESS</span><span class="o">=</span><span class="mi">100</span>.<span class="mi">0</span>
-   <span class="nv">lightstep</span><span class="o">=-</span><span class="mi">5</span>
-   <span class="k">do</span> <span class="nv">ii</span><span class="o">=</span><span class="mi">1</span>,<span class="mi">19</span>
-      <span class="nv">iframe</span><span class="o">=</span><span class="nv">ii</span>
-      <span class="k">call</span> <span class="nl">color</span><span class="ss">(</span><span class="mi">0</span><span class="ss">)</span>
-      <span class="k">call</span> <span class="nl">clear</span><span class="ss">()</span>
-      <span class="k">call</span> <span class="nl">color</span><span class="ss">(</span><span class="mi">7</span><span class="ss">)</span>
-      <span class="k">call</span> <span class="nl">wheel</span><span class="ss">()</span>
-      <span class="nv">write</span><span class="ss">(</span><span class="nv">filename</span>,<span class="s1">&#39;</span><span class="s">(&quot;mapcolor.3_&quot;,i3.3,&quot;.gif&quot;)</span><span class="s1">&#39;</span><span class="ss">)</span><span class="nv">int</span><span class="ss">(</span><span class="nv">LIGHTNESS</span><span class="ss">)</span>
-      <span class="k">call</span> <span class="nl">writegif</span><span class="ss">(</span><span class="nv">filename</span>,<span class="nv">P_pixel</span>,<span class="nv">P_colormap</span><span class="ss">)</span>
-      <span class="nv">movie</span><span class="ss">(</span><span class="nv">ii</span>,:,:<span class="ss">)</span><span class="o">=</span><span class="nv">P_pixel</span>
-      <span class="nv">LIGHTNESS</span><span class="o">=</span><span class="nv">LIGHTNESS</span><span class="o">+</span><span class="nv">LIGHTSTEP</span>
-   <span class="nv">enddo</span>
-   <span class="k">call</span> <span class="nl">write_animated_gif</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">mapcolor.3m_pixel.gif</span><span class="s1">&#39;</span>,<span class="nv">movie</span>,<span class="nv">P_colormap</span>,<span class="nv">delay</span><span class="o">=</span><span class="mi">40</span><span class="ss">)</span>
-   <span class="k">call</span> <span class="nl">vexit</span><span class="ss">()</span>
-<span class="nv">contains</span>
-<span class="nv">subroutine</span> <span class="nv">wheel</span><span class="ss">()</span> <span class="o">!</span> <span class="nv">draw</span> <span class="nv">an</span> <span class="nv">entire</span> <span class="nv">wheel</span>
-   <span class="nv">character</span><span class="ss">(</span><span class="nv">len</span><span class="o">=</span><span class="mi">40</span><span class="ss">)</span> :: <span class="nv">inline</span>
-   <span class="nv">real</span>              :: <span class="nv">hue_val</span>
-   <span class="nv">integer</span>           :: <span class="nv">ii</span>
-   <span class="k">call</span> <span class="nl">textang</span><span class="ss">(</span><span class="mi">0</span>.<span class="mi">0</span><span class="ss">)</span>
-   <span class="k">call</span> <span class="nl">color</span><span class="ss">(</span><span class="mi">7</span><span class="ss">)</span>
-   <span class="k">call</span> <span class="nl">textsize</span><span class="ss">(</span><span class="mi">5</span>.<span class="mi">0</span>,<span class="mi">6</span>.<span class="mi">0</span><span class="ss">)</span>
-   <span class="k">call</span> <span class="nl">font</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">times.r</span><span class="s1">&#39;</span><span class="ss">)</span>
-   <span class="k">call</span> <span class="nl">move2</span><span class="ss">(</span><span class="mi">0</span>.<span class="mi">0</span>,<span class="mi">103</span>.<span class="mi">0</span><span class="o">/</span><span class="mi">2</span>.<span class="mi">0</span><span class="ss">)</span>
-   <span class="k">call</span> <span class="nl">centertext</span><span class="ss">(</span>.<span class="nv">true</span>.<span class="ss">)</span>
-   <span class="k">call</span> <span class="nl">linewidth</span><span class="ss">(</span><span class="mi">30</span><span class="ss">)</span>
-   <span class="k">call</span> <span class="nl">drawstr</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">COLOR WHEEL</span><span class="s1">&#39;</span><span class="ss">)</span>
-   <span class="k">call</span> <span class="nl">linewidth</span><span class="ss">(</span><span class="mi">0</span><span class="ss">)</span>
-   <span class="k">call</span> <span class="nl">textsize</span><span class="ss">(</span> <span class="mi">2</span>.<span class="mi">5</span>,<span class="mi">2</span>.<span class="mi">5</span><span class="ss">)</span>
-   <span class="k">call</span> <span class="nl">font</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">futura.l</span><span class="s1">&#39;</span><span class="ss">)</span>
-   <span class="k">call</span> <span class="nl">move2</span><span class="ss">(</span><span class="mi">0</span>.<span class="mi">0</span>,<span class="mi">90</span>.<span class="mi">0</span><span class="o">/</span><span class="mi">2</span>.<span class="mi">0</span><span class="ss">)</span>
-   <span class="nv">write</span><span class="ss">(</span><span class="nv">inline</span>,<span class="s1">&#39;</span><span class="s">(&quot;lightness=&quot;,f6.2)</span><span class="s1">&#39;</span><span class="ss">)</span><span class="nv">LIGHTNESS</span>
-   <span class="k">call</span> <span class="nl">linewidth</span><span class="ss">(</span><span class="mi">30</span><span class="ss">)</span>
-   <span class="k">call</span> <span class="nl">drawstr</span><span class="ss">(</span><span class="nv">inline</span><span class="ss">)</span>
-   <span class="k">call</span> <span class="nl">linewidth</span><span class="ss">(</span><span class="mi">0</span><span class="ss">)</span>
-   <span class="k">call</span> <span class="nl">textsize</span><span class="ss">(</span><span class="mi">1</span>.<span class="mi">5</span>,<span class="mi">1</span>.<span class="mi">5</span><span class="ss">)</span>
-   <span class="nv">hue_val</span><span class="o">=</span><span class="mi">0</span>
-   <span class="k">do</span> <span class="nv">ii</span><span class="o">=</span><span class="nv">SLICES</span>, <span class="mi">1</span>,<span class="o">-</span><span class="mi">1</span>
-      <span class="k">call</span> <span class="nl">slice</span><span class="ss">(</span><span class="nv">hue_val</span><span class="ss">)</span>
-   <span class="nv">enddo</span>
-   <span class="k">call</span> <span class="nl">centertext</span><span class="ss">(</span>.<span class="nv">false</span>.<span class="ss">)</span>
-<span class="k">end</span> <span class="nv">subroutine</span> <span class="nv">wheel</span>
-<span class="nv">subroutine</span> <span class="nv">slice</span><span class="ss">(</span><span class="nv">hue_val</span><span class="ss">)</span> <span class="o">!</span> <span class="nv">draw</span> <span class="nv">a</span> <span class="nv">slice</span>
-<span class="nv">integer</span>           :: <span class="nv">buffer</span>
-<span class="nv">real</span>              :: <span class="nv">hue_val</span>, <span class="nv">ang_inc</span>
-<span class="nv">character</span><span class="ss">(</span><span class="nv">len</span><span class="o">=</span><span class="mi">40</span><span class="ss">)</span> :: <span class="nv">inline</span>
-<span class="nv">real</span>              :: <span class="nv">step</span>
-<span class="nv">real</span>              :: <span class="nv">X1</span>, <span class="nv">X2</span>, <span class="nv">X3</span>, <span class="nv">X4</span>
-<span class="nv">real</span>              :: <span class="nv">Y1</span>, <span class="nv">Y2</span>, <span class="nv">Y3</span>, <span class="nv">Y4</span>
-<span class="o">!</span>
-<span class="nv">integer</span>           :: <span class="nv">maxcolors</span>, <span class="nv">current_color</span>
-<span class="nv">integer</span>           :: <span class="nv">ir</span>, <span class="nv">ig</span>, <span class="nv">ib</span>
-<span class="nv">real</span>              :: <span class="nv">r</span>,<span class="nv">g</span>,<span class="nv">b</span>
-<span class="nv">real</span>              :: <span class="nv">saturation</span>
-<span class="o">!</span>
-<span class="nv">integer</span>           :: <span class="nv">status</span>
-<span class="nv">integer</span>           :: <span class="nv">icount</span>
-<span class="nv">real</span>              :: <span class="nv">angle1</span>, <span class="nv">angle2</span>
-<span class="nv">real</span>              :: <span class="nv">radius1</span>, <span class="nv">radius2</span>, <span class="nv">radius3</span>, <span class="nv">radius4</span>
-<span class="o">!</span>
-<span class="nv">integer</span>,<span class="nv">save</span>      :: <span class="nv">color_count</span><span class="o">=</span><span class="mi">0</span>
-<span class="o">!</span>
-   <span class="nv">buffer</span><span class="o">=</span><span class="mi">8</span>
-   <span class="nv">ANG_INC</span><span class="o">=</span><span class="mi">360</span>.<span class="mi">0</span><span class="o">/</span><span class="nv">SLICES</span>
-   <span class="nv">angle1</span><span class="o">=</span><span class="nv">hue_val</span><span class="o">-</span><span class="nv">ANG_INC</span><span class="o">/</span><span class="mi">2</span>
-   <span class="nv">angle2</span><span class="o">=</span><span class="nv">angle1</span><span class="o">+</span><span class="nv">ANG_INC</span>
-   <span class="nv">saturation</span><span class="o">=</span><span class="mi">100</span>
-   <span class="nv">radius1</span><span class="o">=</span><span class="mi">32</span>
-   <span class="nv">radius3</span><span class="o">=</span><span class="nv">radius1</span><span class="o">+</span><span class="mi">4</span>
-   <span class="nv">radius4</span><span class="o">=</span><span class="nv">radius1</span><span class="o">+</span><span class="mi">7</span>
-   <span class="o">!</span> <span class="nv">draw</span> <span class="nv">tic</span> <span class="nv">from</span> <span class="nv">wheel</span> <span class="nv">to</span> <span class="nv">start</span> <span class="nv">of</span> <span class="nv">angle</span> <span class="nv">label</span>
-   <span class="k">call</span> <span class="nl">color</span><span class="ss">(</span><span class="mi">7</span><span class="ss">)</span>
-   <span class="k">call</span> <span class="nl">linewidth</span><span class="ss">(</span><span class="mi">40</span><span class="ss">)</span>
-   <span class="k">call</span> <span class="nl">move2</span><span class="ss">(</span> <span class="nv">radius1</span><span class="o">*</span><span class="nv">cosd</span><span class="ss">(</span><span class="nv">hue_val</span><span class="ss">)</span>, <span class="nv">radius1</span><span class="o">*</span><span class="nv">sind</span><span class="ss">(</span><span class="nv">hue_val</span><span class="ss">)</span> <span class="ss">)</span>
-   <span class="k">call</span> <span class="nl">draw2</span><span class="ss">(</span> <span class="nv">radius3</span><span class="o">*</span><span class="nv">cosd</span><span class="ss">(</span><span class="nv">hue_val</span><span class="ss">)</span>, <span class="nv">radius3</span><span class="o">*</span><span class="nv">sind</span><span class="ss">(</span><span class="nv">hue_val</span><span class="ss">)</span> <span class="ss">)</span>
-   <span class="o">!</span> <span class="nv">draw</span> <span class="nv">degree</span> <span class="nv">label</span> <span class="nv">at</span> <span class="nv">tic</span>
-   <span class="k">call</span> <span class="nl">textang</span><span class="ss">(</span><span class="nv">hue_val</span><span class="ss">)</span>
-   <span class="k">call</span> <span class="nl">move2</span><span class="ss">(</span> <span class="nv">radius4</span><span class="o">*</span><span class="nv">cosd</span><span class="ss">(</span><span class="nv">hue_val</span><span class="ss">)</span>, <span class="nv">radius4</span><span class="o">*</span><span class="nv">sind</span><span class="ss">(</span><span class="nv">hue_val</span><span class="ss">)</span> <span class="ss">)</span>
-   <span class="nv">write</span><span class="ss">(</span><span class="nv">inline</span>,<span class="s1">&#39;</span><span class="s">(i0)</span><span class="s1">&#39;</span><span class="ss">)</span><span class="nv">nint</span><span class="ss">(</span><span class="nv">hue_val</span><span class="ss">)</span>
-   <span class="k">call</span> <span class="nl">linewidth</span><span class="ss">(</span><span class="mi">20</span><span class="ss">)</span>
-   <span class="k">call</span> <span class="nl">drawstr</span><span class="ss">(</span><span class="nv">inline</span><span class="ss">)</span>
-   <span class="k">call</span> <span class="nl">linewidth</span><span class="ss">(</span><span class="mi">0</span><span class="ss">)</span>
-   <span class="nv">step</span><span class="o">=</span><span class="nv">radius1</span><span class="o">/</span><span class="ss">(</span><span class="nv">RINGS</span><span class="ss">)</span>
-   <span class="nv">radius2</span><span class="o">=</span><span class="nv">radius1</span><span class="o">-</span><span class="nv">step</span>
-   <span class="o">!</span> <span class="nv">draw</span> <span class="nv">a</span> <span class="nv">chunk</span> <span class="nv">in</span> <span class="nv">a</span> <span class="nv">slice</span>
-   <span class="nv">MAXCOLORS</span><span class="o">=</span><span class="ss">(</span><span class="mi">256</span><span class="ss">)</span><span class="o">-</span><span class="nv">buffer</span>
-   <span class="k">do</span> <span class="nv">icount</span><span class="o">=</span><span class="nv">RINGS</span><span class="o">+</span><span class="mi">1</span>,<span class="mi">2</span>,<span class="o">-</span><span class="mi">1</span>
-      <span class="o">!</span> <span class="nv">add</span> <span class="nv">buffer</span> <span class="nv">to</span> <span class="nv">leave</span> <span class="nv">base</span> <span class="nv">colors</span> <span class="nv">alone</span>
-      <span class="nv">CURRENT_COLOR</span><span class="o">=</span><span class="nv">MOD</span><span class="ss">(</span><span class="nv">color_count</span>,<span class="nv">MAXCOLORS</span><span class="ss">)</span><span class="o">+</span><span class="nv">buffer</span>
-      <span class="nv">color_count</span><span class="o">=</span><span class="nv">color_count</span><span class="o">+</span><span class="mi">1</span>
-      <span class="o">!</span> <span class="nv">fancy</span> <span class="nv">mapcolor</span>
-      <span class="k">call</span> <span class="nl">hue</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">hls</span><span class="s2">&quot;</span>,<span class="nv">hue_val</span>,<span class="nv">LIGHTNESS</span>,<span class="nv">saturation</span>,<span class="s2">&quot;</span><span class="s">rgb</span><span class="s2">&quot;</span>,<span class="nv">r</span>,<span class="nv">g</span>,<span class="nv">b</span>,<span class="nv">status</span><span class="ss">)</span>
-      <span class="nv">ir</span><span class="o">=</span><span class="nv">int</span><span class="ss">(</span><span class="nv">r</span><span class="o">*</span><span class="mi">255</span>.<span class="mi">0</span><span class="o">/</span><span class="mi">100</span>.<span class="mi">0</span><span class="o">+</span><span class="mi">0</span>.<span class="mi">50</span><span class="ss">)</span>
-      <span class="nv">ig</span><span class="o">=</span><span class="nv">int</span><span class="ss">(</span><span class="nv">g</span><span class="o">*</span><span class="mi">255</span>.<span class="mi">0</span><span class="o">/</span><span class="mi">100</span>.<span class="mi">0</span><span class="o">+</span><span class="mi">0</span>.<span class="mi">50</span><span class="ss">)</span>
-      <span class="nv">ib</span><span class="o">=</span><span class="nv">int</span><span class="ss">(</span><span class="nv">b</span><span class="o">*</span><span class="mi">255</span>.<span class="mi">0</span><span class="o">/</span><span class="mi">100</span>.<span class="mi">0</span><span class="o">+</span><span class="mi">0</span>.<span class="mi">50</span><span class="ss">)</span>
-      <span class="k">call</span> <span class="nl">mapcolor</span><span class="ss">(</span><span class="nv">CURRENT_COLOR</span>,<span class="nv">ir</span>,<span class="nv">ig</span>,<span class="nv">ib</span><span class="ss">)</span>
-      <span class="k">call</span> <span class="nl">color</span><span class="ss">(</span><span class="nv">CURRENT_COLOR</span><span class="ss">)</span>
-      <span class="o">!</span>
-      <span class="nv">X1</span><span class="o">=</span><span class="nv">cosd</span><span class="ss">(</span><span class="nv">angle1</span><span class="ss">)</span><span class="o">*</span><span class="nv">radius2</span>
-      <span class="nv">Y1</span><span class="o">=</span><span class="nv">sind</span><span class="ss">(</span><span class="nv">angle1</span><span class="ss">)</span><span class="o">*</span><span class="nv">radius2</span>
-      <span class="nv">X2</span><span class="o">=</span><span class="nv">cosd</span><span class="ss">(</span><span class="nv">angle1</span><span class="ss">)</span><span class="o">*</span><span class="nv">radius1</span>
-      <span class="nv">Y2</span><span class="o">=</span><span class="nv">sind</span><span class="ss">(</span><span class="nv">angle1</span><span class="ss">)</span><span class="o">*</span><span class="nv">radius1</span>
-      <span class="o">!</span>
-      <span class="nv">X3</span><span class="o">=</span><span class="nv">cosd</span><span class="ss">(</span><span class="nv">angle2</span><span class="ss">)</span><span class="o">*</span><span class="nv">radius2</span>
-      <span class="nv">Y3</span><span class="o">=</span><span class="nv">sind</span><span class="ss">(</span><span class="nv">angle2</span><span class="ss">)</span><span class="o">*</span><span class="nv">radius2</span>
-      <span class="nv">X4</span><span class="o">=</span><span class="nv">cosd</span><span class="ss">(</span><span class="nv">angle2</span><span class="ss">)</span><span class="o">*</span><span class="nv">radius1</span>
-      <span class="nv">Y4</span><span class="o">=</span><span class="nv">sind</span><span class="ss">(</span><span class="nv">angle2</span><span class="ss">)</span><span class="o">*</span><span class="nv">radius1</span>
-      <span class="o">!</span>
-      <span class="k">call</span> <span class="nl">makepoly</span><span class="ss">()</span>
-      <span class="k">call</span> <span class="nl">move2</span><span class="ss">(</span><span class="nv">X1</span>,<span class="nv">Y1</span><span class="ss">)</span>
-      <span class="k">call</span> <span class="nl">draw2</span><span class="ss">(</span><span class="nv">X2</span>,<span class="nv">Y2</span><span class="ss">)</span>
-      <span class="k">call</span> <span class="nl">draw2</span><span class="ss">(</span><span class="nv">X4</span>,<span class="nv">Y4</span><span class="ss">)</span>
-      <span class="k">call</span> <span class="nl">draw2</span><span class="ss">(</span><span class="nv">X3</span>,<span class="nv">Y3</span><span class="ss">)</span>
-      <span class="k">call</span> <span class="nl">closepoly</span><span class="ss">()</span>
-      <span class="o">!</span>
-      <span class="nv">saturation</span><span class="o">=</span><span class="nv">saturation</span><span class="o">-</span><span class="mi">100</span>.<span class="mi">0</span><span class="o">/</span><span class="nv">RINGS</span>
-      <span class="nv">radius1</span><span class="o">=</span><span class="nv">radius2</span>
-      <span class="nv">radius2</span><span class="o">=</span><span class="nv">radius1</span><span class="o">-</span><span class="nv">step</span>
-   <span class="nv">enddo</span>
-   <span class="nv">hue_val</span><span class="o">=</span><span class="nv">hue_val</span><span class="o">+</span><span class="nv">ANG_INC</span>
-<span class="k">end</span> <span class="nv">subroutine</span> <span class="nv">slice</span>
-<span class="k">end</span> <span class="nv">program</span> <span class="nv">demo_mapcolor</span>
+<div class="codehilite"><pre><span></span><code><span class="p">!</span><span class="w">     </span><span class="nx">good</span><span class="w"> </span><span class="nx">program</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">exercise</span><span class="w"> </span><span class="nx">color</span><span class="w"> </span><span class="nx">tables</span><span class="p">,</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">look</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="nx">differences</span>
+<span class="p">!</span><span class="w">     </span><span class="nx">when</span><span class="w"> </span><span class="nx">actual</span><span class="w"> </span><span class="nx">output</span><span class="w"> </span><span class="nx">device</span><span class="w"> </span><span class="nx">has</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">color</span><span class="w"> </span><span class="nx">table</span><span class="w"> </span><span class="nx">that</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">dynamic</span><span class="p">,</span>
+<span class="p">!</span><span class="w">     </span><span class="k">or</span><span class="w"> </span><span class="nx">only</span><span class="w"> </span><span class="nx">has</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">small</span><span class="w"> </span><span class="nx">color</span><span class="w"> </span><span class="nx">table</span><span class="w"> </span><span class="p">(</span><span class="nx">a</span><span class="w"> </span><span class="nx">frame</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">this</span><span class="w"> </span><span class="nx">program</span><span class="w"> </span><span class="nx">takes</span>
+<span class="p">!</span><span class="w">     </span><span class="nx">at</span><span class="w"> </span><span class="nx">least</span><span class="w"> </span><span class="nx">SLICES</span><span class="o">*</span><span class="nx">RINGS</span><span class="w"> </span><span class="nx">colors</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">produce</span><span class="w"> </span><span class="nx">accurately</span><span class="p">).</span>
+<span class="p">!</span>
+<span class="nx">program</span><span class="w"> </span><span class="nx">demo_mapcolor</span>
+<span class="nx">use</span><span class="w"> </span><span class="nx">M_pixel</span>
+<span class="nx">use</span><span class="w"> </span><span class="nx">M_pixel</span><span class="p">,</span><span class="w"> </span><span class="nx">only</span><span class="p">:</span><span class="w"> </span><span class="nx">hue</span>
+<span class="nx">use</span><span class="w"> </span><span class="nx">M_pixel__writegif</span><span class="p">,</span><span class="w"> </span><span class="nx">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nx">writegif</span>
+<span class="nx">use</span><span class="w"> </span><span class="nx">M_pixel</span><span class="p">,</span><span class="w">    </span><span class="nx">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nx">cosd</span><span class="p">,</span><span class="w"> </span><span class="nx">sind</span>
+<span class="nx">use</span><span class="w"> </span><span class="nx">M_pixel__writegif_animated</span><span class="p">,</span><span class="w"> </span><span class="nx">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nx">write_animated_gif</span>
+<span class="nx">implicit</span><span class="w"> </span><span class="nx">none</span>
+<span class="nx">character</span><span class="p">(</span><span class="nx">len</span><span class="p">=</span><span class="mi">4096</span><span class="p">)</span><span class="w">  </span><span class="o">::</span><span class="w"> </span><span class="nx">filename</span>
+<span class="nx">real</span><span class="w">                 </span><span class="o">::</span><span class="w"> </span><span class="nx">lightstep</span>
+<span class="nx">integer</span><span class="w">              </span><span class="o">::</span><span class="w"> </span><span class="nx">ii</span><span class="p">,</span><span class="nx">iframe</span>
+<span class="nx">integer</span><span class="p">,</span><span class="nx">parameter</span><span class="w">    </span><span class="o">::</span><span class="w"> </span><span class="nx">SLICES</span><span class="p">=</span><span class="mi">30</span>
+<span class="nx">integer</span><span class="p">,</span><span class="nx">parameter</span><span class="w">    </span><span class="o">::</span><span class="w"> </span><span class="nx">RINGS</span><span class="p">=</span><span class="w">  </span><span class="mi">8</span>
+<span class="nx">real</span><span class="w">                 </span><span class="o">::</span><span class="w"> </span><span class="nx">LIGHTNESS</span>
+<span class="nx">integer</span><span class="p">,</span><span class="nx">parameter</span><span class="w">    </span><span class="o">::</span><span class="w"> </span><span class="nx">BOX</span><span class="p">=</span><span class="mi">1200</span>
+<span class="nx">integer</span><span class="w">              </span><span class="o">::</span><span class="w"> </span><span class="nx">movie</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">19</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="nx">box</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="nx">box</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">prefsize</span><span class="p">(</span><span class="nx">BOX</span><span class="p">,</span><span class="nx">BOX</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">vinit</span><span class="p">(</span><span class="sc">&#39; &#39;</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">color</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">clear</span><span class="p">()</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">color</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">page</span><span class="p">(</span><span class="o">-</span><span class="mi">110</span><span class="p">.</span><span class="o">/</span><span class="mi">2</span><span class="p">.,</span><span class="mi">85</span><span class="p">.</span><span class="o">/</span><span class="mi">2</span><span class="p">.,</span><span class="o">-</span><span class="mi">110</span><span class="p">.</span><span class="o">/</span><span class="mi">2</span><span class="p">.,</span><span class="mi">110</span><span class="p">.</span><span class="o">/</span><span class="mi">2</span><span class="p">.)</span>
+<span class="w">   </span><span class="nx">LIGHTNESS</span><span class="p">=</span><span class="m m-Double">100.0</span>
+<span class="w">   </span><span class="nx">lightstep</span><span class="p">=</span><span class="o">-</span><span class="mi">5</span>
+<span class="w">   </span><span class="nx">do</span><span class="w"> </span><span class="nx">ii</span><span class="p">=</span><span class="mi">1</span><span class="p">,</span><span class="mi">19</span>
+<span class="w">      </span><span class="nx">iframe</span><span class="p">=</span><span class="nx">ii</span>
+<span class="w">      </span><span class="nx">call</span><span class="w"> </span><span class="nx">color</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="w">      </span><span class="nx">call</span><span class="w"> </span><span class="nx">clear</span><span class="p">()</span>
+<span class="w">      </span><span class="nx">call</span><span class="w"> </span><span class="nx">color</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="w">      </span><span class="nx">call</span><span class="w"> </span><span class="nx">wheel</span><span class="p">()</span>
+<span class="w">      </span><span class="nx">write</span><span class="p">(</span><span class="nx">filename</span><span class="p">,</span><span class="err">&#39;</span><span class="p">(</span><span class="s">&quot;mapcolor.3_&quot;</span><span class="p">,</span><span class="nx">i3</span><span class="m m-Double">.3</span><span class="p">,</span><span class="s">&quot;.gif&quot;</span><span class="p">)</span><span class="err">&#39;</span><span class="p">)</span><span class="nx">int</span><span class="p">(</span><span class="nx">LIGHTNESS</span><span class="p">)</span>
+<span class="w">      </span><span class="nx">call</span><span class="w"> </span><span class="nx">writegif</span><span class="p">(</span><span class="nx">filename</span><span class="p">,</span><span class="nx">P_pixel</span><span class="p">,</span><span class="nx">P_colormap</span><span class="p">)</span>
+<span class="w">      </span><span class="nx">movie</span><span class="p">(</span><span class="nx">ii</span><span class="p">,:,:)=</span><span class="nx">P_pixel</span>
+<span class="w">      </span><span class="nx">LIGHTNESS</span><span class="p">=</span><span class="nx">LIGHTNESS</span><span class="o">+</span><span class="nx">LIGHTSTEP</span>
+<span class="w">   </span><span class="nx">enddo</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">write_animated_gif</span><span class="p">(</span><span class="err">&#39;</span><span class="nx">mapcolor</span><span class="m m-Double">.3</span><span class="nx">M_pixel</span><span class="p">.</span><span class="nx">gif</span><span class="err">&#39;</span><span class="p">,</span><span class="nx">movie</span><span class="p">,</span><span class="nx">P_colormap</span><span class="p">,</span><span class="nx">delay</span><span class="p">=</span><span class="mi">40</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">vexit</span><span class="p">()</span>
+<span class="nx">contains</span>
+<span class="nx">subroutine</span><span class="w"> </span><span class="nx">wheel</span><span class="p">()</span><span class="w"> </span><span class="p">!</span><span class="w"> </span><span class="nx">draw</span><span class="w"> </span><span class="nx">an</span><span class="w"> </span><span class="nx">entire</span><span class="w"> </span><span class="nx">wheel</span>
+<span class="w">   </span><span class="nx">character</span><span class="p">(</span><span class="nx">len</span><span class="p">=</span><span class="mi">40</span><span class="p">)</span><span class="w"> </span><span class="o">::</span><span class="w"> </span><span class="nx">inline</span>
+<span class="w">   </span><span class="nx">real</span><span class="w">              </span><span class="o">::</span><span class="w"> </span><span class="nx">hue_val</span>
+<span class="w">   </span><span class="nx">integer</span><span class="w">           </span><span class="o">::</span><span class="w"> </span><span class="nx">ii</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">textang</span><span class="p">(</span><span class="m m-Double">0.0</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">color</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">textsize</span><span class="p">(</span><span class="m m-Double">5.0</span><span class="p">,</span><span class="m m-Double">6.0</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">font</span><span class="p">(</span><span class="err">&#39;</span><span class="nx">times</span><span class="p">.</span><span class="nx">r</span><span class="err">&#39;</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">move2</span><span class="p">(</span><span class="m m-Double">0.0</span><span class="p">,</span><span class="m m-Double">103.0</span><span class="o">/</span><span class="m m-Double">2.0</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">centertext</span><span class="p">(.</span><span class="kc">true</span><span class="p">.)</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">linewidth</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">drawstr</span><span class="p">(</span><span class="err">&#39;</span><span class="nx">COLOR</span><span class="w"> </span><span class="nx">WHEEL</span><span class="err">&#39;</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">linewidth</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">textsize</span><span class="p">(</span><span class="w"> </span><span class="m m-Double">2.5</span><span class="p">,</span><span class="m m-Double">2.5</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">font</span><span class="p">(</span><span class="err">&#39;</span><span class="nx">futura</span><span class="p">.</span><span class="nx">l</span><span class="err">&#39;</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">move2</span><span class="p">(</span><span class="m m-Double">0.0</span><span class="p">,</span><span class="m m-Double">90.0</span><span class="o">/</span><span class="m m-Double">2.0</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">write</span><span class="p">(</span><span class="nx">inline</span><span class="p">,</span><span class="err">&#39;</span><span class="p">(</span><span class="s">&quot;lightness=&quot;</span><span class="p">,</span><span class="nx">f6</span><span class="m m-Double">.2</span><span class="p">)</span><span class="err">&#39;</span><span class="p">)</span><span class="nx">LIGHTNESS</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">linewidth</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">drawstr</span><span class="p">(</span><span class="nx">inline</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">linewidth</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">textsize</span><span class="p">(</span><span class="m m-Double">1.5</span><span class="p">,</span><span class="m m-Double">1.5</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">hue_val</span><span class="p">=</span><span class="mi">0</span>
+<span class="w">   </span><span class="nx">do</span><span class="w"> </span><span class="nx">ii</span><span class="p">=</span><span class="nx">SLICES</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span>
+<span class="w">      </span><span class="nx">call</span><span class="w"> </span><span class="nx">slice</span><span class="p">(</span><span class="nx">hue_val</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">enddo</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">centertext</span><span class="p">(.</span><span class="kc">false</span><span class="p">.)</span>
+<span class="nx">end</span><span class="w"> </span><span class="nx">subroutine</span><span class="w"> </span><span class="nx">wheel</span>
+<span class="nx">subroutine</span><span class="w"> </span><span class="nx">slice</span><span class="p">(</span><span class="nx">hue_val</span><span class="p">)</span><span class="w"> </span><span class="p">!</span><span class="w"> </span><span class="nx">draw</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">slice</span>
+<span class="nx">integer</span><span class="w">           </span><span class="o">::</span><span class="w"> </span><span class="nx">buffer</span>
+<span class="nx">real</span><span class="w">              </span><span class="o">::</span><span class="w"> </span><span class="nx">hue_val</span><span class="p">,</span><span class="w"> </span><span class="nx">ang_inc</span>
+<span class="nx">character</span><span class="p">(</span><span class="nx">len</span><span class="p">=</span><span class="mi">40</span><span class="p">)</span><span class="w"> </span><span class="o">::</span><span class="w"> </span><span class="nx">inline</span>
+<span class="nx">real</span><span class="w">              </span><span class="o">::</span><span class="w"> </span><span class="nx">step</span>
+<span class="nx">real</span><span class="w">              </span><span class="o">::</span><span class="w"> </span><span class="nx">X1</span><span class="p">,</span><span class="w"> </span><span class="nx">X2</span><span class="p">,</span><span class="w"> </span><span class="nx">X3</span><span class="p">,</span><span class="w"> </span><span class="nx">X4</span>
+<span class="nx">real</span><span class="w">              </span><span class="o">::</span><span class="w"> </span><span class="nx">Y1</span><span class="p">,</span><span class="w"> </span><span class="nx">Y2</span><span class="p">,</span><span class="w"> </span><span class="nx">Y3</span><span class="p">,</span><span class="w"> </span><span class="nx">Y4</span>
+<span class="p">!</span>
+<span class="nx">integer</span><span class="w">           </span><span class="o">::</span><span class="w"> </span><span class="nx">maxcolors</span><span class="p">,</span><span class="w"> </span><span class="nx">current_color</span>
+<span class="nx">integer</span><span class="w">           </span><span class="o">::</span><span class="w"> </span><span class="nx">ir</span><span class="p">,</span><span class="w"> </span><span class="nx">ig</span><span class="p">,</span><span class="w"> </span><span class="nx">ib</span>
+<span class="nx">real</span><span class="w">              </span><span class="o">::</span><span class="w"> </span><span class="nx">r</span><span class="p">,</span><span class="nx">g</span><span class="p">,</span><span class="nx">b</span>
+<span class="nx">real</span><span class="w">              </span><span class="o">::</span><span class="w"> </span><span class="nx">saturation</span>
+<span class="p">!</span>
+<span class="nx">integer</span><span class="w">           </span><span class="o">::</span><span class="w"> </span><span class="nx">status</span>
+<span class="nx">integer</span><span class="w">           </span><span class="o">::</span><span class="w"> </span><span class="nx">icount</span>
+<span class="nx">real</span><span class="w">              </span><span class="o">::</span><span class="w"> </span><span class="nx">angle1</span><span class="p">,</span><span class="w"> </span><span class="nx">angle2</span>
+<span class="nx">real</span><span class="w">              </span><span class="o">::</span><span class="w"> </span><span class="nx">radius1</span><span class="p">,</span><span class="w"> </span><span class="nx">radius2</span><span class="p">,</span><span class="w"> </span><span class="nx">radius3</span><span class="p">,</span><span class="w"> </span><span class="nx">radius4</span>
+<span class="p">!</span>
+<span class="nx">integer</span><span class="p">,</span><span class="nx">save</span><span class="w">      </span><span class="o">::</span><span class="w"> </span><span class="nx">color_count</span><span class="p">=</span><span class="mi">0</span>
+<span class="p">!</span>
+<span class="w">   </span><span class="nx">buffer</span><span class="p">=</span><span class="mi">8</span>
+<span class="w">   </span><span class="nx">ANG_INC</span><span class="p">=</span><span class="m m-Double">360.0</span><span class="o">/</span><span class="nx">SLICES</span>
+<span class="w">   </span><span class="nx">angle1</span><span class="p">=</span><span class="nx">hue_val</span><span class="o">-</span><span class="nx">ANG_INC</span><span class="o">/</span><span class="mi">2</span>
+<span class="w">   </span><span class="nx">angle2</span><span class="p">=</span><span class="nx">angle1</span><span class="o">+</span><span class="nx">ANG_INC</span>
+<span class="w">   </span><span class="nx">saturation</span><span class="p">=</span><span class="mi">100</span>
+<span class="w">   </span><span class="nx">radius1</span><span class="p">=</span><span class="mi">32</span>
+<span class="w">   </span><span class="nx">radius3</span><span class="p">=</span><span class="nx">radius1</span><span class="o">+</span><span class="mi">4</span>
+<span class="w">   </span><span class="nx">radius4</span><span class="p">=</span><span class="nx">radius1</span><span class="o">+</span><span class="mi">7</span>
+<span class="w">   </span><span class="p">!</span><span class="w"> </span><span class="nx">draw</span><span class="w"> </span><span class="nx">tic</span><span class="w"> </span><span class="nx">from</span><span class="w"> </span><span class="nx">wheel</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">start</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">angle</span><span class="w"> </span><span class="nx">label</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">color</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">linewidth</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">move2</span><span class="p">(</span><span class="w"> </span><span class="nx">radius1</span><span class="o">*</span><span class="nx">cosd</span><span class="p">(</span><span class="nx">hue_val</span><span class="p">),</span><span class="w"> </span><span class="nx">radius1</span><span class="o">*</span><span class="nx">sind</span><span class="p">(</span><span class="nx">hue_val</span><span class="p">)</span><span class="w"> </span><span class="p">)</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">draw2</span><span class="p">(</span><span class="w"> </span><span class="nx">radius3</span><span class="o">*</span><span class="nx">cosd</span><span class="p">(</span><span class="nx">hue_val</span><span class="p">),</span><span class="w"> </span><span class="nx">radius3</span><span class="o">*</span><span class="nx">sind</span><span class="p">(</span><span class="nx">hue_val</span><span class="p">)</span><span class="w"> </span><span class="p">)</span>
+<span class="w">   </span><span class="p">!</span><span class="w"> </span><span class="nx">draw</span><span class="w"> </span><span class="nx">degree</span><span class="w"> </span><span class="nx">label</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="nx">tic</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">textang</span><span class="p">(</span><span class="nx">hue_val</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">move2</span><span class="p">(</span><span class="w"> </span><span class="nx">radius4</span><span class="o">*</span><span class="nx">cosd</span><span class="p">(</span><span class="nx">hue_val</span><span class="p">),</span><span class="w"> </span><span class="nx">radius4</span><span class="o">*</span><span class="nx">sind</span><span class="p">(</span><span class="nx">hue_val</span><span class="p">)</span><span class="w"> </span><span class="p">)</span>
+<span class="w">   </span><span class="nx">write</span><span class="p">(</span><span class="nx">inline</span><span class="p">,</span><span class="err">&#39;</span><span class="p">(</span><span class="nx">i0</span><span class="p">)</span><span class="err">&#39;</span><span class="p">)</span><span class="nx">nint</span><span class="p">(</span><span class="nx">hue_val</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">linewidth</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">drawstr</span><span class="p">(</span><span class="nx">inline</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">linewidth</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">step</span><span class="p">=</span><span class="nx">radius1</span><span class="o">/</span><span class="p">(</span><span class="nx">RINGS</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">radius2</span><span class="p">=</span><span class="nx">radius1</span><span class="o">-</span><span class="nx">step</span>
+<span class="w">   </span><span class="p">!</span><span class="w"> </span><span class="nx">draw</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">chunk</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">slice</span>
+<span class="w">   </span><span class="nx">MAXCOLORS</span><span class="p">=(</span><span class="mi">256</span><span class="p">)</span><span class="o">-</span><span class="nx">buffer</span>
+<span class="w">   </span><span class="nx">do</span><span class="w"> </span><span class="nx">icount</span><span class="p">=</span><span class="nx">RINGS</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span>
+<span class="w">      </span><span class="p">!</span><span class="w"> </span><span class="nx">add</span><span class="w"> </span><span class="nx">buffer</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">leave</span><span class="w"> </span><span class="kd">base</span><span class="w"> </span><span class="nx">colors</span><span class="w"> </span><span class="nx">alone</span>
+<span class="w">      </span><span class="nx">CURRENT_COLOR</span><span class="p">=</span><span class="nx">MOD</span><span class="p">(</span><span class="nx">color_count</span><span class="p">,</span><span class="nx">MAXCOLORS</span><span class="p">)</span><span class="o">+</span><span class="nx">buffer</span>
+<span class="w">      </span><span class="nx">color_count</span><span class="p">=</span><span class="nx">color_count</span><span class="o">+</span><span class="mi">1</span>
+<span class="w">      </span><span class="p">!</span><span class="w"> </span><span class="nx">fancy</span><span class="w"> </span><span class="nx">mapcolor</span>
+<span class="w">      </span><span class="nx">call</span><span class="w"> </span><span class="nx">hue</span><span class="p">(</span><span class="s">&quot;hls&quot;</span><span class="p">,</span><span class="nx">hue_val</span><span class="p">,</span><span class="nx">LIGHTNESS</span><span class="p">,</span><span class="nx">saturation</span><span class="p">,</span><span class="s">&quot;rgb&quot;</span><span class="p">,</span><span class="nx">r</span><span class="p">,</span><span class="nx">g</span><span class="p">,</span><span class="nx">b</span><span class="p">,</span><span class="nx">status</span><span class="p">)</span>
+<span class="w">      </span><span class="nx">ir</span><span class="p">=</span><span class="nx">int</span><span class="p">(</span><span class="nx">r</span><span class="o">*</span><span class="m m-Double">255.0</span><span class="o">/</span><span class="m m-Double">100.0</span><span class="o">+</span><span class="m m-Double">0.50</span><span class="p">)</span>
+<span class="w">      </span><span class="nx">ig</span><span class="p">=</span><span class="nx">int</span><span class="p">(</span><span class="nx">g</span><span class="o">*</span><span class="m m-Double">255.0</span><span class="o">/</span><span class="m m-Double">100.0</span><span class="o">+</span><span class="m m-Double">0.50</span><span class="p">)</span>
+<span class="w">      </span><span class="nx">ib</span><span class="p">=</span><span class="nx">int</span><span class="p">(</span><span class="nx">b</span><span class="o">*</span><span class="m m-Double">255.0</span><span class="o">/</span><span class="m m-Double">100.0</span><span class="o">+</span><span class="m m-Double">0.50</span><span class="p">)</span>
+<span class="w">      </span><span class="nx">call</span><span class="w"> </span><span class="nx">mapcolor</span><span class="p">(</span><span class="nx">CURRENT_COLOR</span><span class="p">,</span><span class="nx">ir</span><span class="p">,</span><span class="nx">ig</span><span class="p">,</span><span class="nx">ib</span><span class="p">)</span>
+<span class="w">      </span><span class="nx">call</span><span class="w"> </span><span class="nx">color</span><span class="p">(</span><span class="nx">CURRENT_COLOR</span><span class="p">)</span>
+<span class="w">      </span><span class="p">!</span>
+<span class="w">      </span><span class="nx">X1</span><span class="p">=</span><span class="nx">cosd</span><span class="p">(</span><span class="nx">angle1</span><span class="p">)</span><span class="o">*</span><span class="nx">radius2</span>
+<span class="w">      </span><span class="nx">Y1</span><span class="p">=</span><span class="nx">sind</span><span class="p">(</span><span class="nx">angle1</span><span class="p">)</span><span class="o">*</span><span class="nx">radius2</span>
+<span class="w">      </span><span class="nx">X2</span><span class="p">=</span><span class="nx">cosd</span><span class="p">(</span><span class="nx">angle1</span><span class="p">)</span><span class="o">*</span><span class="nx">radius1</span>
+<span class="w">      </span><span class="nx">Y2</span><span class="p">=</span><span class="nx">sind</span><span class="p">(</span><span class="nx">angle1</span><span class="p">)</span><span class="o">*</span><span class="nx">radius1</span>
+<span class="w">      </span><span class="p">!</span>
+<span class="w">      </span><span class="nx">X3</span><span class="p">=</span><span class="nx">cosd</span><span class="p">(</span><span class="nx">angle2</span><span class="p">)</span><span class="o">*</span><span class="nx">radius2</span>
+<span class="w">      </span><span class="nx">Y3</span><span class="p">=</span><span class="nx">sind</span><span class="p">(</span><span class="nx">angle2</span><span class="p">)</span><span class="o">*</span><span class="nx">radius2</span>
+<span class="w">      </span><span class="nx">X4</span><span class="p">=</span><span class="nx">cosd</span><span class="p">(</span><span class="nx">angle2</span><span class="p">)</span><span class="o">*</span><span class="nx">radius1</span>
+<span class="w">      </span><span class="nx">Y4</span><span class="p">=</span><span class="nx">sind</span><span class="p">(</span><span class="nx">angle2</span><span class="p">)</span><span class="o">*</span><span class="nx">radius1</span>
+<span class="w">      </span><span class="p">!</span>
+<span class="w">      </span><span class="nx">call</span><span class="w"> </span><span class="nx">makepoly</span><span class="p">()</span>
+<span class="w">      </span><span class="nx">call</span><span class="w"> </span><span class="nx">move2</span><span class="p">(</span><span class="nx">X1</span><span class="p">,</span><span class="nx">Y1</span><span class="p">)</span>
+<span class="w">      </span><span class="nx">call</span><span class="w"> </span><span class="nx">draw2</span><span class="p">(</span><span class="nx">X2</span><span class="p">,</span><span class="nx">Y2</span><span class="p">)</span>
+<span class="w">      </span><span class="nx">call</span><span class="w"> </span><span class="nx">draw2</span><span class="p">(</span><span class="nx">X4</span><span class="p">,</span><span class="nx">Y4</span><span class="p">)</span>
+<span class="w">      </span><span class="nx">call</span><span class="w"> </span><span class="nx">draw2</span><span class="p">(</span><span class="nx">X3</span><span class="p">,</span><span class="nx">Y3</span><span class="p">)</span>
+<span class="w">      </span><span class="nx">call</span><span class="w"> </span><span class="nx">closepoly</span><span class="p">()</span>
+<span class="w">      </span><span class="p">!</span>
+<span class="w">      </span><span class="nx">saturation</span><span class="p">=</span><span class="nx">saturation</span><span class="o">-</span><span class="m m-Double">100.0</span><span class="o">/</span><span class="nx">RINGS</span>
+<span class="w">      </span><span class="nx">radius1</span><span class="p">=</span><span class="nx">radius2</span>
+<span class="w">      </span><span class="nx">radius2</span><span class="p">=</span><span class="nx">radius1</span><span class="o">-</span><span class="nx">step</span>
+<span class="w">   </span><span class="nx">enddo</span>
+<span class="w">   </span><span class="nx">hue_val</span><span class="p">=</span><span class="nx">hue_val</span><span class="o">+</span><span class="nx">ANG_INC</span>
+<span class="nx">end</span><span class="w"> </span><span class="nx">subroutine</span><span class="w"> </span><span class="nx">slice</span>
+<span class="nx">end</span><span class="w"> </span><span class="nx">program</span><span class="w"> </span><span class="nx">demo_mapcolor</span>
 </code></pre></div>
 
 <h2 id="author">AUTHOR</h2>
@@ -344,20 +327,21 @@ BLUE    blue component of color being defined, in range 0 to 255
 <div class="codehilite"><pre><span></span><code>Public Domain
 </code></pre></div>
 
+
     <h3>Arguments</h3>
         <table class="table table-striped varlist">
     <thead>
       <tr>
-        <th>Type</th>
-<th>Intent</th><th>Optional</th>        <th>Attributes</th>
-        <th></th>
-        <th>Name</th>
-        <th></th>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
     </thead>
     <tbody>
         <tr>
             <td>
-              <span class="anchor" id="variable-indx~2"></span>
+              <span class="anchor" id="variable-indx~3"></span>
               integer,
             </td>
 <td>intent(in)</td>
@@ -420,70 +404,39 @@ BLUE    blue component of color being defined, in range 0 to 255
 
     <br>
 
-    <section class="visible-xs visible-sm hidden-md">
-        <h3>Contents</h3>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    <div class="panel panel-primary">
-      <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
-      <div class="list-group">
-        <a class="list-group-item" href="../proc/mapcolor.html#src">mapcolor</a>
-      </div>
-    </div>
-
-
-    </section>
-    <br class="visible-xs visible-sm hidden-md">
-
 
     
     
 
     
     
+
 
 
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre><span></span><span class="k">elemental impure subroutine </span><span class="n">mapcolor</span><span class="p">(</span><span class="n">indx</span><span class="p">,</span><span class="n">red</span><span class="p">,</span><span class="n">green</span><span class="p">,</span><span class="n">blue</span><span class="p">)</span><span class="w"></span>
+    <div class="hl codehilite"><pre><span></span><span class="k">elemental impure subroutine </span><span class="n">mapcolor</span><span class="p">(</span><span class="n">indx</span><span class="p">,</span><span class="n">red</span><span class="p">,</span><span class="n">green</span><span class="p">,</span><span class="n">blue</span><span class="p">)</span>
 
 <span class="c">! ident_17=&quot;@(#) M_pixel mapcolor(3f) set a color index using RGB values&quot;</span>
 
-<span class="kt">integer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">indx</span><span class="w"></span>
-<span class="kt">integer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">red</span><span class="w"></span>
-<span class="kt">integer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">green</span><span class="w"></span>
-<span class="kt">integer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">blue</span><span class="w"></span>
+<span class="kt">integer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">indx</span>
+<span class="kt">integer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">red</span>
+<span class="kt">integer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">green</span>
+<span class="kt">integer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">blue</span>
 <span class="w">   </span><span class="n">CHECKRANGE</span><span class="p">:</span><span class="w"> </span><span class="k">block</span>
 
-<span class="k">      if</span><span class="p">(</span><span class="w">  </span><span class="n">indx</span><span class="w"> </span><span class="p">.</span><span class="n">lt</span><span class="p">.</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">.</span><span class="nb">or</span><span class="p">.</span><span class="w"> </span><span class="n">indx</span><span class="w">  </span><span class="p">.</span><span class="n">gt</span><span class="p">.</span><span class="w"> </span><span class="mi">255</span><span class="p">)</span><span class="w"> </span><span class="k">exit </span><span class="n">CHECKRANGE</span><span class="w"></span>
-<span class="w">      </span><span class="k">if</span><span class="p">(</span><span class="w">   </span><span class="n">red</span><span class="w"> </span><span class="p">.</span><span class="n">lt</span><span class="p">.</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">.</span><span class="nb">or</span><span class="p">.</span><span class="w"> </span><span class="n">red</span><span class="w">   </span><span class="p">.</span><span class="n">gt</span><span class="p">.</span><span class="w"> </span><span class="mi">255</span><span class="p">)</span><span class="w"> </span><span class="k">exit </span><span class="n">CHECKRANGE</span><span class="w"></span>
-<span class="w">      </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">green</span><span class="w"> </span><span class="p">.</span><span class="n">lt</span><span class="p">.</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">.</span><span class="nb">or</span><span class="p">.</span><span class="w"> </span><span class="n">green</span><span class="w"> </span><span class="p">.</span><span class="n">gt</span><span class="p">.</span><span class="w"> </span><span class="mi">255</span><span class="p">)</span><span class="w"> </span><span class="k">exit </span><span class="n">CHECKRANGE</span><span class="w"></span>
-<span class="w">      </span><span class="k">if</span><span class="p">(</span><span class="w">  </span><span class="n">blue</span><span class="w"> </span><span class="p">.</span><span class="n">lt</span><span class="p">.</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">.</span><span class="nb">or</span><span class="p">.</span><span class="w"> </span><span class="n">blue</span><span class="w">  </span><span class="p">.</span><span class="n">gt</span><span class="p">.</span><span class="w"> </span><span class="mi">255</span><span class="p">)</span><span class="w"> </span><span class="k">exit </span><span class="n">CHECKRANGE</span><span class="w"></span>
+<span class="k">      if</span><span class="p">(</span><span class="w">  </span><span class="n">indx</span><span class="w"> </span><span class="p">.</span><span class="n">lt</span><span class="p">.</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">.</span><span class="nb">or</span><span class="p">.</span><span class="w"> </span><span class="n">indx</span><span class="w">  </span><span class="p">.</span><span class="n">gt</span><span class="p">.</span><span class="w"> </span><span class="mi">255</span><span class="p">)</span><span class="w"> </span><span class="k">exit </span><span class="n">CHECKRANGE</span>
+<span class="w">      </span><span class="k">if</span><span class="p">(</span><span class="w">   </span><span class="n">red</span><span class="w"> </span><span class="p">.</span><span class="n">lt</span><span class="p">.</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">.</span><span class="nb">or</span><span class="p">.</span><span class="w"> </span><span class="n">red</span><span class="w">   </span><span class="p">.</span><span class="n">gt</span><span class="p">.</span><span class="w"> </span><span class="mi">255</span><span class="p">)</span><span class="w"> </span><span class="k">exit </span><span class="n">CHECKRANGE</span>
+<span class="w">      </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">green</span><span class="w"> </span><span class="p">.</span><span class="n">lt</span><span class="p">.</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">.</span><span class="nb">or</span><span class="p">.</span><span class="w"> </span><span class="n">green</span><span class="w"> </span><span class="p">.</span><span class="n">gt</span><span class="p">.</span><span class="w"> </span><span class="mi">255</span><span class="p">)</span><span class="w"> </span><span class="k">exit </span><span class="n">CHECKRANGE</span>
+<span class="w">      </span><span class="k">if</span><span class="p">(</span><span class="w">  </span><span class="n">blue</span><span class="w"> </span><span class="p">.</span><span class="n">lt</span><span class="p">.</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">.</span><span class="nb">or</span><span class="p">.</span><span class="w"> </span><span class="n">blue</span><span class="w">  </span><span class="p">.</span><span class="n">gt</span><span class="p">.</span><span class="w"> </span><span class="mi">255</span><span class="p">)</span><span class="w"> </span><span class="k">exit </span><span class="n">CHECKRANGE</span>
 
-<span class="w">      </span><span class="n">P_ColorMap</span><span class="p">(:,</span><span class="n">indx</span><span class="p">)</span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">red</span><span class="p">,</span><span class="n">green</span><span class="p">,</span><span class="n">blue</span><span class="p">]</span><span class="w"></span>
+<span class="w">      </span><span class="n">P_ColorMap</span><span class="p">(:,</span><span class="n">indx</span><span class="p">)</span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">red</span><span class="p">,</span><span class="n">green</span><span class="p">,</span><span class="n">blue</span><span class="p">]</span>
 <span class="w">      </span><span class="k">return</span>
 
-<span class="k">   endblock </span><span class="n">CHECKRANGE</span><span class="w"></span>
-<span class="w">   </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;*mapcolor* value out of range. input=&#39;</span><span class="p">,</span><span class="n">indx</span><span class="p">,</span><span class="n">red</span><span class="p">,</span><span class="n">green</span><span class="p">,</span><span class="n">blue</span><span class="w"></span>
-<span class="k">end subroutine </span><span class="n">mapcolor</span><span class="w"></span>
+<span class="k">   endblock </span><span class="n">CHECKRANGE</span>
+<span class="w">   </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;*mapcolor* value out of range. input=&#39;</span><span class="p">,</span><span class="n">indx</span><span class="p">,</span><span class="n">red</span><span class="p">,</span><span class="n">green</span><span class="p">,</span><span class="n">blue</span>
+<span class="k">end subroutine </span><span class="n">mapcolor</span>
 </pre></div>
 
     </section>
@@ -496,32 +449,27 @@ BLUE    blue component of color being defined, in range 0 to 255
     </div> <!-- /container -->
     <footer>
       <div class="container">
-        <div class="row">
-          <div class="col-xs-6 col-md-6"><p>M_pixel was developed by John S. Urban<br>&copy; 2023 
+        <div class="row justify-content-between">
+          <div class="col"><p>M_pixel was developed by John S. Urban<br>&copy; 2024 
 </p>
           </div>
-          <div class="col-xs-6 col-md-6">
-            <p class="text-right">
+          <div class="col">
+            <p class="text-end">
               Documentation generated by
               <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
- on 2023-04-18 13:11              </p>
+ on 2024-03-29 03:39              </p>
           </div>
         </div>
         <br>
       </div> <!-- /container -->
     </footer>
 
-    <!-- Bootstrap core JavaScript
-         ================================================== -->
-         <!-- Placed at the end of the document so the pages load faster -->
-    <!--
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        -->
-        <script src="../js/bootstrap.min.js"></script>
-        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-        <script src="../js/ie10-viewport-bug-workaround.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>    
 
-        <!-- MathJax JavaScript
+    <!-- MathJax JavaScript
              ================================================== -->
              <!-- Placed at the end of the document so the pages load faster -->
         <script type="text/x-mathjax-config">
