@@ -1,5 +1,3 @@
-<!-- -*- mode: jinja2 -*- -->
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,53 +10,77 @@
 
     <title>M_pixel__writegif_animated.f90 &ndash; M_pixel</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/pygments.css" rel="stylesheet">
     <link href="../css/font-awesome.min.css" rel="stylesheet">
     <link href="../css/local.css" rel="stylesheet">
       <link  href="../tipuesearch/tipuesearch.css" rel="stylesheet">
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="../js/svg-pan-zoom.min.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+         <script src="../js/jquery-2.1.3.min.js"></script>
+         <script src="../js/svg-pan-zoom.min.js"></script>
+
   </head>
 
   <body>
 
     <!-- Fixed navbar -->
-    <div class="container-fluid mb-sm-4 mb-xl-2">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div class="container">
-          <a class="navbar-brand" href="../index.html">M_pixel </a>
-          <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar"
-                  aria-expanded="false" aria-controls="navbar" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
           </button>
-
-          <div id="navbar" class="navbar-collapse collapse">
-            <ul class="navbar-nav">
-                  <li class="nav-item">
-                    <a class="nav-link" href="../lists/files.html">Source Files</a>
-                  </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="../lists/modules.html">Modules</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="../lists/procedures.html">Procedures</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="../lists/types.html">Derived Types</a>
-                </li>
-            </ul>
-              <div class="d-flex align-items-end flex-grow-1">
-                <form action="../search.html" role="search" class="ms-auto">
-                  <input type="text" class="form-control" aria-label="Search" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
-                </form>
-              </div>
-          </div><!--/.nav-collapse -->
+          <a class="navbar-brand" href="../index.html">M_pixel </a>
         </div>
-      </nav>
-    </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="dropdown hidden-xs visible-sm visible-md hidden-lg">
+              <a href="#" class="dropdown-toggle"
+                 data-toggle="dropdown" role="button"
+                 aria-haspopup="true"
+                 aria-expanded="false">
+                 Contents <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                    <li><a href="../lists/files.html">Source Files</a></li>
+                  <li><a href="../lists/modules.html">Modules</a></li>
+                  <li><a href="../lists/procedures.html">Procedures</a></li>
+                  <li><a href="../lists/types.html">Derived Types</a></li>
+              </ul>
+            </li>
+                <li class="visible-xs hidden-sm visible-lg">
+                  <a href="../lists/files.html">Source Files</a>
+                </li>
+              <li class="visible-xs hidden-sm visible-lg">
+                <a href="../lists/modules.html">Modules</a>
+              </li>
+              <li class="visible-xs hidden-sm visible-lg">
+                <a href="../lists/procedures.html">Procedures</a>
+              </li>
+              <li class="visible-xs hidden-sm visible-lg">
+                <a href="../lists/types.html">Derived Types</a>
+              </li>
+          </ul>
+            <form action="../search.html" class="navbar-form navbar-right" role="search">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
+              </div>
+              <!--
+                  <button type="submit" class="btn btn-default">Submit</button>
+                  -->
+            </form>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
 
     <div class="container">
   <div class="row">
@@ -66,55 +88,52 @@
       <small>Source File</small>
       
     </h1>
-      <div class="container p-2 mb-4 bg-light border rounded-3">
-    <div class="row align-items-center justify-content-between" id="info-bar">
-      <div class="col">
+      <div class="row" id="info-bar">
+    <div class="col-lg-12">
+      <div class="well well-sm">
         <ul class="list-inline" style="margin-bottom:0px;display:inline">
 
-            <li class="list-inline-item" id="statements"><i class="fa fa-list-ol"></i>
-              <a data-bs-toggle="tooltip"
-                 data-bs-placement="bottom" data-html="true"
-                 title=" 2.5% of total for source files.">186 statements</a>
-            </li>
+          <li id="statements"><i class="fa fa-list-ol"></i>
+            <a data-toggle="tooltip"
+               data-placement="bottom" data-html="true"
+               title=" 2.5% of total for source files.">186 statements</a>
+          </li>
 
-            <li class="list-inline-item" id="source-file">
+            <li id="source-file">
               <i class="fa fa-code"></i>
               <a href="../src/M_pixel__writegif_animated.f90"> Source File</a>
             </li>
         </ul>
-      </div>
-      <div class="col">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb justify-content-end mb-0">
-            <li class="breadcrumb-item active" aria-current="page">M_pixel__writegif_animated.f90</li>
-          </ol>
-        </nav>
+        <ol class="breadcrumb in-well text-right">
+          <li class="active">M_pixel__writegif_animated.f90</li>
+        </ol>
       </div>
     </div>
   </div>
   <script>
     $(function () {
-    $('[data-bs-toggle="tooltip"]').tooltip()
+    $('[data-toggle="tooltip"]').tooltip()
     })
   </script>
 
   </div>
   <div class="row">
     <div class="col-md-3 hidden-xs hidden-sm visible-md visible-lg">
-        <div id="sidebar">
+      <div id="sidebar">
       <h3>Contents</h3>
   
   
   
   
   
-      <div class="card mb-4">
-      <a data-bs-toggle="collapse" href="#mods-0"
-         aria-expanded="false" aria-controls="mods-0">
-         <h4 class="card-header bg-primary text-white">Modules</h4>
-      </a>
-      <div id="mods-0" class="collapse">
-        <div class="list-group list-group-flush">
+      <div class="panel panel-primary">
+      <div class="panel-heading text-left">
+        <h3 class="panel-title">
+          <a data-toggle="collapse" href="#mods-0">Modules</a>
+        </h3>
+      </div>
+      <div id="mods-0" class="panel-collapse collapse">
+        <div class="list-group">
             <a class="list-group-item" href="../module/m_pixel__writegif_animated.html">M_pixel__writegif_animated</a>
         </div>
       </div>
@@ -133,9 +152,8 @@
   
   
   
-  
-    <div class="card card-primary">
-      <div class="card-header text-left"><h3 class="card-title">Source Code</h3></div>
+    <div class="panel panel-primary">
+      <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
       <div class="list-group">
         <a class="list-group-item" href="../sourcefile/m_pixel__writegif_animated.f90.html#src">M_pixel__writegif_animated.f90</a>
       </div>
@@ -149,9 +167,53 @@
       
       <br>
 
-      <section>
-        <h2><span class="anchor" id="src"></span>Source Code</h2>
-        <div class="hl codehilite"><pre><span></span><a id="ln-1" name="ln-1" href="#ln-1"></a><span class="c">!&gt;</span>
+    <section class="visible-xs visible-sm hidden-md">
+        <h3>Contents</h3>
+  
+  
+  
+  
+  
+      <div class="panel panel-primary">
+      <div class="panel-heading text-left">
+        <h3 class="panel-title">
+          <a data-toggle="collapse" href="#mods-1">Modules</a>
+        </h3>
+      </div>
+      <div id="mods-1" class="panel-collapse collapse">
+        <div class="list-group">
+            <a class="list-group-item" href="../module/m_pixel__writegif_animated.html">M_pixel__writegif_animated</a>
+        </div>
+      </div>
+    </div>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    <div class="panel panel-primary">
+      <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
+      <div class="list-group">
+        <a class="list-group-item" href="../sourcefile/m_pixel__writegif_animated.f90.html#src">M_pixel__writegif_animated.f90</a>
+      </div>
+    </div>
+
+
+    </section>
+    <br class="visible-xs visible-sm hidden-md">
+
+    <section>
+      <h2><span class="anchor" id="src"></span>Source Code</h2>
+    <div class="hl"><pre><span></span><a id="ln-1" name="ln-1" href="#ln-1"></a><span class="c">!&gt;</span>
 <a id="ln-2" name="ln-2" href="#ln-2"></a><span class="c">!!##NAME</span>
 <a id="ln-3" name="ln-3" href="#ln-3"></a><span class="c">!!    write_animated_gif(3f) - [M_pixel__writegif_animated] Codes pixel-maps with</span>
 <a id="ln-4" name="ln-4" href="#ln-4"></a><span class="c">!!    palette into animated GIF format. Optional transparent color</span>
@@ -405,13 +467,13 @@
 <a id="ln-252" name="ln-252" href="#ln-252"></a><span class="c">!   * Jacob Williams, 7/27/2014. Refactored, updated, added ability to export animated gifs.</span>
 <a id="ln-253" name="ln-253" href="#ln-253"></a><span class="c">!</span>
 <a id="ln-254" name="ln-254" href="#ln-254"></a><span class="c">!-----------------------------------------------------------------------------------------------------------------------------------</span>
-<a id="ln-255" name="ln-255" href="#ln-255"></a><span class="w">    </span><span class="k">module </span><span class="n">M_pixel__writegif_animated</span>
+<a id="ln-255" name="ln-255" href="#ln-255"></a><span class="w">    </span><span class="k">module </span><span class="n">M_pixel__writegif_animated</span><span class="w"></span>
 <a id="ln-256" name="ln-256" href="#ln-256"></a><span class="w">    </span><span class="k">implicit none</span>
 <a id="ln-257" name="ln-257" href="#ln-257"></a><span class="k">    private</span>
 <a id="ln-258" name="ln-258" href="#ln-258"></a>
-<a id="ln-259" name="ln-259" href="#ln-259"></a><span class="k">    public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">write_animated_gif</span>
+<a id="ln-259" name="ln-259" href="#ln-259"></a><span class="k">    public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">write_animated_gif</span><span class="w"></span>
 <a id="ln-260" name="ln-260" href="#ln-260"></a>
-<a id="ln-261" name="ln-261" href="#ln-261"></a><span class="w">    </span><span class="k">contains</span>
+<a id="ln-261" name="ln-261" href="#ln-261"></a><span class="w">    </span><span class="k">contains</span><span class="w"></span>
 <a id="ln-262" name="ln-262" href="#ln-262"></a><span class="c">!-----------------------------------------------------------------------------------------------------------------------------------</span>
 <a id="ln-263" name="ln-263" href="#ln-263"></a><span class="c">!&gt; author: Jacob Williams</span>
 <a id="ln-264" name="ln-264" href="#ln-264"></a><span class="c">!  date: 7/27/2014</span>
@@ -427,7 +489,7 @@
 <a id="ln-274" name="ln-274" href="#ln-274"></a><span class="c">!   2. [GIF format](http://www.onicos.com/staff/iz/formats/gif.html#aeb)</span>
 <a id="ln-275" name="ln-275" href="#ln-275"></a><span class="c">!   3. [GIF File Format Summary](http://www.fileformat.info/format/gif/egff.htm)</span>
 <a id="ln-276" name="ln-276" href="#ln-276"></a>
-<a id="ln-277" name="ln-277" href="#ln-277"></a><span class="w">    </span><span class="k">subroutine </span><span class="n">write_animated_gif</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="n">pixel</span><span class="p">,</span><span class="n">colormap</span><span class="p">,</span><span class="n">transparent</span><span class="p">,</span><span class="n">delay</span><span class="p">)</span>
+<a id="ln-277" name="ln-277" href="#ln-277"></a><span class="w">    </span><span class="k">subroutine </span><span class="n">write_animated_gif</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="n">pixel</span><span class="p">,</span><span class="n">colormap</span><span class="p">,</span><span class="n">transparent</span><span class="p">,</span><span class="n">delay</span><span class="p">)</span><span class="w"></span>
 <a id="ln-278" name="ln-278" href="#ln-278"></a>
 <a id="ln-279" name="ln-279" href="#ln-279"></a><span class="w">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w">         </span><span class="kd">::</span><span class="w"> </span><span class="n">filename</span><span class="w">    </span><span class="c">!! file to create or replace</span>
 <a id="ln-280" name="ln-280" href="#ln-280"></a><span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">dimension</span><span class="p">(:,:,:)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">pixel</span><span class="w">       </span><span class="c">!! pixel values [0 to ncol]</span>
@@ -435,10 +497,10 @@
 <a id="ln-282" name="ln-282" href="#ln-282"></a><span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span><span class="w">         </span><span class="kd">::</span><span class="w"> </span><span class="n">transparent</span><span class="w"> </span><span class="c">!! transparent color</span>
 <a id="ln-283" name="ln-283" href="#ln-283"></a><span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span><span class="w">         </span><span class="kd">::</span><span class="w"> </span><span class="n">delay</span><span class="w">       </span><span class="c">!! delay time [1/100 of seconds]</span>
 <a id="ln-284" name="ln-284" href="#ln-284"></a>
-<a id="ln-285" name="ln-285" href="#ln-285"></a><span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="k">parameter</span><span class="w">     </span><span class="kd">::</span><span class="w"> </span><span class="n">bufend</span><span class="o">=</span><span class="mi">260</span>
-<a id="ln-286" name="ln-286" href="#ln-286"></a><span class="w">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="n">bufend</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">buf</span>
+<a id="ln-285" name="ln-285" href="#ln-285"></a><span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="k">parameter</span><span class="w">     </span><span class="kd">::</span><span class="w"> </span><span class="n">bufend</span><span class="o">=</span><span class="mi">260</span><span class="w"></span>
+<a id="ln-286" name="ln-286" href="#ln-286"></a><span class="w">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="n">bufend</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">buf</span><span class="w"></span>
 <a id="ln-287" name="ln-287" href="#ln-287"></a><span class="w">    </span><span class="kt">integer</span><span class="w">               </span><span class="kd">::</span><span class="w"> </span><span class="n">ibuf</span><span class="w"> </span><span class="c">! output buffer vars</span>
-<a id="ln-288" name="ln-288" href="#ln-288"></a><span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="k">parameter</span><span class="w">     </span><span class="kd">::</span><span class="w"> </span><span class="n">maxcode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4095</span>
+<a id="ln-288" name="ln-288" href="#ln-288"></a><span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="k">parameter</span><span class="w">     </span><span class="kd">::</span><span class="w"> </span><span class="n">maxcode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4095</span><span class="w"></span>
 <a id="ln-289" name="ln-289" href="#ln-289"></a><span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="k">parameter</span><span class="w">     </span><span class="kd">::</span><span class="w"> </span><span class="n">nocode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">maxcode</span><span class="o">+</span><span class="mi">1</span><span class="w"> </span><span class="c">!! definitions for lzw</span>
 <a id="ln-290" name="ln-290" href="#ln-290"></a>
 <a id="ln-291" name="ln-291" href="#ln-291"></a><span class="w">    </span><span class="c">! define lzw code tables for hashing:</span>
@@ -452,66 +514,66 @@
 <a id="ln-299" name="ln-299" href="#ln-299"></a><span class="w">    </span><span class="c">! pointer, for fast look-up.</span>
 <a id="ln-300" name="ln-300" href="#ln-300"></a><span class="w">    </span><span class="c">!   all pointers are &#39;nocode&#39; if they point to nothing</span>
 <a id="ln-301" name="ln-301" href="#ln-301"></a><span class="w">    </span><span class="c">!</span>
-<a id="ln-302" name="ln-302" href="#ln-302"></a><span class="w">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span><span class="k">dimension</span><span class="p">(</span><span class="mi">0</span><span class="p">:</span><span class="n">maxcode</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">endbyte</span>
-<a id="ln-303" name="ln-303" href="#ln-303"></a><span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="k">dimension</span><span class="p">(</span><span class="mi">0</span><span class="p">:</span><span class="n">maxcode</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">follow</span><span class="p">,</span><span class="w"> </span><span class="n">next</span>
-<a id="ln-304" name="ln-304" href="#ln-304"></a><span class="w">    </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ncod</span><span class="p">,</span><span class="w"> </span><span class="n">curmaxcode</span><span class="p">,</span><span class="w"> </span><span class="n">eoi</span><span class="p">,</span><span class="w"> </span><span class="n">cc</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="n">child</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
-<a id="ln-305" name="ln-305" href="#ln-305"></a><span class="w">                    </span><span class="n">maxbase</span><span class="p">,</span><span class="w"> </span><span class="n">skip</span><span class="p">,</span><span class="w"> </span><span class="n">slen</span><span class="p">,</span><span class="w"> </span><span class="n">blen</span><span class="p">,</span><span class="w"> </span><span class="n">accum</span><span class="p">,</span><span class="w"> </span><span class="n">nout</span>
+<a id="ln-302" name="ln-302" href="#ln-302"></a><span class="w">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span><span class="k">dimension</span><span class="p">(</span><span class="mi">0</span><span class="p">:</span><span class="n">maxcode</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">endbyte</span><span class="w"></span>
+<a id="ln-303" name="ln-303" href="#ln-303"></a><span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="k">dimension</span><span class="p">(</span><span class="mi">0</span><span class="p">:</span><span class="n">maxcode</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">follow</span><span class="p">,</span><span class="w"> </span><span class="n">next</span><span class="w"></span>
+<a id="ln-304" name="ln-304" href="#ln-304"></a><span class="w">    </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ncod</span><span class="p">,</span><span class="w"> </span><span class="n">curmaxcode</span><span class="p">,</span><span class="w"> </span><span class="n">eoi</span><span class="p">,</span><span class="w"> </span><span class="n">cc</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="n">child</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span><span class="w"></span>
+<a id="ln-305" name="ln-305" href="#ln-305"></a><span class="w">                    </span><span class="n">maxbase</span><span class="p">,</span><span class="w"> </span><span class="n">skip</span><span class="p">,</span><span class="w"> </span><span class="n">slen</span><span class="p">,</span><span class="w"> </span><span class="n">blen</span><span class="p">,</span><span class="w"> </span><span class="n">accum</span><span class="p">,</span><span class="w"> </span><span class="n">nout</span><span class="w"></span>
 <a id="ln-306" name="ln-306" href="#ln-306"></a>
-<a id="ln-307" name="ln-307" href="#ln-307"></a><span class="w">    </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">infobyte</span><span class="p">,</span><span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">,</span><span class="n">cblen</span><span class="p">,</span><span class="n">hasmap</span><span class="p">,</span><span class="n">maxincol</span><span class="p">,</span><span class="n">istat</span><span class="p">,&amp;</span>
-<a id="ln-308" name="ln-308" href="#ln-308"></a><span class="w">                </span><span class="n">maxgifcol</span><span class="p">,</span><span class="n">background</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">iunit</span><span class="p">,</span><span class="n">iframe</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">dt</span>
-<a id="ln-309" name="ln-309" href="#ln-309"></a><span class="w">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span><span class="k">dimension</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">t</span>
+<a id="ln-307" name="ln-307" href="#ln-307"></a><span class="w">    </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">infobyte</span><span class="p">,</span><span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">,</span><span class="n">cblen</span><span class="p">,</span><span class="n">hasmap</span><span class="p">,</span><span class="n">maxincol</span><span class="p">,</span><span class="n">istat</span><span class="p">,&amp;</span><span class="w"></span>
+<a id="ln-308" name="ln-308" href="#ln-308"></a><span class="w">                </span><span class="n">maxgifcol</span><span class="p">,</span><span class="n">background</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">iunit</span><span class="p">,</span><span class="n">iframe</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">dt</span><span class="w"></span>
+<a id="ln-309" name="ln-309" href="#ln-309"></a><span class="w">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span><span class="k">dimension</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">t</span><span class="w"></span>
 <a id="ln-310" name="ln-310" href="#ln-310"></a>
 <a id="ln-311" name="ln-311" href="#ln-311"></a><span class="w">    </span><span class="c">!delay time:</span>
 <a id="ln-312" name="ln-312" href="#ln-312"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">delay</span><span class="p">))</span><span class="w"> </span><span class="k">then</span>
-<a id="ln-313" name="ln-313" href="#ln-313"></a><span class="k">        </span><span class="n">dt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">delay</span>
+<a id="ln-313" name="ln-313" href="#ln-313"></a><span class="k">        </span><span class="n">dt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">delay</span><span class="w"></span>
 <a id="ln-314" name="ln-314" href="#ln-314"></a><span class="w">    </span><span class="k">else</span>
-<a id="ln-315" name="ln-315" href="#ln-315"></a><span class="k">        </span><span class="n">dt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
-<a id="ln-316" name="ln-316" href="#ln-316"></a><span class="w">    </span><span class="k">end if</span>
+<a id="ln-315" name="ln-315" href="#ln-315"></a><span class="k">        </span><span class="n">dt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<a id="ln-316" name="ln-316" href="#ln-316"></a><span class="w">    </span><span class="k">end if</span><span class="w"></span>
 <a id="ln-317" name="ln-317" href="#ln-317"></a>
 <a id="ln-318" name="ln-318" href="#ln-318"></a><span class="w">    </span><span class="c">!transparency info:</span>
 <a id="ln-319" name="ln-319" href="#ln-319"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">transparent</span><span class="p">))</span><span class="w"> </span><span class="k">then</span>
 <a id="ln-320" name="ln-320" href="#ln-320"></a><span class="k">        </span><span class="n">t</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">char</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="c">!Reserved+Disposal Method+User Input Flag+Transparent Color Flag</span>
-<a id="ln-321" name="ln-321" href="#ln-321"></a><span class="w">        </span><span class="n">t</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">char</span><span class="p">(</span><span class="n">transparent</span><span class="p">)</span>
+<a id="ln-321" name="ln-321" href="#ln-321"></a><span class="w">        </span><span class="n">t</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">char</span><span class="p">(</span><span class="n">transparent</span><span class="p">)</span><span class="w"></span>
 <a id="ln-322" name="ln-322" href="#ln-322"></a><span class="w">    </span><span class="k">else</span>
-<a id="ln-323" name="ln-323" href="#ln-323"></a><span class="k">        </span><span class="n">t</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">char</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<a id="ln-324" name="ln-324" href="#ln-324"></a><span class="w">        </span><span class="n">t</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">char</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<a id="ln-323" name="ln-323" href="#ln-323"></a><span class="k">        </span><span class="n">t</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">char</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
+<a id="ln-324" name="ln-324" href="#ln-324"></a><span class="w">        </span><span class="n">t</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">char</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
 <a id="ln-325" name="ln-325" href="#ln-325"></a><span class="w">    </span><span class="k">end if</span>
 <a id="ln-326" name="ln-326" href="#ln-326"></a>
-<a id="ln-327" name="ln-327" href="#ln-327"></a><span class="k">    open</span><span class="p">(</span><span class="w">    </span><span class="n">newunit</span><span class="o">=</span><span class="n">iunit</span><span class="p">,&amp;</span>
-<a id="ln-328" name="ln-328" href="#ln-328"></a><span class="w">            </span><span class="k">file</span><span class="o">=</span><span class="nb">trim</span><span class="p">(</span><span class="n">filename</span><span class="p">),&amp;</span>
-<a id="ln-329" name="ln-329" href="#ln-329"></a><span class="w">            </span><span class="nb">access</span><span class="o">=</span><span class="s1">&#39;STREAM&#39;</span><span class="p">,&amp;</span>
-<a id="ln-330" name="ln-330" href="#ln-330"></a><span class="w">            </span><span class="n">status</span><span class="o">=</span><span class="s1">&#39;REPLACE&#39;</span><span class="p">,&amp;</span>
-<a id="ln-331" name="ln-331" href="#ln-331"></a><span class="w">            </span><span class="n">iostat</span><span class="o">=</span><span class="n">istat</span><span class="p">)</span>
+<a id="ln-327" name="ln-327" href="#ln-327"></a><span class="k">    open</span><span class="p">(</span><span class="w">    </span><span class="n">newunit</span><span class="o">=</span><span class="n">iunit</span><span class="p">,&amp;</span><span class="w"></span>
+<a id="ln-328" name="ln-328" href="#ln-328"></a><span class="w">            </span><span class="k">file</span><span class="o">=</span><span class="nb">trim</span><span class="p">(</span><span class="n">filename</span><span class="p">),&amp;</span><span class="w"></span>
+<a id="ln-329" name="ln-329" href="#ln-329"></a><span class="w">            </span><span class="nb">access</span><span class="o">=</span><span class="s1">&#39;STREAM&#39;</span><span class="p">,&amp;</span><span class="w"></span>
+<a id="ln-330" name="ln-330" href="#ln-330"></a><span class="w">            </span><span class="n">status</span><span class="o">=</span><span class="s1">&#39;REPLACE&#39;</span><span class="p">,&amp;</span><span class="w"></span>
+<a id="ln-331" name="ln-331" href="#ln-331"></a><span class="w">            </span><span class="n">iostat</span><span class="o">=</span><span class="n">istat</span><span class="p">)</span><span class="w"></span>
 <a id="ln-332" name="ln-332" href="#ln-332"></a>
 <a id="ln-333" name="ln-333" href="#ln-333"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">istat</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
 <a id="ln-334" name="ln-334" href="#ln-334"></a>
 <a id="ln-335" name="ln-335" href="#ln-335"></a><span class="k">        </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">size</span><span class="p">(</span><span class="n">pixel</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="c">!number of images</span>
-<a id="ln-336" name="ln-336" href="#ln-336"></a><span class="w">        </span><span class="n">nx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">ubound</span><span class="p">(</span><span class="n">pixel</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
-<a id="ln-337" name="ln-337" href="#ln-337"></a><span class="w">        </span><span class="n">ny</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">ubound</span><span class="p">(</span><span class="n">pixel</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span>
-<a id="ln-338" name="ln-338" href="#ln-338"></a><span class="w">        </span><span class="n">maxincol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">ubound</span><span class="p">(</span><span class="n">colormap</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<a id="ln-336" name="ln-336" href="#ln-336"></a><span class="w">        </span><span class="n">nx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">ubound</span><span class="p">(</span><span class="n">pixel</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"></span>
+<a id="ln-337" name="ln-337" href="#ln-337"></a><span class="w">        </span><span class="n">ny</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">ubound</span><span class="p">(</span><span class="n">pixel</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"></span>
+<a id="ln-338" name="ln-338" href="#ln-338"></a><span class="w">        </span><span class="n">maxincol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">ubound</span><span class="p">(</span><span class="n">colormap</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w"></span>
 <a id="ln-339" name="ln-339" href="#ln-339"></a>
 <a id="ln-340" name="ln-340" href="#ln-340"></a><span class="w">        </span><span class="k">do </span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="mi">8</span><span class="w">                            </span><span class="c">! find the bitsize, blen, for pixels</span>
-<a id="ln-341" name="ln-341" href="#ln-341"></a><span class="w">            </span><span class="n">blen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span>
+<a id="ln-341" name="ln-341" href="#ln-341"></a><span class="w">            </span><span class="n">blen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"></span>
 <a id="ln-342" name="ln-342" href="#ln-342"></a><span class="w">            </span><span class="n">maxgifcol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="o">**</span><span class="n">blen</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w">         </span><span class="c">! Number of colors has to be power of 2</span>
 <a id="ln-343" name="ln-343" href="#ln-343"></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">maxgifcol</span><span class="o">&gt;=</span><span class="n">maxincol</span><span class="p">)</span><span class="w"> </span><span class="k">exit</span><span class="w">   </span><span class="c">! now blen and maxgifcol are correct</span>
 <a id="ln-344" name="ln-344" href="#ln-344"></a><span class="w">                                            </span><span class="c">! [only up to 256 colors]</span>
-<a id="ln-345" name="ln-345" href="#ln-345"></a><span class="w">        </span><span class="k">end do</span>
+<a id="ln-345" name="ln-345" href="#ln-345"></a><span class="w">        </span><span class="k">end do</span><span class="w"></span>
 <a id="ln-346" name="ln-346" href="#ln-346"></a>
 <a id="ln-347" name="ln-347" href="#ln-347"></a><span class="w">        </span><span class="c">!------------</span>
 <a id="ln-348" name="ln-348" href="#ln-348"></a><span class="w">        </span><span class="c">! GIF Header</span>
 <a id="ln-349" name="ln-349" href="#ln-349"></a><span class="w">        </span><span class="c">!------------</span>
 <a id="ln-350" name="ln-350" href="#ln-350"></a>
-<a id="ln-351" name="ln-351" href="#ln-351"></a><span class="w">        </span><span class="k">write</span><span class="p">(</span><span class="n">iunit</span><span class="p">)</span><span class="w"> </span><span class="s1">&#39;GIF89a&#39;</span>
+<a id="ln-351" name="ln-351" href="#ln-351"></a><span class="w">        </span><span class="k">write</span><span class="p">(</span><span class="n">iunit</span><span class="p">)</span><span class="w"> </span><span class="s1">&#39;GIF89a&#39;</span><span class="w"></span>
 <a id="ln-352" name="ln-352" href="#ln-352"></a>
 <a id="ln-353" name="ln-353" href="#ln-353"></a><span class="w">        </span><span class="c">! create information for screen descriptor</span>
 <a id="ln-354" name="ln-354" href="#ln-354"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">transparent</span><span class="p">))</span><span class="w"> </span><span class="k">then</span>
-<a id="ln-355" name="ln-355" href="#ln-355"></a><span class="k">            </span><span class="n">background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">transparent</span>
+<a id="ln-355" name="ln-355" href="#ln-355"></a><span class="k">            </span><span class="n">background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">transparent</span><span class="w"></span>
 <a id="ln-356" name="ln-356" href="#ln-356"></a><span class="w">        </span><span class="k">else</span>
-<a id="ln-357" name="ln-357" href="#ln-357"></a><span class="k">            </span><span class="n">background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<a id="ln-357" name="ln-357" href="#ln-357"></a><span class="k">            </span><span class="n">background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
 <a id="ln-358" name="ln-358" href="#ln-358"></a><span class="w">        </span><span class="k">end if</span>
-<a id="ln-359" name="ln-359" href="#ln-359"></a><span class="k">        </span><span class="n">hasmap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
-<a id="ln-360" name="ln-360" href="#ln-360"></a><span class="w">        </span><span class="n">cblen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">blen</span>
-<a id="ln-361" name="ln-361" href="#ln-361"></a><span class="w">        </span><span class="n">infobyte</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hasmap</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">128</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">cblen</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">blen</span><span class="o">-</span><span class="mi">1</span>
+<a id="ln-359" name="ln-359" href="#ln-359"></a><span class="k">        </span><span class="n">hasmap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<a id="ln-360" name="ln-360" href="#ln-360"></a><span class="w">        </span><span class="n">cblen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">blen</span><span class="w"></span>
+<a id="ln-361" name="ln-361" href="#ln-361"></a><span class="w">        </span><span class="n">infobyte</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hasmap</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">128</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">cblen</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">blen</span><span class="o">-</span><span class="mi">1</span><span class="w"></span>
 <a id="ln-362" name="ln-362" href="#ln-362"></a>
 <a id="ln-363" name="ln-363" href="#ln-363"></a><span class="w">        </span><span class="c">! write the screen descriptor</span>
 <a id="ln-364" name="ln-364" href="#ln-364"></a><span class="w">        </span><span class="k">write</span><span class="p">(</span><span class="n">iunit</span><span class="p">)</span><span class="w">   </span><span class="n">char2</span><span class="p">(</span><span class="n">nx</span><span class="p">),&amp;</span><span class="w">         </span><span class="c">! logical screen width</span>
@@ -521,10 +583,10 @@
 <a id="ln-368" name="ln-368" href="#ln-368"></a><span class="w">                        </span><span class="nb">char</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w">             </span><span class="c">! pixel aspect ratio</span>
 <a id="ln-369" name="ln-369" href="#ln-369"></a>
 <a id="ln-370" name="ln-370" href="#ln-370"></a><span class="w">        </span><span class="c">! write global colormap</span>
-<a id="ln-371" name="ln-371" href="#ln-371"></a><span class="w">        </span><span class="k">do </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">maxgifcol</span>
-<a id="ln-372" name="ln-372" href="#ln-372"></a><span class="w">            </span><span class="k">write</span><span class="p">(</span><span class="n">iunit</span><span class="p">)</span><span class="w">  </span><span class="nb">char</span><span class="p">(</span><span class="n">colormap</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">min</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">maxincol</span><span class="p">))),</span><span class="w"> </span><span class="p">&amp;</span>
-<a id="ln-373" name="ln-373" href="#ln-373"></a><span class="w">                          </span><span class="nb">char</span><span class="p">(</span><span class="n">colormap</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="nb">min</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">maxincol</span><span class="p">))),</span><span class="w"> </span><span class="p">&amp;</span>
-<a id="ln-374" name="ln-374" href="#ln-374"></a><span class="w">                          </span><span class="nb">char</span><span class="p">(</span><span class="n">colormap</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="nb">min</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">maxincol</span><span class="p">)))</span>
+<a id="ln-371" name="ln-371" href="#ln-371"></a><span class="w">        </span><span class="k">do </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">maxgifcol</span><span class="w"></span>
+<a id="ln-372" name="ln-372" href="#ln-372"></a><span class="w">            </span><span class="k">write</span><span class="p">(</span><span class="n">iunit</span><span class="p">)</span><span class="w">  </span><span class="nb">char</span><span class="p">(</span><span class="n">colormap</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">min</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">maxincol</span><span class="p">))),</span><span class="w"> </span><span class="p">&amp;</span><span class="w"></span>
+<a id="ln-373" name="ln-373" href="#ln-373"></a><span class="w">                          </span><span class="nb">char</span><span class="p">(</span><span class="n">colormap</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="nb">min</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">maxincol</span><span class="p">))),</span><span class="w"> </span><span class="p">&amp;</span><span class="w"></span>
+<a id="ln-374" name="ln-374" href="#ln-374"></a><span class="w">                          </span><span class="nb">char</span><span class="p">(</span><span class="n">colormap</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="nb">min</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">maxincol</span><span class="p">)))</span><span class="w"></span>
 <a id="ln-375" name="ln-375" href="#ln-375"></a><span class="w">        </span><span class="k">end do</span>
 <a id="ln-376" name="ln-376" href="#ln-376"></a>
 <a id="ln-377" name="ln-377" href="#ln-377"></a><span class="k">        if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">then</span><span class="w">    </span><span class="c">!it is an animated gif</span>
@@ -546,10 +608,10 @@
 <a id="ln-393" name="ln-393" href="#ln-393"></a><span class="w">                            </span><span class="nb">char</span><span class="p">(</span><span class="mi">0</span><span class="p">),&amp;</span><span class="w">       </span><span class="c">! Data Sub-Block Terminator</span>
 <a id="ln-394" name="ln-394" href="#ln-394"></a><span class="w">                            </span><span class="nb">char</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w">         </span><span class="c">! Block Terminator (0x00)</span>
 <a id="ln-395" name="ln-395" href="#ln-395"></a>
-<a id="ln-396" name="ln-396" href="#ln-396"></a><span class="w">        </span><span class="k">end if</span>
+<a id="ln-396" name="ln-396" href="#ln-396"></a><span class="w">        </span><span class="k">end if</span><span class="w"></span>
 <a id="ln-397" name="ln-397" href="#ln-397"></a>
 <a id="ln-398" name="ln-398" href="#ln-398"></a><span class="w">        </span><span class="c">!each frame of the animated gif:</span>
-<a id="ln-399" name="ln-399" href="#ln-399"></a><span class="w">        </span><span class="k">do </span><span class="n">iframe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="n">n</span>
+<a id="ln-399" name="ln-399" href="#ln-399"></a><span class="w">        </span><span class="k">do </span><span class="n">iframe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="w"></span>
 <a id="ln-400" name="ln-400" href="#ln-400"></a>
 <a id="ln-401" name="ln-401" href="#ln-401"></a><span class="w">            </span><span class="c">!---------------------------------</span>
 <a id="ln-402" name="ln-402" href="#ln-402"></a><span class="w">            </span><span class="c">! Graphic Control Extension Block</span>
@@ -568,7 +630,7 @@
 <a id="ln-415" name="ln-415" href="#ln-415"></a><span class="w">            </span><span class="c">!-------------</span>
 <a id="ln-416" name="ln-416" href="#ln-416"></a>
 <a id="ln-417" name="ln-417" href="#ln-417"></a><span class="w">            </span><span class="c">! now create and write image descriptor</span>
-<a id="ln-418" name="ln-418" href="#ln-418"></a><span class="w">            </span><span class="n">hasmap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<a id="ln-418" name="ln-418" href="#ln-418"></a><span class="w">            </span><span class="n">hasmap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
 <a id="ln-419" name="ln-419" href="#ln-419"></a><span class="w">            </span><span class="n">infobyte</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hasmap</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">128</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">blen</span><span class="o">-</span><span class="mi">1</span><span class="w">    </span><span class="c">! add 64, if interlaced</span>
 <a id="ln-420" name="ln-420" href="#ln-420"></a>
 <a id="ln-421" name="ln-421" href="#ln-421"></a><span class="w">            </span><span class="k">write</span><span class="p">(</span><span class="n">iunit</span><span class="p">)</span><span class="w">   </span><span class="s1">&#39;,&#39;</span><span class="p">,&amp;</span><span class="w">            </span><span class="c">! Image Separator (0x2C)</span>
@@ -582,33 +644,33 @@
 <a id="ln-429" name="ln-429" href="#ln-429"></a>
 <a id="ln-430" name="ln-430" href="#ln-430"></a><span class="w">            </span><span class="k">write</span><span class="p">(</span><span class="n">iunit</span><span class="p">)</span><span class="w"> </span><span class="nb">char</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w">    </span><span class="c">! Block Terminator (0x00)</span>
 <a id="ln-431" name="ln-431" href="#ln-431"></a>
-<a id="ln-432" name="ln-432" href="#ln-432"></a><span class="w">        </span><span class="k">end do</span>
+<a id="ln-432" name="ln-432" href="#ln-432"></a><span class="w">        </span><span class="k">end do</span><span class="w"></span>
 <a id="ln-433" name="ln-433" href="#ln-433"></a>
 <a id="ln-434" name="ln-434" href="#ln-434"></a><span class="w">        </span><span class="c">!---------</span>
 <a id="ln-435" name="ln-435" href="#ln-435"></a><span class="w">        </span><span class="c">! Trailer</span>
 <a id="ln-436" name="ln-436" href="#ln-436"></a><span class="w">        </span><span class="c">!---------</span>
 <a id="ln-437" name="ln-437" href="#ln-437"></a>
-<a id="ln-438" name="ln-438" href="#ln-438"></a><span class="w">        </span><span class="k">write</span><span class="p">(</span><span class="n">iunit</span><span class="p">)</span><span class="w"> </span><span class="s1">&#39;;&#39;</span>
+<a id="ln-438" name="ln-438" href="#ln-438"></a><span class="w">        </span><span class="k">write</span><span class="p">(</span><span class="n">iunit</span><span class="p">)</span><span class="w"> </span><span class="s1">&#39;;&#39;</span><span class="w"></span>
 <a id="ln-439" name="ln-439" href="#ln-439"></a>
 <a id="ln-440" name="ln-440" href="#ln-440"></a><span class="w">    </span><span class="k">else</span>
-<a id="ln-441" name="ln-441" href="#ln-441"></a><span class="k">        write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="s1">&#39;Error opening :&#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-<a id="ln-442" name="ln-442" href="#ln-442"></a><span class="w">    </span><span class="k">end if</span>
+<a id="ln-441" name="ln-441" href="#ln-441"></a><span class="k">        write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="s1">&#39;Error opening :&#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span><span class="w"></span>
+<a id="ln-442" name="ln-442" href="#ln-442"></a><span class="w">    </span><span class="k">end if</span><span class="w"></span>
 <a id="ln-443" name="ln-443" href="#ln-443"></a>
 <a id="ln-444" name="ln-444" href="#ln-444"></a><span class="w">    </span><span class="c">!close the gif file:</span>
-<a id="ln-445" name="ln-445" href="#ln-445"></a><span class="w">    </span><span class="k">close</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="n">iunit</span><span class="p">,</span><span class="n">iostat</span><span class="o">=</span><span class="n">istat</span><span class="p">)</span>
+<a id="ln-445" name="ln-445" href="#ln-445"></a><span class="w">    </span><span class="k">close</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="n">iunit</span><span class="p">,</span><span class="n">iostat</span><span class="o">=</span><span class="n">istat</span><span class="p">)</span><span class="w"></span>
 <a id="ln-446" name="ln-446" href="#ln-446"></a>
-<a id="ln-447" name="ln-447" href="#ln-447"></a><span class="k">contains</span>
+<a id="ln-447" name="ln-447" href="#ln-447"></a><span class="k">contains</span><span class="w"></span>
 <a id="ln-448" name="ln-448" href="#ln-448"></a><span class="c">!-----------------------------------------------------------------------------------------------------------------------------------</span>
 <a id="ln-449" name="ln-449" href="#ln-449"></a><span class="w">    </span><span class="c">!&gt;</span>
 <a id="ln-450" name="ln-450" href="#ln-450"></a><span class="w">    </span><span class="c">!  Convert the two least sig bytes of an integer to a 2-character string</span>
 <a id="ln-451" name="ln-451" href="#ln-451"></a>
-<a id="ln-452" name="ln-452" href="#ln-452"></a><span class="k">function </span><span class="n">char2</span><span class="p">(</span><span class="n">ival</span><span class="p">)</span><span class="w"> </span><span class="k">result</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
-<a id="ln-453" name="ln-453" href="#ln-453"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ival</span>
-<a id="ln-454" name="ln-454" href="#ln-454"></a><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="w">    </span><span class="kd">::</span><span class="w"> </span><span class="n">c</span>
+<a id="ln-452" name="ln-452" href="#ln-452"></a><span class="k">function </span><span class="n">char2</span><span class="p">(</span><span class="n">ival</span><span class="p">)</span><span class="w"> </span><span class="k">result</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="w"></span>
+<a id="ln-453" name="ln-453" href="#ln-453"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ival</span><span class="w"></span>
+<a id="ln-454" name="ln-454" href="#ln-454"></a><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="w">    </span><span class="kd">::</span><span class="w"> </span><span class="n">c</span><span class="w"></span>
 <a id="ln-455" name="ln-455" href="#ln-455"></a>
-<a id="ln-456" name="ln-456" href="#ln-456"></a><span class="w">   </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">achar</span><span class="p">(</span><span class="nb">mod</span><span class="p">(</span><span class="n">ival</span><span class="p">,</span><span class="mi">256</span><span class="p">))</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="nb">achar</span><span class="p">(</span><span class="nb">mod</span><span class="p">(</span><span class="n">ival</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span><span class="mi">256</span><span class="p">))</span>
+<a id="ln-456" name="ln-456" href="#ln-456"></a><span class="w">   </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">achar</span><span class="p">(</span><span class="nb">mod</span><span class="p">(</span><span class="n">ival</span><span class="p">,</span><span class="mi">256</span><span class="p">))</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="nb">achar</span><span class="p">(</span><span class="nb">mod</span><span class="p">(</span><span class="n">ival</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span><span class="mi">256</span><span class="p">))</span><span class="w"></span>
 <a id="ln-457" name="ln-457" href="#ln-457"></a>
-<a id="ln-458" name="ln-458" href="#ln-458"></a><span class="k">end function </span><span class="n">char2</span>
+<a id="ln-458" name="ln-458" href="#ln-458"></a><span class="k">end function </span><span class="n">char2</span><span class="w"></span>
 <a id="ln-459" name="ln-459" href="#ln-459"></a><span class="c">!-----------------------------------------------------------------------------------------------------------------------------------</span>
 <a id="ln-460" name="ln-460" href="#ln-460"></a><span class="w">    </span><span class="c">!&gt;</span>
 <a id="ln-461" name="ln-461" href="#ln-461"></a><span class="w">    </span><span class="c">!  Flushes up to 255 bytes to output file if buffer contains data, keeping</span>
@@ -616,66 +678,66 @@
 <a id="ln-463" name="ln-463" href="#ln-463"></a><span class="w">    </span><span class="c">!  in buf[ibuf]. This byte will be written only if ibuf&lt;256. That should be</span>
 <a id="ln-464" name="ln-464" href="#ln-464"></a><span class="w">    </span><span class="c">!  the last call to flushbuffer.</span>
 <a id="ln-465" name="ln-465" href="#ln-465"></a>
-<a id="ln-466" name="ln-466" href="#ln-466"></a><span class="k">subroutine </span><span class="n">flushbuffer</span><span class="p">(</span><span class="n">iunit</span><span class="p">)</span>
+<a id="ln-466" name="ln-466" href="#ln-466"></a><span class="k">subroutine </span><span class="n">flushbuffer</span><span class="p">(</span><span class="n">iunit</span><span class="p">)</span><span class="w"></span>
 <a id="ln-467" name="ln-467" href="#ln-467"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">iunit</span><span class="w">   </span><span class="c">!! i/o unit to use</span>
 <a id="ln-468" name="ln-468" href="#ln-468"></a><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">bl</span><span class="w">   </span><span class="c">!! number of bytes to write (to be determined)</span>
 <a id="ln-469" name="ln-469" href="#ln-469"></a>
 <a id="ln-470" name="ln-470" href="#ln-470"></a><span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ibuf</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">255</span><span class="p">)</span><span class="w"> </span><span class="k">then</span><span class="w">     </span><span class="c">! we will write buf[1..255]</span>
-<a id="ln-471" name="ln-471" href="#ln-471"></a><span class="w">      </span><span class="n">bl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">255</span>
+<a id="ln-471" name="ln-471" href="#ln-471"></a><span class="w">      </span><span class="n">bl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">255</span><span class="w"></span>
 <a id="ln-472" name="ln-472" href="#ln-472"></a><span class="w">   </span><span class="k">else if</span><span class="w"> </span><span class="p">(</span><span class="n">skip</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="c">! buf[ibuf] is partially used, write buf[1..ibuf]</span>
-<a id="ln-473" name="ln-473" href="#ln-473"></a><span class="w">      </span><span class="n">bl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ibuf</span>
+<a id="ln-473" name="ln-473" href="#ln-473"></a><span class="w">      </span><span class="n">bl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ibuf</span><span class="w"></span>
 <a id="ln-474" name="ln-474" href="#ln-474"></a><span class="w">   </span><span class="k">else if</span><span class="w"> </span><span class="p">(</span><span class="n">ibuf</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">then</span><span class="w">  </span><span class="c">! write buf[1..ibuf-1], there is no partial byte</span>
-<a id="ln-475" name="ln-475" href="#ln-475"></a><span class="w">      </span><span class="n">bl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ibuf</span><span class="o">-</span><span class="mi">1</span>
+<a id="ln-475" name="ln-475" href="#ln-475"></a><span class="w">      </span><span class="n">bl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ibuf</span><span class="o">-</span><span class="mi">1</span><span class="w"></span>
 <a id="ln-476" name="ln-476" href="#ln-476"></a><span class="w">   </span><span class="k">else</span><span class="w">                     </span><span class="c">! nothing to write</span>
 <a id="ln-477" name="ln-477" href="#ln-477"></a><span class="w">      </span><span class="k">return</span>
 <a id="ln-478" name="ln-478" href="#ln-478"></a><span class="k">   end if</span>
 <a id="ln-479" name="ln-479" href="#ln-479"></a>
-<a id="ln-480" name="ln-480" href="#ln-480"></a><span class="k">   write</span><span class="p">(</span><span class="n">iunit</span><span class="p">)</span><span class="w"> </span><span class="nb">char</span><span class="p">(</span><span class="n">bl</span><span class="p">)</span>
-<a id="ln-481" name="ln-481" href="#ln-481"></a><span class="w">   </span><span class="k">write</span><span class="p">(</span><span class="n">iunit</span><span class="p">)</span><span class="w"> </span><span class="n">buf</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">bl</span><span class="p">)</span>
+<a id="ln-480" name="ln-480" href="#ln-480"></a><span class="k">   write</span><span class="p">(</span><span class="n">iunit</span><span class="p">)</span><span class="w"> </span><span class="nb">char</span><span class="p">(</span><span class="n">bl</span><span class="p">)</span><span class="w"></span>
+<a id="ln-481" name="ln-481" href="#ln-481"></a><span class="w">   </span><span class="k">write</span><span class="p">(</span><span class="n">iunit</span><span class="p">)</span><span class="w"> </span><span class="n">buf</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">bl</span><span class="p">)</span><span class="w"></span>
 <a id="ln-482" name="ln-482" href="#ln-482"></a><span class="w">   </span><span class="n">buf</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">ibuf</span><span class="o">-</span><span class="n">bl</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">buf</span><span class="p">(</span><span class="n">bl</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="n">ibuf</span><span class="p">)</span><span class="w"> </span><span class="c">! shift down remaining data</span>
-<a id="ln-483" name="ln-483" href="#ln-483"></a><span class="w">   </span><span class="n">ibuf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ibuf</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">bl</span>
+<a id="ln-483" name="ln-483" href="#ln-483"></a><span class="w">   </span><span class="n">ibuf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ibuf</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">bl</span><span class="w"></span>
 <a id="ln-484" name="ln-484" href="#ln-484"></a>
-<a id="ln-485" name="ln-485" href="#ln-485"></a><span class="k">end subroutine </span><span class="n">flushbuffer</span>
+<a id="ln-485" name="ln-485" href="#ln-485"></a><span class="k">end subroutine </span><span class="n">flushbuffer</span><span class="w"></span>
 <a id="ln-486" name="ln-486" href="#ln-486"></a><span class="c">!-----------------------------------------------------------------------------------------------------------------------------------</span>
 <a id="ln-487" name="ln-487" href="#ln-487"></a><span class="w">    </span><span class="c">!&gt;</span>
 <a id="ln-488" name="ln-488" href="#ln-488"></a><span class="w">    </span><span class="c">!  routine for LZW coding</span>
 <a id="ln-489" name="ln-489" href="#ln-489"></a>
-<a id="ln-490" name="ln-490" href="#ln-490"></a><span class="w">        </span><span class="k">subroutine </span><span class="n">giflzw</span><span class="p">(</span><span class="n">iunit</span><span class="p">,</span><span class="w"> </span><span class="n">pixel</span><span class="p">)</span>
+<a id="ln-490" name="ln-490" href="#ln-490"></a><span class="w">        </span><span class="k">subroutine </span><span class="n">giflzw</span><span class="p">(</span><span class="n">iunit</span><span class="p">,</span><span class="w"> </span><span class="n">pixel</span><span class="p">)</span><span class="w"></span>
 <a id="ln-491" name="ln-491" href="#ln-491"></a>
-<a id="ln-492" name="ln-492" href="#ln-492"></a><span class="w">        </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w">                 </span><span class="kd">::</span><span class="w"> </span><span class="n">iunit</span>
-<a id="ln-493" name="ln-493" href="#ln-493"></a><span class="w">        </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:,:)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">pixel</span>
-<a id="ln-494" name="ln-494" href="#ln-494"></a><span class="w">        </span><span class="kt">integer</span><span class="w">                             </span><span class="kd">::</span><span class="w"> </span><span class="n">i</span>
-<a id="ln-495" name="ln-495" href="#ln-495"></a><span class="w">        </span><span class="kt">integer</span><span class="w">                             </span><span class="kd">::</span><span class="w"> </span><span class="n">j</span>
+<a id="ln-492" name="ln-492" href="#ln-492"></a><span class="w">        </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w">                 </span><span class="kd">::</span><span class="w"> </span><span class="n">iunit</span><span class="w"></span>
+<a id="ln-493" name="ln-493" href="#ln-493"></a><span class="w">        </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:,:)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">pixel</span><span class="w"></span>
+<a id="ln-494" name="ln-494" href="#ln-494"></a><span class="w">        </span><span class="kt">integer</span><span class="w">                             </span><span class="kd">::</span><span class="w"> </span><span class="n">i</span><span class="w"></span>
+<a id="ln-495" name="ln-495" href="#ln-495"></a><span class="w">        </span><span class="kt">integer</span><span class="w">                             </span><span class="kd">::</span><span class="w"> </span><span class="n">j</span><span class="w"></span>
 <a id="ln-496" name="ln-496" href="#ln-496"></a>
 <a id="ln-497" name="ln-497" href="#ln-497"></a><span class="w">        </span><span class="n">nout</span><span class="o">=</span><span class="mi">0</span><span class="w">                        </span><span class="c">! for counting the codes going out</span>
 <a id="ln-498" name="ln-498" href="#ln-498"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">blen</span><span class="o">&lt;</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
 <a id="ln-499" name="ln-499" href="#ln-499"></a><span class="k">            </span><span class="n">blen</span><span class="o">=</span><span class="mi">2</span><span class="w">                    </span><span class="c">! pixel code-length, 2 is minimum for gif</span>
 <a id="ln-500" name="ln-500" href="#ln-500"></a><span class="w">        </span><span class="k">end if</span>
-<a id="ln-501" name="ln-501" href="#ln-501"></a><span class="k">        write</span><span class="p">(</span><span class="n">iunit</span><span class="p">)</span><span class="w"> </span><span class="nb">char</span><span class="p">(</span><span class="n">blen</span><span class="p">)</span>
-<a id="ln-502" name="ln-502" href="#ln-502"></a><span class="w">        </span><span class="n">maxbase</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="o">**</span><span class="n">blen</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span>
-<a id="ln-503" name="ln-503" href="#ln-503"></a><span class="w">        </span><span class="k">call </span><span class="n">inittable</span><span class="p">()</span>
-<a id="ln-504" name="ln-504" href="#ln-504"></a><span class="w">        </span><span class="k">call </span><span class="n">slicewrite</span><span class="p">(</span><span class="n">iunit</span><span class="p">,</span><span class="w"> </span><span class="n">cc</span><span class="p">)</span>
+<a id="ln-501" name="ln-501" href="#ln-501"></a><span class="k">        write</span><span class="p">(</span><span class="n">iunit</span><span class="p">)</span><span class="w"> </span><span class="nb">char</span><span class="p">(</span><span class="n">blen</span><span class="p">)</span><span class="w"></span>
+<a id="ln-502" name="ln-502" href="#ln-502"></a><span class="w">        </span><span class="n">maxbase</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="o">**</span><span class="n">blen</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<a id="ln-503" name="ln-503" href="#ln-503"></a><span class="w">        </span><span class="k">call </span><span class="n">inittable</span><span class="p">()</span><span class="w"></span>
+<a id="ln-504" name="ln-504" href="#ln-504"></a><span class="w">        </span><span class="k">call </span><span class="n">slicewrite</span><span class="p">(</span><span class="n">iunit</span><span class="p">,</span><span class="w"> </span><span class="n">cc</span><span class="p">)</span><span class="w"></span>
 <a id="ln-505" name="ln-505" href="#ln-505"></a>
-<a id="ln-506" name="ln-506" href="#ln-506"></a><span class="w">        </span><span class="k">do </span><span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nb">ubound</span><span class="p">(</span><span class="n">pixel</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-<a id="ln-507" name="ln-507" href="#ln-507"></a><span class="w">            </span><span class="k">do </span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nb">ubound</span><span class="p">(</span><span class="n">pixel</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<a id="ln-506" name="ln-506" href="#ln-506"></a><span class="w">        </span><span class="k">do </span><span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nb">ubound</span><span class="p">(</span><span class="n">pixel</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w"></span>
+<a id="ln-507" name="ln-507" href="#ln-507"></a><span class="w">            </span><span class="k">do </span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nb">ubound</span><span class="p">(</span><span class="n">pixel</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
 <a id="ln-508" name="ln-508" href="#ln-508"></a><span class="w">                </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">modulo</span><span class="p">(</span><span class="n">pixel</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">),</span><span class="w"> </span><span class="n">maxbase</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="w">    </span><span class="c">! take next byte, prevent overflow</span>
 <a id="ln-509" name="ln-509" href="#ln-509"></a><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="o">==</span><span class="mi">1</span><span class="w"> </span><span class="p">.</span><span class="nb">and</span><span class="p">.</span><span class="w"> </span><span class="n">j</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
 <a id="ln-510" name="ln-510" href="#ln-510"></a><span class="k">                    </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">k</span><span class="w">                       </span><span class="c">! first raster byte has one-byte code p</span>
 <a id="ln-511" name="ln-511" href="#ln-511"></a><span class="w">                    </span><span class="k">cycle</span><span class="w">                       </span><span class="c">! for the first byte no further action</span>
-<a id="ln-512" name="ln-512" href="#ln-512"></a><span class="w">                </span><span class="k">end if</span>
+<a id="ln-512" name="ln-512" href="#ln-512"></a><span class="w">                </span><span class="k">end if</span><span class="w"></span>
 <a id="ln-513" name="ln-513" href="#ln-513"></a><span class="w">                                            </span><span class="c">! now see if code exists for sequence [.p.]k</span>
 <a id="ln-514" name="ln-514" href="#ln-514"></a><span class="w">                </span><span class="n">child</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">follow</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="w">           </span><span class="c">! [.p.]k is &quot;string coded by p&quot; followed by k</span>
 <a id="ln-515" name="ln-515" href="#ln-515"></a><span class="w">                </span><span class="n">childloop</span><span class="p">:</span><span class="w"> </span><span class="k">do</span>
 <a id="ln-516" name="ln-516" href="#ln-516"></a><span class="k">                    if</span><span class="w"> </span><span class="p">((</span><span class="n">child</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">nocode</span><span class="p">)</span><span class="w"> </span><span class="p">.</span><span class="nb">or</span><span class="p">.</span><span class="w"> </span><span class="p">(</span><span class="nb">ichar</span><span class="p">(</span><span class="n">endbyte</span><span class="p">(</span><span class="n">child</span><span class="p">))</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">k</span><span class="p">))</span><span class="w"> </span><span class="k">then</span>
-<a id="ln-517" name="ln-517" href="#ln-517"></a><span class="k">                        exit </span><span class="n">childloop</span>
+<a id="ln-517" name="ln-517" href="#ln-517"></a><span class="k">                        exit </span><span class="n">childloop</span><span class="w"></span>
 <a id="ln-518" name="ln-518" href="#ln-518"></a><span class="w">                    </span><span class="k">end if</span>
-<a id="ln-519" name="ln-519" href="#ln-519"></a><span class="k">                    </span><span class="n">child</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">next</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
-<a id="ln-520" name="ln-520" href="#ln-520"></a><span class="w">                </span><span class="k">end do </span><span class="n">childloop</span>
+<a id="ln-519" name="ln-519" href="#ln-519"></a><span class="k">                    </span><span class="n">child</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">next</span><span class="p">(</span><span class="n">child</span><span class="p">)</span><span class="w"></span>
+<a id="ln-520" name="ln-520" href="#ln-520"></a><span class="w">                </span><span class="k">end do </span><span class="n">childloop</span><span class="w"></span>
 <a id="ln-521" name="ln-521" href="#ln-521"></a>
 <a id="ln-522" name="ln-522" href="#ln-522"></a><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">child</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="n">nocode</span><span class="p">)</span><span class="w"> </span><span class="k">then</span><span class="w">    </span><span class="c">! if code for [.p.]k was found, store it in p</span>
-<a id="ln-523" name="ln-523" href="#ln-523"></a><span class="w">                    </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">child</span>
+<a id="ln-523" name="ln-523" href="#ln-523"></a><span class="w">                    </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">child</span><span class="w"></span>
 <a id="ln-524" name="ln-524" href="#ln-524"></a><span class="w">                </span><span class="k">else</span><span class="w">                         </span><span class="c">! if not: output p and create code for [.p.]k</span>
-<a id="ln-525" name="ln-525" href="#ln-525"></a><span class="w">                    </span><span class="k">call </span><span class="n">slicewrite</span><span class="p">(</span><span class="n">iunit</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">)</span>
+<a id="ln-525" name="ln-525" href="#ln-525"></a><span class="w">                    </span><span class="k">call </span><span class="n">slicewrite</span><span class="p">(</span><span class="n">iunit</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"></span>
 <a id="ln-526" name="ln-526" href="#ln-526"></a><span class="w">                    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ncod</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">maxcode</span><span class="p">)</span><span class="w"> </span><span class="k">then</span><span class="w">        </span><span class="c">! check if a new code can be added</span>
 <a id="ln-527" name="ln-527" href="#ln-527"></a><span class="w">                        </span><span class="k">call </span><span class="n">slicewrite</span><span class="p">(</span><span class="n">iunit</span><span class="p">,</span><span class="w"> </span><span class="n">cc</span><span class="p">)</span><span class="w">  </span><span class="c">! if not: tell listener to clear table</span>
 <a id="ln-528" name="ln-528" href="#ln-528"></a><span class="w">                        </span><span class="k">call </span><span class="n">inittable</span><span class="p">()</span><span class="w">            </span><span class="c">! and clear our own table</span>
@@ -685,12 +747,12 @@
 <a id="ln-532" name="ln-532" href="#ln-532"></a><span class="w">                            </span><span class="n">curmaxcode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">curmaxcode</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c">! and more codes are possible</span>
 <a id="ln-533" name="ln-533" href="#ln-533"></a><span class="w">                        </span><span class="k">end if</span>
 <a id="ln-534" name="ln-534" href="#ln-534"></a><span class="k">                        </span><span class="n">endbyte</span><span class="p">(</span><span class="n">ncod</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">char</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="w">   </span><span class="c">! ncod is the new code for [.p.]k</span>
-<a id="ln-535" name="ln-535" href="#ln-535"></a><span class="w">                        </span><span class="n">follow</span><span class="p">(</span><span class="n">ncod</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nocode</span>
+<a id="ln-535" name="ln-535" href="#ln-535"></a><span class="w">                        </span><span class="n">follow</span><span class="p">(</span><span class="n">ncod</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nocode</span><span class="w"></span>
 <a id="ln-536" name="ln-536" href="#ln-536"></a><span class="w">                        </span><span class="n">next</span><span class="p">(</span><span class="n">ncod</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">follow</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="w">    </span><span class="c">! include ncod in the hashing list</span>
 <a id="ln-537" name="ln-537" href="#ln-537"></a><span class="w">                        </span><span class="n">follow</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ncod</span><span class="w">          </span><span class="c">!     of codes with same start-sequence</span>
-<a id="ln-538" name="ln-538" href="#ln-538"></a><span class="w">                        </span><span class="n">ncod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ncod</span><span class="o">+</span><span class="mi">1</span>
+<a id="ln-538" name="ln-538" href="#ln-538"></a><span class="w">                        </span><span class="n">ncod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ncod</span><span class="o">+</span><span class="mi">1</span><span class="w"></span>
 <a id="ln-539" name="ln-539" href="#ln-539"></a><span class="w">                    </span><span class="k">end if</span>
-<a id="ln-540" name="ln-540" href="#ln-540"></a><span class="k">                    </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">k</span>
+<a id="ln-540" name="ln-540" href="#ln-540"></a><span class="k">                    </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">k</span><span class="w"></span>
 <a id="ln-541" name="ln-541" href="#ln-541"></a><span class="w">                </span><span class="k">end if</span>
 <a id="ln-542" name="ln-542" href="#ln-542"></a><span class="k">            end do</span>
 <a id="ln-543" name="ln-543" href="#ln-543"></a><span class="k">        end do</span>
@@ -699,71 +761,71 @@
 <a id="ln-546" name="ln-546" href="#ln-546"></a><span class="w">        </span><span class="k">call </span><span class="n">slicewrite</span><span class="p">(</span><span class="n">iunit</span><span class="p">,</span><span class="w"> </span><span class="n">eoi</span><span class="p">)</span><span class="w">    </span><span class="c">! send &#39;end of image&#39; to buffer</span>
 <a id="ln-547" name="ln-547" href="#ln-547"></a><span class="w">        </span><span class="k">call </span><span class="n">flushbuffer</span><span class="p">(</span><span class="n">iunit</span><span class="p">)</span><span class="w">        </span><span class="c">! extra flush, including partial last byte</span>
 <a id="ln-548" name="ln-548" href="#ln-548"></a>
-<a id="ln-549" name="ln-549" href="#ln-549"></a><span class="w">        </span><span class="k">end subroutine </span><span class="n">giflzw</span>
+<a id="ln-549" name="ln-549" href="#ln-549"></a><span class="w">        </span><span class="k">end subroutine </span><span class="n">giflzw</span><span class="w"></span>
 <a id="ln-550" name="ln-550" href="#ln-550"></a><span class="c">!-----------------------------------------------------------------------------------------------------------------------------------</span>
 <a id="ln-551" name="ln-551" href="#ln-551"></a><span class="w">    </span><span class="c">!&gt;</span>
 <a id="ln-552" name="ln-552" href="#ln-552"></a><span class="w">    </span><span class="c">!  Initialize table.</span>
 <a id="ln-553" name="ln-553" href="#ln-553"></a>
-<a id="ln-554" name="ln-554" href="#ln-554"></a><span class="w">        </span><span class="k">subroutine </span><span class="n">inittable</span><span class="p">()</span>
+<a id="ln-554" name="ln-554" href="#ln-554"></a><span class="w">        </span><span class="k">subroutine </span><span class="n">inittable</span><span class="p">()</span><span class="w"></span>
 <a id="ln-555" name="ln-555" href="#ln-555"></a>
-<a id="ln-556" name="ln-556" href="#ln-556"></a><span class="w">        </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">i</span>
+<a id="ln-556" name="ln-556" href="#ln-556"></a><span class="w">        </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">i</span><span class="w"></span>
 <a id="ln-557" name="ln-557" href="#ln-557"></a>
 <a id="ln-558" name="ln-558" href="#ln-558"></a><span class="w">        </span><span class="k">do </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">maxbase</span><span class="w">                  </span><span class="c">! start with defining the codes 0..maxbase</span>
 <a id="ln-559" name="ln-559" href="#ln-559"></a><span class="w">            </span><span class="n">endbyte</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">char</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w">        </span><span class="c">! for one-pixel sequences (code=pixelvalue)</span>
 <a id="ln-560" name="ln-560" href="#ln-560"></a><span class="w">        </span><span class="k">end do</span><span class="w">                          </span><span class="c">! initially no multi-pixel codes exist</span>
-<a id="ln-561" name="ln-561" href="#ln-561"></a><span class="w">        </span><span class="n">follow</span><span class="p">(</span><span class="mi">0</span><span class="p">:</span><span class="n">maxbase</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nocode</span>
-<a id="ln-562" name="ln-562" href="#ln-562"></a><span class="w">        </span><span class="n">next</span><span class="p">(</span><span class="mi">0</span><span class="p">:</span><span class="n">maxbase</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nocode</span>
+<a id="ln-561" name="ln-561" href="#ln-561"></a><span class="w">        </span><span class="n">follow</span><span class="p">(</span><span class="mi">0</span><span class="p">:</span><span class="n">maxbase</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nocode</span><span class="w"></span>
+<a id="ln-562" name="ln-562" href="#ln-562"></a><span class="w">        </span><span class="n">next</span><span class="p">(</span><span class="mi">0</span><span class="p">:</span><span class="n">maxbase</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nocode</span><span class="w"></span>
 <a id="ln-563" name="ln-563" href="#ln-563"></a><span class="w">        </span><span class="n">cc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">maxbase</span><span class="o">+</span><span class="mi">1</span><span class="w">                  </span><span class="c">! &#39;clear code-tabel&#39;, a control code</span>
 <a id="ln-564" name="ln-564" href="#ln-564"></a><span class="w">        </span><span class="n">eoi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">maxbase</span><span class="o">+</span><span class="mi">2</span><span class="w">                 </span><span class="c">! &#39;end of image&#39;, another control code</span>
 <a id="ln-565" name="ln-565" href="#ln-565"></a><span class="w">        </span><span class="n">ncod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cc</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="w">                   </span><span class="c">! ncod = number of currently defined codes</span>
 <a id="ln-566" name="ln-566" href="#ln-566"></a><span class="w">        </span><span class="n">slen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">blen</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w">                 </span><span class="c">! current number of bits to write one code</span>
 <a id="ln-567" name="ln-567" href="#ln-567"></a><span class="w">        </span><span class="n">curmaxcode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="o">**</span><span class="n">slen</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w">        </span><span class="c">! currently the highest, until slen increases</span>
 <a id="ln-568" name="ln-568" href="#ln-568"></a>
-<a id="ln-569" name="ln-569" href="#ln-569"></a><span class="w">        </span><span class="k">end subroutine </span><span class="n">inittable</span>
+<a id="ln-569" name="ln-569" href="#ln-569"></a><span class="w">        </span><span class="k">end subroutine </span><span class="n">inittable</span><span class="w"></span>
 <a id="ln-570" name="ln-570" href="#ln-570"></a><span class="c">!-----------------------------------------------------------------------------------------------------------------------------------</span>
 <a id="ln-571" name="ln-571" href="#ln-571"></a><span class="w">    </span><span class="c">!&gt;</span>
 <a id="ln-572" name="ln-572" href="#ln-572"></a><span class="w">    </span><span class="c">!  add some bits (a &#39;slice&#39;) to output buffer</span>
 <a id="ln-573" name="ln-573" href="#ln-573"></a>
-<a id="ln-574" name="ln-574" href="#ln-574"></a><span class="w">        </span><span class="k">subroutine </span><span class="n">slicewrite</span><span class="p">(</span><span class="n">iunit</span><span class="p">,</span><span class="w"> </span><span class="n">code</span><span class="p">)</span>
+<a id="ln-574" name="ln-574" href="#ln-574"></a><span class="w">        </span><span class="k">subroutine </span><span class="n">slicewrite</span><span class="p">(</span><span class="n">iunit</span><span class="p">,</span><span class="w"> </span><span class="n">code</span><span class="p">)</span><span class="w"></span>
 <a id="ln-575" name="ln-575" href="#ln-575"></a>
-<a id="ln-576" name="ln-576" href="#ln-576"></a><span class="w">        </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w">  </span><span class="kd">::</span><span class="w"> </span><span class="n">iunit</span>
-<a id="ln-577" name="ln-577" href="#ln-577"></a><span class="w">        </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w">  </span><span class="kd">::</span><span class="w"> </span><span class="n">code</span>
+<a id="ln-576" name="ln-576" href="#ln-576"></a><span class="w">        </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w">  </span><span class="kd">::</span><span class="w"> </span><span class="n">iunit</span><span class="w"></span>
+<a id="ln-577" name="ln-577" href="#ln-577"></a><span class="w">        </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w">  </span><span class="kd">::</span><span class="w"> </span><span class="n">code</span><span class="w"></span>
 <a id="ln-578" name="ln-578" href="#ln-578"></a>
 <a id="ln-579" name="ln-579" href="#ln-579"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">nout</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">then</span><span class="w">             </span><span class="c">! initiate output buffer</span>
-<a id="ln-580" name="ln-580" href="#ln-580"></a><span class="w">            </span><span class="n">ibuf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
-<a id="ln-581" name="ln-581" href="#ln-581"></a><span class="w">            </span><span class="n">skip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
-<a id="ln-582" name="ln-582" href="#ln-582"></a><span class="w">            </span><span class="n">accum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<a id="ln-580" name="ln-580" href="#ln-580"></a><span class="w">            </span><span class="n">ibuf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<a id="ln-581" name="ln-581" href="#ln-581"></a><span class="w">            </span><span class="n">skip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<a id="ln-582" name="ln-582" href="#ln-582"></a><span class="w">            </span><span class="n">accum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
 <a id="ln-583" name="ln-583" href="#ln-583"></a><span class="w">        </span><span class="k">end if</span>
-<a id="ln-584" name="ln-584" href="#ln-584"></a><span class="k">        </span><span class="n">nout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nout</span><span class="o">+</span><span class="mi">1</span>
+<a id="ln-584" name="ln-584" href="#ln-584"></a><span class="k">        </span><span class="n">nout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nout</span><span class="o">+</span><span class="mi">1</span><span class="w"></span>
 <a id="ln-585" name="ln-585" href="#ln-585"></a>
 <a id="ln-586" name="ln-586" href="#ln-586"></a><span class="w">        </span><span class="n">accum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">accum</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">code</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="o">**</span><span class="n">skip</span><span class="w">  </span><span class="c">! add bits at correct position in accum</span>
 <a id="ln-587" name="ln-587" href="#ln-587"></a><span class="w">        </span><span class="n">skip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">skip</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">slen</span><span class="w">              </span><span class="c">! slen is current slice length, in bits</span>
 <a id="ln-588" name="ln-588" href="#ln-588"></a>
 <a id="ln-589" name="ln-589" href="#ln-589"></a><span class="w">        </span><span class="n">shiftout</span><span class="p">:</span><span class="w"> </span><span class="k">do</span>
-<a id="ln-590" name="ln-590" href="#ln-590"></a><span class="k">            </span><span class="n">buf</span><span class="p">(</span><span class="n">ibuf</span><span class="p">:</span><span class="n">ibuf</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">char</span><span class="p">(</span><span class="nb">modulo</span><span class="p">(</span><span class="n">accum</span><span class="p">,</span><span class="mi">256</span><span class="p">))</span>
-<a id="ln-591" name="ln-591" href="#ln-591"></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">skip</span><span class="o">&lt;</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="k">exit </span><span class="n">shiftout</span>
+<a id="ln-590" name="ln-590" href="#ln-590"></a><span class="k">            </span><span class="n">buf</span><span class="p">(</span><span class="n">ibuf</span><span class="p">:</span><span class="n">ibuf</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">char</span><span class="p">(</span><span class="nb">modulo</span><span class="p">(</span><span class="n">accum</span><span class="p">,</span><span class="mi">256</span><span class="p">))</span><span class="w"></span>
+<a id="ln-591" name="ln-591" href="#ln-591"></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">skip</span><span class="o">&lt;</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="k">exit </span><span class="n">shiftout</span><span class="w"></span>
 <a id="ln-592" name="ln-592" href="#ln-592"></a><span class="w">            </span><span class="n">ibuf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ibuf</span><span class="o">+</span><span class="mi">1</span><span class="w">               </span><span class="c">! last written buffer-byte is now permanent</span>
 <a id="ln-593" name="ln-593" href="#ln-593"></a><span class="w">            </span><span class="n">accum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">accum</span><span class="o">/</span><span class="mi">256</span><span class="w">           </span><span class="c">! remove that byte from accum</span>
 <a id="ln-594" name="ln-594" href="#ln-594"></a><span class="w">            </span><span class="n">skip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">skip</span><span class="o">-</span><span class="mi">8</span><span class="w">               </span><span class="c">! skip points to next bit to write in accum</span>
-<a id="ln-595" name="ln-595" href="#ln-595"></a><span class="w">        </span><span class="k">end do </span><span class="n">shiftout</span>
+<a id="ln-595" name="ln-595" href="#ln-595"></a><span class="w">        </span><span class="k">end do </span><span class="n">shiftout</span><span class="w"></span>
 <a id="ln-596" name="ln-596" href="#ln-596"></a>
 <a id="ln-597" name="ln-597" href="#ln-597"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ibuf</span><span class="o">&gt;</span><span class="mi">255</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
 <a id="ln-598" name="ln-598" href="#ln-598"></a><span class="k">            call </span><span class="n">flushbuffer</span><span class="p">(</span><span class="n">iunit</span><span class="p">)</span><span class="w">    </span><span class="c">! won&#39;t write unfinished byte in buf[ibuf]</span>
-<a id="ln-599" name="ln-599" href="#ln-599"></a><span class="w">        </span><span class="k">end if</span>
+<a id="ln-599" name="ln-599" href="#ln-599"></a><span class="w">        </span><span class="k">end if</span><span class="w"></span>
 <a id="ln-600" name="ln-600" href="#ln-600"></a>
 <a id="ln-601" name="ln-601" href="#ln-601"></a><span class="w">        </span><span class="c">! at most 255 bytes will be left in buffer</span>
 <a id="ln-602" name="ln-602" href="#ln-602"></a>
-<a id="ln-603" name="ln-603" href="#ln-603"></a><span class="w">        </span><span class="k">end subroutine </span><span class="n">slicewrite</span>
+<a id="ln-603" name="ln-603" href="#ln-603"></a><span class="w">        </span><span class="k">end subroutine </span><span class="n">slicewrite</span><span class="w"></span>
 <a id="ln-604" name="ln-604" href="#ln-604"></a><span class="c">!-----------------------------------------------------------------------------------------------------------------------------------</span>
-<a id="ln-605" name="ln-605" href="#ln-605"></a><span class="w">    </span><span class="k">end subroutine </span><span class="n">write_animated_gif</span>
+<a id="ln-605" name="ln-605" href="#ln-605"></a><span class="w">    </span><span class="k">end subroutine </span><span class="n">write_animated_gif</span><span class="w"></span>
 <a id="ln-606" name="ln-606" href="#ln-606"></a><span class="c">!===================================================================================================================================</span>
 <a id="ln-607" name="ln-607" href="#ln-607"></a><span class="c">!()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=</span>
 <a id="ln-608" name="ln-608" href="#ln-608"></a><span class="c">!===================================================================================================================================</span>
-<a id="ln-609" name="ln-609" href="#ln-609"></a><span class="w">    </span><span class="k">end module </span><span class="n">M_pixel__writegif_animated</span>
+<a id="ln-609" name="ln-609" href="#ln-609"></a><span class="w">    </span><span class="k">end module </span><span class="n">M_pixel__writegif_animated</span><span class="w"></span>
 <a id="ln-610" name="ln-610" href="#ln-610"></a><span class="c">!-----------------------------------------------------------------------------------------------------------------------------------</span>
 </pre></div>
 
-      </section>
+    </section>
     </div>
   </div>
 
@@ -771,27 +833,32 @@
     </div> <!-- /container -->
     <footer>
       <div class="container">
-        <div class="row justify-content-between">
-          <div class="col"><p>M_pixel was developed by John S. Urban<br>&copy; 2024 
+        <div class="row">
+          <div class="col-xs-6 col-md-6"><p>M_pixel was developed by John S. Urban<br>&copy; 2023 
 </p>
           </div>
-          <div class="col">
-            <p class="text-end">
+          <div class="col-xs-6 col-md-6">
+            <p class="text-right">
               Documentation generated by
               <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
- on 2024-03-29 03:39              </p>
+ on 2023-04-18 13:11              </p>
           </div>
         </div>
         <br>
       </div> <!-- /container -->
     </footer>
 
-    <!-- Bootstrap core JavaScript -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>    
+    <!-- Bootstrap core JavaScript
+         ================================================== -->
+         <!-- Placed at the end of the document so the pages load faster -->
+    <!--
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        -->
+        <script src="../js/bootstrap.min.js"></script>
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="../js/ie10-viewport-bug-workaround.js"></script>
 
-    <!-- MathJax JavaScript
+        <!-- MathJax JavaScript
              ================================================== -->
              <!-- Placed at the end of the document so the pages load faster -->
         <script type="text/x-mathjax-config">

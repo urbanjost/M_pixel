@@ -1,5 +1,3 @@
-<!-- -*- mode: jinja2 -*- -->
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,53 +10,77 @@
 
     <title>strlength &ndash; M_pixel</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/pygments.css" rel="stylesheet">
     <link href="../css/font-awesome.min.css" rel="stylesheet">
     <link href="../css/local.css" rel="stylesheet">
       <link  href="../tipuesearch/tipuesearch.css" rel="stylesheet">
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="../js/svg-pan-zoom.min.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+         <script src="../js/jquery-2.1.3.min.js"></script>
+         <script src="../js/svg-pan-zoom.min.js"></script>
+
   </head>
 
   <body>
 
     <!-- Fixed navbar -->
-    <div class="container-fluid mb-sm-4 mb-xl-2">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div class="container">
-          <a class="navbar-brand" href="../index.html">M_pixel </a>
-          <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar"
-                  aria-expanded="false" aria-controls="navbar" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
           </button>
-
-          <div id="navbar" class="navbar-collapse collapse">
-            <ul class="navbar-nav">
-                  <li class="nav-item">
-                    <a class="nav-link" href="../lists/files.html">Source Files</a>
-                  </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="../lists/modules.html">Modules</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="../lists/procedures.html">Procedures</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="../lists/types.html">Derived Types</a>
-                </li>
-            </ul>
-              <div class="d-flex align-items-end flex-grow-1">
-                <form action="../search.html" role="search" class="ms-auto">
-                  <input type="text" class="form-control" aria-label="Search" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
-                </form>
-              </div>
-          </div><!--/.nav-collapse -->
+          <a class="navbar-brand" href="../index.html">M_pixel </a>
         </div>
-      </nav>
-    </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="dropdown hidden-xs visible-sm visible-md hidden-lg">
+              <a href="#" class="dropdown-toggle"
+                 data-toggle="dropdown" role="button"
+                 aria-haspopup="true"
+                 aria-expanded="false">
+                 Contents <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                    <li><a href="../lists/files.html">Source Files</a></li>
+                  <li><a href="../lists/modules.html">Modules</a></li>
+                  <li><a href="../lists/procedures.html">Procedures</a></li>
+                  <li><a href="../lists/types.html">Derived Types</a></li>
+              </ul>
+            </li>
+                <li class="visible-xs hidden-sm visible-lg">
+                  <a href="../lists/files.html">Source Files</a>
+                </li>
+              <li class="visible-xs hidden-sm visible-lg">
+                <a href="../lists/modules.html">Modules</a>
+              </li>
+              <li class="visible-xs hidden-sm visible-lg">
+                <a href="../lists/procedures.html">Procedures</a>
+              </li>
+              <li class="visible-xs hidden-sm visible-lg">
+                <a href="../lists/types.html">Derived Types</a>
+              </li>
+          </ul>
+            <form action="../search.html" class="navbar-form navbar-right" role="search">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
+              </div>
+              <!--
+                  <button type="submit" class="btn btn-default">Submit</button>
+                  -->
+            </form>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
 
     <div class="container">
   <div class="row">
@@ -66,37 +88,33 @@
       <small>Function</small>
       
     </h1>
-      <div class="container p-2 mb-4 bg-light border rounded-3">
-    <div class="row align-items-center justify-content-between" id="info-bar">
-      <div class="col">
+      <div class="row" id="info-bar">
+    <div class="col-lg-12">
+      <div class="well well-sm">
         <ul class="list-inline" style="margin-bottom:0px;display:inline">
 
-            <li class="list-inline-item" id="statements"><i class="fa fa-list-ol"></i>
-              <a data-bs-toggle="tooltip"
-                 data-bs-placement="bottom" data-html="true"
-                 title=" 0.2% of total for procedures.">7 statements</a>
-            </li>
+          <li id="statements"><i class="fa fa-list-ol"></i>
+            <a data-toggle="tooltip"
+               data-placement="bottom" data-html="true"
+               title=" 0.2% of total for procedures.">7 statements</a>
+          </li>
 
-            <li class="list-inline-item" id="source-file">
+            <li id="source-file">
               <i class="fa fa-code"></i>
               <a href="../src/M_pixel.F90"> Source File</a>
             </li>
         </ul>
-      </div>
-      <div class="col">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb justify-content-end mb-0">
-                <li class="breadcrumb-item"><a href='../sourcefile/m_pixel.f90.html'>M_pixel.F90</a></li>
-                <li class="breadcrumb-item"><a href='../module/m_pixel.html'>M_pixel</a></li>
-            <li class="breadcrumb-item active" aria-current="page">strlength</li>
-          </ol>
-        </nav>
+        <ol class="breadcrumb in-well text-right">
+              <li><a href='../sourcefile/m_pixel.f90.html'>M_pixel.F90</a></li>
+              <li><a href='../module/m_pixel.html'>M_pixel</a></li>
+          <li class="active">strlength</li>
+        </ol>
       </div>
     </div>
   </div>
   <script>
     $(function () {
-    $('[data-bs-toggle="tooltip"]').tooltip()
+    $('[data-toggle="tooltip"]').tooltip()
     })
   </script>
 
@@ -125,9 +143,8 @@
   
   
   
-  
-    <div class="card card-primary">
-      <div class="card-header text-left"><h3 class="card-title">Source Code</h3></div>
+    <div class="panel panel-primary">
+      <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
       <div class="list-group">
         <a class="list-group-item" href="../proc/strlength.html#src">strlength</a>
       </div>
@@ -144,18 +161,18 @@
     
 
     <h2 id="name">NAME</h2>
-<div class="codehilite"><pre><span></span><code>strlength(3f) - [M_pixel:TEXT] return length of string
-(LICENSE:PD)
+<div class="codehilite"><pre><span></span><code><span class="nv">strlength</span><span class="ss">(</span><span class="mi">3</span><span class="nv">f</span><span class="ss">)</span> <span class="o">-</span> [<span class="nv">M_pixel</span>:<span class="nv">TEXT</span>] <span class="k">return</span> <span class="nv">length</span> <span class="nv">of</span> <span class="nv">string</span>
+<span class="ss">(</span><span class="nv">LICENSE</span>:<span class="nv">PD</span><span class="ss">)</span>
 </code></pre></div>
 
 <h2 id="synopsis">SYNOPSIS</h2>
 <p>definition:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">function</span><span class="w"> </span><span class="nf">strlength</span><span class="p">(</span>string<span class="p">)</span>
-<span class="n">character</span><span class="p">(</span><span class="n">len</span><span class="p">=</span><span class="o">*</span><span class="p">),</span><span class="n">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w">    </span><span class="p">::</span><span class="w"> </span><span class="nb">string</span>
+<div class="codehilite"><pre><span></span><code><span class="k">function</span><span class="w"> </span><span class="nf">strlength</span><span class="p">(</span>string<span class="p">)</span><span class="w"></span>
+<span class="n">character</span><span class="p">(</span><span class="n">len</span><span class="p">=</span><span class="o">*</span><span class="p">),</span><span class="n">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w">    </span><span class="p">::</span><span class="w"> </span><span class="nb">string</span><span class="w"></span>
 </code></pre></div>
 
 <h2 id="description">DESCRIPTION</h2>
-<div class="codehilite"><pre><span></span><code><span class="k">Return</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">length</span><span class="w"> </span><span class="nv">of</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">string</span><span class="w"> </span><span class="s2">&quot;STRING&quot;</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">world</span><span class="w"> </span><span class="nv">units</span>.
+<div class="codehilite"><pre><span></span><code><span class="k">Return</span> <span class="nv">the</span> <span class="nv">length</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">string</span> <span class="s2">&quot;</span><span class="s">STRING</span><span class="s2">&quot;</span> <span class="nv">in</span> <span class="nv">world</span> <span class="nv">units</span>.
 </code></pre></div>
 
 <h2 id="returns">RETURNS</h2>
@@ -164,68 +181,68 @@
 
 <h2 id="example">EXAMPLE</h2>
 <p>Sample Program:</p>
-<div class="codehilite"><pre><span></span><code><span class="nx">program</span><span class="w"> </span><span class="nx">demo_strlength</span>
-<span class="nx">use</span><span class="w"> </span><span class="o">::</span><span class="w"> </span><span class="nx">M_pixel</span>
-<span class="nx">use</span><span class="w"> </span><span class="o">::</span><span class="w"> </span><span class="nx">M_pixel__writegif</span><span class="p">,</span><span class="w"> </span><span class="nx">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nx">writegif</span>
-<span class="nx">implicit</span><span class="w"> </span><span class="nx">none</span>
-<span class="nx">real</span><span class="w">    </span><span class="o">::</span><span class="w"> </span><span class="nx">left</span>
-<span class="nx">real</span><span class="w">    </span><span class="o">::</span><span class="w"> </span><span class="nx">baseline</span>
-<span class="nx">integer</span><span class="w"> </span><span class="o">::</span><span class="w"> </span><span class="nx">icolor</span><span class="p">=</span><span class="mi">0</span>
-<span class="nx">real</span><span class="w">    </span><span class="o">::</span><span class="w"> </span><span class="nx">texth</span><span class="p">=</span><span class="m m-Double">10.0</span>
-<span class="w">   </span><span class="p">!!</span><span class="w"> </span><span class="nx">set</span><span class="w"> </span><span class="nx">up</span><span class="w"> </span><span class="nx">drawing</span><span class="w"> </span><span class="nx">surface</span>
-<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">prefsize</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span><span class="w"> </span><span class="mi">400</span><span class="p">)</span>
-<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">vinit</span><span class="p">()</span>
-<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">viewport</span><span class="p">(</span><span class="m m-Double">0.0</span><span class="p">,</span><span class="w"> </span><span class="m m-Double">800.0</span><span class="p">,</span><span class="w"> </span><span class="m m-Double">400.0</span><span class="p">,</span><span class="w"> </span><span class="m m-Double">0.0</span><span class="p">)</span>
-<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">ortho2</span><span class="p">(</span><span class="o">-</span><span class="m m-Double">100.0</span><span class="p">,</span><span class="w"> </span><span class="m m-Double">300.0</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="m m-Double">100.0</span><span class="p">,</span><span class="w"> </span><span class="m m-Double">100.0</span><span class="p">)</span>
-<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">color</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
-<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">clear</span><span class="p">()</span>
-<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">linewidth</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
-<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">textsize</span><span class="p">(</span><span class="nx">texth</span><span class="p">,</span><span class="w"> </span><span class="nx">texth</span><span class="p">)</span>
-<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">xcentertext</span><span class="p">()</span>
-<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">color</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">program</span> <span class="nv">demo_strlength</span>
+<span class="nv">use</span> :: <span class="nv">M_pixel</span>
+<span class="nv">use</span> :: <span class="nv">M_writegif</span>, <span class="nv">only</span> : <span class="nv">writegif</span>
+<span class="nv">implicit</span> <span class="nv">none</span>
+<span class="nv">real</span>    :: <span class="nv">left</span>
+<span class="nv">real</span>    :: <span class="nv">baseline</span>
+<span class="nv">integer</span> :: <span class="nv">icolor</span><span class="o">=</span><span class="mi">0</span>
+<span class="nv">real</span>    :: <span class="nv">texth</span><span class="o">=</span><span class="mi">10</span>.<span class="mi">0</span>
+   <span class="o">!!</span> <span class="nv">set</span> <span class="nv">up</span> <span class="nv">drawing</span> <span class="nv">surface</span>
+   <span class="k">call</span> <span class="nl">prefsize</span><span class="ss">(</span><span class="mi">800</span>, <span class="mi">400</span><span class="ss">)</span>
+   <span class="k">call</span> <span class="nl">vinit</span><span class="ss">()</span>
+   <span class="k">call</span> <span class="nl">viewport</span><span class="ss">(</span><span class="mi">0</span>.<span class="mi">0</span>, <span class="mi">800</span>.<span class="mi">0</span>, <span class="mi">400</span>.<span class="mi">0</span>, <span class="mi">0</span>.<span class="mi">0</span><span class="ss">)</span>
+   <span class="k">call</span> <span class="nl">ortho2</span><span class="ss">(</span><span class="o">-</span><span class="mi">100</span>.<span class="mi">0</span>, <span class="mi">300</span>.<span class="mi">0</span>, <span class="o">-</span><span class="mi">100</span>.<span class="mi">0</span>, <span class="mi">100</span>.<span class="mi">0</span><span class="ss">)</span>
+   <span class="k">call</span> <span class="nl">color</span><span class="ss">(</span><span class="mi">7</span><span class="ss">)</span>
+   <span class="k">call</span> <span class="nl">clear</span><span class="ss">()</span>
+   <span class="k">call</span> <span class="nl">linewidth</span><span class="ss">(</span><span class="mi">30</span><span class="ss">)</span>
+   <span class="k">call</span> <span class="nl">textsize</span><span class="ss">(</span><span class="nv">texth</span>, <span class="nv">texth</span><span class="ss">)</span>
+   <span class="k">call</span> <span class="nl">xcentertext</span><span class="ss">()</span>
+   <span class="k">call</span> <span class="nl">color</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span>
 
-<span class="w">   </span><span class="nx">baseline</span><span class="p">=</span><span class="m m-Double">85.0</span>
-<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">move2</span><span class="p">(</span><span class="m m-Double">0.0</span><span class="p">,</span><span class="nx">baseline</span><span class="p">)</span>
-<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">drawstr</span><span class="p">(</span><span class="err">&#39;</span><span class="nx">If</span><span class="w"> </span><span class="nx">I</span><span class="w"> </span><span class="nx">Can</span><span class="w"> </span><span class="nx">Stop</span><span class="w"> </span><span class="nx">One</span><span class="w"> </span><span class="nx">Heart</span><span class="err">&#39;</span><span class="p">)</span>
-<span class="w">   </span><span class="nx">baseline</span><span class="p">=</span><span class="w"> </span><span class="nx">baseline</span><span class="o">-</span><span class="nx">texth</span><span class="o">*</span><span class="m m-Double">1.20</span>
-<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">move2</span><span class="p">(</span><span class="m m-Double">0.0</span><span class="p">,</span><span class="nx">baseline</span><span class="p">)</span>
-<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">drawstr</span><span class="p">(</span><span class="err">&#39;</span><span class="nx">by</span><span class="w"> </span><span class="nx">Emily</span><span class="w"> </span><span class="nx">Dickinson</span><span class="err">&#39;</span><span class="p">)</span>
-<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">centertext</span><span class="p">(.</span><span class="kc">false</span><span class="p">.)</span>
+   <span class="nv">baseline</span><span class="o">=</span><span class="mi">85</span>.<span class="mi">0</span>
+   <span class="k">call</span> <span class="nl">move2</span><span class="ss">(</span><span class="mi">0</span>.<span class="mi">0</span>,<span class="nv">baseline</span><span class="ss">)</span>
+   <span class="k">call</span> <span class="nl">drawstr</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">If I Can Stop One Heart</span><span class="s1">&#39;</span><span class="ss">)</span>
+   <span class="nv">baseline</span><span class="o">=</span> <span class="nv">baseline</span><span class="o">-</span><span class="nv">texth</span><span class="o">*</span><span class="mi">1</span>.<span class="mi">20</span>
+   <span class="k">call</span> <span class="nl">move2</span><span class="ss">(</span><span class="mi">0</span>.<span class="mi">0</span>,<span class="nv">baseline</span><span class="ss">)</span>
+   <span class="k">call</span> <span class="nl">drawstr</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">by Emily Dickinson</span><span class="s1">&#39;</span><span class="ss">)</span>
+   <span class="k">call</span> <span class="nl">centertext</span><span class="ss">(</span>.<span class="nv">false</span>.<span class="ss">)</span>
 
-<span class="w">   </span><span class="nx">texth</span><span class="p">=</span><span class="m m-Double">8.5</span>
-<span class="w">   </span><span class="nx">baseline</span><span class="p">=</span><span class="nx">baseline</span><span class="o">-</span><span class="nx">texth</span><span class="o">*</span><span class="m m-Double">1.50</span>
-<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">textsize</span><span class="p">(</span><span class="nx">texth</span><span class="p">,</span><span class="w"> </span><span class="nx">texth</span><span class="p">)</span>
-<span class="w">   </span><span class="nx">left</span><span class="p">=</span><span class="o">-</span><span class="m m-Double">90.0</span>
+   <span class="nv">texth</span><span class="o">=</span><span class="mi">8</span>.<span class="mi">5</span>
+   <span class="nv">baseline</span><span class="o">=</span><span class="nv">baseline</span><span class="o">-</span><span class="nv">texth</span><span class="o">*</span><span class="mi">1</span>.<span class="mi">50</span>
+   <span class="k">call</span> <span class="nl">textsize</span><span class="ss">(</span><span class="nv">texth</span>, <span class="nv">texth</span><span class="ss">)</span>
+   <span class="nv">left</span><span class="o">=-</span><span class="mi">90</span>.<span class="mi">0</span>
 
-<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">nextline</span><span class="p">(</span><span class="err">&#39;</span><span class="nx">If</span><span class="w"> </span><span class="nx">I</span><span class="w"> </span><span class="nx">can</span><span class="w"> </span><span class="nx">stop</span><span class="w"> </span><span class="nx">one</span><span class="w"> </span><span class="nx">heart</span><span class="w"> </span><span class="nx">from</span><span class="w"> </span><span class="nx">breaking</span><span class="p">,</span><span class="err">&#39;</span><span class="p">)</span>
-<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">nextline</span><span class="p">(</span><span class="err">&#39;</span><span class="nx">I</span><span class="w"> </span><span class="nx">shall</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="nx">live</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">vain</span><span class="p">;</span><span class="err">&#39;</span><span class="p">)</span>
-<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">nextline</span><span class="p">(</span><span class="err">&#39;</span><span class="nx">If</span><span class="w"> </span><span class="nx">I</span><span class="w"> </span><span class="nx">can</span><span class="w"> </span><span class="nx">ease</span><span class="w"> </span><span class="nx">one</span><span class="w"> </span><span class="nx">life</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">aching</span><span class="p">,</span><span class="err">&#39;</span><span class="p">)</span>
-<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">nextline</span><span class="p">(</span><span class="err">&#39;</span><span class="nx">Or</span><span class="w"> </span><span class="nx">cool</span><span class="w"> </span><span class="nx">one</span><span class="w"> </span><span class="nx">pain</span><span class="p">,</span><span class="err">&#39;</span><span class="p">)</span>
-<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">nextline</span><span class="p">(</span><span class="err">&#39;</span><span class="nx">Or</span><span class="w"> </span><span class="nx">help</span><span class="w"> </span><span class="nx">one</span><span class="w"> </span><span class="nx">fainting</span><span class="w"> </span><span class="nx">robin</span><span class="err">&#39;</span><span class="p">)</span>
-<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">nextline</span><span class="p">(</span><span class="err">&#39;</span><span class="nx">Unto</span><span class="w"> </span><span class="nx">his</span><span class="w"> </span><span class="nx">nest</span><span class="w"> </span><span class="nx">again</span><span class="p">,</span><span class="err">&#39;</span><span class="p">)</span>
-<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">nextline</span><span class="p">(</span><span class="err">&#39;</span><span class="nx">I</span><span class="w"> </span><span class="nx">shall</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="nx">live</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">vain</span><span class="p">.</span><span class="err">&#39;</span><span class="p">)</span>
+   <span class="k">call</span> <span class="nl">nextline</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">If I can stop one heart from breaking,</span><span class="s1">&#39;</span><span class="ss">)</span>
+   <span class="k">call</span> <span class="nl">nextline</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">I shall not live in vain;</span><span class="s1">&#39;</span><span class="ss">)</span>
+   <span class="k">call</span> <span class="nl">nextline</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">If I can ease one life the aching,</span><span class="s1">&#39;</span><span class="ss">)</span>
+   <span class="k">call</span> <span class="nl">nextline</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">Or cool one pain,</span><span class="s1">&#39;</span><span class="ss">)</span>
+   <span class="k">call</span> <span class="nl">nextline</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">Or help one fainting robin</span><span class="s1">&#39;</span><span class="ss">)</span>
+   <span class="k">call</span> <span class="nl">nextline</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">Unto his nest again,</span><span class="s1">&#39;</span><span class="ss">)</span>
+   <span class="k">call</span> <span class="nl">nextline</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">I shall not live in vain.</span><span class="s1">&#39;</span><span class="ss">)</span>
 
-<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">writegif</span><span class="p">(</span><span class="err">&#39;</span><span class="nx">strlength</span><span class="m m-Double">.3</span><span class="nx">M_pixel</span><span class="p">.</span><span class="nx">gif</span><span class="err">&#39;</span><span class="p">,</span><span class="nx">P_pixel</span><span class="p">,</span><span class="nx">P_colormap</span><span class="p">)</span>
-<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">execute_command_line</span><span class="p">(</span><span class="err">&#39;</span><span class="nx">display</span><span class="w"> </span><span class="nx">strlength</span><span class="m m-Double">.3</span><span class="nx">M_pixel</span><span class="p">.</span><span class="nx">gif</span><span class="err">&#39;</span><span class="p">)</span>
-<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">vexit</span><span class="p">()</span>
-<span class="nx">contains</span>
-<span class="nx">subroutine</span><span class="w"> </span><span class="nx">nextline</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span>
-<span class="nx">character</span><span class="p">(</span><span class="nx">len</span><span class="p">=</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">::</span><span class="w"> </span><span class="kt">string</span>
-<span class="nx">real</span><span class="w"> </span><span class="o">::</span><span class="w"> </span><span class="nx">xx</span>
-<span class="p">!!</span><span class="w"> </span><span class="nx">reduce</span><span class="w"> </span><span class="nx">some</span><span class="w"> </span><span class="nx">duplicate</span><span class="w"> </span><span class="nx">code</span><span class="p">;</span><span class="w"> </span><span class="nx">very</span><span class="w"> </span><span class="nx">specific</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">this</span><span class="w"> </span><span class="nx">example</span>
-<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">color</span><span class="p">(</span><span class="nx">icolor</span><span class="p">)</span>
-<span class="w">   </span><span class="nx">baseline</span><span class="p">=</span><span class="nx">baseline</span><span class="o">-</span><span class="nx">texth</span><span class="o">*</span><span class="m m-Double">1.5</span><span class="w">    </span><span class="p">!</span><span class="w"> </span><span class="nx">move</span><span class="w"> </span><span class="nx">down</span><span class="w"> </span><span class="nx">before</span><span class="w"> </span><span class="nx">drawing</span><span class="w"> </span><span class="nx">line</span>
-<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">makepoly</span><span class="p">()</span>
-<span class="w">   </span><span class="nx">xx</span><span class="p">=</span><span class="nx">strlength</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span>
-<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">rect</span><span class="p">(</span><span class="nx">left</span><span class="p">,</span><span class="nx">baseline</span><span class="o">-</span><span class="nx">texth</span><span class="o">*</span><span class="m m-Double">0.3</span><span class="p">,</span><span class="nx">left</span><span class="o">+</span><span class="nx">xx</span><span class="p">,</span><span class="nx">baseline</span><span class="o">+</span><span class="nx">texth</span><span class="p">)</span>
-<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">closepoly</span><span class="p">()</span>
-<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">color</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
-<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">move2</span><span class="p">(</span><span class="nx">left</span><span class="p">,</span><span class="w"> </span><span class="nx">baseline</span><span class="p">)</span>
-<span class="w">   </span><span class="nx">call</span><span class="w"> </span><span class="nx">drawstr</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span><span class="w">    </span><span class="p">!</span><span class="w"> </span><span class="nx">draw</span><span class="w"> </span><span class="kt">string</span>
-<span class="w">   </span><span class="nx">icolor</span><span class="p">=</span><span class="nx">icolor</span><span class="o">+</span><span class="mi">1</span><span class="w">         </span><span class="p">!</span><span class="w"> </span><span class="nx">set</span><span class="w"> </span><span class="nx">pen</span><span class="w"> </span><span class="nx">color</span>
-<span class="nx">end</span><span class="w"> </span><span class="nx">subroutine</span><span class="w"> </span><span class="nx">nextline</span>
+   <span class="k">call</span> <span class="nl">writegif</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">strlength.3m_pixel.gif</span><span class="s1">&#39;</span>,<span class="nv">P_pixel</span>,<span class="nv">P_colormap</span><span class="ss">)</span>
+   <span class="k">call</span> <span class="nl">execute_command_line</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">display strlength.3m_pixel.gif</span><span class="s1">&#39;</span><span class="ss">)</span>
+   <span class="k">call</span> <span class="nl">vexit</span><span class="ss">()</span>
+<span class="nv">contains</span>
+<span class="nv">subroutine</span> <span class="nv">nextline</span><span class="ss">(</span><span class="nv">string</span><span class="ss">)</span>
+<span class="nv">character</span><span class="ss">(</span><span class="nv">len</span><span class="o">=*</span><span class="ss">)</span> :: <span class="nv">string</span>
+<span class="nv">real</span> :: <span class="nv">xx</span>
+<span class="o">!!</span> <span class="nv">reduce</span> <span class="nv">some</span> <span class="nv">duplicate</span> <span class="nv">code</span><span class="c1">; very specific to this example</span>
+   <span class="k">call</span> <span class="nl">color</span><span class="ss">(</span><span class="nv">icolor</span><span class="ss">)</span>
+   <span class="nv">baseline</span><span class="o">=</span><span class="nv">baseline</span><span class="o">-</span><span class="nv">texth</span><span class="o">*</span><span class="mi">1</span>.<span class="mi">5</span>    <span class="o">!</span> <span class="nv">move</span> <span class="nv">down</span> <span class="nv">before</span> <span class="nv">drawing</span> <span class="nv">line</span>
+   <span class="k">call</span> <span class="nl">makepoly</span><span class="ss">()</span>
+   <span class="nv">xx</span><span class="o">=</span><span class="nv">strlength</span><span class="ss">(</span><span class="nv">string</span><span class="ss">)</span>
+   <span class="k">call</span> <span class="nl">rect</span><span class="ss">(</span><span class="nv">left</span>,<span class="nv">baseline</span><span class="o">-</span><span class="nv">texth</span><span class="o">*</span><span class="mi">0</span>.<span class="mi">3</span>,<span class="nv">left</span><span class="o">+</span><span class="nv">xx</span>,<span class="nv">baseline</span><span class="o">+</span><span class="nv">texth</span><span class="ss">)</span>
+   <span class="k">call</span> <span class="nl">closepoly</span><span class="ss">()</span>
+   <span class="k">call</span> <span class="nl">color</span><span class="ss">(</span><span class="mi">7</span><span class="ss">)</span>
+   <span class="k">call</span> <span class="nl">move2</span><span class="ss">(</span><span class="nv">left</span>, <span class="nv">baseline</span><span class="ss">)</span>
+   <span class="k">call</span> <span class="nl">drawstr</span><span class="ss">(</span><span class="nv">string</span><span class="ss">)</span>    <span class="o">!</span> <span class="nv">draw</span> <span class="nv">string</span>
+   <span class="nv">icolor</span><span class="o">=</span><span class="nv">icolor</span><span class="o">+</span><span class="mi">1</span>         <span class="o">!</span> <span class="nv">set</span> <span class="nv">pen</span> <span class="nv">color</span>
+<span class="k">end</span> <span class="nv">subroutine</span> <span class="nv">nextline</span>
 
-<span class="nx">end</span><span class="w"> </span><span class="nx">program</span><span class="w"> </span><span class="nx">demo_strlength</span>
+<span class="k">end</span> <span class="nv">program</span> <span class="nv">demo_strlength</span>
 </code></pre></div>
 
 <h2 id="author">AUTHOR</h2>
@@ -236,21 +253,20 @@
 <div class="codehilite"><pre><span></span><code>Public Domain
 </code></pre></div>
 
-
     <h3>Arguments</h3>
         <table class="table table-striped varlist">
     <thead>
       <tr>
-        <th scope="col">Type</th>
-<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
-        <th scope="col"></th>
-        <th scope="col">Name</th>
-        <th scope="col"></th>
+        <th>Type</th>
+<th>Intent</th><th>Optional</th>        <th>Attributes</th>
+        <th></th>
+        <th>Name</th>
+        <th></th>
     </thead>
     <tbody>
         <tr>
             <td>
-              <span class="anchor" id="variable-string"></span>
+              <span class="anchor" id="variable-string~2"></span>
               character(len=*),
             </td>
 <td>intent(in)</td>
@@ -275,39 +291,70 @@
       
     <br>
 
+    <section class="visible-xs visible-sm hidden-md">
+        <h3>Contents</h3>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    <div class="panel panel-primary">
+      <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
+      <div class="list-group">
+        <a class="list-group-item" href="../proc/strlength.html#src">strlength</a>
+      </div>
+    </div>
+
+
+    </section>
+    <br class="visible-xs visible-sm hidden-md">
+
 
     
     
 
     
     
-
 
 
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="hl codehilite"><pre><span></span><span class="k">function </span><span class="n">strlength</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span><span class="k">function </span><span class="n">strlength</span><span class="p">(</span><span class="n">string</span><span class="p">)</span><span class="w"></span>
 
 <span class="c">! ident_8=&quot;@(#) M_pixel strlength length of string using current font size&quot;</span>
 
-<span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w">    </span><span class="kd">::</span><span class="w"> </span><span class="n">string</span>
-<span class="kt">real</span><span class="w">                           </span><span class="kd">::</span><span class="w"> </span><span class="n">strlength</span>
+<span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w">    </span><span class="kd">::</span><span class="w"> </span><span class="n">string</span><span class="w"></span>
+<span class="kt">real</span><span class="w">                           </span><span class="kd">::</span><span class="w"> </span><span class="n">strlength</span><span class="w"></span>
 
-<span class="w">   </span><span class="kt">real</span><span class="w">                        </span><span class="kd">::</span><span class="w"> </span><span class="n">s</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="w">   </span><span class="kt">real</span><span class="w">                        </span><span class="kd">::</span><span class="w"> </span><span class="n">s</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"></span>
 <span class="w">   </span><span class="c">!!character(len=:),allocatable :: fontstring</span>
 <span class="w">   </span><span class="c">!!fontstring=&#39;\&#39;//trim(P_FONT)//&#39;\&#39;//trim(string)</span>
 
-<span class="w">   </span><span class="k">call </span><span class="n">justfy</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">P_TEXT_HEIGHT</span><span class="p">,</span><span class="w"> </span><span class="nb">trim</span><span class="p">(</span><span class="n">string</span><span class="p">),</span><span class="w"> </span><span class="nb">len_trim</span><span class="p">(</span><span class="n">string</span><span class="p">))</span>
+<span class="w">   </span><span class="k">call </span><span class="n">justfy</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">P_TEXT_HEIGHT</span><span class="p">,</span><span class="w"> </span><span class="nb">trim</span><span class="p">(</span><span class="n">string</span><span class="p">),</span><span class="w"> </span><span class="nb">len_trim</span><span class="p">(</span><span class="n">string</span><span class="p">))</span><span class="w"></span>
 
 <span class="c">!  S(1)  to the left edge of the 1st nonblank character</span>
 <span class="c">!  s(2)  to the center of the string, blanks removed from the ends</span>
 <span class="c">!  s(3)  to the right edge of the last nonblank character</span>
 <span class="c">!  s(4)  to the right edge of the last character of the string.</span>
 
-<span class="w">   </span><span class="n">strlength</span><span class="o">=</span><span class="n">s</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="w">   </span><span class="n">strlength</span><span class="o">=</span><span class="n">s</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"></span>
 
-<span class="k">end function </span><span class="n">strlength</span>
+<span class="k">end function </span><span class="n">strlength</span><span class="w"></span>
 </pre></div>
 
     </section>
@@ -320,27 +367,32 @@
     </div> <!-- /container -->
     <footer>
       <div class="container">
-        <div class="row justify-content-between">
-          <div class="col"><p>M_pixel was developed by John S. Urban<br>&copy; 2024 
+        <div class="row">
+          <div class="col-xs-6 col-md-6"><p>M_pixel was developed by John S. Urban<br>&copy; 2023 
 </p>
           </div>
-          <div class="col">
-            <p class="text-end">
+          <div class="col-xs-6 col-md-6">
+            <p class="text-right">
               Documentation generated by
               <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
- on 2024-03-29 03:39              </p>
+ on 2023-04-18 13:11              </p>
           </div>
         </div>
         <br>
       </div> <!-- /container -->
     </footer>
 
-    <!-- Bootstrap core JavaScript -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>    
+    <!-- Bootstrap core JavaScript
+         ================================================== -->
+         <!-- Placed at the end of the document so the pages load faster -->
+    <!--
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        -->
+        <script src="../js/bootstrap.min.js"></script>
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="../js/ie10-viewport-bug-workaround.js"></script>
 
-    <!-- MathJax JavaScript
+        <!-- MathJax JavaScript
              ================================================== -->
              <!-- Placed at the end of the document so the pages load faster -->
         <script type="text/x-mathjax-config">
