@@ -1,0 +1,554 @@
+<!-- -*- mode: jinja2 -*- -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="M_pixel module">
+    <meta name="author" content="John S. Urban" >
+    <link rel="icon" href="../favicon.png">
+
+    <title>M_pixel__writegif_animated &ndash; M_pixel</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- Font Awesome -->
+    <link href="../css/fontawesome.min.css" rel="stylesheet">
+    <link href="../css/brands.min.css" rel="stylesheet">
+    <link href="../css/regular.min.css" rel="stylesheet">
+    <link href="../css/solid.min.css" rel="stylesheet">
+    <link href="../css/v4-font-face.min.css" rel="stylesheet">
+    <link href="../css/v4-shims.min.css" rel="stylesheet">
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } }
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async
+            integrity="sha256-DViIOMYdwlM/axqoGDPeUyf0urLoHMN4QACBKyB58Uw=" crossorigin="anonymous"></script>
+    <!-- Other scripts and stylesheets -->
+    <link href="../css/local.css" rel="stylesheet">
+    <link href="../css/pygments.css" rel="stylesheet">
+    <script src="../js/svg-pan-zoom.min.js"></script>
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <div class="container-fluid mb-sm-4 mb-xl-2">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="../index.html">M_pixel </a>
+          <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar"
+                  aria-expanded="false" aria-controls="navbar" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon">
+          </button>
+
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="../lists/files.html">Source Files</a>
+                  </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/modules.html">Modules</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/procedures.html">Procedures</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/types.html">Derived Types</a>
+                </li>
+            </ul>
+              <div class="d-flex align-items-end flex-grow-1">
+                <form action="../search.html" role="search" class="ms-auto">
+                  <input type="text" class="form-control" aria-label="Search" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
+                </form>
+              </div>
+          </div><!--/.nav-collapse -->
+        </div>
+      </nav>
+    </div>
+
+    <div class="container">
+  <div class="row">
+    <h1>M_pixel__writegif_animated
+      <small>Module</small>
+      
+    </h1>
+      <div class="container p-2 mb-4 bg-light border rounded-3">
+    <div class="row align-items-center justify-content-between" id="info-bar">
+      <div class="col">
+        <ul class="list-inline" style="margin-bottom:0px;display:inline">
+
+            <li class="list-inline-item" id="statements"><i class="fa fa-list-ol"></i>
+              <a data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
+                 title=" 2.5% of total for modules and submodules.">186 statements</a>
+            </li>
+
+            <li class="list-inline-item" id="source-file">
+              <i class="fa fa-code"></i>
+              <a href="../src/M_pixel__writegif_animated.f90"> Source File</a>
+            </li>
+        </ul>
+      </div>
+      <div class="col">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb justify-content-end mb-0">
+                <li class="breadcrumb-item"><a href='../sourcefile/m_pixel__writegif_animated.f90.html'>M_pixel__writegif_animated.f90</a></li>
+            <li class="breadcrumb-item active" aria-current="page">M_pixel__writegif_animated</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Enable Bootstrap tooltips
+    (function () {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    })();
+  </script>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+        <div id="sidebar">
+      <h3>Contents</h3>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+      <div class="card mb-4">
+      <a data-bs-toggle="collapse" href="#subs-0"
+         aria-expanded="false" aria-controls="subs-0">
+         <h4 class="card-header bg-primary text-white">Subroutines</h4>
+      </a>
+      <div id="subs-0" class="collapse">
+        <div class="list-group list-group-flush">
+            <a class="list-group-item" href="../module/m_pixel__writegif_animated.html#proc-write_animated_gif">write_animated_gif</a>
+        </div>
+      </div>
+    </div>
+
+  
+  
+  
+  
+  
+  
+  
+
+
+  </div>
+
+    </div>
+
+    <div class="col-md-9" id='text'>
+      <h2 id="name">NAME</h2>
+<div class="codehilite"><pre><span></span><code><span class="n">write_animated_gif</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_pixel__writegif_animated</span><span class="o">]</span><span class="w"> </span><span class="n">Codes</span><span class="w"> </span><span class="n">pixel</span><span class="o">-</span><span class="n">maps</span><span class="w"> </span><span class="k">with</span><span class="w"></span>
+<span class="n">palette</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">animated</span><span class="w"> </span><span class="n">GIF</span><span class="w"> </span><span class="nf">format</span><span class="p">.</span><span class="w"> </span><span class="n">Optional</span><span class="w"> </span><span class="n">transparent</span><span class="w"> </span><span class="n">color</span><span class="w"></span>
+</code></pre></div>
+
+<h2 id="synopsis">SYNOPSIS</h2>
+<p>subroutine write_animated_gif(filename,pixel,colormap,transparent,delay)</p>
+<div class="codehilite"><pre><span></span><code>character(len=*),intent(in)         :: filename
+integer,intent(in),dimension(:,:,:) :: pixel
+integer,intent(in),dimension(:,0:)  :: colormap
+integer,intent(in),optional         :: transparent
+integer,intent(in),optional         :: delay
+</code></pre></div>
+
+<h2 id="description">DESCRIPTION</h2>
+<div class="codehilite"><pre><span></span><code>Writes gif89 image, given pixel array and color map.
+This version can create an animated gif.
+</code></pre></div>
+
+<h2 id="options">OPTIONS</h2>
+<div class="codehilite"><pre><span></span><code><span class="nt">FileName</span><span class="w">       </span><span class="nt">file</span><span class="w"> </span><span class="nt">to</span><span class="w"> </span><span class="nt">create</span><span class="w"> </span><span class="nt">or</span><span class="w"> </span><span class="nt">replace</span><span class="w"></span>
+<span class="nt">Pixel</span><span class="w">          </span><span class="nt">Pixel</span><span class="w"> </span><span class="nt">values</span><span class="w"> </span><span class="nt">0</span><span class="w"> </span><span class="nt">to</span><span class="w"> </span><span class="nt">ncol</span><span class="w"></span>
+<span class="nt">ColorMap</span><span class="w">       </span><span class="nt">Color</span><span class="w"> </span><span class="nt">map</span><span class="w"> </span><span class="o">(</span><span class="nt">RGB</span><span class="w"> </span><span class="nt">0</span><span class="p">:</span><span class="nd">255</span><span class="w"> </span><span class="nt">for</span><span class="w"> </span><span class="nt">colours</span><span class="w"> </span><span class="nt">0</span><span class="p">:</span><span class="nd">ncol</span><span class="o">)</span><span class="w"></span>
+<span class="nt">Transparent</span><span class="w">    </span><span class="nt">Transparent</span><span class="w"> </span><span class="nt">color</span><span class="o">;</span><span class="w"> </span><span class="nt">optional</span><span class="w"></span>
+<span class="nt">Delay</span><span class="w">          </span><span class="nt">Delay</span><span class="w"> </span><span class="nt">time</span><span class="w"> </span><span class="cp">[</span><span class="w"> </span><span class="mi">1</span><span class="p">/</span><span class="nx">100</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">seconds</span><span class="cp">]</span><span class="o">;</span><span class="w"> </span><span class="nt">optional</span><span class="w"></span>
+</code></pre></div>
+
+<h2 id="example">EXAMPLE</h2>
+<p>Sample call:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">program</span><span class="w"> </span><span class="s">demo_write_animated_gif</span><span class="w"></span>
+<span class="sx">!***************************************************************************</span><span class="w"></span>
+<span class="sx">!&gt; author: Jacob Williams</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="sx">!  Use the gif module to create a sample animated gif.</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="sx">!# See also</span><span class="w"></span>
+<span class="sx">!  * [Make a circle illusion animation]</span><span class="w"></span>
+<span class="sx">!    (http://codegolf.stackexchange.com/questions/34887/</span><span class="w"></span>
+<span class="sx">!    make-a-circle-illusion-animation)</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="n">use</span><span class="p">,</span><span class="w"> </span><span class="n">intrinsic</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">iso_fortran_env</span><span class="p">,</span><span class="w"> </span><span class="n">only</span><span class="p">:</span><span class="w"> </span><span class="n">wp</span><span class="p">=</span><span class="o">&gt;</span><span class="n">real64</span><span class="w"></span>
+<span class="n">use</span><span class="w"> </span><span class="s">M_pixel__writegif_animated,</span><span class="w"> </span><span class="s">only</span><span class="w"> </span><span class="s">:</span><span class="w"> </span><span class="s">write_animated_gif</span><span class="w"></span>
+<span class="n">implicit</span><span class="w"> </span><span class="s">none</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="nb">logical</span><span class="p">,</span><span class="n">parameter</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="n">integer</span><span class="p">,</span><span class="n">parameter</span><span class="w">  </span><span class="p">::</span><span class="w"> </span><span class="n">n</span><span class="w">        </span><span class="p">=</span><span class="w"> </span><span class="mi">200</span><span class="w">  </span>!!<span class="w"> </span><span class="nb">size</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="nb">image</span><span class="w"> </span><span class="p">(</span><span class="n">square</span><span class="p">)</span><span class="w"></span>
+<span class="nb">real</span><span class="p">(</span><span class="n">wp</span><span class="p">),</span><span class="n">parameter</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">rcircle</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="w">  </span>!!<span class="w"> </span><span class="n">radius</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">big</span><span class="w"> </span><span class="n">circle</span><span class="w"></span>
+<span class="n">integer</span><span class="p">,</span><span class="n">parameter</span><span class="w">  </span><span class="p">::</span><span class="w"> </span><span class="n">time_sep</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">5</span><span class="w">    </span>!!<span class="w"> </span><span class="n">deg</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="nb">real</span><span class="p">(</span><span class="n">wp</span><span class="p">),</span><span class="n">parameter</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="nb">deg2rad</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">acos</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">.</span>0<span class="n">_wp</span><span class="p">)</span><span class="o">/</span><span class="mi">180</span><span class="p">.</span>0<span class="n">_wp</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="n">integer</span><span class="p">,</span><span class="n">dimension</span><span class="p">(:,:,:),</span><span class="n">allocatable</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">pixel</span><span class="w">    </span>!!<span class="w"> </span><span class="n">pixel</span><span class="w"> </span><span class="nb">values</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="nb">real</span><span class="p">(</span><span class="n">wp</span><span class="p">),</span><span class="n">dimension</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">xy</span><span class="w"></span>
+<span class="nb">real</span><span class="p">(</span><span class="n">wp</span><span class="p">)</span><span class="w">              </span><span class="p">::</span><span class="w"> </span><span class="n">r</span><span class="p">,</span><span class="n">t</span><span class="w"></span>
+<span class="n">integer</span><span class="w">               </span><span class="s">::</span><span class="w"> </span><span class="s">i,j,k,row,col,m,n_cases,ang_sep,iframe</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="n">integer</span><span class="p">,</span><span class="n">dimension</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">)</span><span class="w">  </span><span class="p">::</span><span class="w"> </span><span class="nb">colormap</span><span class="w"></span>
+<span class="n">integer</span><span class="p">,</span><span class="n">parameter</span><span class="w">  </span><span class="p">::</span><span class="w"> </span><span class="n">white</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="n">integer</span><span class="p">,</span><span class="n">parameter</span><span class="w">  </span><span class="p">::</span><span class="w"> </span><span class="nb">gray</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="n">integer</span><span class="p">,</span><span class="n">parameter</span><span class="w">  </span><span class="p">::</span><span class="w"> </span><span class="n">red</span><span class="w">   </span><span class="p">=</span><span class="w"> </span><span class="mi">2</span><span class="w"></span>
+<span class="n">integer</span><span class="p">,</span><span class="n">parameter</span><span class="w">  </span><span class="p">::</span><span class="w"> </span><span class="n">green</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">3</span><span class="w"></span>
+<span class="n">integer</span><span class="p">,</span><span class="n">parameter</span><span class="w">  </span><span class="p">::</span><span class="w"> </span><span class="n">blue</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="mi">4</span><span class="w"></span>
+<span class="n">integer</span><span class="p">,</span><span class="n">parameter</span><span class="w">  </span><span class="p">::</span><span class="w"> </span><span class="n">black</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="nb">colormap</span><span class="p">(:,</span><span class="n">black</span><span class="p">)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="w"></span>
+<span class="nb">colormap</span><span class="p">(:,</span><span class="n">white</span><span class="p">)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">]</span><span class="w"></span>
+<span class="nb">colormap</span><span class="p">(:,</span><span class="nb">gray</span><span class="p">)</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="mi">200</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">200</span><span class="p">]</span><span class="w"></span>
+<span class="nb">colormap</span><span class="p">(:,</span><span class="n">red</span><span class="p">)</span><span class="w">   </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="w"></span>
+<span class="nb">colormap</span><span class="p">(:,</span><span class="n">green</span><span class="p">)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="w"></span>
+<span class="nb">colormap</span><span class="p">(:,</span><span class="n">blue</span><span class="p">)</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">]</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">new</span><span class="p">)</span><span class="w"> </span><span class="n">then</span><span class="w"></span>
+<span class="w">    </span><span class="n">ang_sep</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+<span class="w">    </span><span class="n">n_cases</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">3</span><span class="w"></span>
+<span class="k">else</span><span class="w"></span>
+<span class="w">    </span><span class="n">ang_sep</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">20</span><span class="w"></span>
+<span class="w">    </span><span class="n">n_cases</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="sx">!how many frames:</span><span class="w"></span>
+<span class="n">iframe</span><span class="p">=</span><span class="mi">0</span><span class="w"></span>
+<span class="n">do</span><span class="w"> </span><span class="s">k=0,355,time_sep</span><span class="w"></span>
+<span class="w">    </span><span class="n">iframe</span><span class="p">=</span><span class="n">iframe</span><span class="o">+</span><span class="mi">1</span><span class="w"></span>
+<span class="k">end</span><span class="w"> </span><span class="n">do</span><span class="w"></span>
+<span class="n">allocate</span><span class="p">(</span><span class="n">pixel</span><span class="p">(</span><span class="n">iframe</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="n">n</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="n">n</span><span class="p">))</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="n">iframe</span><span class="p">=</span><span class="mi">0</span><span class="w"></span>
+<span class="n">do</span><span class="w"> </span><span class="s">k=0,355,time_sep</span><span class="w"></span>
+<span class="w">    </span>!<span class="n">frame</span><span class="w"> </span><span class="n">number</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">iframe</span><span class="p">=</span><span class="n">iframe</span><span class="o">+</span><span class="mi">1</span><span class="w"></span>
+<span class="w">    </span>!<span class="nb">clear</span><span class="w"> </span><span class="n">entire</span><span class="w"> </span><span class="nb">image</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">pixel</span><span class="p">(</span><span class="n">iframe</span><span class="p">,:,:)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">white</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">new</span><span class="p">)</span><span class="w"> </span><span class="n">call</span><span class="w"> </span><span class="n">draw_circle</span><span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="n">red</span><span class="p">,</span><span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span>!<span class="n">draw</span><span class="w"> </span><span class="n">polar</span><span class="w"> </span><span class="nb">grid</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">do</span><span class="w"> </span><span class="nb">j</span><span class="p">=</span><span class="mi">0</span><span class="p">,</span><span class="mi">180</span><span class="o">-</span><span class="n">ang_sep</span><span class="p">,</span><span class="n">ang_sep</span><span class="w"></span>
+<span class="w">        </span><span class="n">do</span><span class="w"> </span><span class="nb">i</span><span class="p">=</span><span class="o">-</span><span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="w"></span>
+<span class="w">            </span><span class="n">call</span><span class="w"> </span><span class="n">spherical_to_cartesian</span><span class="p">(</span><span class="n">dble</span><span class="p">(</span><span class="nb">i</span><span class="p">),</span><span class="n">dble</span><span class="p">(</span><span class="nb">j</span><span class="p">)</span><span class="o">*</span><span class="nb">deg2rad</span><span class="p">,</span><span class="n">xy</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="n">call</span><span class="w"> </span><span class="n">convert</span><span class="p">(</span><span class="n">xy</span><span class="p">,</span><span class="n">row</span><span class="p">,</span><span class="n">col</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">new</span><span class="p">)</span><span class="w"> </span><span class="n">then</span><span class="w"></span>
+<span class="w">                </span><span class="n">pixel</span><span class="p">(</span><span class="n">iframe</span><span class="p">,</span><span class="n">row</span><span class="p">,</span><span class="n">col</span><span class="p">)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">gray</span><span class="w"></span>
+<span class="w">            </span><span class="k">else</span><span class="w"></span>
+<span class="w">                </span><span class="n">pixel</span><span class="p">(</span><span class="n">iframe</span><span class="p">,</span><span class="n">row</span><span class="p">,</span><span class="n">col</span><span class="p">)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">black</span><span class="w"></span>
+<span class="w">            </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="w"></span>
+<span class="w">        </span><span class="k">end</span><span class="w"> </span><span class="n">do</span><span class="w"></span>
+<span class="w">    </span><span class="k">end</span><span class="w"> </span><span class="n">do</span><span class="w"></span>
+<span class="w">    </span>!<span class="n">draw</span><span class="w"> </span><span class="n">dots</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">do</span><span class="w"> </span><span class="n">m</span><span class="p">=</span><span class="mi">0</span><span class="p">,</span><span class="n">n_cases</span><span class="w"></span>
+<span class="w">        </span><span class="n">do</span><span class="w"> </span><span class="nb">j</span><span class="p">=</span><span class="mi">0</span><span class="p">,</span><span class="mi">360</span><span class="o">-</span><span class="n">ang_sep</span><span class="p">,</span><span class="n">ang_sep</span><span class="w"></span>
+<span class="w">            </span><span class="n">r</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">sin</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="mi">90</span><span class="p">.</span>0<span class="n">_wp</span><span class="o">*</span><span class="nb">deg2rad</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">k</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">j</span><span class="p">)</span><span class="o">*</span><span class="nb">deg2rad</span><span class="p">)</span><span class="o">*</span><span class="n">rcircle</span><span class="w"></span>
+<span class="w">            </span><span class="n">t</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">dble</span><span class="p">(</span><span class="nb">j</span><span class="p">)</span><span class="o">*</span><span class="nb">deg2rad</span><span class="w"></span>
+<span class="w">            </span><span class="n">call</span><span class="w"> </span><span class="n">spherical_to_cartesian</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">xy</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="n">call</span><span class="w"> </span><span class="n">convert</span><span class="p">(</span><span class="n">xy</span><span class="p">,</span><span class="n">row</span><span class="p">,</span><span class="n">col</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">new</span><span class="p">)</span><span class="w"> </span><span class="n">then</span><span class="w"></span>
+<span class="w">                </span>!<span class="n">call</span><span class="w"> </span><span class="n">draw_circle</span><span class="p">(</span><span class="n">row</span><span class="p">,</span><span class="n">col</span><span class="p">,</span><span class="n">black</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span><span class="w">    </span>!<span class="n">v2</span><span class="w"></span>
+<span class="w">                </span>!<span class="n">call</span><span class="w"> </span><span class="n">draw_circle</span><span class="p">(</span><span class="n">row</span><span class="p">,</span><span class="n">col</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span><span class="w">         </span>!<span class="n">v2</span><span class="w"></span>
+<span class="w">                </span><span class="n">call</span><span class="w"> </span><span class="n">draw_circle</span><span class="p">(</span><span class="n">row</span><span class="p">,</span><span class="n">col</span><span class="p">,</span><span class="nb">mod</span><span class="p">(</span><span class="nb">j</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span><span class="o">+</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span><span class="w"> </span>!<span class="n">v3</span><span class="w"></span>
+<span class="w">            </span><span class="k">else</span><span class="w"></span>
+<span class="w">                </span><span class="n">call</span><span class="w"> </span><span class="n">draw_square</span><span class="p">(</span><span class="n">row</span><span class="p">,</span><span class="n">col</span><span class="p">,</span><span class="n">red</span><span class="p">)</span><span class="w">          </span>!<span class="n">v1</span><span class="w"></span>
+<span class="w">            </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="w"></span>
+<span class="w">        </span><span class="k">end</span><span class="w"> </span><span class="n">do</span><span class="w"></span>
+<span class="w">    </span><span class="k">end</span><span class="w"> </span><span class="n">do</span><span class="w"></span>
+<span class="k">end</span><span class="w"> </span><span class="n">do</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="n">call</span><span class="w"> </span><span class="s">write_animated_gif(&#39;circle_illusion.gif&#39;,pixel,colormap,delay=5)</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="n">deallocate</span><span class="p">(</span><span class="n">pixel</span><span class="p">)</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="nb">contains</span><span class="w"></span>
+<span class="sx">!***************************************************************************</span><span class="w"></span>
+<span class="sx">!&gt; author: Jacob Williams</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="sx">!  Draw a square.</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="n">subroutine</span><span class="w"> </span><span class="s">draw_square(r,c,icolor)</span><span class="w"></span>
+<span class="n">implicit</span><span class="w"> </span><span class="s">none</span><span class="w"></span>
+<span class="n">integer</span><span class="p">,</span><span class="n">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">r</span><span class="w">      </span>!!<span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">center</span><span class="w"></span>
+<span class="n">integer</span><span class="p">,</span><span class="n">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">c</span><span class="w">      </span>!!<span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">center</span><span class="w"></span>
+<span class="n">integer</span><span class="p">,</span><span class="n">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">icolor</span><span class="w"> </span>!!<span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="n">value</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="n">integer</span><span class="p">,</span><span class="n">parameter</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span>!<span class="n">square</span><span class="w"> </span><span class="nb">size</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="w">    </span><span class="n">pixel</span><span class="p">(</span><span class="n">iframe</span><span class="p">,</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">r</span><span class="o">-</span><span class="n">d</span><span class="p">):</span><span class="nb">min</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">r</span><span class="o">+</span><span class="n">d</span><span class="p">),</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">c</span><span class="o">-</span><span class="n">d</span><span class="p">):</span><span class="nb">min</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">c</span><span class="o">+</span><span class="n">d</span><span class="p">))</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">icolor</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="k">end</span><span class="w"> </span><span class="n">subroutine</span><span class="w"> </span><span class="n">draw_square</span><span class="w"></span>
+<span class="sx">!***************************************************************************</span><span class="w"></span>
+<span class="sx">!&gt; author: Jacob Williams</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="sx">!  Draw a circle.</span><span class="w"></span>
+<span class="n">subroutine</span><span class="w"> </span><span class="s">draw_circle(r,c,icolor,d)</span><span class="w"></span>
+<span class="n">implicit</span><span class="w"> </span><span class="s">none</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="n">integer</span><span class="p">,</span><span class="n">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">r</span><span class="w">      </span>!!<span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">center</span><span class="w"></span>
+<span class="n">integer</span><span class="p">,</span><span class="n">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">c</span><span class="w">      </span>!!<span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">center</span><span class="w"></span>
+<span class="n">integer</span><span class="p">,</span><span class="n">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">icolor</span><span class="w"> </span>!!<span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="n">value</span><span class="w"></span>
+<span class="n">integer</span><span class="p">,</span><span class="n">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">d</span><span class="w">      </span>!!<span class="w"> </span><span class="n">diameter</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="n">integer</span><span class="w"> </span><span class="s">::</span><span class="w"> </span><span class="s">i,j</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="w">    </span><span class="n">do</span><span class="w"> </span><span class="nb">i</span><span class="p">=</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">r</span><span class="o">-</span><span class="n">d</span><span class="p">),</span><span class="nb">min</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">r</span><span class="o">+</span><span class="n">d</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">do</span><span class="w"> </span><span class="nb">j</span><span class="p">=</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">c</span><span class="o">-</span><span class="n">d</span><span class="p">),</span><span class="nb">min</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">c</span><span class="o">+</span><span class="n">d</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">sqrt</span><span class="p">(</span><span class="n">dble</span><span class="p">(</span><span class="nb">i</span><span class="o">-</span><span class="n">r</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">dble</span><span class="p">(</span><span class="nb">j</span><span class="o">-</span><span class="n">c</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">&lt;=</span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"></span>
+<span class="w">                </span><span class="n">pixel</span><span class="p">(</span><span class="n">iframe</span><span class="p">,</span><span class="nb">i</span><span class="p">,</span><span class="nb">j</span><span class="p">)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">icolor</span><span class="w"></span>
+<span class="w">        </span><span class="k">end</span><span class="w"> </span><span class="n">do</span><span class="w"></span>
+<span class="w">    </span><span class="k">end</span><span class="w"> </span><span class="n">do</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="k">end</span><span class="w"> </span><span class="n">subroutine</span><span class="w"> </span><span class="n">draw_circle</span><span class="w"></span>
+<span class="sx">!***************************************************************************</span><span class="w"></span>
+<span class="sx">!&gt; author: Jacob Williams</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="sx">!  Convert from x,y to row,col.</span><span class="w"></span>
+<span class="n">subroutine</span><span class="w"> </span><span class="s">convert(xy,row,col)</span><span class="w"></span>
+<span class="n">implicit</span><span class="w"> </span><span class="s">none</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="nb">real</span><span class="p">(</span><span class="n">wp</span><span class="p">),</span><span class="n">dimension</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="n">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">xy</span><span class="w">  </span>!!<span class="w"> </span><span class="n">coordinates</span><span class="w"></span>
+<span class="n">integer</span><span class="p">,</span><span class="n">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">row</span><span class="w"></span>
+<span class="n">integer</span><span class="p">,</span><span class="n">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">col</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="w">   </span><span class="n">row</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">int</span><span class="p">(</span><span class="o">-</span><span class="n">xy</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="p">.</span>0<span class="n">_wp</span><span class="p">)</span><span class="w"></span>
+<span class="w">   </span><span class="n">col</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">int</span><span class="p">(</span><span class="w"> </span><span class="n">xy</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="p">.</span>0<span class="n">_wp</span><span class="p">)</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="k">end</span><span class="w"> </span><span class="n">subroutine</span><span class="w"> </span><span class="n">convert</span><span class="w"></span>
+<span class="sx">!***************************************************************************</span><span class="w"></span>
+<span class="sx">!&gt; author: Jacob Williams</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="sx">!  Convert spherical to cartesian coordinates.</span><span class="w"></span>
+<span class="n">subroutine</span><span class="w"> </span><span class="s">spherical_to_cartesian(r,theta,xy)</span><span class="w"></span>
+<span class="n">implicit</span><span class="w"> </span><span class="s">none</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="nb">real</span><span class="p">(</span><span class="n">wp</span><span class="p">),</span><span class="n">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">r</span><span class="w"></span>
+<span class="nb">real</span><span class="p">(</span><span class="n">wp</span><span class="p">),</span><span class="n">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">theta</span><span class="w"></span>
+<span class="nb">real</span><span class="p">(</span><span class="n">wp</span><span class="p">),</span><span class="n">dimension</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="n">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">xy</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="w">   </span><span class="n">xy</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="w"></span>
+<span class="w">   </span><span class="n">xy</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="w"></span>
+<span class="sx">!</span><span class="w"></span>
+<span class="k">end</span><span class="w"> </span><span class="n">subroutine</span><span class="w"> </span><span class="n">spherical_to_cartesian</span><span class="w"></span>
+<span class="sx">!***************************************************************************</span><span class="w"></span>
+<span class="k">end</span><span class="w"> </span><span class="n">program</span><span class="w"> </span><span class="n">demo_write_animated_gif</span><span class="w"></span>
+<span class="sx">!***************************************************************************</span><span class="w"></span>
+</code></pre></div>
+
+<h2 id="author">AUTHOR</h2>
+<div class="codehilite"><pre><span></span><code><span class="n">o</span><span class="w"> </span><span class="n">Version</span><span class="w"> </span><span class="mf">1.01</span><span class="p">,</span><span class="w"> </span><span class="n">August</span><span class="w"> </span><span class="mi">1999</span><span class="p">,</span><span class="w"> </span><span class="n">Written</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="n">Jos</span><span class="w"> </span><span class="n">Bergervoet</span><span class="w"></span>
+<span class="n">o</span><span class="w"> </span><span class="mi">2008</span><span class="w"> </span><span class="n">Jan</span><span class="w"> </span><span class="mi">28</span><span class="p">:</span><span class="w"> </span><span class="n">Modified</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="n">Clive</span><span class="w"> </span><span class="n">Page</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="n">stream</span><span class="w"> </span><span class="n">I</span><span class="o">/</span><span class="n">O</span><span class="p">,</span><span class="w"> </span><span class="n">array</span><span class="w"> </span><span class="k">as</span><span class="w"></span>
+<span class="w">  </span><span class="n">colourmap</span><span class="o">.</span><span class="w"></span>
+<span class="n">o</span><span class="w"> </span><span class="n">Jacob</span><span class="w"> </span><span class="n">Williams</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="o">/</span><span class="mi">27</span><span class="o">/</span><span class="mf">2014.</span><span class="w"> </span><span class="n">Refactored</span><span class="p">,</span><span class="w"> </span><span class="n">updated</span><span class="p">,</span><span class="w"> </span><span class="n">added</span><span class="w"> </span><span class="n">ability</span><span class="w"> </span><span class="n">to</span><span class="w"></span>
+<span class="w">  </span><span class="k">export</span><span class="w"> </span><span class="n">animated</span><span class="w"> </span><span class="n">gifs</span><span class="o">.</span><span class="w"></span>
+<span class="n">o</span><span class="w"> </span><span class="n">Minor</span><span class="w"> </span><span class="n">modifications</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">make</span><span class="w"> </span><span class="n">more</span><span class="w"> </span><span class="n">easily</span><span class="w"> </span><span class="n">used</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">M_PIXEL</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="n">module</span><span class="p">,</span><span class="w"> </span><span class="mi">2017</span><span class="o">-</span><span class="n">July</span><span class="o">-</span><span class="mi">06</span><span class="p">,</span><span class="w"> </span><span class="n">John</span><span class="w"> </span><span class="n">Urban</span><span class="w"></span>
+</code></pre></div>
+
+<h2 id="license">LICENSE</h2>
+<p>Copyright (c) 2014-2015, Jacob Williams.
+   All rights reserved.</p>
+<p>Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:</p>
+<ul>
+<li>
+<p>Redistributions of source code must retain the above copyright
+     notice, this list of conditions and the following disclaimer.</p>
+</li>
+<li>
+<p>Redistributions in binary form must reproduce the above copyright
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.</p>
+</li>
+<li>
+<p>Neither the name of the {organization} nor the names of its
+     contributors may be used to endorse or promote products derived from
+     this software without specific prior written permission.</p>
+</li>
+</ul>
+<p>This software is provided by the copyright holders and contributors
+   &ldquo;AS IS&rdquo; and any express or implied warranties, including, but not
+   limited to, the implied warranties of merchantability and fitness for
+   a particular purpose are disclaimed. In no event shall the copyright
+   holder or contributors be liable for any direct, indirect, incidental,
+   special, exemplary, or consequential damages (including, but not
+   limited to, procurement of substitute goods or services; loss of use,
+   data, or profits; or business interruption) However caused and on any
+   theory of liability, whether in contract, strict liability, or tort
+   (Including negligence or otherwise) arising in any way out of the use
+   of this software, even if advised of the possibility of such damage.</p>
+      
+      
+      <br>
+
+
+
+
+
+
+
+
+        <section>
+          <h2>Subroutines</h2>
+              <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-write_animated_gif"></span> <h3>public  subroutine <a href='../proc/write_animated_gif.html'>write_animated_gif</a>(filename, pixel, colormap, transparent, delay)  
+</h3></div>
+    <div class="card-body">
+              <dl class="dl-horizontal">
+        <dt>Author</dt><dd>Jacob Williams</dd>
+    </dl>
+
+  
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-filename"></span>
+              character(len=*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>filename</strong></td>
+            <td>
+<p>file to create or replace</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-pixel"></span>
+              integer,
+            </td>
+<td>intent(in),</td>
+              <td></td>            <td>
+              dimension(:,:,:)
+            </td>
+            <td>::</td>
+            <td><strong>pixel</strong></td>
+            <td>
+<p>pixel values [0 to ncol]</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-colormap"></span>
+              integer,
+            </td>
+<td>intent(in),</td>
+              <td></td>            <td>
+              dimension(:,0:)
+            </td>
+            <td>::</td>
+            <td><strong>colormap</strong></td>
+            <td>
+<p>[r,g,b (0:255)] , [0:ncol] colors</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-transparent"></span>
+              integer,
+            </td>
+<td>intent(in),</td>
+              <td>optional</td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>transparent</strong></td>
+            <td>
+<p>transparent color</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-delay"></span>
+              integer,
+            </td>
+<td>intent(in),</td>
+              <td>optional</td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>delay</strong></td>
+            <td>
+<p>delay time [1/100 of seconds]</p>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+    </div>
+  </div>
+
+        </section>
+        <br>
+
+
+
+    </div>
+  </div>
+
+      <hr>
+    </div> <!-- /container -->
+    <footer>
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col">
+            <p>
+              M_pixel
+ was developed by John S. Urban<br>              &copy; 2025 
+</p>
+          </div>
+          <div class="col">
+            <p class="text-end">
+              Documentation generated by
+              <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
+ on 2025-07-11 01:41 +0000             </p>
+          </div>
+        </div>
+        <br>
+      </div> <!-- /container -->
+    </footer>
+  </body>
+</html>

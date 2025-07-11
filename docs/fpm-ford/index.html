@@ -1,0 +1,258 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="M_pixel module">
+    <meta name="author" content="John S. Urban" >
+    <link rel="icon" href="./favicon.png">
+
+    <title> M_pixel </title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- Font Awesome -->
+    <link href="./css/fontawesome.min.css" rel="stylesheet">
+    <link href="./css/brands.min.css" rel="stylesheet">
+    <link href="./css/regular.min.css" rel="stylesheet">
+    <link href="./css/solid.min.css" rel="stylesheet">
+    <link href="./css/v4-font-face.min.css" rel="stylesheet">
+    <link href="./css/v4-shims.min.css" rel="stylesheet">
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } }
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async
+            integrity="sha256-DViIOMYdwlM/axqoGDPeUyf0urLoHMN4QACBKyB58Uw=" crossorigin="anonymous"></script>
+    <!-- Other scripts and stylesheets -->
+    <link href="./css/local.css" rel="stylesheet">
+    <link href="./css/pygments.css" rel="stylesheet">
+    <script src="./js/svg-pan-zoom.min.js"></script>
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <div class="container-fluid mb-sm-4 mb-xl-2">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="./index.html">M_pixel </a>
+          <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar"
+                  aria-expanded="false" aria-controls="navbar" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon">
+          </button>
+
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="./lists/files.html">Source Files</a>
+                  </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="./lists/modules.html">Modules</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="./lists/procedures.html">Procedures</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="./lists/types.html">Derived Types</a>
+                </li>
+            </ul>
+              <div class="d-flex align-items-end flex-grow-1">
+                <form action="./search.html" role="search" class="ms-auto">
+                  <input type="text" class="form-control" aria-label="Search" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
+                </form>
+              </div>
+          </div><!--/.nav-collapse -->
+        </div>
+      </nav>
+    </div>
+
+    <div class="container">
+  <!-- Main component for a primary marketing message or call to action -->
+    <div class="p-5 mb-4 bg-light border rounded-3" id="jumbotron">
+      <p>M_pixel module</p>
+        <p> Find us on&hellip;</p>
+      <p>
+        <a class="btn btn-lg btn-primary" href="https://github.com/urbanjost/M_pixel" role="button">GitHub</a>
+        
+        
+        
+        
+      </p>
+    </div>
+
+      <div class="row" id='text'>
+        <div class=col-md-8>
+          <h1>M_pixel</h1>
+          <!--
+author_pic:
+twitter:
+website:
+-->
+<p><img alt="sample" src="docs/images/M_pixel.gif"></p>
+<h2 id="m_pixel-low-level-pixel-graphics-library">M_pixel - low level pixel graphics library</h2>
+<h2 id="description">DESCRIPTION</h2>
+<p>This is a library that creates pixel images with a vector-oriented
+graphics library that emulates a subset of the M_draw vector graphics
+library. It is supplemented with additional modules that read and write
+GIF files, including animated GIFs.</p>
+<p>The user may supplement the routines by directly manipulating the pixel
+map as well.</p>
+<h2 id="building-the-modules">BUILDING THE MODULES</h2>
+<div class="codehilite"><pre><span></span><code> <span class="nv">git</span> <span class="nv">clone</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">github</span>.<span class="nv">com</span><span class="o">/</span><span class="nv">urbanjost</span><span class="o">/</span><span class="nv">M_pixel</span>.<span class="nv">git</span>
+ <span class="nv">cd</span> <span class="nv">M_pixel</span><span class="o">/</span><span class="nv">src</span>
+ # <span class="nv">change</span> <span class="nv">Makefile</span> <span class="k">if</span> <span class="nv">not</span> <span class="nv">using</span> <span class="nv">one</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">listed</span> <span class="nv">compilers</span>
+
+ # <span class="k">for</span> <span class="nv">gfortran</span>
+ <span class="nv">make</span> <span class="nv">clean</span>
+ <span class="nv">make</span> <span class="nv">F90</span><span class="o">=</span><span class="nv">gfortran</span> <span class="nv">gfortran</span>
+
+ # <span class="k">for</span> <span class="nv">ifort</span>
+ <span class="nv">make</span> <span class="nv">clean</span>
+ <span class="nv">make</span> <span class="nv">F90</span><span class="o">=</span><span class="nv">ifort</span> <span class="nv">ifort</span>
+
+ # <span class="k">for</span> <span class="nv">nvfortran</span>
+ <span class="nv">make</span> <span class="nv">clean</span>
+ <span class="nv">make</span> <span class="nv">F90</span><span class="o">=</span><span class="nv">nvfortran</span> <span class="nv">nvfortran</span>
+</code></pre></div>
+
+<p>This will compile the Fortran and basic example programs that exercise
+the routines.</p>
+<h2 id="documentation">DOCUMENTATION   <img alt="docs" src="docs/images/docs.gif"></h2>
+<h3 id="user">USER</h3>
+<ul>
+<li>
+<p>an <a href="https://urbanjost.github.io/M_pixel/man3.html">index</a> to
+     the individual man-pages in HTML form</p>
+</li>
+<li>
+<p>A single page that uses javascript to combine all the HTML
+     descriptions of the man-pages is at 
+     <a href="https://urbanjost.github.io/M_pixel/BOOK_M_pixel.html">BOOK_M_pixel</a>.</p>
+</li>
+<li>
+<p><a href="docs/CHANGELOG.md">CHANGELOG</a> provides a history of significant changes</p>
+</li>
+</ul>
+<h3 id="developer">DEVELOPER</h3>
+<ul>
+<li><a href="https://urbanjost.github.io/M_pixel/fpm-ford/index.html">ford(1) output</a>.</li>
+</ul>
+<!--
+   - [doxygen(1) output](https://urbanjost.github.io/M_pixel/doxygen_out/html/index.html).
+-->
+<ul>
+<li><a href="docs/STATUS.md">github action status</a> </li>
+</ul>
+<h2 id="additional-directory-descriptions">ADDITIONAL DIRECTORY DESCRIPTIONS</h2>
+<p>There are 
+   - man-pages in <a href="docs/manpages.tgz">docs/manpages.tgz</a> and <a href="docs/manpages.zip">docs/manpages.zip</a>
+   - demo programs in the <a href="example/">example/</a> directory
+   - applications in the app/ directory</p>
+<h2 id="unit-tests">UNIT TESTS</h2>
+<p>There are no automated unit tests per-se. Running the example programs
+and demo programs ensures the library is functioning.</p>
+<h2 id="future">FUTURE</h2>
+<p>There are a collection of higher-level routines that need added, as well
+as more font support, and antialiasing and basic pixel operations (the
+library currently primarily provides two-dimensional vector-like commands).</p>
+<p>An example program using this low-level library to generate higher-level
+graphics:</p>
+<h2 id="_1"><img alt="M-slices" src="docs/images/M_slices.3.gif"></h2>
+        </div>
+          <div class="col-md-4">
+            <div class="card card-body bg-light">
+              <h2 class="card-title">Developer Info</h2>
+              <h4 class="card-text">John S. Urban</h4>
+              <p class="card-text"></p>
+                <div class="text-center"><div class="btn-group" role="group">
+                    
+                    <a class="btn btn-lg btn-primary" href="https://github.com/urbanjost/M_pixel"><i class="fa fa-github fa-lg"></i></a>
+                    
+                    
+                    
+                    
+                    
+                    
+                </div></div>
+            </div>
+          </div>
+      </div>
+        <div class="row">
+          <hr>
+          <div class="col-xs-6 col-sm-3">
+            <div>
+              <h3>Source Files</h3>
+              <ul><li><a href='sourcefile/m_pixel.f90.html'>M_pixel.F90</a></li><li><a href='sourcefile/m_pixel__readgif.f90.html'>M_pixel__readgif.f90</a></li><li><a href='sourcefile/m_pixel__slices.f90.html'>M_pixel__slices.f90</a></li><li><a href='sourcefile/m_pixel__writegif.f90.html'>M_pixel__writegif.f90</a></li><li><a href='sourcefile/m_pixel__writegif_animated.f90.html'>M_pixel__writegif_animated.f90</a></li></ul>
+            </div>
+            <div>
+              <ul>
+                <li><a href="./lists/files.html"><em>All source files&hellip;</em></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-xs-6 col-sm-3">
+            <div>
+              <h3>Modules</h3>
+              <ul><li><a href='module/m_pixel.html'>M_pixel</a></li><li><a href='module/m_pixel__readgif.html'>M_pixel__readgif</a></li><li><a href='module/m_pixel__slices.html'>M_pixel__slices</a></li><li><a href='module/m_pixel__writegif.html'>M_pixel__writegif</a></li><li><a href='module/m_pixel__writegif_animated.html'>M_pixel__writegif_animated</a></li></ul>
+            </div>
+            <div>
+              <ul>
+                <li><a href="./lists/modules.html"><em>All modules&hellip;</em></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-xs-6 col-sm-3">
+            <div>
+              <h3>Procedures</h3>
+              <ul><li><a href='proc/arc.html'>arc</a></li><li><a href='proc/centertext.html'>centertext</a></li><li><a href='proc/circle.html'>circle</a></li><li><a href='proc/circleprecision.html'>circleprecision</a></li><li><a href='proc/clear.html'>clear</a></li><li><a href='proc/closepoly.html'>closepoly</a></li><li><a href='proc/closest_color_name.html'>closest_color_name</a></li><li><a href='proc/color.html'>color</a></li><li><a href='proc/color_name2rgb.html'>color_name2rgb</a></li><li><a href='proc/cosd.html'>cosd</a></li></ul>
+            </div>
+            <div>
+              <ul>
+                <li><a href="./lists/procedures.html"><em>All procedures&hellip;</em></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-xs-6 col-sm-3">
+            <div>
+              <h3>Derived Types</h3>
+              <ul><li><a href='type/gif89_type.html'>gif89_type</a></li><li><a href='type/gif_screen_type.html'>gif_screen_type</a></li><li><a href='type/matrix.html'>MATRIX</a></li></ul>
+            </div>
+            <div>
+              <ul>
+                <li><a href="./lists/types.html"><em>All derived types&hellip;</em></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      <hr>
+    </div> <!-- /container -->
+    <footer>
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col">
+            <p>
+              M_pixel
+ was developed by John S. Urban<br>              &copy; 2025 
+</p>
+          </div>
+          <div class="col">
+            <p class="text-end">
+              Documentation generated by
+              <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
+ on 2025-07-11 01:41 +0000             </p>
+          </div>
+        </div>
+        <br>
+      </div> <!-- /container -->
+    </footer>
+  </body>
+</html>
